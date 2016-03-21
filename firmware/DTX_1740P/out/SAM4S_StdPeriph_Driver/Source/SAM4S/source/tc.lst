@@ -1,0 +1,1360 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
+   5              		.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
+   6              		.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
+   7              		.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
+   8              		.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
+   9              		.eabi_attribute 26, 1	@ Tag_ABI_enum_size
+  10              		.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
+  11              		.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
+  12              		.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
+  13              		.file	"tc.c"
+  14              	@ GNU C (GNU Tools for ARM Embedded Processors) version 4.8.4 20140725 (release) [ARM/embedded-4_8-
+  15              	@	compiled by GNU C version 4.7.4, GMP version 4.3.2, MPFR version 2.4.2, MPC version 0.8.1
+  16              	@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+  17              	@ options passed:  -I . -I apps -I apps/inc -I apps/src -I apps/src/fonts
+  18              	@ -I cmsis_boot -I cmsis_boot/startup -I cmsis_core
+  19              	@ -I SAM4S_StdPeriph_Driver -I SAM4S_StdPeriph_Driver/Include
+  20              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S
+  21              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/component
+  22              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/instance
+  23              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/pio
+  24              	@ -I SAM4S_StdPeriph_Driver/Source -I SAM4S_StdPeriph_Driver/Source/SAM4S
+  25              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/include
+  26              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/source -I user_libs
+  27              	@ -I user_libs/inc -I user_libs/src -imultilib armv7e-m
+  28              	@ -iprefix d:\armgcc\bin\../lib/gcc/arm-none-eabi/4.8.4/
+  29              	@ -isysroot d:\armgcc\bin\../arm-none-eabi
+  30              	@ -MD out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.d
+  31              	@ -MF out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.o.dep -MP
+  32              	@ -MQ out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.o
+  33              	@ -D__USES_INITFINI__ -D gcc
+  34              	@ SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c -mcpu=cortex-m4 -mthumb
+  35              	@ -auxbase-strip out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.o -ggdb3
+  36              	@ -O0 -Wall -Wpointer-arith -Wswitch -Wnested-externs -std=gnu99
+  37              	@ -fomit-frame-pointer -fverbose-asm -funsigned-char
+  38              	@ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
+  39              	@ -fbranch-count-reg -fcommon -fdelete-null-pointer-checks -fdwarf2-cfi-asm
+  40              	@ -fearly-inlining -feliminate-unused-debug-types -ffunction-cse -fgcse-lm
+  41              	@ -fgnu-runtime -fgnu-unique -fident -finline-atomics -fira-hoist-pressure
+  42              	@ -fira-share-save-slots -fira-share-spill-slots -fivopts
+  43              	@ -fkeep-static-consts -fleading-underscore -fmath-errno
+  44              	@ -fmerge-debug-strings -fmove-loop-invariants -fomit-frame-pointer
+  45              	@ -fpeephole -fprefetch-loop-arrays -freg-struct-return
+  46              	@ -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  47              	@ -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  48              	@ -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  49              	@ -fsched-stalled-insns-dep -fshow-column -fsigned-zeros
+  50              	@ -fsplit-ivs-in-unroller -fstrict-volatile-bitfields -fsync-libcalls
+  51              	@ -ftrapping-math -ftree-coalesce-vars -ftree-cselim -ftree-forwprop
+  52              	@ -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
+  53              	@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop -ftree-pta
+  54              	@ -ftree-reassoc -ftree-scev-cprop -ftree-slp-vectorize
+  55              	@ -ftree-vect-loop-version -funit-at-a-time -fverbose-asm
+  56              	@ -fzero-initialized-in-bss -mlittle-endian -mpic-data-is-text-relative
+  57              	@ -msched-prolog -mthumb -munaligned-access -mvectorize-with-neon-quad
+  58              	
+  59              		.text
+  60              	.Ltext0:
+  61              		.cfi_sections	.debug_frame
+  62              		.section	.rodata
+  63              		.align	2
+  64              	.LC0:
+  65 0000 53414D34 		.ascii	"SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c\000"
+  65      535F5374 
+  65      64506572 
+  65      6970685F 
+  65      44726976 
+  66              		.align	2
+  67              	.LC1:
+  68 0030 64774368 		.ascii	"dwChannel < (sizeof( pTc->TC_CHANNEL )/sizeof( pTc-"
+  68      616E6E65 
+  68      6C203C20 
+  68      2873697A 
+  68      656F6628 
+  69 0063 3E54435F 		.ascii	">TC_CHANNEL[0] ))\000"
+  69      4348414E 
+  69      4E454C5B 
+  69      305D2029 
+  69      2900
+  70              		.text
+  71              		.align	2
+  72              		.global	TC_Configure
+  73              		.thumb
+  74              		.thumb_func
+  76              	TC_Configure:
+  77              	.LFB116:
+  78              		.file 1 "SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c"
+   1:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /* ----------------------------------------------------------------------------
+   2:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *         SAM Software Package License
+   3:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * ----------------------------------------------------------------------------
+   4:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * Copyright (c) 2011, Atmel Corporation
+   5:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+   6:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * All rights reserved.
+   7:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+   8:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * Redistribution and use in source and binary forms, with or without
+   9:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * modification, are permitted provided that the following conditions are met:
+  10:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+  11:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * - Redistributions of source code must retain the above copyright notice,
+  12:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * this list of conditions and the disclaimer below.
+  13:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+  14:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * Atmel's name may not be used to endorse or promote products derived from
+  15:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * this software without specific prior written permission.
+  16:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+  17:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR
+  18:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  19:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  20:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT, INDIRECT,
+  21:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  22:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  23:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  24:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  25:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  26:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  27:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * ----------------------------------------------------------------------------
+  28:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+  29:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  30:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /**
+  31:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \file
+  32:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+  33:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * Implementation of Timer Counter (TC).
+  34:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+  35:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+  36:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  37:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /*------------------------------------------------------------------------------
+  38:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *         Headers
+  39:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *------------------------------------------------------------------------------*/
+  40:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  41:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** #include "chip.h"
+  42:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  43:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** #include <assert.h>
+  44:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  45:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /*------------------------------------------------------------------------------
+  46:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *         Global functions
+  47:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *------------------------------------------------------------------------------*/
+  48:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  49:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /**
+  50:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \brief Configures a Timer Counter Channel
+  51:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+  52:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * Configures a Timer Counter to operate in the given mode. Timer is stopped
+  53:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * after configuration and must be restarted with TC_Start(). All the
+  54:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * interrupts of the timer are also disabled.
+  55:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+  56:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param pTc  Pointer to a Tc instance.
+  57:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param channel Channel number.
+  58:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param mode  Operating mode (TC_CMR value).
+  59:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+  60:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** extern void TC_Configure( Tc *pTc, uint32_t dwChannel, uint32_t dwMode )
+  61:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** {
+  79              		.loc 1 61 0
+  80              		.cfi_startproc
+  81              		@ args = 0, pretend = 0, frame = 24
+  82              		@ frame_needed = 0, uses_anonymous_args = 0
+  83 0000 00B5     		push	{lr}	@
+  84              		.cfi_def_cfa_offset 4
+  85              		.cfi_offset 14, -4
+  86 0002 87B0     		sub	sp, sp, #28	@,,
+  87              		.cfi_def_cfa_offset 32
+  88 0004 0390     		str	r0, [sp, #12]	@ pTc, pTc
+  89 0006 0291     		str	r1, [sp, #8]	@ dwChannel, dwChannel
+  90 0008 0192     		str	r2, [sp, #4]	@ dwMode, dwMode
+  62:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     TcChannel* pTcCh ;
+  63:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  64:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     assert( dwChannel < (sizeof( pTc->TC_CHANNEL )/sizeof( pTc->TC_CHANNEL[0] )) ) ;
+  91              		.loc 1 64 0
+  92 000a 029B     		ldr	r3, [sp, #8]	@ tmp111, dwChannel
+  93 000c 022B     		cmp	r3, #2	@ tmp111,
+  94 000e 05D9     		bls	.L2	@,
+  95              		.loc 1 64 0 is_stmt 0 discriminator 1
+  96 0010 0C48     		ldr	r0, .L3	@,
+  97 0012 4021     		movs	r1, #64	@,
+  98 0014 0C4A     		ldr	r2, .L3+4	@,
+  99 0016 0D4B     		ldr	r3, .L3+8	@,
+ 100 0018 FFF7FEFF 		bl	__assert_func	@
+ 101              	.L2:
+  65:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     pTcCh = pTc->TC_CHANNEL+dwChannel ;
+ 102              		.loc 1 65 0 is_stmt 1
+ 103 001c 029B     		ldr	r3, [sp, #8]	@ tmp113, dwChannel
+ 104 001e 9B01     		lsls	r3, r3, #6	@ tmp112, tmp113,
+ 105 0020 039A     		ldr	r2, [sp, #12]	@ tmp115, pTc
+ 106 0022 1344     		add	r3, r3, r2	@ tmp114, tmp115
+ 107 0024 0593     		str	r3, [sp, #20]	@ tmp114, pTcCh
+  66:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  67:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     /*  Disable TC clock */
+  68:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     pTcCh->TC_CCR = TC_CCR_CLKDIS ;
+ 108              		.loc 1 68 0
+ 109 0026 059B     		ldr	r3, [sp, #20]	@ tmp116, pTcCh
+ 110 0028 0222     		movs	r2, #2	@ tmp117,
+ 111 002a 1A60     		str	r2, [r3]	@ tmp117, pTcCh_3->TC_CCR
+  69:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  70:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     /*  Disable interrupts */
+  71:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     pTcCh->TC_IDR = 0xFFFFFFFF ;
+ 112              		.loc 1 71 0
+ 113 002c 059B     		ldr	r3, [sp, #20]	@ tmp118, pTcCh
+ 114 002e 4FF0FF32 		mov	r2, #-1	@ tmp119,
+ 115 0032 9A62     		str	r2, [r3, #40]	@ tmp119, pTcCh_3->TC_IDR
+  72:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  73:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     /*  Clear status register */
+  74:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     pTcCh->TC_SR ;
+ 116              		.loc 1 74 0
+ 117 0034 059B     		ldr	r3, [sp, #20]	@ tmp120, pTcCh
+ 118 0036 1B6A     		ldr	r3, [r3, #32]	@ vol.0, pTcCh_3->TC_SR
+  75:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  76:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     /*  Set mode */
+  77:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     pTcCh->TC_CMR = dwMode ;
+ 119              		.loc 1 77 0
+ 120 0038 059B     		ldr	r3, [sp, #20]	@ tmp121, pTcCh
+ 121 003a 019A     		ldr	r2, [sp, #4]	@ tmp122, dwMode
+ 122 003c 5A60     		str	r2, [r3, #4]	@ tmp122, pTcCh_3->TC_CMR
+  78:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** }
+ 123              		.loc 1 78 0
+ 124 003e 07B0     		add	sp, sp, #28	@,,
+ 125              		@ sp needed	@
+ 126 0040 5DF804FB 		ldr	pc, [sp], #4	@
+ 127              	.L4:
+ 128              		.align	2
+ 129              	.L3:
+ 130 0044 00000000 		.word	.LC0
+ 131 0048 C0000000 		.word	__func__.7216
+ 132 004c 30000000 		.word	.LC1
+ 133              		.cfi_endproc
+ 134              	.LFE116:
+ 136              		.align	2
+ 137              		.global	TC_SetBlockMode
+ 138              		.thumb
+ 139              		.thumb_func
+ 141              	TC_SetBlockMode:
+ 142              	.LFB117:
+  79:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  80:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  81:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /**
+  82:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \brief Configure TC Block mode.
+  83:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \note tc_init() must be called first.
+  84:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+  85:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param p_tc Pointer to a TC instance.
+  86:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param ul_blockmode Block mode register value to set.
+  87:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+  88:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+  89:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** void TC_SetBlockMode( Tc *p_tc, uint32_t ul_blockmode )
+  90:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** {
+ 143              		.loc 1 90 0
+ 144              		.cfi_startproc
+ 145              		@ args = 0, pretend = 0, frame = 8
+ 146              		@ frame_needed = 0, uses_anonymous_args = 0
+ 147              		@ link register save eliminated.
+ 148 0050 82B0     		sub	sp, sp, #8	@,,
+ 149              		.cfi_def_cfa_offset 8
+ 150 0052 0190     		str	r0, [sp, #4]	@ p_tc, p_tc
+ 151 0054 0091     		str	r1, [sp]	@ ul_blockmode, ul_blockmode
+  91:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	
+  92:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	
+  93:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	p_tc->TC_BMR = ul_blockmode;
+ 152              		.loc 1 93 0
+ 153 0056 019B     		ldr	r3, [sp, #4]	@ tmp110, p_tc
+ 154 0058 009A     		ldr	r2, [sp]	@ tmp111, ul_blockmode
+ 155 005a C3F8C420 		str	r2, [r3, #196]	@ tmp111, p_tc_1(D)->TC_BMR
+  94:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** }
+ 156              		.loc 1 94 0
+ 157 005e 02B0     		add	sp, sp, #8	@,,
+ 158              		@ sp needed	@
+ 159 0060 7047     		bx	lr	@
+ 160              		.cfi_endproc
+ 161              	.LFE117:
+ 163              		.section	.rodata
+ 164 0075 000000   		.align	2
+ 165              	.LC2:
+ 166 0078 756C5F63 		.ascii	"ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_t"
+ 166      68616E6E 
+ 166      656C203C 
+ 166      20287369 
+ 166      7A656F66 
+ 167 00ab 632D3E54 		.ascii	"c->TC_CHANNEL[0]))\000"
+ 167      435F4348 
+ 167      414E4E45 
+ 167      4C5B305D 
+ 167      292900
+ 168              		.text
+ 169 0062 00BF     		.align	2
+ 170              		.global	TC_WriteRa
+ 171              		.thumb
+ 172              		.thumb_func
+ 174              	TC_WriteRa:
+ 175              	.LFB118:
+  95:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  96:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+  97:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /**
+  98:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \brief Write RA TC counter on the selected channel.
+  99:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 100:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param p_tc Pointer to a TC instance.
+ 101:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param ul_channel Channel to configure.
+ 102:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param ul_value Value to set in register.
+ 103:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+ 104:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** void TC_WriteRa( Tc *p_tc, uint32_t ul_channel, uint32_t ul_value )
+ 105:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** {
+ 176              		.loc 1 105 0
+ 177              		.cfi_startproc
+ 178              		@ args = 0, pretend = 0, frame = 16
+ 179              		@ frame_needed = 0, uses_anonymous_args = 0
+ 180 0064 00B5     		push	{lr}	@
+ 181              		.cfi_def_cfa_offset 4
+ 182              		.cfi_offset 14, -4
+ 183 0066 85B0     		sub	sp, sp, #20	@,,
+ 184              		.cfi_def_cfa_offset 24
+ 185 0068 0390     		str	r0, [sp, #12]	@ p_tc, p_tc
+ 186 006a 0291     		str	r1, [sp, #8]	@ ul_channel, ul_channel
+ 187 006c 0192     		str	r2, [sp, #4]	@ ul_value, ul_value
+ 106:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	assert(ul_channel <
+ 188              		.loc 1 106 0
+ 189 006e 029B     		ldr	r3, [sp, #8]	@ tmp110, ul_channel
+ 190 0070 022B     		cmp	r3, #2	@ tmp110,
+ 191 0072 05D9     		bls	.L7	@,
+ 192              		.loc 1 106 0 is_stmt 0 discriminator 1
+ 193 0074 0748     		ldr	r0, .L8	@,
+ 194 0076 6B21     		movs	r1, #107	@,
+ 195 0078 074A     		ldr	r2, .L8+4	@,
+ 196 007a 084B     		ldr	r3, .L8+8	@,
+ 197 007c FFF7FEFF 		bl	__assert_func	@
+ 198              	.L7:
+ 107:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+ 108:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 109:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	p_tc->TC_CHANNEL[ul_channel].TC_RA = ul_value;
+ 199              		.loc 1 109 0 is_stmt 1
+ 200 0080 039A     		ldr	r2, [sp, #12]	@ tmp111, p_tc
+ 201 0082 029B     		ldr	r3, [sp, #8]	@ tmp112, ul_channel
+ 202 0084 9B01     		lsls	r3, r3, #6	@ tmp113, tmp112,
+ 203 0086 1344     		add	r3, r3, r2	@ tmp114, tmp111
+ 204 0088 1033     		adds	r3, r3, #16	@ tmp115, tmp114,
+ 205 008a 019A     		ldr	r2, [sp, #4]	@ tmp116, ul_value
+ 206 008c 5A60     		str	r2, [r3, #4]	@ tmp116, p_tc_2(D)->TC_CHANNEL[ul_channel_1(D)].TC_RA
+ 110:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** }
+ 207              		.loc 1 110 0
+ 208 008e 05B0     		add	sp, sp, #20	@,,
+ 209              		@ sp needed	@
+ 210 0090 5DF804FB 		ldr	pc, [sp], #4	@
+ 211              	.L9:
+ 212              		.align	2
+ 213              	.L8:
+ 214 0094 00000000 		.word	.LC0
+ 215 0098 D0000000 		.word	__func__.7226
+ 216 009c 78000000 		.word	.LC2
+ 217              		.cfi_endproc
+ 218              	.LFE118:
+ 220              		.align	2
+ 221              		.global	TC_WriteRb
+ 222              		.thumb
+ 223              		.thumb_func
+ 225              	TC_WriteRb:
+ 226              	.LFB119:
+ 111:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 112:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 113:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /**
+ 114:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \brief Write RB TC counter on the selected channel.
+ 115:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 116:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param p_tc Pointer to a TC instance.
+ 117:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param ul_channel Channel to configure.
+ 118:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param ul_value Value to set in register.
+ 119:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+ 120:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** void TC_WriteRb( Tc *p_tc, uint32_t ul_channel, uint32_t ul_value )
+ 121:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** {
+ 227              		.loc 1 121 0
+ 228              		.cfi_startproc
+ 229              		@ args = 0, pretend = 0, frame = 16
+ 230              		@ frame_needed = 0, uses_anonymous_args = 0
+ 231 00a0 00B5     		push	{lr}	@
+ 232              		.cfi_def_cfa_offset 4
+ 233              		.cfi_offset 14, -4
+ 234 00a2 85B0     		sub	sp, sp, #20	@,,
+ 235              		.cfi_def_cfa_offset 24
+ 236 00a4 0390     		str	r0, [sp, #12]	@ p_tc, p_tc
+ 237 00a6 0291     		str	r1, [sp, #8]	@ ul_channel, ul_channel
+ 238 00a8 0192     		str	r2, [sp, #4]	@ ul_value, ul_value
+ 122:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	assert(ul_channel <
+ 239              		.loc 1 122 0
+ 240 00aa 029B     		ldr	r3, [sp, #8]	@ tmp110, ul_channel
+ 241 00ac 022B     		cmp	r3, #2	@ tmp110,
+ 242 00ae 05D9     		bls	.L11	@,
+ 243              		.loc 1 122 0 is_stmt 0 discriminator 1
+ 244 00b0 0748     		ldr	r0, .L12	@,
+ 245 00b2 7B21     		movs	r1, #123	@,
+ 246 00b4 074A     		ldr	r2, .L12+4	@,
+ 247 00b6 084B     		ldr	r3, .L12+8	@,
+ 248 00b8 FFF7FEFF 		bl	__assert_func	@
+ 249              	.L11:
+ 123:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+ 124:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 125:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	p_tc->TC_CHANNEL[ul_channel].TC_RB = ul_value;
+ 250              		.loc 1 125 0 is_stmt 1
+ 251 00bc 039A     		ldr	r2, [sp, #12]	@ tmp111, p_tc
+ 252 00be 029B     		ldr	r3, [sp, #8]	@ tmp112, ul_channel
+ 253 00c0 9B01     		lsls	r3, r3, #6	@ tmp113, tmp112,
+ 254 00c2 1344     		add	r3, r3, r2	@ tmp114, tmp111
+ 255 00c4 1833     		adds	r3, r3, #24	@ tmp115, tmp114,
+ 256 00c6 019A     		ldr	r2, [sp, #4]	@ tmp116, ul_value
+ 257 00c8 1A60     		str	r2, [r3]	@ tmp116, p_tc_2(D)->TC_CHANNEL[ul_channel_1(D)].TC_RB
+ 126:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** }
+ 258              		.loc 1 126 0
+ 259 00ca 05B0     		add	sp, sp, #20	@,,
+ 260              		@ sp needed	@
+ 261 00cc 5DF804FB 		ldr	pc, [sp], #4	@
+ 262              	.L13:
+ 263              		.align	2
+ 264              	.L12:
+ 265 00d0 00000000 		.word	.LC0
+ 266 00d4 DC000000 		.word	__func__.7232
+ 267 00d8 78000000 		.word	.LC2
+ 268              		.cfi_endproc
+ 269              	.LFE119:
+ 271              		.align	2
+ 272              		.global	TC_WriteRc
+ 273              		.thumb
+ 274              		.thumb_func
+ 276              	TC_WriteRc:
+ 277              	.LFB120:
+ 127:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 128:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 129:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /**
+ 130:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \brief Write RC TC counter on the selected channel.
+ 131:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 132:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param p_tc Pointer to a TC instance.
+ 133:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param ul_channel Channel to configure.
+ 134:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param ul_value Value to set in register.
+ 135:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+ 136:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** void TC_WriteRc( Tc *p_tc, uint32_t ul_channel, uint32_t ul_value )
+ 137:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** {
+ 278              		.loc 1 137 0
+ 279              		.cfi_startproc
+ 280              		@ args = 0, pretend = 0, frame = 16
+ 281              		@ frame_needed = 0, uses_anonymous_args = 0
+ 282 00dc 00B5     		push	{lr}	@
+ 283              		.cfi_def_cfa_offset 4
+ 284              		.cfi_offset 14, -4
+ 285 00de 85B0     		sub	sp, sp, #20	@,,
+ 286              		.cfi_def_cfa_offset 24
+ 287 00e0 0390     		str	r0, [sp, #12]	@ p_tc, p_tc
+ 288 00e2 0291     		str	r1, [sp, #8]	@ ul_channel, ul_channel
+ 289 00e4 0192     		str	r2, [sp, #4]	@ ul_value, ul_value
+ 138:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	assert(ul_channel <
+ 290              		.loc 1 138 0
+ 291 00e6 029B     		ldr	r3, [sp, #8]	@ tmp110, ul_channel
+ 292 00e8 022B     		cmp	r3, #2	@ tmp110,
+ 293 00ea 05D9     		bls	.L15	@,
+ 294              		.loc 1 138 0 is_stmt 0 discriminator 1
+ 295 00ec 0748     		ldr	r0, .L16	@,
+ 296 00ee 8B21     		movs	r1, #139	@,
+ 297 00f0 074A     		ldr	r2, .L16+4	@,
+ 298 00f2 084B     		ldr	r3, .L16+8	@,
+ 299 00f4 FFF7FEFF 		bl	__assert_func	@
+ 300              	.L15:
+ 139:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+ 140:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 141:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	p_tc->TC_CHANNEL[ul_channel].TC_RC = ul_value;
+ 301              		.loc 1 141 0 is_stmt 1
+ 302 00f8 039A     		ldr	r2, [sp, #12]	@ tmp111, p_tc
+ 303 00fa 029B     		ldr	r3, [sp, #8]	@ tmp112, ul_channel
+ 304 00fc 9B01     		lsls	r3, r3, #6	@ tmp113, tmp112,
+ 305 00fe 1344     		add	r3, r3, r2	@ tmp114, tmp111
+ 306 0100 1833     		adds	r3, r3, #24	@ tmp115, tmp114,
+ 307 0102 019A     		ldr	r2, [sp, #4]	@ tmp116, ul_value
+ 308 0104 5A60     		str	r2, [r3, #4]	@ tmp116, p_tc_2(D)->TC_CHANNEL[ul_channel_1(D)].TC_RC
+ 142:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** }
+ 309              		.loc 1 142 0
+ 310 0106 05B0     		add	sp, sp, #20	@,,
+ 311              		@ sp needed	@
+ 312 0108 5DF804FB 		ldr	pc, [sp], #4	@
+ 313              	.L17:
+ 314              		.align	2
+ 315              	.L16:
+ 316 010c 00000000 		.word	.LC0
+ 317 0110 E8000000 		.word	__func__.7238
+ 318 0114 78000000 		.word	.LC2
+ 319              		.cfi_endproc
+ 320              	.LFE120:
+ 322              		.align	2
+ 323              		.global	TC_EnableInterrupt
+ 324              		.thumb
+ 325              		.thumb_func
+ 327              	TC_EnableInterrupt:
+ 328              	.LFB121:
+ 143:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 144:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 145:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /**
+ 146:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \brief Enable TC interrupts on the selected channel.
+ 147:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 148:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param p_tc Pointer to a TC instance.
+ 149:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param ul_channel Channel to configure.
+ 150:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param ul_sources Interrupt sources bit map.
+ 151:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+ 152:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** void TC_EnableInterrupt(Tc *p_tc, uint32_t ul_channel, uint32_t ul_sources)
+ 153:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** {
+ 329              		.loc 1 153 0
+ 330              		.cfi_startproc
+ 331              		@ args = 0, pretend = 0, frame = 24
+ 332              		@ frame_needed = 0, uses_anonymous_args = 0
+ 333 0118 00B5     		push	{lr}	@
+ 334              		.cfi_def_cfa_offset 4
+ 335              		.cfi_offset 14, -4
+ 336 011a 87B0     		sub	sp, sp, #28	@,,
+ 337              		.cfi_def_cfa_offset 32
+ 338 011c 0390     		str	r0, [sp, #12]	@ p_tc, p_tc
+ 339 011e 0291     		str	r1, [sp, #8]	@ ul_channel, ul_channel
+ 340 0120 0192     		str	r2, [sp, #4]	@ ul_sources, ul_sources
+ 154:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** TcChannel *tc_channel;
+ 155:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 156:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	assert(ul_channel <
+ 341              		.loc 1 156 0
+ 342 0122 029B     		ldr	r3, [sp, #8]	@ tmp110, ul_channel
+ 343 0124 022B     		cmp	r3, #2	@ tmp110,
+ 344 0126 05D9     		bls	.L19	@,
+ 345              		.loc 1 156 0 is_stmt 0 discriminator 1
+ 346 0128 0848     		ldr	r0, .L20	@,
+ 347 012a 9D21     		movs	r1, #157	@,
+ 348 012c 084A     		ldr	r2, .L20+4	@,
+ 349 012e 094B     		ldr	r3, .L20+8	@,
+ 350 0130 FFF7FEFF 		bl	__assert_func	@
+ 351              	.L19:
+ 157:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+ 158:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 			
+ 159:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	tc_channel = p_tc->TC_CHANNEL + ul_channel;
+ 352              		.loc 1 159 0 is_stmt 1
+ 353 0134 029B     		ldr	r3, [sp, #8]	@ tmp112, ul_channel
+ 354 0136 9B01     		lsls	r3, r3, #6	@ tmp111, tmp112,
+ 355 0138 039A     		ldr	r2, [sp, #12]	@ tmp114, p_tc
+ 356 013a 1344     		add	r3, r3, r2	@ tmp113, tmp114
+ 357 013c 0593     		str	r3, [sp, #20]	@ tmp113, tc_channel
+ 160:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	tc_channel->TC_IER = ul_sources;
+ 358              		.loc 1 160 0
+ 359 013e 059B     		ldr	r3, [sp, #20]	@ tmp115, tc_channel
+ 360 0140 019A     		ldr	r2, [sp, #4]	@ tmp116, ul_sources
+ 361 0142 5A62     		str	r2, [r3, #36]	@ tmp116, tc_channel_3->TC_IER
+ 161:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** }
+ 362              		.loc 1 161 0
+ 363 0144 07B0     		add	sp, sp, #28	@,,
+ 364              		@ sp needed	@
+ 365 0146 5DF804FB 		ldr	pc, [sp], #4	@
+ 366              	.L21:
+ 367 014a 00BF     		.align	2
+ 368              	.L20:
+ 369 014c 00000000 		.word	.LC0
+ 370 0150 F4000000 		.word	__func__.7245
+ 371 0154 78000000 		.word	.LC2
+ 372              		.cfi_endproc
+ 373              	.LFE121:
+ 375              		.align	2
+ 376              		.global	TC_DisableInterrupt
+ 377              		.thumb
+ 378              		.thumb_func
+ 380              	TC_DisableInterrupt:
+ 381              	.LFB122:
+ 162:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 163:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 164:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /**
+ 165:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \brief Disable TC interrupts on the selected channel.
+ 166:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 167:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param p_tc Pointer to a TC instance.
+ 168:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param ul_channel Channel to configure.
+ 169:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param ul_sources Interrupt sources bit map.
+ 170:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+ 171:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** void TC_DisableInterrupt( Tc *p_tc, uint32_t ul_channel, uint32_t ul_sources )
+ 172:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** {
+ 382              		.loc 1 172 0
+ 383              		.cfi_startproc
+ 384              		@ args = 0, pretend = 0, frame = 24
+ 385              		@ frame_needed = 0, uses_anonymous_args = 0
+ 386 0158 00B5     		push	{lr}	@
+ 387              		.cfi_def_cfa_offset 4
+ 388              		.cfi_offset 14, -4
+ 389 015a 87B0     		sub	sp, sp, #28	@,,
+ 390              		.cfi_def_cfa_offset 32
+ 391 015c 0390     		str	r0, [sp, #12]	@ p_tc, p_tc
+ 392 015e 0291     		str	r1, [sp, #8]	@ ul_channel, ul_channel
+ 393 0160 0192     		str	r2, [sp, #4]	@ ul_sources, ul_sources
+ 173:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** TcChannel *tc_channel;
+ 174:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 175:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	assert(ul_channel <
+ 394              		.loc 1 175 0
+ 395 0162 029B     		ldr	r3, [sp, #8]	@ tmp110, ul_channel
+ 396 0164 022B     		cmp	r3, #2	@ tmp110,
+ 397 0166 05D9     		bls	.L23	@,
+ 398              		.loc 1 175 0 is_stmt 0 discriminator 1
+ 399 0168 0848     		ldr	r0, .L24	@,
+ 400 016a B021     		movs	r1, #176	@,
+ 401 016c 084A     		ldr	r2, .L24+4	@,
+ 402 016e 094B     		ldr	r3, .L24+8	@,
+ 403 0170 FFF7FEFF 		bl	__assert_func	@
+ 404              	.L23:
+ 176:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+ 177:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 			
+ 178:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	tc_channel = p_tc->TC_CHANNEL + ul_channel;
+ 405              		.loc 1 178 0 is_stmt 1
+ 406 0174 029B     		ldr	r3, [sp, #8]	@ tmp112, ul_channel
+ 407 0176 9B01     		lsls	r3, r3, #6	@ tmp111, tmp112,
+ 408 0178 039A     		ldr	r2, [sp, #12]	@ tmp114, p_tc
+ 409 017a 1344     		add	r3, r3, r2	@ tmp113, tmp114
+ 410 017c 0593     		str	r3, [sp, #20]	@ tmp113, tc_channel
+ 179:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	tc_channel->TC_IDR = ul_sources;
+ 411              		.loc 1 179 0
+ 412 017e 059B     		ldr	r3, [sp, #20]	@ tmp115, tc_channel
+ 413 0180 019A     		ldr	r2, [sp, #4]	@ tmp116, ul_sources
+ 414 0182 9A62     		str	r2, [r3, #40]	@ tmp116, tc_channel_3->TC_IDR
+ 180:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** }
+ 415              		.loc 1 180 0
+ 416 0184 07B0     		add	sp, sp, #28	@,,
+ 417              		@ sp needed	@
+ 418 0186 5DF804FB 		ldr	pc, [sp], #4	@
+ 419              	.L25:
+ 420 018a 00BF     		.align	2
+ 421              	.L24:
+ 422 018c 00000000 		.word	.LC0
+ 423 0190 08010000 		.word	__func__.7252
+ 424 0194 78000000 		.word	.LC2
+ 425              		.cfi_endproc
+ 426              	.LFE122:
+ 428              		.align	2
+ 429              		.global	TC_GetInterruptMask
+ 430              		.thumb
+ 431              		.thumb_func
+ 433              	TC_GetInterruptMask:
+ 434              	.LFB123:
+ 181:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 182:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /**
+ 183:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \brief Read TC interrupt mask on the selected channel.
+ 184:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 185:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param p_tc Pointer to a TC instance.
+ 186:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param ul_channel Channel to configure.
+ 187:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 188:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \return The interrupt mask value.
+ 189:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+ 190:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** uint32_t TC_GetInterruptMask( Tc *p_tc, uint32_t ul_channel )
+ 191:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** {
+ 435              		.loc 1 191 0
+ 436              		.cfi_startproc
+ 437              		@ args = 0, pretend = 0, frame = 16
+ 438              		@ frame_needed = 0, uses_anonymous_args = 0
+ 439 0198 00B5     		push	{lr}	@
+ 440              		.cfi_def_cfa_offset 4
+ 441              		.cfi_offset 14, -4
+ 442 019a 85B0     		sub	sp, sp, #20	@,,
+ 443              		.cfi_def_cfa_offset 24
+ 444 019c 0190     		str	r0, [sp, #4]	@ p_tc, p_tc
+ 445 019e 0091     		str	r1, [sp]	@ ul_channel, ul_channel
+ 192:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** TcChannel *tc_channel;
+ 193:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 194:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	assert(ul_channel <
+ 446              		.loc 1 194 0
+ 447 01a0 009B     		ldr	r3, [sp]	@ tmp112, ul_channel
+ 448 01a2 022B     		cmp	r3, #2	@ tmp112,
+ 449 01a4 05D9     		bls	.L27	@,
+ 450              		.loc 1 194 0 is_stmt 0 discriminator 1
+ 451 01a6 0848     		ldr	r0, .L29	@,
+ 452 01a8 C321     		movs	r1, #195	@,
+ 453 01aa 084A     		ldr	r2, .L29+4	@,
+ 454 01ac 084B     		ldr	r3, .L29+8	@,
+ 455 01ae FFF7FEFF 		bl	__assert_func	@
+ 456              	.L27:
+ 195:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+ 196:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 			
+ 197:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	tc_channel = p_tc->TC_CHANNEL + ul_channel;
+ 457              		.loc 1 197 0 is_stmt 1
+ 458 01b2 009B     		ldr	r3, [sp]	@ tmp114, ul_channel
+ 459 01b4 9B01     		lsls	r3, r3, #6	@ tmp113, tmp114,
+ 460 01b6 019A     		ldr	r2, [sp, #4]	@ tmp116, p_tc
+ 461 01b8 1344     		add	r3, r3, r2	@ tmp115, tmp116
+ 462 01ba 0393     		str	r3, [sp, #12]	@ tmp115, tc_channel
+ 198:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	return tc_channel->TC_IMR;
+ 463              		.loc 1 198 0
+ 464 01bc 039B     		ldr	r3, [sp, #12]	@ tmp117, tc_channel
+ 465 01be DB6A     		ldr	r3, [r3, #44]	@ D.7362, tc_channel_3->TC_IMR
+ 199:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** }
+ 466              		.loc 1 199 0
+ 467 01c0 1846     		mov	r0, r3	@, <retval>
+ 468 01c2 05B0     		add	sp, sp, #20	@,,
+ 469              		@ sp needed	@
+ 470 01c4 5DF804FB 		ldr	pc, [sp], #4	@
+ 471              	.L30:
+ 472              		.align	2
+ 473              	.L29:
+ 474 01c8 00000000 		.word	.LC0
+ 475 01cc 1C010000 		.word	__func__.7258
+ 476 01d0 78000000 		.word	.LC2
+ 477              		.cfi_endproc
+ 478              	.LFE123:
+ 480              		.align	2
+ 481              		.global	TC_GetStatus
+ 482              		.thumb
+ 483              		.thumb_func
+ 485              	TC_GetStatus:
+ 486              	.LFB124:
+ 200:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 201:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /**
+ 202:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \brief Get current status on the selected channel.
+ 203:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 204:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param p_tc Pointer to a TC instance.
+ 205:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param ul_channel Channel to configure.
+ 206:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 207:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \return The current TC status.
+ 208:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+ 209:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** uint32_t TC_GetStatus( Tc *p_tc, uint32_t ul_channel )
+ 210:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** {
+ 487              		.loc 1 210 0
+ 488              		.cfi_startproc
+ 489              		@ args = 0, pretend = 0, frame = 16
+ 490              		@ frame_needed = 0, uses_anonymous_args = 0
+ 491 01d4 00B5     		push	{lr}	@
+ 492              		.cfi_def_cfa_offset 4
+ 493              		.cfi_offset 14, -4
+ 494 01d6 85B0     		sub	sp, sp, #20	@,,
+ 495              		.cfi_def_cfa_offset 24
+ 496 01d8 0190     		str	r0, [sp, #4]	@ p_tc, p_tc
+ 497 01da 0091     		str	r1, [sp]	@ ul_channel, ul_channel
+ 211:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** TcChannel *tc_channel;
+ 212:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 213:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	assert(ul_channel <
+ 498              		.loc 1 213 0
+ 499 01dc 009B     		ldr	r3, [sp]	@ tmp112, ul_channel
+ 500 01de 022B     		cmp	r3, #2	@ tmp112,
+ 501 01e0 05D9     		bls	.L32	@,
+ 502              		.loc 1 213 0 is_stmt 0 discriminator 1
+ 503 01e2 0848     		ldr	r0, .L34	@,
+ 504 01e4 D621     		movs	r1, #214	@,
+ 505 01e6 084A     		ldr	r2, .L34+4	@,
+ 506 01e8 084B     		ldr	r3, .L34+8	@,
+ 507 01ea FFF7FEFF 		bl	__assert_func	@
+ 508              	.L32:
+ 214:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+ 215:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 			
+ 216:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	tc_channel = p_tc->TC_CHANNEL + ul_channel;
+ 509              		.loc 1 216 0 is_stmt 1
+ 510 01ee 009B     		ldr	r3, [sp]	@ tmp114, ul_channel
+ 511 01f0 9B01     		lsls	r3, r3, #6	@ tmp113, tmp114,
+ 512 01f2 019A     		ldr	r2, [sp, #4]	@ tmp116, p_tc
+ 513 01f4 1344     		add	r3, r3, r2	@ tmp115, tmp116
+ 514 01f6 0393     		str	r3, [sp, #12]	@ tmp115, tc_channel
+ 217:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	return tc_channel->TC_SR;
+ 515              		.loc 1 217 0
+ 516 01f8 039B     		ldr	r3, [sp, #12]	@ tmp117, tc_channel
+ 517 01fa 1B6A     		ldr	r3, [r3, #32]	@ D.7363, tc_channel_3->TC_SR
+ 218:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** }
+ 518              		.loc 1 218 0
+ 519 01fc 1846     		mov	r0, r3	@, <retval>
+ 520 01fe 05B0     		add	sp, sp, #20	@,,
+ 521              		@ sp needed	@
+ 522 0200 5DF804FB 		ldr	pc, [sp], #4	@
+ 523              	.L35:
+ 524              		.align	2
+ 525              	.L34:
+ 526 0204 00000000 		.word	.LC0
+ 527 0208 30010000 		.word	__func__.7264
+ 528 020c 78000000 		.word	.LC2
+ 529              		.cfi_endproc
+ 530              	.LFE124:
+ 532              		.align	2
+ 533              		.global	TC_Start
+ 534              		.thumb
+ 535              		.thumb_func
+ 537              	TC_Start:
+ 538              	.LFB125:
+ 219:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 220:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 221:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /**
+ 222:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \brief Reset and Start the TC Channel
+ 223:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 224:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * Enables the timer clock and performs a software reset to start the counting.
+ 225:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 226:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param pTc  Pointer to a Tc instance.
+ 227:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param dwChannel Channel number.
+ 228:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+ 229:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** extern void TC_Start( Tc *pTc, uint32_t dwChannel )
+ 230:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** {
+ 539              		.loc 1 230 0
+ 540              		.cfi_startproc
+ 541              		@ args = 0, pretend = 0, frame = 16
+ 542              		@ frame_needed = 0, uses_anonymous_args = 0
+ 543 0210 00B5     		push	{lr}	@
+ 544              		.cfi_def_cfa_offset 4
+ 545              		.cfi_offset 14, -4
+ 546 0212 85B0     		sub	sp, sp, #20	@,,
+ 547              		.cfi_def_cfa_offset 24
+ 548 0214 0190     		str	r0, [sp, #4]	@ pTc, pTc
+ 549 0216 0091     		str	r1, [sp]	@ dwChannel, dwChannel
+ 231:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     TcChannel* pTcCh ;
+ 232:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 233:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     assert( dwChannel < (sizeof( pTc->TC_CHANNEL )/sizeof( pTc->TC_CHANNEL[0] )) ) ;
+ 550              		.loc 1 233 0
+ 551 0218 009B     		ldr	r3, [sp]	@ tmp110, dwChannel
+ 552 021a 022B     		cmp	r3, #2	@ tmp110,
+ 553 021c 05D9     		bls	.L37	@,
+ 554              		.loc 1 233 0 is_stmt 0 discriminator 1
+ 555 021e 0848     		ldr	r0, .L38	@,
+ 556 0220 E921     		movs	r1, #233	@,
+ 557 0222 084A     		ldr	r2, .L38+4	@,
+ 558 0224 084B     		ldr	r3, .L38+8	@,
+ 559 0226 FFF7FEFF 		bl	__assert_func	@
+ 560              	.L37:
+ 234:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 235:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     pTcCh = pTc->TC_CHANNEL+dwChannel ;
+ 561              		.loc 1 235 0 is_stmt 1
+ 562 022a 009B     		ldr	r3, [sp]	@ tmp112, dwChannel
+ 563 022c 9B01     		lsls	r3, r3, #6	@ tmp111, tmp112,
+ 564 022e 019A     		ldr	r2, [sp, #4]	@ tmp114, pTc
+ 565 0230 1344     		add	r3, r3, r2	@ tmp113, tmp114
+ 566 0232 0393     		str	r3, [sp, #12]	@ tmp113, pTcCh
+ 236:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     pTcCh->TC_CCR = TC_CCR_CLKEN | TC_CCR_SWTRG ;
+ 567              		.loc 1 236 0
+ 568 0234 039B     		ldr	r3, [sp, #12]	@ tmp115, pTcCh
+ 569 0236 0522     		movs	r2, #5	@ tmp116,
+ 570 0238 1A60     		str	r2, [r3]	@ tmp116, pTcCh_3->TC_CCR
+ 237:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** }
+ 571              		.loc 1 237 0
+ 572 023a 05B0     		add	sp, sp, #20	@,,
+ 573              		@ sp needed	@
+ 574 023c 5DF804FB 		ldr	pc, [sp], #4	@
+ 575              	.L39:
+ 576              		.align	2
+ 577              	.L38:
+ 578 0240 00000000 		.word	.LC0
+ 579 0244 40010000 		.word	__func__.7270
+ 580 0248 30000000 		.word	.LC1
+ 581              		.cfi_endproc
+ 582              	.LFE125:
+ 584              		.align	2
+ 585              		.global	TC_Stop
+ 586              		.thumb
+ 587              		.thumb_func
+ 589              	TC_Stop:
+ 590              	.LFB126:
+ 238:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 239:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /**
+ 240:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \brief Stop TC Channel
+ 241:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 242:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * Disables the timer clock, stopping the counting.
+ 243:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 244:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param pTc     Pointer to a Tc instance.
+ 245:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param dwChannel Channel number.
+ 246:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+ 247:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** extern void TC_Stop(Tc *pTc, uint32_t dwChannel )
+ 248:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** {
+ 591              		.loc 1 248 0
+ 592              		.cfi_startproc
+ 593              		@ args = 0, pretend = 0, frame = 16
+ 594              		@ frame_needed = 0, uses_anonymous_args = 0
+ 595 024c 00B5     		push	{lr}	@
+ 596              		.cfi_def_cfa_offset 4
+ 597              		.cfi_offset 14, -4
+ 598 024e 85B0     		sub	sp, sp, #20	@,,
+ 599              		.cfi_def_cfa_offset 24
+ 600 0250 0190     		str	r0, [sp, #4]	@ pTc, pTc
+ 601 0252 0091     		str	r1, [sp]	@ dwChannel, dwChannel
+ 249:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     TcChannel* pTcCh ;
+ 250:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 251:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     assert( dwChannel < (sizeof( pTc->TC_CHANNEL )/sizeof( pTc->TC_CHANNEL[0] )) ) ;
+ 602              		.loc 1 251 0
+ 603 0254 009B     		ldr	r3, [sp]	@ tmp110, dwChannel
+ 604 0256 022B     		cmp	r3, #2	@ tmp110,
+ 605 0258 05D9     		bls	.L41	@,
+ 606              		.loc 1 251 0 is_stmt 0 discriminator 1
+ 607 025a 0848     		ldr	r0, .L42	@,
+ 608 025c FB21     		movs	r1, #251	@,
+ 609 025e 084A     		ldr	r2, .L42+4	@,
+ 610 0260 084B     		ldr	r3, .L42+8	@,
+ 611 0262 FFF7FEFF 		bl	__assert_func	@
+ 612              	.L41:
+ 252:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 253:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     pTcCh = pTc->TC_CHANNEL+dwChannel ;
+ 613              		.loc 1 253 0 is_stmt 1
+ 614 0266 009B     		ldr	r3, [sp]	@ tmp112, dwChannel
+ 615 0268 9B01     		lsls	r3, r3, #6	@ tmp111, tmp112,
+ 616 026a 019A     		ldr	r2, [sp, #4]	@ tmp114, pTc
+ 617 026c 1344     		add	r3, r3, r2	@ tmp113, tmp114
+ 618 026e 0393     		str	r3, [sp, #12]	@ tmp113, pTcCh
+ 254:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     pTcCh->TC_CCR = TC_CCR_CLKDIS ;
+ 619              		.loc 1 254 0
+ 620 0270 039B     		ldr	r3, [sp, #12]	@ tmp115, pTcCh
+ 621 0272 0222     		movs	r2, #2	@ tmp116,
+ 622 0274 1A60     		str	r2, [r3]	@ tmp116, pTcCh_3->TC_CCR
+ 255:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** }
+ 623              		.loc 1 255 0
+ 624 0276 05B0     		add	sp, sp, #20	@,,
+ 625              		@ sp needed	@
+ 626 0278 5DF804FB 		ldr	pc, [sp], #4	@
+ 627              	.L43:
+ 628              		.align	2
+ 629              	.L42:
+ 630 027c 00000000 		.word	.LC0
+ 631 0280 4C010000 		.word	__func__.7276
+ 632 0284 30000000 		.word	.LC1
+ 633              		.cfi_endproc
+ 634              	.LFE126:
+ 636              		.align	2
+ 637              		.global	TC_FindMckDivisor
+ 638              		.thumb
+ 639              		.thumb_func
+ 641              	TC_FindMckDivisor:
+ 642              	.LFB127:
+ 256:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 257:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /**
+ 258:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \brief Find best MCK divisor
+ 259:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 260:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * Finds the best MCK divisor given the timer frequency and MCK. The result
+ 261:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * is guaranteed to satisfy the following equation:
+ 262:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \code
+ 263:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *   (MCK / (DIV * 65536)) <= freq <= (MCK / DIV)
+ 264:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \endcode
+ 265:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * with DIV being the highest possible value.
+ 266:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 267:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param dwFreq  Desired timer frequency.
+ 268:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param dwMCk  Master clock frequency.
+ 269:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param dwDiv  Divisor value.
+ 270:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param dwTcClks  TCCLKS field value for divisor.
+ 271:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param dwBoardMCK  Board clock frequency.
+ 272:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 273:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \return 1 if a proper divisor has been found, otherwise 0.
+ 274:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+ 275:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** extern uint32_t TC_FindMckDivisor( uint32_t dwFreq, uint32_t dwMCk, uint32_t *dwDiv, uint32_t *dwTc
+ 276:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** {
+ 643              		.loc 1 276 0
+ 644              		.cfi_startproc
+ 645              		@ args = 4, pretend = 0, frame = 40
+ 646              		@ frame_needed = 0, uses_anonymous_args = 0
+ 647              		@ link register save eliminated.
+ 648 0288 8AB0     		sub	sp, sp, #40	@,,
+ 649              		.cfi_def_cfa_offset 40
+ 650 028a 0390     		str	r0, [sp, #12]	@ dwFreq, dwFreq
+ 651 028c 0291     		str	r1, [sp, #8]	@ dwMCk, dwMCk
+ 652 028e 0192     		str	r2, [sp, #4]	@ dwDiv, dwDiv
+ 653 0290 0093     		str	r3, [sp]	@ dwTcClks, dwTcClks
+ 277:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** //    uint32_t adwDivisors[5] = { 2, 8, 32, 128, dwBoardMCK / 32768 } ;
+ 278:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 		uint32_t adwDivisors[5];
+ 279:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     uint32_t dwIndex = 0 ;
+ 654              		.loc 1 279 0
+ 655 0292 0023     		movs	r3, #0	@ tmp120,
+ 656 0294 0993     		str	r3, [sp, #36]	@ tmp120, dwIndex
+ 280:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 281:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 282:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 		adwDivisors[0] = 2;
+ 657              		.loc 1 282 0
+ 658 0296 0223     		movs	r3, #2	@ tmp121,
+ 659 0298 0493     		str	r3, [sp, #16]	@ tmp121, adwDivisors
+ 283:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 		adwDivisors[1] = 8;
+ 660              		.loc 1 283 0
+ 661 029a 0823     		movs	r3, #8	@ tmp122,
+ 662 029c 0593     		str	r3, [sp, #20]	@ tmp122, adwDivisors
+ 284:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 		adwDivisors[2] = 32;
+ 663              		.loc 1 284 0
+ 664 029e 2023     		movs	r3, #32	@ tmp123,
+ 665 02a0 0693     		str	r3, [sp, #24]	@ tmp123, adwDivisors
+ 285:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 		adwDivisors[3] = 128;
+ 666              		.loc 1 285 0
+ 667 02a2 8023     		movs	r3, #128	@ tmp124,
+ 668 02a4 0793     		str	r3, [sp, #28]	@ tmp124, adwDivisors
+ 286:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 		adwDivisors[4] = dwBoardMCK / 32768;
+ 669              		.loc 1 286 0
+ 670 02a6 0A9B     		ldr	r3, [sp, #40]	@ tmp125, dwBoardMCK
+ 671 02a8 DB0B     		lsrs	r3, r3, #15	@ D.7365, tmp125,
+ 672 02aa 0893     		str	r3, [sp, #32]	@ D.7365, adwDivisors
+ 287:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 		
+ 288:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     /*  Satisfy lower bound */
+ 289:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     while ( dwFreq < ((dwMCk / adwDivisors[dwIndex]) / 65536) )
+ 673              		.loc 1 289 0
+ 674 02ac 07E0     		b	.L45	@
+ 675              	.L47:
+ 290:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     {
+ 291:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****         dwIndex++ ;
+ 676              		.loc 1 291 0
+ 677 02ae 099B     		ldr	r3, [sp, #36]	@ tmp127, dwIndex
+ 678 02b0 0133     		adds	r3, r3, #1	@ tmp126, tmp127,
+ 679 02b2 0993     		str	r3, [sp, #36]	@ tmp126, dwIndex
+ 292:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 293:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****         /*  If no divisor can be found, return 0 */
+ 294:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****         if ( dwIndex == (sizeof( adwDivisors )/sizeof( adwDivisors[0] ))  )
+ 680              		.loc 1 294 0
+ 681 02b4 099B     		ldr	r3, [sp, #36]	@ tmp128, dwIndex
+ 682 02b6 052B     		cmp	r3, #5	@ tmp128,
+ 683 02b8 01D1     		bne	.L45	@,
+ 295:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****         {
+ 296:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****             return 0 ;
+ 684              		.loc 1 296 0
+ 685 02ba 0023     		movs	r3, #0	@ D.7364,
+ 686 02bc 33E0     		b	.L54	@
+ 687              	.L45:
+ 289:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     while ( dwFreq < ((dwMCk / adwDivisors[dwIndex]) / 65536) )
+ 688              		.loc 1 289 0 discriminator 1
+ 689 02be 099B     		ldr	r3, [sp, #36]	@ tmp129, dwIndex
+ 690 02c0 9B00     		lsls	r3, r3, #2	@ tmp130, tmp129,
+ 691 02c2 0AAA     		add	r2, sp, #40	@,,
+ 692 02c4 1344     		add	r3, r3, r2	@ tmp130,
+ 693 02c6 53F8183C 		ldr	r3, [r3, #-24]	@ D.7365, adwDivisors
+ 694 02ca 029A     		ldr	r2, [sp, #8]	@ tmp131, dwMCk
+ 695 02cc B2FBF3F3 		udiv	r3, r2, r3	@ D.7365, tmp131, D.7365
+ 696 02d0 1A0C     		lsrs	r2, r3, #16	@ D.7365, D.7365,
+ 697 02d2 039B     		ldr	r3, [sp, #12]	@ tmp132, dwFreq
+ 698 02d4 9A42     		cmp	r2, r3	@ D.7365, tmp132
+ 699 02d6 EAD8     		bhi	.L47	@,
+ 297:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****         }
+ 298:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     }
+ 299:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 300:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     /*  Try to maximize DIV while satisfying upper bound */
+ 301:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     while ( dwIndex < 4 )
+ 700              		.loc 1 301 0
+ 701 02d8 10E0     		b	.L48	@
+ 702              	.L51:
+ 302:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     {
+ 303:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 304:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****         if ( dwFreq > (dwMCk / adwDivisors[dwIndex + 1]) )
+ 703              		.loc 1 304 0
+ 704 02da 099B     		ldr	r3, [sp, #36]	@ tmp133, dwIndex
+ 705 02dc 0133     		adds	r3, r3, #1	@ D.7365, tmp133,
+ 706 02de 9B00     		lsls	r3, r3, #2	@ tmp134, D.7365,
+ 707 02e0 0AAA     		add	r2, sp, #40	@,,
+ 708 02e2 1344     		add	r3, r3, r2	@ tmp134,
+ 709 02e4 53F8183C 		ldr	r3, [r3, #-24]	@ D.7365, adwDivisors
+ 710 02e8 029A     		ldr	r2, [sp, #8]	@ tmp135, dwMCk
+ 711 02ea B2FBF3F2 		udiv	r2, r2, r3	@ D.7365, tmp135, D.7365
+ 712 02ee 039B     		ldr	r3, [sp, #12]	@ tmp136, dwFreq
+ 713 02f0 9A42     		cmp	r2, r3	@ D.7365, tmp136
+ 714 02f2 00D2     		bcs	.L49	@,
+ 305:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****         {
+ 306:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****             break ;
+ 715              		.loc 1 306 0
+ 716 02f4 05E0     		b	.L50	@
+ 717              	.L49:
+ 307:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****         }
+ 308:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****         dwIndex++ ;
+ 718              		.loc 1 308 0
+ 719 02f6 099B     		ldr	r3, [sp, #36]	@ tmp138, dwIndex
+ 720 02f8 0133     		adds	r3, r3, #1	@ tmp137, tmp138,
+ 721 02fa 0993     		str	r3, [sp, #36]	@ tmp137, dwIndex
+ 722              	.L48:
+ 301:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     while ( dwIndex < 4 )
+ 723              		.loc 1 301 0 discriminator 1
+ 724 02fc 099B     		ldr	r3, [sp, #36]	@ tmp139, dwIndex
+ 725 02fe 032B     		cmp	r3, #3	@ tmp139,
+ 726 0300 EBD9     		bls	.L51	@,
+ 727              	.L50:
+ 309:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     }
+ 310:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 311:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     /*  Store results */
+ 312:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     if ( dwDiv )
+ 728              		.loc 1 312 0
+ 729 0302 019B     		ldr	r3, [sp, #4]	@ tmp140, dwDiv
+ 730 0304 002B     		cmp	r3, #0	@ tmp140,
+ 731 0306 07D0     		beq	.L52	@,
+ 313:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     {
+ 314:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****         *dwDiv = adwDivisors[dwIndex] ;
+ 732              		.loc 1 314 0
+ 733 0308 099B     		ldr	r3, [sp, #36]	@ tmp141, dwIndex
+ 734 030a 9B00     		lsls	r3, r3, #2	@ tmp142, tmp141,
+ 735 030c 0AAA     		add	r2, sp, #40	@,,
+ 736 030e 1344     		add	r3, r3, r2	@ tmp142,
+ 737 0310 53F8182C 		ldr	r2, [r3, #-24]	@ D.7365, adwDivisors
+ 738 0314 019B     		ldr	r3, [sp, #4]	@ tmp143, dwDiv
+ 739 0316 1A60     		str	r2, [r3]	@ D.7365, *dwDiv_18(D)
+ 740              	.L52:
+ 315:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     }
+ 316:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     if ( dwTcClks )
+ 741              		.loc 1 316 0
+ 742 0318 009B     		ldr	r3, [sp]	@ tmp144, dwTcClks
+ 743 031a 002B     		cmp	r3, #0	@ tmp144,
+ 744 031c 02D0     		beq	.L53	@,
+ 317:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     {
+ 318:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****         *dwTcClks = dwIndex ;
+ 745              		.loc 1 318 0
+ 746 031e 009B     		ldr	r3, [sp]	@ tmp145, dwTcClks
+ 747 0320 099A     		ldr	r2, [sp, #36]	@ tmp146, dwIndex
+ 748 0322 1A60     		str	r2, [r3]	@ tmp146, *dwTcClks_20(D)
+ 749              	.L53:
+ 319:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     }
+ 320:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 321:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****     return 1 ;
+ 750              		.loc 1 321 0
+ 751 0324 0123     		movs	r3, #1	@ D.7364,
+ 752              	.L54:
+ 322:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** }
+ 753              		.loc 1 322 0
+ 754 0326 1846     		mov	r0, r3	@, <retval>
+ 755 0328 0AB0     		add	sp, sp, #40	@,,
+ 756              		@ sp needed	@
+ 757 032a 7047     		bx	lr	@
+ 758              		.cfi_endproc
+ 759              	.LFE127:
+ 761              		.align	2
+ 762              		.global	TC_SetWriteprotect
+ 763              		.thumb
+ 764              		.thumb_func
+ 766              	TC_SetWriteprotect:
+ 767              	.LFB128:
+ 323:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 324:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 
+ 325:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** /**
+ 326:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \brief Enable or disable write protection of TC registers.
+ 327:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  *
+ 328:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param p_tc Pointer to a TC instance.
+ 329:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  * \param ul_enable 1 to enable, 0 to disable.
+ 330:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c ****  */
+ 331:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** void TC_SetWriteprotect( Tc *p_tc, uint32_t ul_enable )
+ 332:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** {
+ 768              		.loc 1 332 0
+ 769              		.cfi_startproc
+ 770              		@ args = 0, pretend = 0, frame = 8
+ 771              		@ frame_needed = 0, uses_anonymous_args = 0
+ 772              		@ link register save eliminated.
+ 773 032c 82B0     		sub	sp, sp, #8	@,,
+ 774              		.cfi_def_cfa_offset 8
+ 775 032e 0190     		str	r0, [sp, #4]	@ p_tc, p_tc
+ 776 0330 0091     		str	r1, [sp]	@ ul_enable, ul_enable
+ 333:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	
+ 334:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	
+ 335:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	if( ul_enable ) 
+ 777              		.loc 1 335 0
+ 778 0332 009B     		ldr	r3, [sp]	@ tmp110, ul_enable
+ 779 0334 002B     		cmp	r3, #0	@ tmp110,
+ 780 0336 04D0     		beq	.L56	@,
+ 336:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	{
+ 337:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 		p_tc->TC_WPMR = TC_WPMR_WPKEY_PASSWD | TC_WPMR_WPEN;
+ 781              		.loc 1 337 0
+ 782 0338 019B     		ldr	r3, [sp, #4]	@ tmp111, p_tc
+ 783 033a 054A     		ldr	r2, .L58	@ tmp112,
+ 784 033c C3F8E420 		str	r2, [r3, #228]	@ tmp112, p_tc_2(D)->TC_WPMR
+ 785 0340 03E0     		b	.L55	@
+ 786              	.L56:
+ 338:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	} 
+ 339:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	else 
+ 340:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	{
+ 341:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 		p_tc->TC_WPMR = TC_WPMR_WPKEY_PASSWD;
+ 787              		.loc 1 341 0
+ 788 0342 019B     		ldr	r3, [sp, #4]	@ tmp113, p_tc
+ 789 0344 034A     		ldr	r2, .L58+4	@ tmp114,
+ 790 0346 C3F8E420 		str	r2, [r3, #228]	@ tmp114, p_tc_2(D)->TC_WPMR
+ 791              	.L55:
+ 342:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** 	}
+ 343:SAM4S_StdPeriph_Driver/Source/SAM4S/source/tc.c **** }
+ 792              		.loc 1 343 0
+ 793 034a 02B0     		add	sp, sp, #8	@,,
+ 794              		@ sp needed	@
+ 795 034c 7047     		bx	lr	@
+ 796              	.L59:
+ 797 034e 00BF     		.align	2
+ 798              	.L58:
+ 799 0350 014D4954 		.word	1414089985
+ 800 0354 004D4954 		.word	1414089984
+ 801              		.cfi_endproc
+ 802              	.LFE128:
+ 804              		.section	.rodata
+ 805 00be 0000     		.align	2
+ 808              	__func__.7216:
+ 809 00c0 54435F43 		.ascii	"TC_Configure\000"
+ 809      6F6E6669 
+ 809      67757265 
+ 809      00
+ 810 00cd 000000   		.align	2
+ 813              	__func__.7226:
+ 814 00d0 54435F57 		.ascii	"TC_WriteRa\000"
+ 814      72697465 
+ 814      526100
+ 815 00db 00       		.align	2
+ 818              	__func__.7232:
+ 819 00dc 54435F57 		.ascii	"TC_WriteRb\000"
+ 819      72697465 
+ 819      526200
+ 820 00e7 00       		.align	2
+ 823              	__func__.7238:
+ 824 00e8 54435F57 		.ascii	"TC_WriteRc\000"
+ 824      72697465 
+ 824      526300
+ 825 00f3 00       		.align	2
+ 828              	__func__.7245:
+ 829 00f4 54435F45 		.ascii	"TC_EnableInterrupt\000"
+ 829      6E61626C 
+ 829      65496E74 
+ 829      65727275 
+ 829      707400
+ 830 0107 00       		.align	2
+ 833              	__func__.7252:
+ 834 0108 54435F44 		.ascii	"TC_DisableInterrupt\000"
+ 834      69736162 
+ 834      6C65496E 
+ 834      74657272 
+ 834      75707400 
+ 835              		.align	2
+ 838              	__func__.7258:
+ 839 011c 54435F47 		.ascii	"TC_GetInterruptMask\000"
+ 839      6574496E 
+ 839      74657272 
+ 839      7570744D 
+ 839      61736B00 
+ 840              		.align	2
+ 843              	__func__.7264:
+ 844 0130 54435F47 		.ascii	"TC_GetStatus\000"
+ 844      65745374 
+ 844      61747573 
+ 844      00
+ 845 013d 000000   		.align	2
+ 848              	__func__.7270:
+ 849 0140 54435F53 		.ascii	"TC_Start\000"
+ 849      74617274 
+ 849      00
+ 850 0149 000000   		.align	2
+ 853              	__func__.7276:
+ 854 014c 54435F53 		.ascii	"TC_Stop\000"
+ 854      746F7000 
+ 855              		.text
+ 856              	.Letext0:
+ 857              		.file 2 "d:\\armgcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 858              		.file 3 "d:\\armgcc\\arm-none-eabi\\include\\stdint.h"
+ 859              		.file 4 "SAM4S_StdPeriph_Driver/Include/SAM4S/component/tc.h"
+ 860              		.file 5 "cmsis_core/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 tc.c
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:63     .rodata:00000000 $d
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:71     .text:00000000 $t
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:76     .text:00000000 TC_Configure
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:130    .text:00000044 $d
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:808    .rodata:000000c0 __func__.7216
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:136    .text:00000050 $t
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:141    .text:00000050 TC_SetBlockMode
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:174    .text:00000064 TC_WriteRa
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:214    .text:00000094 $d
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:813    .rodata:000000d0 __func__.7226
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:220    .text:000000a0 $t
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:225    .text:000000a0 TC_WriteRb
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:265    .text:000000d0 $d
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:818    .rodata:000000dc __func__.7232
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:271    .text:000000dc $t
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:276    .text:000000dc TC_WriteRc
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:316    .text:0000010c $d
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:823    .rodata:000000e8 __func__.7238
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:322    .text:00000118 $t
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:327    .text:00000118 TC_EnableInterrupt
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:369    .text:0000014c $d
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:828    .rodata:000000f4 __func__.7245
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:375    .text:00000158 $t
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:380    .text:00000158 TC_DisableInterrupt
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:422    .text:0000018c $d
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:833    .rodata:00000108 __func__.7252
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:428    .text:00000198 $t
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:433    .text:00000198 TC_GetInterruptMask
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:474    .text:000001c8 $d
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:838    .rodata:0000011c __func__.7258
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:480    .text:000001d4 $t
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:485    .text:000001d4 TC_GetStatus
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:526    .text:00000204 $d
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:843    .rodata:00000130 __func__.7264
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:532    .text:00000210 $t
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:537    .text:00000210 TC_Start
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:578    .text:00000240 $d
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:848    .rodata:00000140 __func__.7270
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:584    .text:0000024c $t
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:589    .text:0000024c TC_Stop
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:630    .text:0000027c $d
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:853    .rodata:0000014c __func__.7276
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:636    .text:00000288 $t
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:641    .text:00000288 TC_FindMckDivisor
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:766    .text:0000032c TC_SetWriteprotect
+C:\Users\Spas\AppData\Local\Temp\ccDxIUDR.s:799    .text:00000350 $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 wm4.0.bb49f1eb716983c9014b6db3ebb18dd1
+                           .group:00000000 wm4.chip.h.31.ffb1374c8cfd711bf08b18cb482cdecd
+                           .group:00000000 wm4.features.h.22.6a4ca7cd053637cc1d0db6c16f39b2d7
+                           .group:00000000 wm4._default_types.h.15.8b2cb27e528498f8ff711db085d6e489
+                           .group:00000000 wm4.stdint.h.20.796e373797e732130a803d4c0338fa1b
+                           .group:00000000 wm4.sam4s8b.h.216.85427310ee57c6602cdb44976ff8eafc
+                           .group:00000000 wm4.core_cm4.h.47.facd8ba456d1edc74a9cd34e5ef24231
+                           .group:00000000 wm4.core_cmInstr.h.39.3d3d1b4a79aef37532666dc6ee87c6ac
+                           .group:00000000 wm4.core_cm4_simd.h.43.d8e10c63b7db2f2a1586965c37b6affe
+                           .group:00000000 wm4.core_cm4.h.178.877dd53394110c198a69aa86aba65870
+                           .group:00000000 wm4.acc.h.31.dfd29459e721169d72014eb762f71214
+                           .group:00000000 wm4.adc.h.31.c6656640e20d1eafe623af86cb226fca
+                           .group:00000000 wm4.chipid.h.31.3af5a36d0a4a9a225c9afb52a1aea0b9
+                           .group:00000000 wm4.crccu.h.31.a496852d13935483993734d587fc2f8e
+                           .group:00000000 wm4.dacc.h.31.c9217b43fde87abb246765d0ddcb9c5a
+                           .group:00000000 wm4.efc.h.31.0bf8e93e6585804f24ede0a4e728599a
+                           .group:00000000 wm4.gpbr.h.31.7a5e3dd0c356c6b68d5c512bbdf67f08
+                           .group:00000000 wm4.hsmci.h.31.9d224a62fa1ec786508b485b0627d948
+                           .group:00000000 wm4.matrix.h.31.c705893f10dd90abec557434f19f4c80
+                           .group:00000000 wm4.pdc.h.31.e2d19841c81c9c2bbeeb400b89d315b5
+                           .group:00000000 wm4.pio.h.31.8c8983d26a861f040f0f117c14ec06d2
+                           .group:00000000 wm4.pmc.h.31.ee762809cf9b67f8c369267b7f38d1b3
+                           .group:00000000 wm4.pwm.h.31.da9b7d8dc8ac9c261fdee7e206bdee45
+                           .group:00000000 wm4.rstc.h.31.96e972cc48a3044e9dca7f2d844f33fb
+                           .group:00000000 wm4.rtc.h.31.f40a4fc6ecffe9e0a8284c655825715f
+                           .group:00000000 wm4.rtt.h.31.f70870f04ef5dbcac3269f990b758352
+                           .group:00000000 wm4.spi.h.31.f86a4b9d7f4ee32bf9133e4926aa8885
+                           .group:00000000 wm4.ssc.h.31.b805b08edc780a096d6650d6ca36d1ca
+                           .group:00000000 wm4.supc.h.31.131b9cb8083389b79a4bd5bf451243ef
+                           .group:00000000 wm4.tc.h.31.8da8c788d3223db5455d03e5435ef8db
+                           .group:00000000 wm4.twi.h.31.22147bf5d3d32053731c632df0e79c3c
+                           .group:00000000 wm4.uart.h.31.8e28760a665c54768e00ff4c7a643590
+                           .group:00000000 wm4.udp.h.31.edd1ad37d3ebc2c446bab55b82a89df9
+                           .group:00000000 wm4.usart.h.31.f84a5833fa97905e15d92372b7a4d3aa
+                           .group:00000000 wm4.wdt.h.31.bf9508cda074277d961fffa2c014b7c4
+                           .group:00000000 wm4.hsmci.h.31.3557701962362e69e14e53f685fa289c
+                           .group:00000000 wm4.ssc.h.31.b3090d071ea322e9320de7b3374b6c7d
+                           .group:00000000 wm4.spi.h.31.0c099f04fc71f13866451dd19f165ce5
+                           .group:00000000 wm4.tc0.h.31.82f2382972b60e05b032ad12082a9b88
+                           .group:00000000 wm4.tc1.h.31.a45ad165f1e4a4be41030d128002f2e1
+                           .group:00000000 wm4.twi0.h.31.a2f6579ad734afdd1f8957b7fc33aa94
+                           .group:00000000 wm4.twi1.h.31.dcb9c8cbe7f017d537033c87ba5ff61b
+                           .group:00000000 wm4.pwm.h.31.2d9663b87a377027ead59c1615e3084b
+                           .group:00000000 wm4.usart0.h.31.ec6af36a3993709e003c7713e45e6d44
+                           .group:00000000 wm4.usart1.h.31.eafbafd9baa63489c7d4b47b07dd4359
+                           .group:00000000 wm4.udp.h.31.72bce9f16287d99e27dc398746c7b41a
+                           .group:00000000 wm4.adc.h.31.d1d169655aedc0ac5464b9bc3e038d91
+                           .group:00000000 wm4.dacc.h.31.f498d7e9c6281f6aa2a76955bd19179f
+                           .group:00000000 wm4.acc.h.31.bd89452c6f6042da160b09b91f7b4ad6
+                           .group:00000000 wm4.crccu.h.31.0f8ee11e21f25cd8f0d59ee9bd2d6017
+                           .group:00000000 wm4.matrix.h.31.16f7506a18ec96f1a889a659d8f54158
+                           .group:00000000 wm4.pmc.h.31.8ee9f69608f942cb1f3f8bedac24c137
+                           .group:00000000 wm4.uart0.h.31.107626f9f656553c6d028df3e0c36652
+                           .group:00000000 wm4.chipid.h.31.3d621c981fbba4cbcdf919961d16a7e0
+                           .group:00000000 wm4.uart1.h.31.8229a0a664aa704025162a106c6f1697
+                           .group:00000000 wm4.efc0.h.31.aa56af1c721ea83a50dc1967a8959b7e
+                           .group:00000000 wm4.pioa.h.31.577ac2183c73a1a02e92e91a0e37e8fe
+                           .group:00000000 wm4.piob.h.31.3d18377ca5f71fef4e536cd97e1dced2
+                           .group:00000000 wm4.pioc.h.31.9fd85e02d9919f268f52f61ee7874ed4
+                           .group:00000000 wm4.rstc.h.31.d42d559221b78874dbf800ea2429b8d0
+                           .group:00000000 wm4.supc.h.31.851dbe7e029de2cc98417e6c6ce74d66
+                           .group:00000000 wm4.rtt.h.31.b6f3540f51d07e433e9f2b607b78fa5d
+                           .group:00000000 wm4.wdt.h.31.e29a378018b6da05e80df7a7d3fae91a
+                           .group:00000000 wm4.rtc.h.31.62bff3fa21e4de3cfaf653749f73ca5b
+                           .group:00000000 wm4.gpbr.h.31.a690ec9ac14ca127f47cc304a062f896
+                           .group:00000000 wm4.sam4s8b.h.310.cfe4025ce42f19fc6dad5600399e6497
+                           .group:00000000 wm4.sam4s8b.h.31.bac0ae8aa6a8295f4ede171816a1bfbd
+                           .group:00000000 wm4.sam4s8b.h.455.d99766a935df92fcae5a6292daf0b9af
+                           .group:00000000 wm4.newlib.h.8.fec018e441fee7bfa1923812ad010f97
+                           .group:00000000 wm4.config.h.212.4163ef2871a828c674038d036b081cfd
+                           .group:00000000 wm4._ansi.h.23.2147fde150631f5584b9dc29b914d1b8
+                           .group:00000000 wm4.assert.h.11.7fe9eb241be6b0fee772a1e693b81ae3
+                           .group:00000000 wm4.acc.h.61.44cfae6040af09278183f92220a11c11
+                           .group:00000000 wm4.assert.h.11.7043852a511d37ae606afa012e67e471
+                           .group:00000000 wm4.adc.h.62.836e1c74f33a3b2357c489804b9e4164
+                           .group:00000000 wm4.async.h.38.b923efd27c82eb8a5a30fb0d9a711171
+                           .group:00000000 wm4.dacc.h.61.de15528749b6a5508d4e234e0989531c
+                           .group:00000000 wm4.efc.h.51.dca436509f69196baef24b3ff3ad1b51
+                           .group:00000000 wm4.flashd.h.38.2c9bfdc532d7034a024627acda3e3c0b
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.184.159df79b4ca79c76561572a55985524c
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.stddef.h.39.7e3d906ac58942e0b374c527445f5de5
+                           .group:00000000 wm4.lock.h.2.9bc98482741e5e2a9450b12934a684ea
+                           .group:00000000 wm4._types.h.54.d3d34a3b7f3cc230cd159baf022b4b08
+                           .group:00000000 wm4.stddef.h.158.61317cdbfb4026324507d123a50b0fd6
+                           .group:00000000 wm4.reent.h.17.8bd9e4098e0428508c282cad794fae43
+                           .group:00000000 wm4.types.h.23.0d949686bbcadd1621462d4fa1f884f9
+                           .group:00000000 wm4.types.h.2.e9cec8c90ab35f77d9f499e06ae02400
+                           .group:00000000 wm4.types.h.80.56707660962b21991903f1fee7c13bb3
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.64.0f05fa42cfe2db7fc44729a52d3ba948
+                           .group:00000000 wm4.hsmci.h.110.610f58f6a31861e37bc09b5b7be09388
+                           .group:00000000 wm4.pio.h.68.5d85e14ea6ea0da924da53053bc590d1
+                           .group:00000000 wm4.rtc.h.38.8bf78db8651343e80a889203827406a5
+                           .group:00000000 wm4.spi.h.38.450641354031b1013c08519149294c78
+                           .group:00000000 wm4.spi_pdc.h.38.75857b1dd4449731562322c9709581d8
+                           .group:00000000 wm4.twi.h.38.68f2e661eb174ca9ca74eef9740d9a3a
+                           .group:00000000 wm4.twid.h.31.9ea8c90af654647ca4d6e3b74e701509
+                           .group:00000000 wm4.usart.h.55.88c716ee7c3b6ed0339de6e194786a12
+                           .group:00000000 wm4.trace.h.65.364d8fb880402737deb1646f3fc9e1eb
+                           .group:00000000 wm4.chip.h.106.a1f123eb25606bfd56ed06360bda02b0
+
+UNDEFINED SYMBOLS
+__assert_func

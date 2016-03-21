@@ -1,0 +1,761 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
+   5              		.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
+   6              		.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
+   7              		.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
+   8              		.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
+   9              		.eabi_attribute 26, 1	@ Tag_ABI_enum_size
+  10              		.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
+  11              		.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
+  12              		.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
+  13              		.file	"startup_sam4s.c"
+  14              	@ GNU C (GNU Tools for ARM Embedded Processors) version 4.8.4 20140725 (release) [ARM/embedded-4_8-
+  15              	@	compiled by GNU C version 4.7.4, GMP version 4.3.2, MPFR version 2.4.2, MPC version 0.8.1
+  16              	@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+  17              	@ options passed:  -I . -I apps -I apps/inc -I apps/src -I apps/src/fonts
+  18              	@ -I cmsis_boot -I cmsis_boot/startup -I cmsis_core
+  19              	@ -I SAM4S_StdPeriph_Driver -I SAM4S_StdPeriph_Driver/Include
+  20              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S
+  21              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/component
+  22              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/instance
+  23              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/pio
+  24              	@ -I SAM4S_StdPeriph_Driver/Source -I SAM4S_StdPeriph_Driver/Source/SAM4S
+  25              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/include
+  26              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/source -I user_libs
+  27              	@ -I user_libs/inc -I user_libs/src -imultilib armv7e-m
+  28              	@ -iprefix d:\armgcc\bin\../lib/gcc/arm-none-eabi/4.8.4/
+  29              	@ -isysroot d:\armgcc\bin\../arm-none-eabi
+  30              	@ -MD out/cmsis_boot/startup/startup_sam4s.d
+  31              	@ -MF out/cmsis_boot/startup/startup_sam4s.o.dep -MP
+  32              	@ -MQ out/cmsis_boot/startup/startup_sam4s.o -D__USES_INITFINI__ -D gcc
+  33              	@ cmsis_boot/startup/startup_sam4s.c -mcpu=cortex-m4 -mthumb
+  34              	@ -auxbase-strip out/cmsis_boot/startup/startup_sam4s.o -ggdb3 -O0 -Wall
+  35              	@ -Wpointer-arith -Wswitch -Wnested-externs -std=gnu99 -fomit-frame-pointer
+  36              	@ -fverbose-asm -funsigned-char
+  37              	@ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
+  38              	@ -fbranch-count-reg -fcommon -fdelete-null-pointer-checks -fdwarf2-cfi-asm
+  39              	@ -fearly-inlining -feliminate-unused-debug-types -ffunction-cse -fgcse-lm
+  40              	@ -fgnu-runtime -fgnu-unique -fident -finline-atomics -fira-hoist-pressure
+  41              	@ -fira-share-save-slots -fira-share-spill-slots -fivopts
+  42              	@ -fkeep-static-consts -fleading-underscore -fmath-errno
+  43              	@ -fmerge-debug-strings -fmove-loop-invariants -fomit-frame-pointer
+  44              	@ -fpeephole -fprefetch-loop-arrays -freg-struct-return
+  45              	@ -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  46              	@ -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  47              	@ -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  48              	@ -fsched-stalled-insns-dep -fshow-column -fsigned-zeros
+  49              	@ -fsplit-ivs-in-unroller -fstrict-volatile-bitfields -fsync-libcalls
+  50              	@ -ftrapping-math -ftree-coalesce-vars -ftree-cselim -ftree-forwprop
+  51              	@ -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
+  52              	@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop -ftree-pta
+  53              	@ -ftree-reassoc -ftree-scev-cprop -ftree-slp-vectorize
+  54              	@ -ftree-vect-loop-version -funit-at-a-time -fverbose-asm
+  55              	@ -fzero-initialized-in-bss -mlittle-endian -mpic-data-is-text-relative
+  56              	@ -msched-prolog -mthumb -munaligned-access -mvectorize-with-neon-quad
+  57              	
+  58              		.text
+  59              	.Ltext0:
+  60              		.cfi_sections	.debug_frame
+  61              		.global	exception_table
+  62              		.section	.vectors,"a",%progbits
+  63              		.align	2
+  66              	exception_table:
+  67              	@ pvStack:
+  68 0000 00000000 		.word	_estack
+  69              	@ pfnReset_Handler:
+  70 0004 00000000 		.word	Reset_Handler
+  71              	@ pfnNMI_Handler:
+  72 0008 00000000 		.word	NMI_Handler
+  73              	@ pfnHardFault_Handler:
+  74 000c 00000000 		.word	HardFault_Handler
+  75              	@ pfnMemManage_Handler:
+  76 0010 00000000 		.word	MemManage_Handler
+  77              	@ pfnBusFault_Handler:
+  78 0014 00000000 		.word	BusFault_Handler
+  79              	@ pfnUsageFault_Handler:
+  80 0018 00000000 		.word	UsageFault_Handler
+  81              	@ pfnReserved1_Handler:
+  82 001c 00000000 		.word	0
+  83              	@ pfnReserved2_Handler:
+  84 0020 00000000 		.word	0
+  85              	@ pfnReserved3_Handler:
+  86 0024 00000000 		.word	0
+  87              	@ pfnReserved4_Handler:
+  88 0028 00000000 		.word	0
+  89              	@ pfnSVC_Handler:
+  90 002c 00000000 		.word	SVC_Handler
+  91              	@ pfnDebugMon_Handler:
+  92 0030 00000000 		.word	DebugMon_Handler
+  93              	@ pfnReserved5_Handler:
+  94 0034 00000000 		.word	0
+  95              	@ pfnPendSV_Handler:
+  96 0038 00000000 		.word	PendSV_Handler
+  97              	@ pfnSysTick_Handler:
+  98 003c 00000000 		.word	SysTick_Handler
+  99              	@ pfnSUPC_Handler:
+ 100 0040 00000000 		.word	SUPC_IRQHandler
+ 101              	@ pfnRSTC_Handler:
+ 102 0044 00000000 		.word	RSTC_IRQHandler
+ 103              	@ pfnRTC_Handler:
+ 104 0048 00000000 		.word	RTC_IRQHandler
+ 105              	@ pfnRTT_Handler:
+ 106 004c 00000000 		.word	RTT_IRQHandler
+ 107              	@ pfnWDT_Handler:
+ 108 0050 00000000 		.word	WDT_IRQHandler
+ 109              	@ pfnPMC_Handler:
+ 110 0054 00000000 		.word	PMC_IRQHandler
+ 111              	@ pfnEFC0_Handler:
+ 112 0058 00000000 		.word	EFC_IRQHandler
+ 113              	@ pvReserved7:
+ 114 005c 00000000 		.word	0
+ 115              	@ pfnUART0_Handler:
+ 116 0060 00000000 		.word	UART0_IRQHandler
+ 117              	@ pfnUART1_Handler:
+ 118 0064 00000000 		.word	UART1_IRQHandler
+ 119              	@ pvReserved10:
+ 120 0068 00000000 		.word	0
+ 121              	@ pfnPIOA_Handler:
+ 122 006c 00000000 		.word	PIOA_IRQHandler
+ 123              	@ pfnPIOB_Handler:
+ 124 0070 00000000 		.word	PIOB_IRQHandler
+ 125              	@ pfnPIOC_Handler:
+ 126 0074 00000000 		.word	PIOC_IRQHandler
+ 127              	@ pfnUSART0_Handler:
+ 128 0078 00000000 		.word	USART0_IRQHandler
+ 129              	@ pfnUSART1_Handler:
+ 130 007c 00000000 		.word	USART1_IRQHandler
+ 131              	@ pvReserved16:
+ 132 0080 00000000 		.word	0
+ 133              	@ pvReserved17:
+ 134 0084 00000000 		.word	0
+ 135              	@ pfnHSMCI_Handler:
+ 136 0088 00000000 		.word	HSMCI_IRQHandler
+ 137              	@ pfnTWI0_Handler:
+ 138 008c 00000000 		.word	TWI0_IRQHandler
+ 139              	@ pfnTWI1_Handler:
+ 140 0090 00000000 		.word	TWI1_IRQHandler
+ 141              	@ pfnSPI_Handler:
+ 142 0094 00000000 		.word	SPI_IRQHandler
+ 143              	@ pfnSSC_Handler:
+ 144 0098 00000000 		.word	SSC_IRQHandler
+ 145              	@ pfnTC0_Handler:
+ 146 009c 00000000 		.word	TC0_IRQHandler
+ 147              	@ pfnTC1_Handler:
+ 148 00a0 00000000 		.word	TC1_IRQHandler
+ 149              	@ pfnTC2_Handler:
+ 150 00a4 00000000 		.word	TC2_IRQHandler
+ 151              	@ pfnTC3_Handler:
+ 152 00a8 00000000 		.word	TC3_IRQHandler
+ 153              	@ pfnTC4_Handler:
+ 154 00ac 00000000 		.word	TC4_IRQHandler
+ 155              	@ pfnTC5_Handler:
+ 156 00b0 00000000 		.word	TC5_IRQHandler
+ 157              	@ pfnADC_Handler:
+ 158 00b4 00000000 		.word	ADC_IRQHandler
+ 159              	@ pfnDACC_Handler:
+ 160 00b8 00000000 		.word	DACC_IRQHandler
+ 161              	@ pfnPWM_Handler:
+ 162 00bc 00000000 		.word	PWM_IRQHandler
+ 163              	@ pfnCRCCU_Handler:
+ 164 00c0 00000000 		.word	CRCCU_IRQHandler
+ 165              	@ pfnACC_Handler:
+ 166 00c4 00000000 		.word	ACC_IRQHandler
+ 167              	@ pfnUDP_Handler:
+ 168 00c8 00000000 		.word	UDP_IRQHandler
+ 169              		.text
+ 170              		.align	2
+ 171              		.global	Reset_Handler
+ 172              		.thumb
+ 173              		.thumb_func
+ 175              	Reset_Handler:
+ 176              	.LFB116:
+ 177              		.file 1 "cmsis_boot/startup/startup_sam4s.c"
+   1:cmsis_boot/startup/startup_sam4s.c **** /* ----------------------------------------------------------------------------
+   2:cmsis_boot/startup/startup_sam4s.c ****  *         SAM Software Package License
+   3:cmsis_boot/startup/startup_sam4s.c ****  * ----------------------------------------------------------------------------
+   4:cmsis_boot/startup/startup_sam4s.c ****  * Copyright (c) 2012, Atmel Corporation
+   5:cmsis_boot/startup/startup_sam4s.c ****  *
+   6:cmsis_boot/startup/startup_sam4s.c ****  * All rights reserved.
+   7:cmsis_boot/startup/startup_sam4s.c ****  *
+   8:cmsis_boot/startup/startup_sam4s.c ****  * Redistribution and use in source and binary forms, with or without
+   9:cmsis_boot/startup/startup_sam4s.c ****  * modification, are permitted provided that the following condition is met:
+  10:cmsis_boot/startup/startup_sam4s.c ****  *
+  11:cmsis_boot/startup/startup_sam4s.c ****  * - Redistributions of source code must retain the above copyright notice,
+  12:cmsis_boot/startup/startup_sam4s.c ****  * this list of conditions and the disclaimer below.
+  13:cmsis_boot/startup/startup_sam4s.c ****  *
+  14:cmsis_boot/startup/startup_sam4s.c ****  * Atmel's name may not be used to endorse or promote products derived from
+  15:cmsis_boot/startup/startup_sam4s.c ****  * this software without specific prior written permission.
+  16:cmsis_boot/startup/startup_sam4s.c ****  *
+  17:cmsis_boot/startup/startup_sam4s.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR
+  18:cmsis_boot/startup/startup_sam4s.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  19:cmsis_boot/startup/startup_sam4s.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  20:cmsis_boot/startup/startup_sam4s.c ****  * DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT, INDIRECT,
+  21:cmsis_boot/startup/startup_sam4s.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  22:cmsis_boot/startup/startup_sam4s.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  23:cmsis_boot/startup/startup_sam4s.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  24:cmsis_boot/startup/startup_sam4s.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  25:cmsis_boot/startup/startup_sam4s.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  26:cmsis_boot/startup/startup_sam4s.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  27:cmsis_boot/startup/startup_sam4s.c ****  * ----------------------------------------------------------------------------
+  28:cmsis_boot/startup/startup_sam4s.c ****  */
+  29:cmsis_boot/startup/startup_sam4s.c **** 
+  30:cmsis_boot/startup/startup_sam4s.c **** #include "chip.h"
+  31:cmsis_boot/startup/startup_sam4s.c **** 
+  32:cmsis_boot/startup/startup_sam4s.c **** /* Initialize segments */
+  33:cmsis_boot/startup/startup_sam4s.c **** extern uint32_t _sfixed;
+  34:cmsis_boot/startup/startup_sam4s.c **** extern uint32_t _efixed;
+  35:cmsis_boot/startup/startup_sam4s.c **** extern uint32_t _etext;
+  36:cmsis_boot/startup/startup_sam4s.c **** extern uint32_t _srelocate;
+  37:cmsis_boot/startup/startup_sam4s.c **** extern uint32_t _erelocate;
+  38:cmsis_boot/startup/startup_sam4s.c **** extern uint32_t _szero;
+  39:cmsis_boot/startup/startup_sam4s.c **** extern uint32_t _ezero;
+  40:cmsis_boot/startup/startup_sam4s.c **** extern uint32_t _sstack;
+  41:cmsis_boot/startup/startup_sam4s.c **** extern uint32_t _estack;
+  42:cmsis_boot/startup/startup_sam4s.c **** 
+  43:cmsis_boot/startup/startup_sam4s.c **** /** \cond DOXYGEN_SHOULD_SKIP_THIS */
+  44:cmsis_boot/startup/startup_sam4s.c **** int main(void);
+  45:cmsis_boot/startup/startup_sam4s.c **** void LedOn(void);
+  46:cmsis_boot/startup/startup_sam4s.c **** /** \endcond */
+  47:cmsis_boot/startup/startup_sam4s.c **** 
+  48:cmsis_boot/startup/startup_sam4s.c **** void __libc_init_array(void);
+  49:cmsis_boot/startup/startup_sam4s.c **** 
+  50:cmsis_boot/startup/startup_sam4s.c **** /* Default Reset handler */
+  51:cmsis_boot/startup/startup_sam4s.c **** void Reset_Handler(void);
+  52:cmsis_boot/startup/startup_sam4s.c **** 
+  53:cmsis_boot/startup/startup_sam4s.c **** /* Default empty handler */
+  54:cmsis_boot/startup/startup_sam4s.c **** void Dummy_Handler(void);
+  55:cmsis_boot/startup/startup_sam4s.c **** 
+  56:cmsis_boot/startup/startup_sam4s.c **** /* Cortex-M4 core handlers */
+  57:cmsis_boot/startup/startup_sam4s.c **** void NMI_Handler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  58:cmsis_boot/startup/startup_sam4s.c **** void HardFault_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  59:cmsis_boot/startup/startup_sam4s.c **** void MemManage_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  60:cmsis_boot/startup/startup_sam4s.c **** void BusFault_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  61:cmsis_boot/startup/startup_sam4s.c **** void UsageFault_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  62:cmsis_boot/startup/startup_sam4s.c **** void SVC_Handler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  63:cmsis_boot/startup/startup_sam4s.c **** void DebugMon_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  64:cmsis_boot/startup/startup_sam4s.c **** void PendSV_Handler     ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  65:cmsis_boot/startup/startup_sam4s.c **** void SysTick_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  66:cmsis_boot/startup/startup_sam4s.c **** 
+  67:cmsis_boot/startup/startup_sam4s.c **** /* Peripherals handlers */
+  68:cmsis_boot/startup/startup_sam4s.c **** void SUPC_IRQHandler       ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  69:cmsis_boot/startup/startup_sam4s.c **** void RSTC_IRQHandler       ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  70:cmsis_boot/startup/startup_sam4s.c **** void RTC_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  71:cmsis_boot/startup/startup_sam4s.c **** void RTT_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  72:cmsis_boot/startup/startup_sam4s.c **** void WDT_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  73:cmsis_boot/startup/startup_sam4s.c **** void PMC_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  74:cmsis_boot/startup/startup_sam4s.c **** void EFC_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  75:cmsis_boot/startup/startup_sam4s.c **** void UART0_IRQHandler      ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  76:cmsis_boot/startup/startup_sam4s.c **** void UART1_IRQHandler      ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  77:cmsis_boot/startup/startup_sam4s.c **** #ifdef _SAM4S_SMC_INSTANCE_
+  78:cmsis_boot/startup/startup_sam4s.c **** void SMC_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  79:cmsis_boot/startup/startup_sam4s.c **** #endif /* _SAM4S_SMC_INSTANCE_ */
+  80:cmsis_boot/startup/startup_sam4s.c **** void PIOA_IRQHandler       ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  81:cmsis_boot/startup/startup_sam4s.c **** void PIOB_IRQHandler       ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  82:cmsis_boot/startup/startup_sam4s.c **** #ifdef _SAM4S_PIOC_INSTANCE_
+  83:cmsis_boot/startup/startup_sam4s.c **** void PIOC_IRQHandler       ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  84:cmsis_boot/startup/startup_sam4s.c **** #endif /* _SAM4S_PIOC_INSTANCE_ */
+  85:cmsis_boot/startup/startup_sam4s.c **** void USART0_IRQHandler     ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  86:cmsis_boot/startup/startup_sam4s.c **** #ifdef _SAM4S_USART1_INSTANCE_
+  87:cmsis_boot/startup/startup_sam4s.c **** void USART1_IRQHandler     ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  88:cmsis_boot/startup/startup_sam4s.c **** #endif /* _SAM4S_USART1_INSTANCE_ */
+  89:cmsis_boot/startup/startup_sam4s.c **** #ifdef _SAM4S_HSMCI_INSTANCE_
+  90:cmsis_boot/startup/startup_sam4s.c **** void HSMCI_IRQHandler      ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  91:cmsis_boot/startup/startup_sam4s.c **** #endif /* _SAM4S_HSMCI_INSTANCE_ */
+  92:cmsis_boot/startup/startup_sam4s.c **** void TWI0_IRQHandler       ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  93:cmsis_boot/startup/startup_sam4s.c **** void TWI1_IRQHandler       ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  94:cmsis_boot/startup/startup_sam4s.c **** void SPI_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  95:cmsis_boot/startup/startup_sam4s.c **** void SSC_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  96:cmsis_boot/startup/startup_sam4s.c **** void TC0_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  97:cmsis_boot/startup/startup_sam4s.c **** void TC1_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  98:cmsis_boot/startup/startup_sam4s.c **** void TC2_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+  99:cmsis_boot/startup/startup_sam4s.c **** #ifdef _SAM4S_TC1_INSTANCE_
+ 100:cmsis_boot/startup/startup_sam4s.c **** void TC3_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+ 101:cmsis_boot/startup/startup_sam4s.c **** void TC4_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+ 102:cmsis_boot/startup/startup_sam4s.c **** void TC5_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+ 103:cmsis_boot/startup/startup_sam4s.c **** #endif /* _SAM4S_TC1_INSTANCE_ */
+ 104:cmsis_boot/startup/startup_sam4s.c **** void ADC_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+ 105:cmsis_boot/startup/startup_sam4s.c **** void DACC_IRQHandler       ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+ 106:cmsis_boot/startup/startup_sam4s.c **** void PWM_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+ 107:cmsis_boot/startup/startup_sam4s.c **** void CRCCU_IRQHandler      ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+ 108:cmsis_boot/startup/startup_sam4s.c **** void ACC_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+ 109:cmsis_boot/startup/startup_sam4s.c **** void UDP_IRQHandler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+ 110:cmsis_boot/startup/startup_sam4s.c **** 
+ 111:cmsis_boot/startup/startup_sam4s.c **** /* Exception Table */
+ 112:cmsis_boot/startup/startup_sam4s.c **** __attribute__ ((section(".vectors")))
+ 113:cmsis_boot/startup/startup_sam4s.c **** const DeviceVectors exception_table = {
+ 114:cmsis_boot/startup/startup_sam4s.c **** 
+ 115:cmsis_boot/startup/startup_sam4s.c **** 	/* Configure Initial Stack Pointer, using linker-generated symbols */
+ 116:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (&_estack),
+ 117:cmsis_boot/startup/startup_sam4s.c **** 	(void*) Reset_Handler,
+ 118:cmsis_boot/startup/startup_sam4s.c **** 
+ 119:cmsis_boot/startup/startup_sam4s.c **** 	(void*) NMI_Handler,
+ 120:cmsis_boot/startup/startup_sam4s.c **** 	(void*) HardFault_Handler,
+ 121:cmsis_boot/startup/startup_sam4s.c **** 	(void*) MemManage_Handler,
+ 122:cmsis_boot/startup/startup_sam4s.c **** 	(void*) BusFault_Handler,
+ 123:cmsis_boot/startup/startup_sam4s.c **** 	(void*) UsageFault_Handler,
+ 124:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* Reserved */
+ 125:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* Reserved */
+ 126:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* Reserved */
+ 127:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* Reserved */
+ 128:cmsis_boot/startup/startup_sam4s.c **** 	(void*) SVC_Handler,
+ 129:cmsis_boot/startup/startup_sam4s.c **** 	(void*) DebugMon_Handler,
+ 130:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* Reserved */
+ 131:cmsis_boot/startup/startup_sam4s.c **** 	(void*) PendSV_Handler,
+ 132:cmsis_boot/startup/startup_sam4s.c **** 	(void*) SysTick_Handler,
+ 133:cmsis_boot/startup/startup_sam4s.c **** 
+ 134:cmsis_boot/startup/startup_sam4s.c **** 	/* Configurable interrupts */
+ 135:cmsis_boot/startup/startup_sam4s.c **** 	(void*) SUPC_IRQHandler,    /* 0  Supply Controller */
+ 136:cmsis_boot/startup/startup_sam4s.c **** 	(void*) RSTC_IRQHandler,    /* 1  Reset Controller */
+ 137:cmsis_boot/startup/startup_sam4s.c **** 	(void*) RTC_IRQHandler,     /* 2  Real Time Clock */
+ 138:cmsis_boot/startup/startup_sam4s.c **** 	(void*) RTT_IRQHandler,     /* 3  Real Time Timer */
+ 139:cmsis_boot/startup/startup_sam4s.c **** 	(void*) WDT_IRQHandler,     /* 4  Watchdog Timer */
+ 140:cmsis_boot/startup/startup_sam4s.c **** 	(void*) PMC_IRQHandler,     /* 5  PMC */
+ 141:cmsis_boot/startup/startup_sam4s.c **** 	(void*) EFC_IRQHandler,     /* 6  EEFC */
+ 142:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* 7  Reserved */
+ 143:cmsis_boot/startup/startup_sam4s.c **** 	(void*) UART0_IRQHandler,   /* 8  UART0 */
+ 144:cmsis_boot/startup/startup_sam4s.c **** 	(void*) UART1_IRQHandler,   /* 9  UART1 */
+ 145:cmsis_boot/startup/startup_sam4s.c **** #ifdef _SAM4S_SMC_INSTANCE_
+ 146:cmsis_boot/startup/startup_sam4s.c **** 	(void*) SMC_IRQHandler,     /* 10 SMC */
+ 147:cmsis_boot/startup/startup_sam4s.c **** #else
+ 148:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* 10 Reserved */
+ 149:cmsis_boot/startup/startup_sam4s.c **** #endif /* _SAM4S_SMC_INSTANCE_ */
+ 150:cmsis_boot/startup/startup_sam4s.c **** 	(void*) PIOA_IRQHandler,    /* 11 Parallel IO Controller A */
+ 151:cmsis_boot/startup/startup_sam4s.c **** 	(void*) PIOB_IRQHandler,    /* 12 Parallel IO Controller B */
+ 152:cmsis_boot/startup/startup_sam4s.c **** #ifdef _SAM4S_PIOC_INSTANCE_
+ 153:cmsis_boot/startup/startup_sam4s.c **** 	(void*) PIOC_IRQHandler,    /* 13 Parallel IO Controller C */
+ 154:cmsis_boot/startup/startup_sam4s.c **** #else
+ 155:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* 13 Reserved */
+ 156:cmsis_boot/startup/startup_sam4s.c **** #endif /* _SAM4S_PIOC_INSTANCE_ */
+ 157:cmsis_boot/startup/startup_sam4s.c **** 	(void*) USART0_IRQHandler,  /* 14 USART 0 */
+ 158:cmsis_boot/startup/startup_sam4s.c **** #ifdef _SAM4S_USART1_INSTANCE_
+ 159:cmsis_boot/startup/startup_sam4s.c **** 	(void*) USART1_IRQHandler,  /* 15 USART 1 */
+ 160:cmsis_boot/startup/startup_sam4s.c **** #else
+ 161:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* 15 Reserved */
+ 162:cmsis_boot/startup/startup_sam4s.c **** #endif /* _SAM4S_USART1_INSTANCE_ */
+ 163:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* 16 Reserved */
+ 164:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* 17 Reserved */
+ 165:cmsis_boot/startup/startup_sam4s.c **** #ifdef _SAM4S_HSMCI_INSTANCE_
+ 166:cmsis_boot/startup/startup_sam4s.c **** 	(void*) HSMCI_IRQHandler,   /* 18 MCI */
+ 167:cmsis_boot/startup/startup_sam4s.c **** #else
+ 168:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* 18 Reserved */
+ 169:cmsis_boot/startup/startup_sam4s.c **** #endif /* _SAM4S_HSMCI_INSTANCE_ */
+ 170:cmsis_boot/startup/startup_sam4s.c **** 	(void*) TWI0_IRQHandler,    /* 19 TWI 0 */
+ 171:cmsis_boot/startup/startup_sam4s.c **** 	(void*) TWI1_IRQHandler,    /* 20 TWI 1 */
+ 172:cmsis_boot/startup/startup_sam4s.c **** 	(void*) SPI_IRQHandler,     /* 21 SPI */
+ 173:cmsis_boot/startup/startup_sam4s.c **** 	(void*) SSC_IRQHandler,     /* 22 SSC */
+ 174:cmsis_boot/startup/startup_sam4s.c **** 	(void*) TC0_IRQHandler,     /* 23 Timer Counter 0 */
+ 175:cmsis_boot/startup/startup_sam4s.c **** 	(void*) TC1_IRQHandler,     /* 24 Timer Counter 1 */
+ 176:cmsis_boot/startup/startup_sam4s.c **** 	(void*) TC2_IRQHandler,     /* 25 Timer Counter 2 */
+ 177:cmsis_boot/startup/startup_sam4s.c **** #ifdef _SAM4S_TC1_INSTANCE_
+ 178:cmsis_boot/startup/startup_sam4s.c **** 	(void*) TC3_IRQHandler,     /* 26 Timer Counter 3 */
+ 179:cmsis_boot/startup/startup_sam4s.c **** 	(void*) TC4_IRQHandler,     /* 27 Timer Counter 4 */
+ 180:cmsis_boot/startup/startup_sam4s.c **** 	(void*) TC5_IRQHandler,     /* 28 Timer Counter 5 */
+ 181:cmsis_boot/startup/startup_sam4s.c **** #else
+ 182:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* 26 Reserved */
+ 183:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* 27 Reserved */
+ 184:cmsis_boot/startup/startup_sam4s.c **** 	(void*) (0UL),           /* 28 Reserved */
+ 185:cmsis_boot/startup/startup_sam4s.c **** #endif /* _SAM4S_TC1_INSTANCE_ */
+ 186:cmsis_boot/startup/startup_sam4s.c **** 	(void*) ADC_IRQHandler,     /* 29 ADC controller */
+ 187:cmsis_boot/startup/startup_sam4s.c **** 	(void*) DACC_IRQHandler,    /* 30 DAC controller */
+ 188:cmsis_boot/startup/startup_sam4s.c **** 	(void*) PWM_IRQHandler,     /* 31 PWM */
+ 189:cmsis_boot/startup/startup_sam4s.c **** 	(void*) CRCCU_IRQHandler,   /* 32 CRC Calculation Unit */
+ 190:cmsis_boot/startup/startup_sam4s.c **** 	(void*) ACC_IRQHandler,     /* 33 Analog Comparator */
+ 191:cmsis_boot/startup/startup_sam4s.c **** 	(void*) UDP_IRQHandler      /* 34 USB Device Port */
+ 192:cmsis_boot/startup/startup_sam4s.c **** };
+ 193:cmsis_boot/startup/startup_sam4s.c **** 
+ 194:cmsis_boot/startup/startup_sam4s.c **** /**
+ 195:cmsis_boot/startup/startup_sam4s.c ****  * \brief This is the code that gets called on processor reset.
+ 196:cmsis_boot/startup/startup_sam4s.c ****  * To initialize the device, and call the main() routine.
+ 197:cmsis_boot/startup/startup_sam4s.c ****  */
+ 198:cmsis_boot/startup/startup_sam4s.c **** void Reset_Handler(void)
+ 199:cmsis_boot/startup/startup_sam4s.c **** {
+ 178              		.loc 1 199 0
+ 179              		.cfi_startproc
+ 180              		@ args = 0, pretend = 0, frame = 8
+ 181              		@ frame_needed = 0, uses_anonymous_args = 0
+ 182 0000 00B5     		push	{lr}	@
+ 183              		.cfi_def_cfa_offset 4
+ 184              		.cfi_offset 14, -4
+ 185 0002 83B0     		sub	sp, sp, #12	@,,
+ 186              		.cfi_def_cfa_offset 16
+ 200:cmsis_boot/startup/startup_sam4s.c **** 	uint32_t *pSrc, *pDest;
+ 201:cmsis_boot/startup/startup_sam4s.c **** 
+ 202:cmsis_boot/startup/startup_sam4s.c **** 	/* Initialize the relocate segment */
+ 203:cmsis_boot/startup/startup_sam4s.c **** 	pSrc = &_etext;
+ 187              		.loc 1 203 0
+ 188 0004 164B     		ldr	r3, .L8	@ tmp117,
+ 189 0006 0193     		str	r3, [sp, #4]	@ tmp117, pSrc
+ 204:cmsis_boot/startup/startup_sam4s.c **** 	pDest = &_srelocate;
+ 190              		.loc 1 204 0
+ 191 0008 164B     		ldr	r3, .L8+4	@ tmp118,
+ 192 000a 0093     		str	r3, [sp]	@ tmp118, pDest
+ 205:cmsis_boot/startup/startup_sam4s.c **** 
+ 206:cmsis_boot/startup/startup_sam4s.c **** 	if (pSrc != pDest) {
+ 193              		.loc 1 206 0
+ 194 000c 019A     		ldr	r2, [sp, #4]	@ tmp119, pSrc
+ 195 000e 009B     		ldr	r3, [sp]	@ tmp120, pDest
+ 196 0010 9A42     		cmp	r2, r3	@ tmp119, tmp120
+ 197 0012 0CD0     		beq	.L2	@,
+ 207:cmsis_boot/startup/startup_sam4s.c **** 		for (; pDest < &_erelocate;) {
+ 198              		.loc 1 207 0
+ 199 0014 07E0     		b	.L3	@
+ 200              	.L4:
+ 208:cmsis_boot/startup/startup_sam4s.c **** 			*pDest++ = *pSrc++;
+ 201              		.loc 1 208 0
+ 202 0016 009B     		ldr	r3, [sp]	@ pDest.0, pDest
+ 203 0018 1A1D     		adds	r2, r3, #4	@ tmp121, pDest.0,
+ 204 001a 0092     		str	r2, [sp]	@ tmp121, pDest
+ 205 001c 019A     		ldr	r2, [sp, #4]	@ pSrc.1, pSrc
+ 206 001e 111D     		adds	r1, r2, #4	@ tmp122, pSrc.1,
+ 207 0020 0191     		str	r1, [sp, #4]	@ tmp122, pSrc
+ 208 0022 1268     		ldr	r2, [r2]	@ D.7331, *pSrc.1_8
+ 209 0024 1A60     		str	r2, [r3]	@ D.7331, *pDest.0_6
+ 210              	.L3:
+ 207:cmsis_boot/startup/startup_sam4s.c **** 		for (; pDest < &_erelocate;) {
+ 211              		.loc 1 207 0 discriminator 1
+ 212 0026 009A     		ldr	r2, [sp]	@ tmp123, pDest
+ 213 0028 0F4B     		ldr	r3, .L8+8	@ tmp124,
+ 214 002a 9A42     		cmp	r2, r3	@ tmp123, tmp124
+ 215 002c F3D3     		bcc	.L4	@,
+ 216              	.L2:
+ 209:cmsis_boot/startup/startup_sam4s.c **** 		}
+ 210:cmsis_boot/startup/startup_sam4s.c **** 	}
+ 211:cmsis_boot/startup/startup_sam4s.c **** 
+ 212:cmsis_boot/startup/startup_sam4s.c **** 	/* Clear the zero segment */
+ 213:cmsis_boot/startup/startup_sam4s.c **** 	for (pDest = &_szero; pDest < &_ezero;) {
+ 217              		.loc 1 213 0
+ 218 002e 0F4B     		ldr	r3, .L8+12	@ tmp125,
+ 219 0030 0093     		str	r3, [sp]	@ tmp125, pDest
+ 220 0032 04E0     		b	.L5	@
+ 221              	.L6:
+ 214:cmsis_boot/startup/startup_sam4s.c **** 		*pDest++ = 0;
+ 222              		.loc 1 214 0
+ 223 0034 009B     		ldr	r3, [sp]	@ pDest.2, pDest
+ 224 0036 1A1D     		adds	r2, r3, #4	@ tmp126, pDest.2,
+ 225 0038 0092     		str	r2, [sp]	@ tmp126, pDest
+ 226 003a 0022     		movs	r2, #0	@ tmp127,
+ 227 003c 1A60     		str	r2, [r3]	@ tmp127, *pDest.2_12
+ 228              	.L5:
+ 213:cmsis_boot/startup/startup_sam4s.c **** 	for (pDest = &_szero; pDest < &_ezero;) {
+ 229              		.loc 1 213 0 discriminator 1
+ 230 003e 009A     		ldr	r2, [sp]	@ tmp128, pDest
+ 231 0040 0B4B     		ldr	r3, .L8+16	@ tmp129,
+ 232 0042 9A42     		cmp	r2, r3	@ tmp128, tmp129
+ 233 0044 F6D3     		bcc	.L6	@,
+ 215:cmsis_boot/startup/startup_sam4s.c **** 	}
+ 216:cmsis_boot/startup/startup_sam4s.c **** 
+ 217:cmsis_boot/startup/startup_sam4s.c **** 	/* Set the vector table base address */
+ 218:cmsis_boot/startup/startup_sam4s.c **** 	pSrc = (uint32_t *) & _sfixed;
+ 234              		.loc 1 218 0
+ 235 0046 0B4B     		ldr	r3, .L8+20	@ tmp130,
+ 236 0048 0193     		str	r3, [sp, #4]	@ tmp130, pSrc
+ 219:cmsis_boot/startup/startup_sam4s.c **** 	SCB->VTOR = ((uint32_t) pSrc & SCB_VTOR_TBLOFF_Msk);
+ 237              		.loc 1 219 0
+ 238 004a 0B4B     		ldr	r3, .L8+24	@ D.7332,
+ 239 004c 019A     		ldr	r2, [sp, #4]	@ pSrc.3, pSrc
+ 240 004e 22F07F02 		bic	r2, r2, #127	@ D.7331, pSrc.3,
+ 241 0052 9A60     		str	r2, [r3, #8]	@ D.7331, _15->VTOR
+ 220:cmsis_boot/startup/startup_sam4s.c **** 
+ 221:cmsis_boot/startup/startup_sam4s.c **** 	/* Initialize the C library */
+ 222:cmsis_boot/startup/startup_sam4s.c **** 	__libc_init_array();
+ 242              		.loc 1 222 0
+ 243 0054 FFF7FEFF 		bl	__libc_init_array	@
+ 223:cmsis_boot/startup/startup_sam4s.c **** 
+ 224:cmsis_boot/startup/startup_sam4s.c **** 	/* Branch to main function */
+ 225:cmsis_boot/startup/startup_sam4s.c **** 	main();
+ 244              		.loc 1 225 0
+ 245 0058 FFF7FEFF 		bl	main	@
+ 246              	.L7:
+ 226:cmsis_boot/startup/startup_sam4s.c **** 
+ 227:cmsis_boot/startup/startup_sam4s.c **** 	/* Infinite loop */
+ 228:cmsis_boot/startup/startup_sam4s.c **** 	while (1);
+ 247              		.loc 1 228 0 discriminator 1
+ 248 005c FEE7     		b	.L7	@
+ 249              	.L9:
+ 250 005e 00BF     		.align	2
+ 251              	.L8:
+ 252 0060 00000000 		.word	_etext
+ 253 0064 00000000 		.word	_srelocate
+ 254 0068 00000000 		.word	_erelocate
+ 255 006c 00000000 		.word	_szero
+ 256 0070 00000000 		.word	_ezero
+ 257 0074 00000000 		.word	_sfixed
+ 258 0078 00ED00E0 		.word	-536810240
+ 259              		.cfi_endproc
+ 260              	.LFE116:
+ 262              		.align	2
+ 263              		.global	Dummy_Handler
+ 264              		.thumb
+ 265              		.thumb_func
+ 267              	Dummy_Handler:
+ 268              	.LFB117:
+ 229:cmsis_boot/startup/startup_sam4s.c **** }
+ 230:cmsis_boot/startup/startup_sam4s.c **** 
+ 231:cmsis_boot/startup/startup_sam4s.c **** /**
+ 232:cmsis_boot/startup/startup_sam4s.c ****  * \brief Default interrupt handler for unused IRQs.
+ 233:cmsis_boot/startup/startup_sam4s.c ****  */
+ 234:cmsis_boot/startup/startup_sam4s.c **** void Dummy_Handler(void)
+ 235:cmsis_boot/startup/startup_sam4s.c **** {
+ 269              		.loc 1 235 0
+ 270              		.cfi_startproc
+ 271              		@ args = 0, pretend = 0, frame = 0
+ 272              		@ frame_needed = 0, uses_anonymous_args = 0
+ 273              		@ link register save eliminated.
+ 274              	.L11:
+ 236:cmsis_boot/startup/startup_sam4s.c **** //	LedOn();
+ 237:cmsis_boot/startup/startup_sam4s.c **** 	while (1) {
+ 238:cmsis_boot/startup/startup_sam4s.c **** 	}
+ 275              		.loc 1 238 0 discriminator 1
+ 276 007c FEE7     		b	.L11	@
+ 277              		.cfi_endproc
+ 278              	.LFE117:
+ 280              		.weak	NMI_Handler
+ 281              		.thumb_set NMI_Handler,Dummy_Handler
+ 282              		.weak	HardFault_Handler
+ 283              		.thumb_set HardFault_Handler,Dummy_Handler
+ 284              		.weak	MemManage_Handler
+ 285              		.thumb_set MemManage_Handler,Dummy_Handler
+ 286              		.weak	BusFault_Handler
+ 287              		.thumb_set BusFault_Handler,Dummy_Handler
+ 288              		.weak	UsageFault_Handler
+ 289              		.thumb_set UsageFault_Handler,Dummy_Handler
+ 290              		.weak	SVC_Handler
+ 291              		.thumb_set SVC_Handler,Dummy_Handler
+ 292              		.weak	DebugMon_Handler
+ 293              		.thumb_set DebugMon_Handler,Dummy_Handler
+ 294              		.weak	PendSV_Handler
+ 295              		.thumb_set PendSV_Handler,Dummy_Handler
+ 296              		.weak	SysTick_Handler
+ 297              		.thumb_set SysTick_Handler,Dummy_Handler
+ 298              		.weak	SUPC_IRQHandler
+ 299              		.thumb_set SUPC_IRQHandler,Dummy_Handler
+ 300              		.weak	RSTC_IRQHandler
+ 301              		.thumb_set RSTC_IRQHandler,Dummy_Handler
+ 302              		.weak	RTC_IRQHandler
+ 303              		.thumb_set RTC_IRQHandler,Dummy_Handler
+ 304              		.weak	RTT_IRQHandler
+ 305              		.thumb_set RTT_IRQHandler,Dummy_Handler
+ 306              		.weak	WDT_IRQHandler
+ 307              		.thumb_set WDT_IRQHandler,Dummy_Handler
+ 308              		.weak	PMC_IRQHandler
+ 309              		.thumb_set PMC_IRQHandler,Dummy_Handler
+ 310              		.weak	EFC_IRQHandler
+ 311              		.thumb_set EFC_IRQHandler,Dummy_Handler
+ 312              		.weak	UART0_IRQHandler
+ 313              		.thumb_set UART0_IRQHandler,Dummy_Handler
+ 314              		.weak	UART1_IRQHandler
+ 315              		.thumb_set UART1_IRQHandler,Dummy_Handler
+ 316              		.weak	PIOA_IRQHandler
+ 317              		.thumb_set PIOA_IRQHandler,Dummy_Handler
+ 318              		.weak	PIOB_IRQHandler
+ 319              		.thumb_set PIOB_IRQHandler,Dummy_Handler
+ 320              		.weak	PIOC_IRQHandler
+ 321              		.thumb_set PIOC_IRQHandler,Dummy_Handler
+ 322              		.weak	USART0_IRQHandler
+ 323              		.thumb_set USART0_IRQHandler,Dummy_Handler
+ 324              		.weak	USART1_IRQHandler
+ 325              		.thumb_set USART1_IRQHandler,Dummy_Handler
+ 326              		.weak	HSMCI_IRQHandler
+ 327              		.thumb_set HSMCI_IRQHandler,Dummy_Handler
+ 328              		.weak	TWI0_IRQHandler
+ 329              		.thumb_set TWI0_IRQHandler,Dummy_Handler
+ 330              		.weak	TWI1_IRQHandler
+ 331              		.thumb_set TWI1_IRQHandler,Dummy_Handler
+ 332              		.weak	SPI_IRQHandler
+ 333              		.thumb_set SPI_IRQHandler,Dummy_Handler
+ 334              		.weak	SSC_IRQHandler
+ 335              		.thumb_set SSC_IRQHandler,Dummy_Handler
+ 336              		.weak	TC0_IRQHandler
+ 337              		.thumb_set TC0_IRQHandler,Dummy_Handler
+ 338              		.weak	TC1_IRQHandler
+ 339              		.thumb_set TC1_IRQHandler,Dummy_Handler
+ 340              		.weak	TC2_IRQHandler
+ 341              		.thumb_set TC2_IRQHandler,Dummy_Handler
+ 342              		.weak	TC3_IRQHandler
+ 343              		.thumb_set TC3_IRQHandler,Dummy_Handler
+ 344              		.weak	TC4_IRQHandler
+ 345              		.thumb_set TC4_IRQHandler,Dummy_Handler
+ 346              		.weak	TC5_IRQHandler
+ 347              		.thumb_set TC5_IRQHandler,Dummy_Handler
+ 348              		.weak	ADC_IRQHandler
+ 349              		.thumb_set ADC_IRQHandler,Dummy_Handler
+ 350              		.weak	DACC_IRQHandler
+ 351              		.thumb_set DACC_IRQHandler,Dummy_Handler
+ 352              		.weak	PWM_IRQHandler
+ 353              		.thumb_set PWM_IRQHandler,Dummy_Handler
+ 354              		.weak	CRCCU_IRQHandler
+ 355              		.thumb_set CRCCU_IRQHandler,Dummy_Handler
+ 356              		.weak	ACC_IRQHandler
+ 357              		.thumb_set ACC_IRQHandler,Dummy_Handler
+ 358              		.weak	UDP_IRQHandler
+ 359              		.thumb_set UDP_IRQHandler,Dummy_Handler
+ 360              	.Letext0:
+ 361              		.file 2 "d:\\armgcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 362              		.file 3 "d:\\armgcc\\arm-none-eabi\\include\\stdint.h"
+ 363              		.file 4 "SAM4S_StdPeriph_Driver/Include/SAM4S/sam4s8b.h"
+ 364              		.file 5 "cmsis_core/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 startup_sam4s.c
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:66     .vectors:00000000 exception_table
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:63     .vectors:00000000 $d
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:175    .text:00000000 Reset_Handler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c NMI_Handler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c HardFault_Handler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c MemManage_Handler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c BusFault_Handler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c UsageFault_Handler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c SVC_Handler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c DebugMon_Handler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c PendSV_Handler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c SysTick_Handler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c SUPC_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c RSTC_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c RTC_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c RTT_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c WDT_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c PMC_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c EFC_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c UART0_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c UART1_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c PIOA_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c PIOB_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c PIOC_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c USART0_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c USART1_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c HSMCI_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c TWI0_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c TWI1_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c SPI_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c SSC_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c TC0_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c TC1_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c TC2_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c TC3_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c TC4_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c TC5_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c ADC_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c DACC_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c PWM_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c CRCCU_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c ACC_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c UDP_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:170    .text:00000000 $t
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:252    .text:00000060 $d
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:262    .text:0000007c $t
+C:\Users\Spas\AppData\Local\Temp\ccmHHxtj.s:267    .text:0000007c Dummy_Handler
+                     .debug_frame:00000010 $d
+                           .group:00000000 wm4.0.bb49f1eb716983c9014b6db3ebb18dd1
+                           .group:00000000 wm4.chip.h.31.ffb1374c8cfd711bf08b18cb482cdecd
+                           .group:00000000 wm4.features.h.22.6a4ca7cd053637cc1d0db6c16f39b2d7
+                           .group:00000000 wm4._default_types.h.15.8b2cb27e528498f8ff711db085d6e489
+                           .group:00000000 wm4.stdint.h.20.796e373797e732130a803d4c0338fa1b
+                           .group:00000000 wm4.sam4s8b.h.216.85427310ee57c6602cdb44976ff8eafc
+                           .group:00000000 wm4.core_cm4.h.47.facd8ba456d1edc74a9cd34e5ef24231
+                           .group:00000000 wm4.core_cmInstr.h.39.3d3d1b4a79aef37532666dc6ee87c6ac
+                           .group:00000000 wm4.core_cm4_simd.h.43.d8e10c63b7db2f2a1586965c37b6affe
+                           .group:00000000 wm4.core_cm4.h.178.877dd53394110c198a69aa86aba65870
+                           .group:00000000 wm4.acc.h.31.dfd29459e721169d72014eb762f71214
+                           .group:00000000 wm4.adc.h.31.c6656640e20d1eafe623af86cb226fca
+                           .group:00000000 wm4.chipid.h.31.3af5a36d0a4a9a225c9afb52a1aea0b9
+                           .group:00000000 wm4.crccu.h.31.a496852d13935483993734d587fc2f8e
+                           .group:00000000 wm4.dacc.h.31.c9217b43fde87abb246765d0ddcb9c5a
+                           .group:00000000 wm4.efc.h.31.0bf8e93e6585804f24ede0a4e728599a
+                           .group:00000000 wm4.gpbr.h.31.7a5e3dd0c356c6b68d5c512bbdf67f08
+                           .group:00000000 wm4.hsmci.h.31.9d224a62fa1ec786508b485b0627d948
+                           .group:00000000 wm4.matrix.h.31.c705893f10dd90abec557434f19f4c80
+                           .group:00000000 wm4.pdc.h.31.e2d19841c81c9c2bbeeb400b89d315b5
+                           .group:00000000 wm4.pio.h.31.8c8983d26a861f040f0f117c14ec06d2
+                           .group:00000000 wm4.pmc.h.31.ee762809cf9b67f8c369267b7f38d1b3
+                           .group:00000000 wm4.pwm.h.31.da9b7d8dc8ac9c261fdee7e206bdee45
+                           .group:00000000 wm4.rstc.h.31.96e972cc48a3044e9dca7f2d844f33fb
+                           .group:00000000 wm4.rtc.h.31.f40a4fc6ecffe9e0a8284c655825715f
+                           .group:00000000 wm4.rtt.h.31.f70870f04ef5dbcac3269f990b758352
+                           .group:00000000 wm4.spi.h.31.f86a4b9d7f4ee32bf9133e4926aa8885
+                           .group:00000000 wm4.ssc.h.31.b805b08edc780a096d6650d6ca36d1ca
+                           .group:00000000 wm4.supc.h.31.131b9cb8083389b79a4bd5bf451243ef
+                           .group:00000000 wm4.tc.h.31.8da8c788d3223db5455d03e5435ef8db
+                           .group:00000000 wm4.twi.h.31.22147bf5d3d32053731c632df0e79c3c
+                           .group:00000000 wm4.uart.h.31.8e28760a665c54768e00ff4c7a643590
+                           .group:00000000 wm4.udp.h.31.edd1ad37d3ebc2c446bab55b82a89df9
+                           .group:00000000 wm4.usart.h.31.f84a5833fa97905e15d92372b7a4d3aa
+                           .group:00000000 wm4.wdt.h.31.bf9508cda074277d961fffa2c014b7c4
+                           .group:00000000 wm4.hsmci.h.31.3557701962362e69e14e53f685fa289c
+                           .group:00000000 wm4.ssc.h.31.b3090d071ea322e9320de7b3374b6c7d
+                           .group:00000000 wm4.spi.h.31.0c099f04fc71f13866451dd19f165ce5
+                           .group:00000000 wm4.tc0.h.31.82f2382972b60e05b032ad12082a9b88
+                           .group:00000000 wm4.tc1.h.31.a45ad165f1e4a4be41030d128002f2e1
+                           .group:00000000 wm4.twi0.h.31.a2f6579ad734afdd1f8957b7fc33aa94
+                           .group:00000000 wm4.twi1.h.31.dcb9c8cbe7f017d537033c87ba5ff61b
+                           .group:00000000 wm4.pwm.h.31.2d9663b87a377027ead59c1615e3084b
+                           .group:00000000 wm4.usart0.h.31.ec6af36a3993709e003c7713e45e6d44
+                           .group:00000000 wm4.usart1.h.31.eafbafd9baa63489c7d4b47b07dd4359
+                           .group:00000000 wm4.udp.h.31.72bce9f16287d99e27dc398746c7b41a
+                           .group:00000000 wm4.adc.h.31.d1d169655aedc0ac5464b9bc3e038d91
+                           .group:00000000 wm4.dacc.h.31.f498d7e9c6281f6aa2a76955bd19179f
+                           .group:00000000 wm4.acc.h.31.bd89452c6f6042da160b09b91f7b4ad6
+                           .group:00000000 wm4.crccu.h.31.0f8ee11e21f25cd8f0d59ee9bd2d6017
+                           .group:00000000 wm4.matrix.h.31.16f7506a18ec96f1a889a659d8f54158
+                           .group:00000000 wm4.pmc.h.31.8ee9f69608f942cb1f3f8bedac24c137
+                           .group:00000000 wm4.uart0.h.31.107626f9f656553c6d028df3e0c36652
+                           .group:00000000 wm4.chipid.h.31.3d621c981fbba4cbcdf919961d16a7e0
+                           .group:00000000 wm4.uart1.h.31.8229a0a664aa704025162a106c6f1697
+                           .group:00000000 wm4.efc0.h.31.aa56af1c721ea83a50dc1967a8959b7e
+                           .group:00000000 wm4.pioa.h.31.577ac2183c73a1a02e92e91a0e37e8fe
+                           .group:00000000 wm4.piob.h.31.3d18377ca5f71fef4e536cd97e1dced2
+                           .group:00000000 wm4.pioc.h.31.9fd85e02d9919f268f52f61ee7874ed4
+                           .group:00000000 wm4.rstc.h.31.d42d559221b78874dbf800ea2429b8d0
+                           .group:00000000 wm4.supc.h.31.851dbe7e029de2cc98417e6c6ce74d66
+                           .group:00000000 wm4.rtt.h.31.b6f3540f51d07e433e9f2b607b78fa5d
+                           .group:00000000 wm4.wdt.h.31.e29a378018b6da05e80df7a7d3fae91a
+                           .group:00000000 wm4.rtc.h.31.62bff3fa21e4de3cfaf653749f73ca5b
+                           .group:00000000 wm4.gpbr.h.31.a690ec9ac14ca127f47cc304a062f896
+                           .group:00000000 wm4.sam4s8b.h.310.cfe4025ce42f19fc6dad5600399e6497
+                           .group:00000000 wm4.sam4s8b.h.31.bac0ae8aa6a8295f4ede171816a1bfbd
+                           .group:00000000 wm4.sam4s8b.h.455.d99766a935df92fcae5a6292daf0b9af
+                           .group:00000000 wm4.newlib.h.8.fec018e441fee7bfa1923812ad010f97
+                           .group:00000000 wm4.config.h.212.4163ef2871a828c674038d036b081cfd
+                           .group:00000000 wm4._ansi.h.23.2147fde150631f5584b9dc29b914d1b8
+                           .group:00000000 wm4.assert.h.11.7fe9eb241be6b0fee772a1e693b81ae3
+                           .group:00000000 wm4.acc.h.61.44cfae6040af09278183f92220a11c11
+                           .group:00000000 wm4.assert.h.11.7043852a511d37ae606afa012e67e471
+                           .group:00000000 wm4.adc.h.62.836e1c74f33a3b2357c489804b9e4164
+                           .group:00000000 wm4.async.h.38.b923efd27c82eb8a5a30fb0d9a711171
+                           .group:00000000 wm4.dacc.h.61.de15528749b6a5508d4e234e0989531c
+                           .group:00000000 wm4.efc.h.51.dca436509f69196baef24b3ff3ad1b51
+                           .group:00000000 wm4.flashd.h.38.2c9bfdc532d7034a024627acda3e3c0b
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.184.159df79b4ca79c76561572a55985524c
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.stddef.h.39.7e3d906ac58942e0b374c527445f5de5
+                           .group:00000000 wm4.lock.h.2.9bc98482741e5e2a9450b12934a684ea
+                           .group:00000000 wm4._types.h.54.d3d34a3b7f3cc230cd159baf022b4b08
+                           .group:00000000 wm4.stddef.h.158.61317cdbfb4026324507d123a50b0fd6
+                           .group:00000000 wm4.reent.h.17.8bd9e4098e0428508c282cad794fae43
+                           .group:00000000 wm4.types.h.23.0d949686bbcadd1621462d4fa1f884f9
+                           .group:00000000 wm4.types.h.2.e9cec8c90ab35f77d9f499e06ae02400
+                           .group:00000000 wm4.types.h.80.56707660962b21991903f1fee7c13bb3
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.64.0f05fa42cfe2db7fc44729a52d3ba948
+                           .group:00000000 wm4.hsmci.h.110.610f58f6a31861e37bc09b5b7be09388
+                           .group:00000000 wm4.pio.h.68.5d85e14ea6ea0da924da53053bc590d1
+                           .group:00000000 wm4.rtc.h.38.8bf78db8651343e80a889203827406a5
+                           .group:00000000 wm4.spi.h.38.450641354031b1013c08519149294c78
+                           .group:00000000 wm4.spi_pdc.h.38.75857b1dd4449731562322c9709581d8
+                           .group:00000000 wm4.twi.h.38.68f2e661eb174ca9ca74eef9740d9a3a
+                           .group:00000000 wm4.twid.h.31.9ea8c90af654647ca4d6e3b74e701509
+                           .group:00000000 wm4.usart.h.55.88c716ee7c3b6ed0339de6e194786a12
+                           .group:00000000 wm4.trace.h.65.364d8fb880402737deb1646f3fc9e1eb
+                           .group:00000000 wm4.chip.h.106.a1f123eb25606bfd56ed06360bda02b0
+
+UNDEFINED SYMBOLS
+_estack
+__libc_init_array
+main
+_etext
+_srelocate
+_erelocate
+_szero
+_ezero
+_sfixed

@@ -1,0 +1,3676 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
+   5              		.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
+   6              		.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
+   7              		.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
+   8              		.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
+   9              		.eabi_attribute 26, 1	@ Tag_ABI_enum_size
+  10              		.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
+  11              		.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
+  12              		.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
+  13              		.file	"Drawing_apps.c"
+  14              	@ GNU C (GNU Tools for ARM Embedded Processors) version 4.8.4 20140725 (release) [ARM/embedded-4_8-
+  15              	@	compiled by GNU C version 4.7.4, GMP version 4.3.2, MPFR version 2.4.2, MPC version 0.8.1
+  16              	@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+  17              	@ options passed:  -I . -I apps -I apps/inc -I apps/src -I apps/src/fonts
+  18              	@ -I cmsis_boot -I cmsis_boot/startup -I cmsis_core
+  19              	@ -I SAM4S_StdPeriph_Driver -I SAM4S_StdPeriph_Driver/Include
+  20              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S
+  21              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/component
+  22              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/instance
+  23              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/pio
+  24              	@ -I SAM4S_StdPeriph_Driver/Source -I SAM4S_StdPeriph_Driver/Source/SAM4S
+  25              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/include
+  26              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/source -I user_libs
+  27              	@ -I user_libs/inc -I user_libs/src -imultilib armv7e-m
+  28              	@ -iprefix d:\armgcc\bin\../lib/gcc/arm-none-eabi/4.8.4/
+  29              	@ -isysroot d:\armgcc\bin\../arm-none-eabi -MD out/apps/src/Drawing_apps.d
+  30              	@ -MF out/apps/src/Drawing_apps.o.dep -MP -MQ out/apps/src/Drawing_apps.o
+  31              	@ -D__USES_INITFINI__ -D gcc apps/src/Drawing_apps.c -mcpu=cortex-m4
+  32              	@ -mthumb -auxbase-strip out/apps/src/Drawing_apps.o -ggdb3 -O0 -Wall
+  33              	@ -Wpointer-arith -Wswitch -Wnested-externs -std=gnu99 -fomit-frame-pointer
+  34              	@ -fverbose-asm -funsigned-char
+  35              	@ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
+  36              	@ -fbranch-count-reg -fcommon -fdelete-null-pointer-checks -fdwarf2-cfi-asm
+  37              	@ -fearly-inlining -feliminate-unused-debug-types -ffunction-cse -fgcse-lm
+  38              	@ -fgnu-runtime -fgnu-unique -fident -finline-atomics -fira-hoist-pressure
+  39              	@ -fira-share-save-slots -fira-share-spill-slots -fivopts
+  40              	@ -fkeep-static-consts -fleading-underscore -fmath-errno
+  41              	@ -fmerge-debug-strings -fmove-loop-invariants -fomit-frame-pointer
+  42              	@ -fpeephole -fprefetch-loop-arrays -freg-struct-return
+  43              	@ -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  44              	@ -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  45              	@ -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  46              	@ -fsched-stalled-insns-dep -fshow-column -fsigned-zeros
+  47              	@ -fsplit-ivs-in-unroller -fstrict-volatile-bitfields -fsync-libcalls
+  48              	@ -ftrapping-math -ftree-coalesce-vars -ftree-cselim -ftree-forwprop
+  49              	@ -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
+  50              	@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop -ftree-pta
+  51              	@ -ftree-reassoc -ftree-scev-cprop -ftree-slp-vectorize
+  52              	@ -ftree-vect-loop-version -funit-at-a-time -fverbose-asm
+  53              	@ -fzero-initialized-in-bss -mlittle-endian -mpic-data-is-text-relative
+  54              	@ -msched-prolog -mthumb -munaligned-access -mvectorize-with-neon-quad
+  55              	
+  56              		.text
+  57              	.Ltext0:
+  58              		.cfi_sections	.debug_frame
+  59              		.data
+  60              		.align	2
+  63              	windowframe:
+  64              	@ x1:
+  65 0000 0000     		.short	0
+  66              	@ y1:
+  67 0002 0000     		.short	0
+  68              	@ x2:
+  69 0004 8002     		.short	640
+  70              	@ y2:
+  71 0006 5E01     		.short	350
+  72              		.global	gap_fonts
+  73              		.section	.rodata
+  74              		.align	2
+  77              	gap_fonts:
+  78 0000 00000000 		.word	Sinclair_S
+  79 0004 00000000 		.word	Sinclair_Inverted_S
+  80              		.text
+  81              		.align	2
+  82              		.thumb
+  83              		.thumb_func
+  85              	sDrawAPixel:
+  86              	.LFB116:
+  87              		.file 1 "apps/src/Drawing_apps.c"
+   1:apps/src/Drawing_apps.c **** /**
+   2:apps/src/Drawing_apps.c ****   ******************************************************************************
+   3:apps/src/Drawing_apps.c ****   * @file     Drawing_apps.c
+   4:apps/src/Drawing_apps.c ****   * @author   Spas Spasov
+   5:apps/src/Drawing_apps.c ****   * @version  V1.0.0
+   6:apps/src/Drawing_apps.c ****   * @date     10.2014
+   7:apps/src/Drawing_apps.c ****   * @brief
+   8:apps/src/Drawing_apps.c ****   *
+   9:apps/src/Drawing_apps.c ****   *
+  10:apps/src/Drawing_apps.c ****   ******************************************************************************
+  11:apps/src/Drawing_apps.c ****   * @attention
+  12:apps/src/Drawing_apps.c ****   *
+  13:apps/src/Drawing_apps.c ****   ******************************************************************************
+  14:apps/src/Drawing_apps.c ****   */
+  15:apps/src/Drawing_apps.c **** 
+  16:apps/src/Drawing_apps.c **** /* Includes ------------------------------------------------------------------*/
+  17:apps/src/Drawing_apps.c **** #include "chip.h"             			/* Device header			*/
+  18:apps/src/Drawing_apps.c **** #include "VGA_Out_apps.h"
+  19:apps/src/Drawing_apps.c **** #include "fonts.h"
+  20:apps/src/Drawing_apps.c **** #include "Drawing_apps.h"
+  21:apps/src/Drawing_apps.c **** 
+  22:apps/src/Drawing_apps.c **** /* Private typedef -----------------------------------------------------------*/
+  23:apps/src/Drawing_apps.c **** typedef struct {
+  24:apps/src/Drawing_apps.c **** 	uint16_t  x1;
+  25:apps/src/Drawing_apps.c **** 	uint16_t  y1;
+  26:apps/src/Drawing_apps.c **** 	uint16_t  x2;
+  27:apps/src/Drawing_apps.c **** 	uint16_t  y2;
+  28:apps/src/Drawing_apps.c **** }windowframe_t;
+  29:apps/src/Drawing_apps.c **** 
+  30:apps/src/Drawing_apps.c **** /* Private define ------------------------------------------------------------*/
+  31:apps/src/Drawing_apps.c **** 
+  32:apps/src/Drawing_apps.c **** /* Private macro -------------------------------------------------------------*/
+  33:apps/src/Drawing_apps.c **** 
+  34:apps/src/Drawing_apps.c **** /* Private variables ---------------------------------------------------------*/
+  35:apps/src/Drawing_apps.c **** static windowframe_t windowframe = {0,0,H_LINE_SIZE,V_LINE_SIZE};
+  36:apps/src/Drawing_apps.c **** const unsigned char * const gap_fonts[] =
+  37:apps/src/Drawing_apps.c **** {
+  38:apps/src/Drawing_apps.c **** 		Sinclair_S,
+  39:apps/src/Drawing_apps.c **** 		Sinclair_Inverted_S
+  40:apps/src/Drawing_apps.c **** };
+  41:apps/src/Drawing_apps.c **** 
+  42:apps/src/Drawing_apps.c **** /* Private function prototypes -----------------------------------------------*/
+  43:apps/src/Drawing_apps.c **** 
+  44:apps/src/Drawing_apps.c **** /* Public function prototypes ------------------------------------------------*/
+  45:apps/src/Drawing_apps.c **** 
+  46:apps/src/Drawing_apps.c **** /* Private functions ---------------------------------------------------------*/
+  47:apps/src/Drawing_apps.c **** 
+  48:apps/src/Drawing_apps.c **** /**
+  49:apps/src/Drawing_apps.c ****   * @brief
+  50:apps/src/Drawing_apps.c ****   * @param  None
+  51:apps/src/Drawing_apps.c ****   * @retval None
+  52:apps/src/Drawing_apps.c ****   */
+  53:apps/src/Drawing_apps.c **** static uint8_t sDrawAPixel( draw_t *p_drawpoint )
+  54:apps/src/Drawing_apps.c **** {
+  88              		.loc 1 54 0
+  89              		.cfi_startproc
+  90              		@ args = 0, pretend = 0, frame = 24
+  91              		@ frame_needed = 0, uses_anonymous_args = 0
+  92              		@ link register save eliminated.
+  93 0000 86B0     		sub	sp, sp, #24	@,,
+  94              		.cfi_def_cfa_offset 24
+  95 0002 0190     		str	r0, [sp, #4]	@ p_drawpoint, p_drawpoint
+  55:apps/src/Drawing_apps.c **** uint8_t result = 1, count, tmp_colour, colour;
+  96              		.loc 1 55 0
+  97 0004 0123     		movs	r3, #1	@ tmp168,
+  98 0006 8DF81730 		strb	r3, [sp, #23]	@ tmp169, result
+  56:apps/src/Drawing_apps.c **** uint16_t x_coordinate, y_coordinate;
+  57:apps/src/Drawing_apps.c **** function_t	function;
+  58:apps/src/Drawing_apps.c **** 
+  59:apps/src/Drawing_apps.c **** 
+  60:apps/src/Drawing_apps.c **** 	x_coordinate = (uint16_t)p_drawpoint->x1;
+  99              		.loc 1 60 0
+ 100 000a 019B     		ldr	r3, [sp, #4]	@ tmp170, p_drawpoint
+ 101 000c B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp172,
+ 102 0010 9BB2     		uxth	r3, r3	@ D.8081, tmp171
+ 103 0012 ADF81230 		strh	r3, [sp, #18]	@ movhi	@ tmp173, x_coordinate
+  61:apps/src/Drawing_apps.c **** 	y_coordinate = (uint16_t)p_drawpoint->y1;
+ 104              		.loc 1 61 0
+ 105 0016 019B     		ldr	r3, [sp, #4]	@ tmp174, p_drawpoint
+ 106 0018 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp176,
+ 107 001c 9BB2     		uxth	r3, r3	@ D.8081, tmp175
+ 108 001e ADF81030 		strh	r3, [sp, #16]	@ movhi	@ tmp177, y_coordinate
+  62:apps/src/Drawing_apps.c **** 
+  63:apps/src/Drawing_apps.c **** 	if( (x_coordinate < windowframe.x1) || (x_coordinate > windowframe.x2))
+ 109              		.loc 1 63 0
+ 110 0022 904B     		ldr	r3, .L21	@ tmp178,
+ 111 0024 1B88     		ldrh	r3, [r3]	@ D.8082, windowframe
+ 112 0026 BDF81220 		ldrh	r2, [sp, #18]	@ tmp179, x_coordinate
+ 113 002a 9A42     		cmp	r2, r3	@ tmp179, D.8082
+ 114 002c 05D3     		bcc	.L2	@,
+ 115              		.loc 1 63 0 is_stmt 0 discriminator 1
+ 116 002e 8D4B     		ldr	r3, .L21	@ tmp180,
+ 117 0030 9B88     		ldrh	r3, [r3, #4]	@ D.8082,
+ 118 0032 BDF81220 		ldrh	r2, [sp, #18]	@ tmp181, x_coordinate
+ 119 0036 9A42     		cmp	r2, r3	@ tmp181, D.8082
+ 120 0038 05D9     		bls	.L3	@,
+ 121              	.L2:
+  64:apps/src/Drawing_apps.c **** 	{
+  65:apps/src/Drawing_apps.c **** 		result = 0;
+ 122              		.loc 1 65 0 is_stmt 1
+ 123 003a 0023     		movs	r3, #0	@ tmp182,
+ 124 003c 8DF81730 		strb	r3, [sp, #23]	@ tmp183, result
+  66:apps/src/Drawing_apps.c **** 		return(result);
+ 125              		.loc 1 66 0
+ 126 0040 9DF81730 		ldrb	r3, [sp, #23]	@ zero_extendqisi2	@ D.8080, result
+ 127 0044 0BE1     		b	.L4	@
+ 128              	.L3:
+  67:apps/src/Drawing_apps.c **** 	}
+  68:apps/src/Drawing_apps.c **** 	if( (y_coordinate < windowframe.y1) || (y_coordinate > windowframe.y2))
+ 129              		.loc 1 68 0
+ 130 0046 874B     		ldr	r3, .L21	@ tmp184,
+ 131 0048 5B88     		ldrh	r3, [r3, #2]	@ D.8082,
+ 132 004a BDF81020 		ldrh	r2, [sp, #16]	@ tmp185, y_coordinate
+ 133 004e 9A42     		cmp	r2, r3	@ tmp185, D.8082
+ 134 0050 05D3     		bcc	.L5	@,
+ 135              		.loc 1 68 0 is_stmt 0 discriminator 1
+ 136 0052 844B     		ldr	r3, .L21	@ tmp186,
+ 137 0054 DB88     		ldrh	r3, [r3, #6]	@ D.8082,
+ 138 0056 BDF81020 		ldrh	r2, [sp, #16]	@ tmp187, y_coordinate
+ 139 005a 9A42     		cmp	r2, r3	@ tmp187, D.8082
+ 140 005c 05D9     		bls	.L6	@,
+ 141              	.L5:
+  69:apps/src/Drawing_apps.c **** 	{
+  70:apps/src/Drawing_apps.c **** 		result = 0;
+ 142              		.loc 1 70 0 is_stmt 1
+ 143 005e 0023     		movs	r3, #0	@ tmp188,
+ 144 0060 8DF81730 		strb	r3, [sp, #23]	@ tmp189, result
+  71:apps/src/Drawing_apps.c **** 		return(result);
+ 145              		.loc 1 71 0
+ 146 0064 9DF81730 		ldrb	r3, [sp, #23]	@ zero_extendqisi2	@ D.8080, result
+ 147 0068 F9E0     		b	.L4	@
+ 148              	.L6:
+  72:apps/src/Drawing_apps.c **** 	}
+  73:apps/src/Drawing_apps.c **** 
+  74:apps/src/Drawing_apps.c **** 	function 	= 	p_drawpoint->function;
+ 149              		.loc 1 74 0
+ 150 006a 019B     		ldr	r3, [sp, #4]	@ tmp190, p_drawpoint
+ 151 006c 9B78     		ldrb	r3, [r3, #2]	@ tmp191, p_drawpoint_6(D)->function
+ 152 006e 8DF80F30 		strb	r3, [sp, #15]	@ tmp191, function
+  75:apps/src/Drawing_apps.c **** 	colour  	= 	p_drawpoint->colour;
+ 153              		.loc 1 75 0
+ 154 0072 019B     		ldr	r3, [sp, #4]	@ tmp192, p_drawpoint
+ 155 0074 5B78     		ldrb	r3, [r3, #1]	@ tmp193, p_drawpoint_6(D)->colour
+ 156 0076 8DF80E30 		strb	r3, [sp, #14]	@ tmp193, colour
+  76:apps/src/Drawing_apps.c **** 	colour 		&= 	0x0F;
+ 157              		.loc 1 76 0
+ 158 007a 9DF80E30 		ldrb	r3, [sp, #14]	@ tmp194, colour
+ 159 007e 03F00F03 		and	r3, r3, #15	@ tmp195, tmp194,
+ 160 0082 8DF80E30 		strb	r3, [sp, #14]	@ tmp196, colour
+  77:apps/src/Drawing_apps.c **** 	tmp_colour = ga_Write_Block[y_coordinate][x_coordinate/2];
+ 161              		.loc 1 77 0
+ 162 0086 BDF81020 		ldrh	r2, [sp, #16]	@ D.8083, y_coordinate
+ 163 008a BDF81230 		ldrh	r3, [sp, #18]	@ tmp198, x_coordinate
+ 164 008e 5B08     		lsrs	r3, r3, #1	@ tmp197, tmp198,
+ 165 0090 9BB2     		uxth	r3, r3	@ D.8082, tmp197
+ 166 0092 1846     		mov	r0, r3	@ D.8083, D.8082
+ 167 0094 7449     		ldr	r1, .L21+4	@ tmp199,
+ 168 0096 1346     		mov	r3, r2	@ tmp200, D.8083
+ 169 0098 9B00     		lsls	r3, r3, #2	@ tmp200, tmp200,
+ 170 009a 1344     		add	r3, r3, r2	@ tmp200, D.8083
+ 171 009c 9B01     		lsls	r3, r3, #6	@ tmp201, tmp200,
+ 172 009e 0344     		add	r3, r3, r0	@ tmp202, D.8083
+ 173 00a0 0B44     		add	r3, r3, r1	@ tmp203, tmp199
+ 174 00a2 1B78     		ldrb	r3, [r3]	@ tmp204, ga_Write_Block
+ 175 00a4 8DF81530 		strb	r3, [sp, #21]	@ tmp204, tmp_colour
+  78:apps/src/Drawing_apps.c **** 	if( x_coordinate & 1 )
+ 176              		.loc 1 78 0
+ 177 00a8 BDF81230 		ldrh	r3, [sp, #18]	@ D.8083, x_coordinate
+ 178 00ac 03F00103 		and	r3, r3, #1	@ D.8083, D.8083,
+ 179 00b0 002B     		cmp	r3, #0	@ D.8083,
+ 180 00b2 49D0     		beq	.L7	@,
+  79:apps/src/Drawing_apps.c **** 	{
+  80:apps/src/Drawing_apps.c **** 		if( function == F_OVERWRITE )
+ 181              		.loc 1 80 0
+ 182 00b4 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ tmp205, function
+ 183 00b8 002B     		cmp	r3, #0	@ tmp205,
+ 184 00ba 0DD1     		bne	.L8	@,
+  81:apps/src/Drawing_apps.c **** 		{
+  82:apps/src/Drawing_apps.c **** 			tmp_colour &= 0xF0;
+ 185              		.loc 1 82 0
+ 186 00bc 9DF81530 		ldrb	r3, [sp, #21]	@ tmp206, tmp_colour
+ 187 00c0 23F00F03 		bic	r3, r3, #15	@ tmp207, tmp206,
+ 188 00c4 8DF81530 		strb	r3, [sp, #21]	@ tmp208, tmp_colour
+  83:apps/src/Drawing_apps.c **** 			tmp_colour |= colour;
+ 189              		.loc 1 83 0
+ 190 00c8 9DF81520 		ldrb	r2, [sp, #21]	@ tmp209, tmp_colour
+ 191 00cc 9DF80E30 		ldrb	r3, [sp, #14]	@ tmp210, colour
+ 192 00d0 1343     		orrs	r3, r3, r2	@, tmp211, tmp210, tmp209
+ 193 00d2 8DF81530 		strb	r3, [sp, #21]	@ tmp212, tmp_colour
+ 194 00d6 8AE0     		b	.L9	@
+ 195              	.L8:
+  84:apps/src/Drawing_apps.c **** 		}
+  85:apps/src/Drawing_apps.c **** 		else if( function == F_OR )
+ 196              		.loc 1 85 0
+ 197 00d8 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ tmp213, function
+ 198 00dc 012B     		cmp	r3, #1	@ tmp213,
+ 199 00de 07D1     		bne	.L10	@,
+  86:apps/src/Drawing_apps.c **** 		{
+  87:apps/src/Drawing_apps.c **** 			tmp_colour |= colour;
+ 200              		.loc 1 87 0
+ 201 00e0 9DF81520 		ldrb	r2, [sp, #21]	@ tmp214, tmp_colour
+ 202 00e4 9DF80E30 		ldrb	r3, [sp, #14]	@ tmp215, colour
+ 203 00e8 1343     		orrs	r3, r3, r2	@, tmp216, tmp215, tmp214
+ 204 00ea 8DF81530 		strb	r3, [sp, #21]	@ tmp217, tmp_colour
+ 205 00ee 7EE0     		b	.L9	@
+ 206              	.L10:
+  88:apps/src/Drawing_apps.c **** 		}
+  89:apps/src/Drawing_apps.c **** 		else if( function == F_XOR )
+ 207              		.loc 1 89 0
+ 208 00f0 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ tmp218, function
+ 209 00f4 022B     		cmp	r3, #2	@ tmp218,
+ 210 00f6 10D1     		bne	.L11	@,
+  90:apps/src/Drawing_apps.c **** 		{
+  91:apps/src/Drawing_apps.c **** 			tmp_colour |= (colour & (tmp_colour & 0x0F));
+ 211              		.loc 1 91 0
+ 212 00f8 9DF81520 		ldrb	r2, [sp, #21]	@ tmp219, tmp_colour
+ 213 00fc 9DF80E30 		ldrb	r3, [sp, #14]	@ tmp220, colour
+ 214 0100 1340     		ands	r3, r3, r2	@, tmp221, tmp220, tmp219
+ 215 0102 DBB2     		uxtb	r3, r3	@ D.8084, tmp221
+ 216 0104 DBB2     		uxtb	r3, r3	@ D.8085, D.8084
+ 217 0106 03F00F03 		and	r3, r3, #15	@ tmp223, tmp222,
+ 218 010a DAB2     		uxtb	r2, r3	@ D.8085, tmp223
+ 219 010c 9DF81530 		ldrb	r3, [sp, #21]	@ zero_extendqisi2	@ tmp_colour.0, tmp_colour
+ 220 0110 1343     		orrs	r3, r3, r2	@, tmp226, tmp225, tmp224
+ 221 0112 DBB2     		uxtb	r3, r3	@ D.8085, tmp226
+ 222 0114 8DF81530 		strb	r3, [sp, #21]	@ tmp227, tmp_colour
+ 223 0118 69E0     		b	.L9	@
+ 224              	.L11:
+  92:apps/src/Drawing_apps.c **** 		}
+  93:apps/src/Drawing_apps.c **** 		else if( function == F_AND )
+ 225              		.loc 1 93 0
+ 226 011a 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ tmp228, function
+ 227 011e 032B     		cmp	r3, #3	@ tmp228,
+ 228 0120 0FD1     		bne	.L12	@,
+  94:apps/src/Drawing_apps.c **** 		{
+  95:apps/src/Drawing_apps.c **** 			tmp_colour |= (colour ^ (tmp_colour & 0x0F));
+ 229              		.loc 1 95 0
+ 230 0122 9DF81530 		ldrb	r3, [sp, #21]	@ zero_extendqisi2	@ tmp_colour.1, tmp_colour
+ 231 0126 03F00F03 		and	r3, r3, #15	@ tmp230, tmp229,
+ 232 012a DAB2     		uxtb	r2, r3	@ D.8085, tmp230
+ 233 012c 9DF80E30 		ldrb	r3, [sp, #14]	@ zero_extendqisi2	@ colour.2, colour
+ 234 0130 5340     		eors	r3, r3, r2	@, tmp233, tmp232, tmp231
+ 235 0132 DAB2     		uxtb	r2, r3	@ D.8085, tmp233
+ 236 0134 9DF81530 		ldrb	r3, [sp, #21]	@ zero_extendqisi2	@ tmp_colour.3, tmp_colour
+ 237 0138 1343     		orrs	r3, r3, r2	@, tmp236, tmp235, tmp234
+ 238 013a DBB2     		uxtb	r3, r3	@ D.8085, tmp236
+ 239 013c 8DF81530 		strb	r3, [sp, #21]	@ tmp237, tmp_colour
+ 240 0140 55E0     		b	.L9	@
+ 241              	.L12:
+  96:apps/src/Drawing_apps.c **** 		}
+  97:apps/src/Drawing_apps.c **** 		else
+  98:apps/src/Drawing_apps.c **** 		{
+  99:apps/src/Drawing_apps.c **** 			return(result);
+ 242              		.loc 1 99 0
+ 243 0142 9DF81730 		ldrb	r3, [sp, #23]	@ zero_extendqisi2	@ D.8080, result
+ 244 0146 8AE0     		b	.L4	@
+ 245              	.L7:
+ 100:apps/src/Drawing_apps.c **** 		}
+ 101:apps/src/Drawing_apps.c **** 	}
+ 102:apps/src/Drawing_apps.c **** 	else
+ 103:apps/src/Drawing_apps.c **** 	{
+ 104:apps/src/Drawing_apps.c **** 		if( function == F_OVERWRITE )
+ 246              		.loc 1 104 0
+ 247 0148 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ tmp238, function
+ 248 014c 002B     		cmp	r3, #0	@ tmp238,
+ 249 014e 10D1     		bne	.L13	@,
+ 105:apps/src/Drawing_apps.c **** 		{
+ 106:apps/src/Drawing_apps.c **** 			tmp_colour &= 0x0F;
+ 250              		.loc 1 106 0
+ 251 0150 9DF81530 		ldrb	r3, [sp, #21]	@ tmp239, tmp_colour
+ 252 0154 03F00F03 		and	r3, r3, #15	@ tmp240, tmp239,
+ 253 0158 8DF81530 		strb	r3, [sp, #21]	@ tmp241, tmp_colour
+ 107:apps/src/Drawing_apps.c **** 			tmp_colour |= (colour << 4);
+ 254              		.loc 1 107 0
+ 255 015c 9DF80E30 		ldrb	r3, [sp, #14]	@ zero_extendqisi2	@ D.8083, colour
+ 256 0160 1B01     		lsls	r3, r3, #4	@ D.8083, D.8083,
+ 257 0162 DAB2     		uxtb	r2, r3	@ D.8085, D.8083
+ 258 0164 9DF81530 		ldrb	r3, [sp, #21]	@ zero_extendqisi2	@ tmp_colour.4, tmp_colour
+ 259 0168 1343     		orrs	r3, r3, r2	@, tmp244, tmp243, tmp242
+ 260 016a DBB2     		uxtb	r3, r3	@ D.8085, tmp244
+ 261 016c 8DF81530 		strb	r3, [sp, #21]	@ tmp245, tmp_colour
+ 262 0170 3DE0     		b	.L9	@
+ 263              	.L13:
+ 108:apps/src/Drawing_apps.c **** 		}
+ 109:apps/src/Drawing_apps.c **** 		else if( function == F_OR )
+ 264              		.loc 1 109 0
+ 265 0172 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ tmp246, function
+ 266 0176 012B     		cmp	r3, #1	@ tmp246,
+ 267 0178 0AD1     		bne	.L14	@,
+ 110:apps/src/Drawing_apps.c **** 		{
+ 111:apps/src/Drawing_apps.c **** 			tmp_colour |= (colour << 4);
+ 268              		.loc 1 111 0
+ 269 017a 9DF80E30 		ldrb	r3, [sp, #14]	@ zero_extendqisi2	@ D.8083, colour
+ 270 017e 1B01     		lsls	r3, r3, #4	@ D.8083, D.8083,
+ 271 0180 DAB2     		uxtb	r2, r3	@ D.8085, D.8083
+ 272 0182 9DF81530 		ldrb	r3, [sp, #21]	@ zero_extendqisi2	@ tmp_colour.5, tmp_colour
+ 273 0186 1343     		orrs	r3, r3, r2	@, tmp249, tmp248, tmp247
+ 274 0188 DBB2     		uxtb	r3, r3	@ D.8085, tmp249
+ 275 018a 8DF81530 		strb	r3, [sp, #21]	@ tmp250, tmp_colour
+ 276 018e 2EE0     		b	.L9	@
+ 277              	.L14:
+ 112:apps/src/Drawing_apps.c **** 		}
+ 113:apps/src/Drawing_apps.c **** 		else if( function == F_XOR )
+ 278              		.loc 1 113 0
+ 279 0190 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ tmp251, function
+ 280 0194 022B     		cmp	r3, #2	@ tmp251,
+ 281 0196 11D1     		bne	.L15	@,
+ 114:apps/src/Drawing_apps.c **** 		{
+ 115:apps/src/Drawing_apps.c **** 			tmp_colour |= ((colour << 4) & (tmp_colour & 0xF0));
+ 282              		.loc 1 115 0
+ 283 0198 9DF80E30 		ldrb	r3, [sp, #14]	@ zero_extendqisi2	@ D.8083, colour
+ 284 019c 1B01     		lsls	r3, r3, #4	@ D.8083, D.8083,
+ 285 019e DAB2     		uxtb	r2, r3	@ D.8085, D.8083
+ 286 01a0 9DF81530 		ldrb	r3, [sp, #21]	@ zero_extendqisi2	@ tmp_colour.6, tmp_colour
+ 287 01a4 23F00F03 		bic	r3, r3, #15	@ tmp253, tmp252,
+ 288 01a8 DBB2     		uxtb	r3, r3	@ D.8085, tmp253
+ 289 01aa 1340     		ands	r3, r3, r2	@, tmp256, tmp255, tmp254
+ 290 01ac DAB2     		uxtb	r2, r3	@ D.8085, tmp256
+ 291 01ae 9DF81530 		ldrb	r3, [sp, #21]	@ zero_extendqisi2	@ tmp_colour.7, tmp_colour
+ 292 01b2 1343     		orrs	r3, r3, r2	@, tmp259, tmp258, tmp257
+ 293 01b4 DBB2     		uxtb	r3, r3	@ D.8085, tmp259
+ 294 01b6 8DF81530 		strb	r3, [sp, #21]	@ tmp260, tmp_colour
+ 295 01ba 18E0     		b	.L9	@
+ 296              	.L15:
+ 116:apps/src/Drawing_apps.c **** 		}
+ 117:apps/src/Drawing_apps.c **** 		else if( function == F_AND )
+ 297              		.loc 1 117 0
+ 298 01bc 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ tmp261, function
+ 299 01c0 032B     		cmp	r3, #3	@ tmp261,
+ 300 01c2 11D1     		bne	.L16	@,
+ 118:apps/src/Drawing_apps.c **** 		{
+ 119:apps/src/Drawing_apps.c **** 			tmp_colour |= ((colour << 4) ^ (tmp_colour & 0xF0));
+ 301              		.loc 1 119 0
+ 302 01c4 9DF80E30 		ldrb	r3, [sp, #14]	@ zero_extendqisi2	@ D.8083, colour
+ 303 01c8 1B01     		lsls	r3, r3, #4	@ D.8083, D.8083,
+ 304 01ca DAB2     		uxtb	r2, r3	@ D.8085, D.8083
+ 305 01cc 9DF81530 		ldrb	r3, [sp, #21]	@ zero_extendqisi2	@ tmp_colour.8, tmp_colour
+ 306 01d0 23F00F03 		bic	r3, r3, #15	@ tmp263, tmp262,
+ 307 01d4 DBB2     		uxtb	r3, r3	@ D.8085, tmp263
+ 308 01d6 5340     		eors	r3, r3, r2	@, tmp266, tmp265, tmp264
+ 309 01d8 DAB2     		uxtb	r2, r3	@ D.8085, tmp266
+ 310 01da 9DF81530 		ldrb	r3, [sp, #21]	@ zero_extendqisi2	@ tmp_colour.9, tmp_colour
+ 311 01de 1343     		orrs	r3, r3, r2	@, tmp269, tmp268, tmp267
+ 312 01e0 DBB2     		uxtb	r3, r3	@ D.8085, tmp269
+ 313 01e2 8DF81530 		strb	r3, [sp, #21]	@ tmp270, tmp_colour
+ 314 01e6 02E0     		b	.L9	@
+ 315              	.L16:
+ 120:apps/src/Drawing_apps.c **** 		}
+ 121:apps/src/Drawing_apps.c **** 		else
+ 122:apps/src/Drawing_apps.c **** 		{
+ 123:apps/src/Drawing_apps.c **** 			return(result);
+ 316              		.loc 1 123 0
+ 317 01e8 9DF81730 		ldrb	r3, [sp, #23]	@ zero_extendqisi2	@ D.8080, result
+ 318 01ec 37E0     		b	.L4	@
+ 319              	.L9:
+ 124:apps/src/Drawing_apps.c **** 		}
+ 125:apps/src/Drawing_apps.c **** 
+ 126:apps/src/Drawing_apps.c **** 	}
+ 127:apps/src/Drawing_apps.c **** 
+ 128:apps/src/Drawing_apps.c **** 	for( count = 0; count < 3; count++ )
+ 320              		.loc 1 128 0
+ 321 01ee 0023     		movs	r3, #0	@ tmp271,
+ 322 01f0 8DF81630 		strb	r3, [sp, #22]	@ tmp272, count
+ 323 01f4 2DE0     		b	.L17	@
+ 324              	.L20:
+ 129:apps/src/Drawing_apps.c **** 	{
+ 130:apps/src/Drawing_apps.c **** 		ga_Write_Block[y_coordinate][x_coordinate/2] = tmp_colour;
+ 325              		.loc 1 130 0
+ 326 01f6 BDF81020 		ldrh	r2, [sp, #16]	@ D.8083, y_coordinate
+ 327 01fa BDF81230 		ldrh	r3, [sp, #18]	@ tmp274, x_coordinate
+ 328 01fe 5B08     		lsrs	r3, r3, #1	@ tmp273, tmp274,
+ 329 0200 9BB2     		uxth	r3, r3	@ D.8082, tmp273
+ 330 0202 1846     		mov	r0, r3	@ D.8083, D.8082
+ 331 0204 1849     		ldr	r1, .L21+4	@ tmp275,
+ 332 0206 1346     		mov	r3, r2	@ tmp276, D.8083
+ 333 0208 9B00     		lsls	r3, r3, #2	@ tmp276, tmp276,
+ 334 020a 1344     		add	r3, r3, r2	@ tmp276, D.8083
+ 335 020c 9B01     		lsls	r3, r3, #6	@ tmp277, tmp276,
+ 336 020e 0344     		add	r3, r3, r0	@ tmp278, D.8083
+ 337 0210 0B44     		add	r3, r3, r1	@ tmp279, tmp275
+ 338 0212 9DF81520 		ldrb	r2, [sp, #21]	@ tmp280, tmp_colour
+ 339 0216 1A70     		strb	r2, [r3]	@ tmp280, ga_Write_Block
+ 131:apps/src/Drawing_apps.c **** 		if( ga_Write_Block[y_coordinate][x_coordinate/2] == tmp_colour)
+ 340              		.loc 1 131 0
+ 341 0218 BDF81020 		ldrh	r2, [sp, #16]	@ D.8083, y_coordinate
+ 342 021c BDF81230 		ldrh	r3, [sp, #18]	@ tmp282, x_coordinate
+ 343 0220 5B08     		lsrs	r3, r3, #1	@ tmp281, tmp282,
+ 344 0222 9BB2     		uxth	r3, r3	@ D.8082, tmp281
+ 345 0224 1846     		mov	r0, r3	@ D.8083, D.8082
+ 346 0226 1049     		ldr	r1, .L21+4	@ tmp283,
+ 347 0228 1346     		mov	r3, r2	@ tmp284, D.8083
+ 348 022a 9B00     		lsls	r3, r3, #2	@ tmp284, tmp284,
+ 349 022c 1344     		add	r3, r3, r2	@ tmp284, D.8083
+ 350 022e 9B01     		lsls	r3, r3, #6	@ tmp285, tmp284,
+ 351 0230 0344     		add	r3, r3, r0	@ tmp286, D.8083
+ 352 0232 0B44     		add	r3, r3, r1	@ tmp287, tmp283
+ 353 0234 1B78     		ldrb	r3, [r3]	@ tmp288, ga_Write_Block
+ 354 0236 DBB2     		uxtb	r3, r3	@ D.8084, tmp288
+ 355 0238 9DF81520 		ldrb	r2, [sp, #21]	@ zero_extendqisi2	@ tmp289, tmp_colour
+ 356 023c 9A42     		cmp	r2, r3	@ tmp289, D.8084
+ 357 023e 03D1     		bne	.L18	@,
+ 132:apps/src/Drawing_apps.c **** 		{
+ 133:apps/src/Drawing_apps.c **** 			result = 0;
+ 358              		.loc 1 133 0
+ 359 0240 0023     		movs	r3, #0	@ tmp290,
+ 360 0242 8DF81730 		strb	r3, [sp, #23]	@ tmp291, result
+ 134:apps/src/Drawing_apps.c **** 			break;
+ 361              		.loc 1 134 0
+ 362 0246 08E0     		b	.L19	@
+ 363              	.L18:
+ 128:apps/src/Drawing_apps.c **** 	for( count = 0; count < 3; count++ )
+ 364              		.loc 1 128 0
+ 365 0248 9DF81630 		ldrb	r3, [sp, #22]	@ zero_extendqisi2	@ count.10, count
+ 366 024c 0133     		adds	r3, r3, #1	@ tmp292, count.10,
+ 367 024e 8DF81630 		strb	r3, [sp, #22]	@ tmp293, count
+ 368              	.L17:
+ 128:apps/src/Drawing_apps.c **** 	for( count = 0; count < 3; count++ )
+ 369              		.loc 1 128 0 is_stmt 0 discriminator 1
+ 370 0252 9DF81630 		ldrb	r3, [sp, #22]	@ zero_extendqisi2	@ tmp294, count
+ 371 0256 022B     		cmp	r3, #2	@ tmp294,
+ 372 0258 CDD9     		bls	.L20	@,
+ 373              	.L19:
+ 135:apps/src/Drawing_apps.c **** 		}
+ 136:apps/src/Drawing_apps.c **** 	}
+ 137:apps/src/Drawing_apps.c **** 	return(result);
+ 374              		.loc 1 137 0 is_stmt 1
+ 375 025a 9DF81730 		ldrb	r3, [sp, #23]	@ zero_extendqisi2	@ D.8080, result
+ 376              	.L4:
+ 138:apps/src/Drawing_apps.c **** }
+ 377              		.loc 1 138 0
+ 378 025e 1846     		mov	r0, r3	@, <retval>
+ 379 0260 06B0     		add	sp, sp, #24	@,,
+ 380              		@ sp needed	@
+ 381 0262 7047     		bx	lr	@
+ 382              	.L22:
+ 383              		.align	2
+ 384              	.L21:
+ 385 0264 00000000 		.word	windowframe
+ 386 0268 00000000 		.word	ga_Write_Block
+ 387              		.cfi_endproc
+ 388              	.LFE116:
+ 390              		.align	2
+ 391              		.thumb
+ 392              		.thumb_func
+ 394              	sDrawAHorLineColourFast:
+ 395              	.LFB117:
+ 139:apps/src/Drawing_apps.c **** 
+ 140:apps/src/Drawing_apps.c **** 
+ 141:apps/src/Drawing_apps.c **** /**
+ 142:apps/src/Drawing_apps.c ****   * @brief
+ 143:apps/src/Drawing_apps.c ****   * @param  None
+ 144:apps/src/Drawing_apps.c ****   * @retval
+ 145:apps/src/Drawing_apps.c ****   */
+ 146:apps/src/Drawing_apps.c **** static uint8_t sDrawAHorLineColourFast( draw_t *p_draw )
+ 147:apps/src/Drawing_apps.c **** {
+ 396              		.loc 1 147 0
+ 397              		.cfi_startproc
+ 398              		@ args = 0, pretend = 0, frame = 16
+ 399              		@ frame_needed = 0, uses_anonymous_args = 0
+ 400              		@ link register save eliminated.
+ 401 026c 2DE9F007 		push	{r4, r5, r6, r7, r8, r9, r10}	@
+ 402              		.cfi_def_cfa_offset 28
+ 403              		.cfi_offset 4, -28
+ 404              		.cfi_offset 5, -24
+ 405              		.cfi_offset 6, -20
+ 406              		.cfi_offset 7, -16
+ 407              		.cfi_offset 8, -12
+ 408              		.cfi_offset 9, -8
+ 409              		.cfi_offset 10, -4
+ 410 0270 85B0     		sub	sp, sp, #20	@,,
+ 411              		.cfi_def_cfa_offset 48
+ 412 0272 0190     		str	r0, [sp, #4]	@ p_draw, p_draw
+ 148:apps/src/Drawing_apps.c **** uint8_t result = 1;
+ 413              		.loc 1 148 0
+ 414 0274 0123     		movs	r3, #1	@ tmp192,
+ 415 0276 8DF80F30 		strb	r3, [sp, #15]	@ tmp193, result
+ 149:apps/src/Drawing_apps.c **** 
+ 150:apps/src/Drawing_apps.c **** 
+ 151:apps/src/Drawing_apps.c **** int16_t  x1, dx;
+ 152:apps/src/Drawing_apps.c **** 
+ 153:apps/src/Drawing_apps.c **** 	if( p_draw->x2_rx > p_draw->x1 )
+ 416              		.loc 1 153 0
+ 417 027a 019B     		ldr	r3, [sp, #4]	@ tmp194, p_draw
+ 418 027c B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp196,
+ 419 0280 9AB2     		uxth	r2, r3	@ D.8087, tmp195
+ 420 0282 019B     		ldr	r3, [sp, #4]	@ tmp197, p_draw
+ 421 0284 B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp199,
+ 422 0288 9BB2     		uxth	r3, r3	@ D.8087, tmp198
+ 423 028a 12B2     		sxth	r2, r2	@ tmp200, D.8087
+ 424 028c 1BB2     		sxth	r3, r3	@ tmp201, D.8087
+ 425 028e 9A42     		cmp	r2, r3	@ tmp200, tmp201
+ 426 0290 17DD     		ble	.L24	@,
+ 154:apps/src/Drawing_apps.c **** 	{
+ 155:apps/src/Drawing_apps.c **** 	  dx = p_draw->x2_rx - p_draw->x1;
+ 427              		.loc 1 155 0
+ 428 0292 019B     		ldr	r3, [sp, #4]	@ tmp202, p_draw
+ 429 0294 B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp204,
+ 430 0298 9BB2     		uxth	r3, r3	@ D.8087, tmp203
+ 431 029a 9AB2     		uxth	r2, r3	@ D.8088, D.8087
+ 432 029c 019B     		ldr	r3, [sp, #4]	@ tmp205, p_draw
+ 433 029e B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp207,
+ 434 02a2 9BB2     		uxth	r3, r3	@ D.8087, tmp206
+ 435 02a4 9BB2     		uxth	r3, r3	@ D.8088, D.8087
+ 436 02a6 D31A     		subs	r3, r2, r3	@ tmp208, D.8088, D.8088
+ 437 02a8 9BB2     		uxth	r3, r3	@ D.8088, tmp208
+ 438 02aa ADF80A30 		strh	r3, [sp, #10]	@ movhi	@ tmp209, dx
+ 156:apps/src/Drawing_apps.c **** 	  x1 = p_draw->x1;
+ 439              		.loc 1 156 0
+ 440 02ae 019B     		ldr	r3, [sp, #4]	@ tmp210, p_draw
+ 441 02b0 DA79     		ldrb	r2, [r3, #7]	@ zero_extendqisi2	@ tmp213,
+ 442 02b2 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2	@ tmp214,
+ 443 02b4 1B02     		lsls	r3, r3, #8	@ tmp215, tmp214,
+ 444 02b6 1343     		orrs	r3, r3, r2	@, tmp216, tmp215, tmp213
+ 445 02b8 1B04     		lsls	r3, r3, #16	@ tmp217, tmp216,
+ 446 02ba 1B14     		asrs	r3, r3, #16	@ tmp218, tmp217,
+ 447 02bc ADF80C30 		strh	r3, [sp, #12]	@ movhi	@ tmp219, x1
+ 448 02c0 16E0     		b	.L25	@
+ 449              	.L24:
+ 157:apps/src/Drawing_apps.c **** 	}
+ 158:apps/src/Drawing_apps.c **** 	else
+ 159:apps/src/Drawing_apps.c **** 	{
+ 160:apps/src/Drawing_apps.c **** 	  dx = p_draw->x1 - p_draw->x2_rx;
+ 450              		.loc 1 160 0
+ 451 02c2 019B     		ldr	r3, [sp, #4]	@ tmp220, p_draw
+ 452 02c4 B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp222,
+ 453 02c8 9BB2     		uxth	r3, r3	@ D.8087, tmp221
+ 454 02ca 9AB2     		uxth	r2, r3	@ D.8088, D.8087
+ 455 02cc 019B     		ldr	r3, [sp, #4]	@ tmp223, p_draw
+ 456 02ce B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp225,
+ 457 02d2 9BB2     		uxth	r3, r3	@ D.8087, tmp224
+ 458 02d4 9BB2     		uxth	r3, r3	@ D.8088, D.8087
+ 459 02d6 D31A     		subs	r3, r2, r3	@ tmp226, D.8088, D.8088
+ 460 02d8 9BB2     		uxth	r3, r3	@ D.8088, tmp226
+ 461 02da ADF80A30 		strh	r3, [sp, #10]	@ movhi	@ tmp227, dx
+ 161:apps/src/Drawing_apps.c **** 	  x1 = p_draw->x2_rx;
+ 462              		.loc 1 161 0
+ 463 02de 019B     		ldr	r3, [sp, #4]	@ tmp228, p_draw
+ 464 02e0 DA7A     		ldrb	r2, [r3, #11]	@ zero_extendqisi2	@ tmp231,
+ 465 02e2 1B7B     		ldrb	r3, [r3, #12]	@ zero_extendqisi2	@ tmp232,
+ 466 02e4 1B02     		lsls	r3, r3, #8	@ tmp233, tmp232,
+ 467 02e6 1343     		orrs	r3, r3, r2	@, tmp234, tmp233, tmp231
+ 468 02e8 1B04     		lsls	r3, r3, #16	@ tmp235, tmp234,
+ 469 02ea 1B14     		asrs	r3, r3, #16	@ tmp236, tmp235,
+ 470 02ec ADF80C30 		strh	r3, [sp, #12]	@ movhi	@ tmp237, x1
+ 471              	.L25:
+ 162:apps/src/Drawing_apps.c **** 	}
+ 163:apps/src/Drawing_apps.c **** 
+ 164:apps/src/Drawing_apps.c **** 	if( (p_draw->y1 < windowframe.y1) || (p_draw->y1 > windowframe.y2))
+ 472              		.loc 1 164 0
+ 473 02f0 019B     		ldr	r3, [sp, #4]	@ tmp238, p_draw
+ 474 02f2 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp240,
+ 475 02f6 9BB2     		uxth	r3, r3	@ D.8087, tmp239
+ 476 02f8 1AB2     		sxth	r2, r3	@ D.8089, D.8087
+ 477 02fa 6F4B     		ldr	r3, .L45	@ tmp241,
+ 478 02fc 5B88     		ldrh	r3, [r3, #2]	@ D.8090,
+ 479 02fe 9A42     		cmp	r2, r3	@ D.8089, D.8089
+ 480 0300 08DB     		blt	.L26	@,
+ 481              		.loc 1 164 0 is_stmt 0 discriminator 1
+ 482 0302 019B     		ldr	r3, [sp, #4]	@ tmp242, p_draw
+ 483 0304 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp244,
+ 484 0308 9BB2     		uxth	r3, r3	@ D.8087, tmp243
+ 485 030a 1AB2     		sxth	r2, r3	@ D.8089, D.8087
+ 486 030c 6A4B     		ldr	r3, .L45	@ tmp245,
+ 487 030e DB88     		ldrh	r3, [r3, #6]	@ D.8090,
+ 488 0310 9A42     		cmp	r2, r3	@ D.8089, D.8089
+ 489 0312 05DD     		ble	.L27	@,
+ 490              	.L26:
+ 165:apps/src/Drawing_apps.c **** 	{
+ 166:apps/src/Drawing_apps.c **** 		result = 0;
+ 491              		.loc 1 166 0 is_stmt 1
+ 492 0314 0023     		movs	r3, #0	@ tmp246,
+ 493 0316 8DF80F30 		strb	r3, [sp, #15]	@ tmp247, result
+ 167:apps/src/Drawing_apps.c **** 		return(result);
+ 494              		.loc 1 167 0
+ 495 031a 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ D.8086, result
+ 496 031e C6E0     		b	.L28	@
+ 497              	.L27:
+ 168:apps/src/Drawing_apps.c **** 	}
+ 169:apps/src/Drawing_apps.c **** 
+ 170:apps/src/Drawing_apps.c **** register uint8_t count, tmp_colour, colour;
+ 171:apps/src/Drawing_apps.c **** register uint16_t x_coordinate, y_coordinate;
+ 172:apps/src/Drawing_apps.c **** register function_t	function;
+ 173:apps/src/Drawing_apps.c **** register int16_t  i;
+ 174:apps/src/Drawing_apps.c **** 
+ 175:apps/src/Drawing_apps.c **** 	x_coordinate 	= x1;
+ 498              		.loc 1 175 0
+ 499 0320 BDF80C70 		ldrh	r7, [sp, #12]	@ x_coordinate, x1
+ 176:apps/src/Drawing_apps.c **** 	y_coordinate 	= p_draw->y1;
+ 500              		.loc 1 176 0
+ 501 0324 019B     		ldr	r3, [sp, #4]	@ tmp248, p_draw
+ 502 0326 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp250,
+ 503 032a 9BB2     		uxth	r3, r3	@ D.8087, tmp249
+ 504 032c 1FFA83F9 		uxth	r9, r3	@ y_coordinate, D.8087
+ 177:apps/src/Drawing_apps.c **** 	function 		= 	p_draw->function;
+ 505              		.loc 1 177 0
+ 506 0330 019B     		ldr	r3, [sp, #4]	@ tmp251, p_draw
+ 507 0332 9E78     		ldrb	r6, [r3, #2]	@ zero_extendqisi2	@ function, p_draw_11(D)->function
+ 178:apps/src/Drawing_apps.c **** 	colour  		= 	p_draw->colour;
+ 508              		.loc 1 178 0
+ 509 0334 019B     		ldr	r3, [sp, #4]	@ tmp252, p_draw
+ 510 0336 5D78     		ldrb	r5, [r3, #1]	@ zero_extendqisi2	@ colour, p_draw_11(D)->colour
+ 179:apps/src/Drawing_apps.c **** 	colour 			&= 	0x0F;
+ 511              		.loc 1 179 0
+ 512 0338 05F00F03 		and	r3, r5, #15	@ tmp253, colour,
+ 513 033c DDB2     		uxtb	r5, r3	@ colour, tmp253
+ 180:apps/src/Drawing_apps.c **** 
+ 181:apps/src/Drawing_apps.c **** 	for( i = 0; i < dx; i++ )
+ 514              		.loc 1 181 0
+ 515 033e 4FF00008 		mov	r8, #0	@ i,
+ 516 0342 ABE0     		b	.L29	@
+ 517              	.L44:
+ 182:apps/src/Drawing_apps.c **** 	{
+ 183:apps/src/Drawing_apps.c **** 		tmp_colour = ga_Write_Block[y_coordinate][x_coordinate/2];
+ 518              		.loc 1 183 0
+ 519 0344 4A46     		mov	r2, r9	@ D.8089, y_coordinate
+ 520 0346 7B08     		lsrs	r3, r7, #1	@ tmp254, x_coordinate,
+ 521 0348 9BB2     		uxth	r3, r3	@ D.8090, tmp254
+ 522 034a 1846     		mov	r0, r3	@ D.8089, D.8090
+ 523 034c 5B49     		ldr	r1, .L45+4	@ tmp255,
+ 524 034e 1346     		mov	r3, r2	@ tmp256, D.8089
+ 525 0350 9B00     		lsls	r3, r3, #2	@ tmp256, tmp256,
+ 526 0352 1344     		add	r3, r3, r2	@ tmp256, D.8089
+ 527 0354 9B01     		lsls	r3, r3, #6	@ tmp257, tmp256,
+ 528 0356 0344     		add	r3, r3, r0	@ tmp258, D.8089
+ 529 0358 0B44     		add	r3, r3, r1	@ tmp259, tmp255
+ 530 035a 1B78     		ldrb	r3, [r3]	@ tmp260, ga_Write_Block
+ 531 035c DCB2     		uxtb	r4, r3	@ tmp_colour, tmp260
+ 184:apps/src/Drawing_apps.c **** 		if( x_coordinate & 1 )
+ 532              		.loc 1 184 0
+ 533 035e 3B46     		mov	r3, r7	@ D.8089, x_coordinate
+ 534 0360 03F00103 		and	r3, r3, #1	@ D.8089, D.8089,
+ 535 0364 002B     		cmp	r3, #0	@ D.8089,
+ 536 0366 2DD0     		beq	.L30	@,
+ 185:apps/src/Drawing_apps.c **** 		{
+ 186:apps/src/Drawing_apps.c **** 			if( function == F_OVERWRITE )
+ 537              		.loc 1 186 0
+ 538 0368 002E     		cmp	r6, #0	@ function,
+ 539 036a 06D1     		bne	.L31	@,
+ 187:apps/src/Drawing_apps.c **** 			{
+ 188:apps/src/Drawing_apps.c **** 				tmp_colour &= 0xF0;
+ 540              		.loc 1 188 0
+ 541 036c 24F00F03 		bic	r3, r4, #15	@ tmp261, tmp_colour,
+ 542 0370 DCB2     		uxtb	r4, r3	@ tmp_colour, tmp261
+ 189:apps/src/Drawing_apps.c **** 				tmp_colour |= colour;
+ 543              		.loc 1 189 0
+ 544 0372 44EA0503 		orr	r3, r4, r5	@ tmp262, tmp_colour, colour
+ 545 0376 DCB2     		uxtb	r4, r3	@ tmp_colour, tmp262
+ 546 0378 5EE0     		b	.L32	@
+ 547              	.L31:
+ 190:apps/src/Drawing_apps.c **** 			}
+ 191:apps/src/Drawing_apps.c **** 			else if( function == F_OR )
+ 548              		.loc 1 191 0
+ 549 037a 012E     		cmp	r6, #1	@ function,
+ 550 037c 03D1     		bne	.L33	@,
+ 192:apps/src/Drawing_apps.c **** 			{
+ 193:apps/src/Drawing_apps.c **** 				tmp_colour |= colour;
+ 551              		.loc 1 193 0
+ 552 037e 44EA0503 		orr	r3, r4, r5	@ tmp263, tmp_colour, colour
+ 553 0382 DCB2     		uxtb	r4, r3	@ tmp_colour, tmp263
+ 554 0384 58E0     		b	.L32	@
+ 555              	.L33:
+ 194:apps/src/Drawing_apps.c **** 			}
+ 195:apps/src/Drawing_apps.c **** 			else if( function == F_XOR )
+ 556              		.loc 1 195 0
+ 557 0386 022E     		cmp	r6, #2	@ function,
+ 558 0388 0BD1     		bne	.L34	@,
+ 196:apps/src/Drawing_apps.c **** 			{
+ 197:apps/src/Drawing_apps.c **** 				tmp_colour |= (colour & (tmp_colour & 0x0F));
+ 559              		.loc 1 197 0
+ 560 038a 04EA0503 		and	r3, r4, r5	@ tmp264, tmp_colour, colour
+ 561 038e DBB2     		uxtb	r3, r3	@ D.8091, tmp264
+ 562 0390 DBB2     		uxtb	r3, r3	@ D.8092, D.8091
+ 563 0392 03F00F03 		and	r3, r3, #15	@ tmp266, tmp265,
+ 564 0396 DAB2     		uxtb	r2, r3	@ D.8092, tmp266
+ 565 0398 E3B2     		uxtb	r3, r4	@ tmp_colour.11, tmp_colour
+ 566 039a 1343     		orrs	r3, r3, r2	@, tmp269, tmp268, tmp267
+ 567 039c DBB2     		uxtb	r3, r3	@ D.8092, tmp269
+ 568 039e DCB2     		uxtb	r4, r3	@ tmp_colour, D.8092
+ 569 03a0 4AE0     		b	.L32	@
+ 570              	.L34:
+ 198:apps/src/Drawing_apps.c **** 			}
+ 199:apps/src/Drawing_apps.c **** 			else if( function == F_AND )
+ 571              		.loc 1 199 0
+ 572 03a2 032E     		cmp	r6, #3	@ function,
+ 573 03a4 0BD1     		bne	.L35	@,
+ 200:apps/src/Drawing_apps.c **** 			{
+ 201:apps/src/Drawing_apps.c **** 				tmp_colour |= (colour ^ (tmp_colour & 0x0F));
+ 574              		.loc 1 201 0
+ 575 03a6 E3B2     		uxtb	r3, r4	@ tmp_colour.12, tmp_colour
+ 576 03a8 03F00F03 		and	r3, r3, #15	@ tmp271, tmp270,
+ 577 03ac DAB2     		uxtb	r2, r3	@ D.8092, tmp271
+ 578 03ae EBB2     		uxtb	r3, r5	@ colour.13, colour
+ 579 03b0 5340     		eors	r3, r3, r2	@, tmp274, tmp273, tmp272
+ 580 03b2 DAB2     		uxtb	r2, r3	@ D.8092, tmp274
+ 581 03b4 E3B2     		uxtb	r3, r4	@ tmp_colour.14, tmp_colour
+ 582 03b6 1343     		orrs	r3, r3, r2	@, tmp277, tmp276, tmp275
+ 583 03b8 DBB2     		uxtb	r3, r3	@ D.8092, tmp277
+ 584 03ba DCB2     		uxtb	r4, r3	@ tmp_colour, D.8092
+ 585 03bc 3CE0     		b	.L32	@
+ 586              	.L35:
+ 202:apps/src/Drawing_apps.c **** 			}
+ 203:apps/src/Drawing_apps.c **** 			else
+ 204:apps/src/Drawing_apps.c **** 			{
+ 205:apps/src/Drawing_apps.c **** 				return(result);
+ 587              		.loc 1 205 0
+ 588 03be 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ D.8086, result
+ 589 03c2 74E0     		b	.L28	@
+ 590              	.L30:
+ 206:apps/src/Drawing_apps.c **** 			}
+ 207:apps/src/Drawing_apps.c **** 		}
+ 208:apps/src/Drawing_apps.c **** 		else
+ 209:apps/src/Drawing_apps.c **** 		{
+ 210:apps/src/Drawing_apps.c **** 			if( function == F_OVERWRITE )
+ 591              		.loc 1 210 0
+ 592 03c4 002E     		cmp	r6, #0	@ function,
+ 593 03c6 0AD1     		bne	.L36	@,
+ 211:apps/src/Drawing_apps.c **** 			{
+ 212:apps/src/Drawing_apps.c **** 				tmp_colour &= 0x0F;
+ 594              		.loc 1 212 0
+ 595 03c8 04F00F03 		and	r3, r4, #15	@ tmp278, tmp_colour,
+ 596 03cc DCB2     		uxtb	r4, r3	@ tmp_colour, tmp278
+ 213:apps/src/Drawing_apps.c **** 				tmp_colour |= (colour << 4);
+ 597              		.loc 1 213 0
+ 598 03ce 2B46     		mov	r3, r5	@ D.8089, colour
+ 599 03d0 1B01     		lsls	r3, r3, #4	@ D.8089, D.8089,
+ 600 03d2 DAB2     		uxtb	r2, r3	@ D.8092, D.8089
+ 601 03d4 E3B2     		uxtb	r3, r4	@ tmp_colour.15, tmp_colour
+ 602 03d6 1343     		orrs	r3, r3, r2	@, tmp281, tmp280, tmp279
+ 603 03d8 DBB2     		uxtb	r3, r3	@ D.8092, tmp281
+ 604 03da DCB2     		uxtb	r4, r3	@ tmp_colour, D.8092
+ 605 03dc 2CE0     		b	.L32	@
+ 606              	.L36:
+ 214:apps/src/Drawing_apps.c **** 			}
+ 215:apps/src/Drawing_apps.c **** 			else if( function == F_OR )
+ 607              		.loc 1 215 0
+ 608 03de 012E     		cmp	r6, #1	@ function,
+ 609 03e0 07D1     		bne	.L37	@,
+ 216:apps/src/Drawing_apps.c **** 			{
+ 217:apps/src/Drawing_apps.c **** 				tmp_colour |= (colour << 4);
+ 610              		.loc 1 217 0
+ 611 03e2 2B46     		mov	r3, r5	@ D.8089, colour
+ 612 03e4 1B01     		lsls	r3, r3, #4	@ D.8089, D.8089,
+ 613 03e6 DAB2     		uxtb	r2, r3	@ D.8092, D.8089
+ 614 03e8 E3B2     		uxtb	r3, r4	@ tmp_colour.16, tmp_colour
+ 615 03ea 1343     		orrs	r3, r3, r2	@, tmp284, tmp283, tmp282
+ 616 03ec DBB2     		uxtb	r3, r3	@ D.8092, tmp284
+ 617 03ee DCB2     		uxtb	r4, r3	@ tmp_colour, D.8092
+ 618 03f0 22E0     		b	.L32	@
+ 619              	.L37:
+ 218:apps/src/Drawing_apps.c **** 			}
+ 219:apps/src/Drawing_apps.c **** 			else if( function == F_XOR )
+ 620              		.loc 1 219 0
+ 621 03f2 022E     		cmp	r6, #2	@ function,
+ 622 03f4 0DD1     		bne	.L38	@,
+ 220:apps/src/Drawing_apps.c **** 			{
+ 221:apps/src/Drawing_apps.c **** 				tmp_colour |= ((colour << 4) & (tmp_colour & 0xF0));
+ 623              		.loc 1 221 0
+ 624 03f6 2B46     		mov	r3, r5	@ D.8089, colour
+ 625 03f8 1B01     		lsls	r3, r3, #4	@ D.8089, D.8089,
+ 626 03fa DAB2     		uxtb	r2, r3	@ D.8092, D.8089
+ 627 03fc E3B2     		uxtb	r3, r4	@ tmp_colour.17, tmp_colour
+ 628 03fe 23F00F03 		bic	r3, r3, #15	@ tmp286, tmp285,
+ 629 0402 DBB2     		uxtb	r3, r3	@ D.8092, tmp286
+ 630 0404 1340     		ands	r3, r3, r2	@, tmp289, tmp288, tmp287
+ 631 0406 DAB2     		uxtb	r2, r3	@ D.8092, tmp289
+ 632 0408 E3B2     		uxtb	r3, r4	@ tmp_colour.18, tmp_colour
+ 633 040a 1343     		orrs	r3, r3, r2	@, tmp292, tmp291, tmp290
+ 634 040c DBB2     		uxtb	r3, r3	@ D.8092, tmp292
+ 635 040e DCB2     		uxtb	r4, r3	@ tmp_colour, D.8092
+ 636 0410 12E0     		b	.L32	@
+ 637              	.L38:
+ 222:apps/src/Drawing_apps.c **** 			}
+ 223:apps/src/Drawing_apps.c **** 			else if( function == F_AND )
+ 638              		.loc 1 223 0
+ 639 0412 032E     		cmp	r6, #3	@ function,
+ 640 0414 0DD1     		bne	.L39	@,
+ 224:apps/src/Drawing_apps.c **** 			{
+ 225:apps/src/Drawing_apps.c **** 				tmp_colour |= ((colour << 4) ^ (tmp_colour & 0xF0));
+ 641              		.loc 1 225 0
+ 642 0416 2B46     		mov	r3, r5	@ D.8089, colour
+ 643 0418 1B01     		lsls	r3, r3, #4	@ D.8089, D.8089,
+ 644 041a DAB2     		uxtb	r2, r3	@ D.8092, D.8089
+ 645 041c E3B2     		uxtb	r3, r4	@ tmp_colour.19, tmp_colour
+ 646 041e 23F00F03 		bic	r3, r3, #15	@ tmp294, tmp293,
+ 647 0422 DBB2     		uxtb	r3, r3	@ D.8092, tmp294
+ 648 0424 5340     		eors	r3, r3, r2	@, tmp297, tmp296, tmp295
+ 649 0426 DAB2     		uxtb	r2, r3	@ D.8092, tmp297
+ 650 0428 E3B2     		uxtb	r3, r4	@ tmp_colour.20, tmp_colour
+ 651 042a 1343     		orrs	r3, r3, r2	@, tmp300, tmp299, tmp298
+ 652 042c DBB2     		uxtb	r3, r3	@ D.8092, tmp300
+ 653 042e DCB2     		uxtb	r4, r3	@ tmp_colour, D.8092
+ 654 0430 02E0     		b	.L32	@
+ 655              	.L39:
+ 226:apps/src/Drawing_apps.c **** 			}
+ 227:apps/src/Drawing_apps.c **** 			else
+ 228:apps/src/Drawing_apps.c **** 			{
+ 229:apps/src/Drawing_apps.c **** 				return(result);
+ 656              		.loc 1 229 0
+ 657 0432 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ D.8086, result
+ 658 0436 3AE0     		b	.L28	@
+ 659              	.L32:
+ 230:apps/src/Drawing_apps.c **** 			}
+ 231:apps/src/Drawing_apps.c **** 
+ 232:apps/src/Drawing_apps.c **** 		}
+ 233:apps/src/Drawing_apps.c **** 
+ 234:apps/src/Drawing_apps.c **** 		for( count = 0; count < 3; count++ )
+ 660              		.loc 1 234 0
+ 661 0438 4FF0000A 		mov	r10, #0	@ count,
+ 662 043c 23E0     		b	.L40	@
+ 663              	.L43:
+ 235:apps/src/Drawing_apps.c **** 		{
+ 236:apps/src/Drawing_apps.c **** 			ga_Write_Block[y_coordinate][x_coordinate/2] = tmp_colour;
+ 664              		.loc 1 236 0
+ 665 043e 4A46     		mov	r2, r9	@ D.8089, y_coordinate
+ 666 0440 7B08     		lsrs	r3, r7, #1	@ tmp301, x_coordinate,
+ 667 0442 9BB2     		uxth	r3, r3	@ D.8090, tmp301
+ 668 0444 1846     		mov	r0, r3	@ D.8089, D.8090
+ 669 0446 1D49     		ldr	r1, .L45+4	@ tmp302,
+ 670 0448 1346     		mov	r3, r2	@ tmp303, D.8089
+ 671 044a 9B00     		lsls	r3, r3, #2	@ tmp303, tmp303,
+ 672 044c 1344     		add	r3, r3, r2	@ tmp303, D.8089
+ 673 044e 9B01     		lsls	r3, r3, #6	@ tmp304, tmp303,
+ 674 0450 0344     		add	r3, r3, r0	@ tmp305, D.8089
+ 675 0452 0B44     		add	r3, r3, r1	@ tmp306, tmp302
+ 676 0454 2246     		mov	r2, r4	@ tmp307, tmp_colour
+ 677 0456 1A70     		strb	r2, [r3]	@ tmp307, ga_Write_Block
+ 237:apps/src/Drawing_apps.c **** 			if( ga_Write_Block[y_coordinate][x_coordinate/2] == tmp_colour)
+ 678              		.loc 1 237 0
+ 679 0458 4A46     		mov	r2, r9	@ D.8089, y_coordinate
+ 680 045a 7B08     		lsrs	r3, r7, #1	@ tmp308, x_coordinate,
+ 681 045c 9BB2     		uxth	r3, r3	@ D.8090, tmp308
+ 682 045e 1846     		mov	r0, r3	@ D.8089, D.8090
+ 683 0460 1649     		ldr	r1, .L45+4	@ tmp309,
+ 684 0462 1346     		mov	r3, r2	@ tmp310, D.8089
+ 685 0464 9B00     		lsls	r3, r3, #2	@ tmp310, tmp310,
+ 686 0466 1344     		add	r3, r3, r2	@ tmp310, D.8089
+ 687 0468 9B01     		lsls	r3, r3, #6	@ tmp311, tmp310,
+ 688 046a 0344     		add	r3, r3, r0	@ tmp312, D.8089
+ 689 046c 0B44     		add	r3, r3, r1	@ tmp313, tmp309
+ 690 046e 1B78     		ldrb	r3, [r3]	@ tmp314, ga_Write_Block
+ 691 0470 DBB2     		uxtb	r3, r3	@ D.8091, tmp314
+ 692 0472 A342     		cmp	r3, r4	@ D.8091, tmp_colour
+ 693 0474 03D1     		bne	.L41	@,
+ 238:apps/src/Drawing_apps.c **** 			{
+ 239:apps/src/Drawing_apps.c **** 				result = 0;
+ 694              		.loc 1 239 0
+ 695 0476 0023     		movs	r3, #0	@ tmp315,
+ 696 0478 8DF80F30 		strb	r3, [sp, #15]	@ tmp316, result
+ 240:apps/src/Drawing_apps.c **** 				break;
+ 697              		.loc 1 240 0
+ 698 047c 06E0     		b	.L42	@
+ 699              	.L41:
+ 234:apps/src/Drawing_apps.c **** 		for( count = 0; count < 3; count++ )
+ 700              		.loc 1 234 0
+ 701 047e 5346     		mov	r3, r10	@ count.21, count
+ 702 0480 0133     		adds	r3, r3, #1	@ tmp317, count.21,
+ 703 0482 5FFA83FA 		uxtb	r10, r3	@ count, tmp317
+ 704              	.L40:
+ 234:apps/src/Drawing_apps.c **** 		for( count = 0; count < 3; count++ )
+ 705              		.loc 1 234 0 is_stmt 0 discriminator 1
+ 706 0486 BAF1020F 		cmp	r10, #2	@ count,
+ 707 048a D8D9     		bls	.L43	@,
+ 708              	.L42:
+ 241:apps/src/Drawing_apps.c **** 			}
+ 242:apps/src/Drawing_apps.c **** 		}
+ 243:apps/src/Drawing_apps.c **** 		x_coordinate++;
+ 709              		.loc 1 243 0 is_stmt 1
+ 710 048c 3B46     		mov	r3, r7	@ x_coordinate.22, x_coordinate
+ 711 048e 0133     		adds	r3, r3, #1	@ tmp318, x_coordinate.22,
+ 712 0490 9FB2     		uxth	r7, r3	@ x_coordinate, tmp318
+ 181:apps/src/Drawing_apps.c **** 	for( i = 0; i < dx; i++ )
+ 713              		.loc 1 181 0
+ 714 0492 1FFA88F3 		uxth	r3, r8	@ i.23, i
+ 715 0496 0133     		adds	r3, r3, #1	@ tmp320, tmp319,
+ 716 0498 1FFA83F8 		uxth	r8, r3	@ i, tmp320
+ 717              	.L29:
+ 181:apps/src/Drawing_apps.c **** 	for( i = 0; i < dx; i++ )
+ 718              		.loc 1 181 0 is_stmt 0 discriminator 1
+ 719 049c BDF90A20 		ldrsh	r2, [sp, #10]	@ tmp321, dx
+ 720 04a0 0FFA88F3 		sxth	r3, r8	@ tmp322, i
+ 721 04a4 9A42     		cmp	r2, r3	@ tmp321, tmp322
+ 722 04a6 3FF74DAF 		bgt	.L44	@,
+ 244:apps/src/Drawing_apps.c **** 	}
+ 245:apps/src/Drawing_apps.c **** 	return(result);
+ 723              		.loc 1 245 0 is_stmt 1
+ 724 04aa 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ D.8086, result
+ 725              	.L28:
+ 246:apps/src/Drawing_apps.c **** }
+ 726              		.loc 1 246 0
+ 727 04ae 1846     		mov	r0, r3	@, <retval>
+ 728 04b0 05B0     		add	sp, sp, #20	@,,
+ 729              		@ sp needed	@
+ 730 04b2 BDE8F007 		pop	{r4, r5, r6, r7, r8, r9, r10}	@
+ 731 04b6 7047     		bx	lr	@
+ 732              	.L46:
+ 733              		.align	2
+ 734              	.L45:
+ 735 04b8 00000000 		.word	windowframe
+ 736 04bc 00000000 		.word	ga_Write_Block
+ 737              		.cfi_endproc
+ 738              	.LFE117:
+ 740              		.align	2
+ 741              		.global	gDrawAPointColour
+ 742              		.thumb
+ 743              		.thumb_func
+ 745              	gDrawAPointColour:
+ 746              	.LFB118:
+ 247:apps/src/Drawing_apps.c **** 
+ 248:apps/src/Drawing_apps.c **** 
+ 249:apps/src/Drawing_apps.c **** /* Public functions ----------------------------------------------------------*/
+ 250:apps/src/Drawing_apps.c **** 
+ 251:apps/src/Drawing_apps.c **** /**
+ 252:apps/src/Drawing_apps.c ****   * @brief
+ 253:apps/src/Drawing_apps.c ****   * @param  None
+ 254:apps/src/Drawing_apps.c ****   * @retval
+ 255:apps/src/Drawing_apps.c ****   */
+ 256:apps/src/Drawing_apps.c **** uint8_t gDrawAPointColour( draw_t *p_draw )
+ 257:apps/src/Drawing_apps.c **** {
+ 747              		.loc 1 257 0
+ 748              		.cfi_startproc
+ 749              		@ args = 0, pretend = 0, frame = 16
+ 750              		@ frame_needed = 0, uses_anonymous_args = 0
+ 751 04c0 00B5     		push	{lr}	@
+ 752              		.cfi_def_cfa_offset 4
+ 753              		.cfi_offset 14, -4
+ 754 04c2 85B0     		sub	sp, sp, #20	@,,
+ 755              		.cfi_def_cfa_offset 24
+ 756 04c4 0190     		str	r0, [sp, #4]	@ p_draw, p_draw
+ 258:apps/src/Drawing_apps.c **** uint8_t result;
+ 259:apps/src/Drawing_apps.c **** 
+ 260:apps/src/Drawing_apps.c **** 
+ 261:apps/src/Drawing_apps.c **** 	if( (p_draw->x1 < 0) || (p_draw->x1 > H_LINE_SIZE) ||
+ 757              		.loc 1 261 0
+ 758 04c6 019B     		ldr	r3, [sp, #4]	@ tmp120, p_draw
+ 759 04c8 B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp122,
+ 760 04cc 9BB2     		uxth	r3, r3	@ D.8094, tmp121
+ 761 04ce 1BB2     		sxth	r3, r3	@ tmp123, D.8094
+ 762 04d0 002B     		cmp	r3, #0	@ tmp123,
+ 763 04d2 34DB     		blt	.L48	@,
+ 764              		.loc 1 261 0 is_stmt 0 discriminator 1
+ 765 04d4 019B     		ldr	r3, [sp, #4]	@ tmp124, p_draw
+ 766 04d6 B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp126,
+ 767 04da 9BB2     		uxth	r3, r3	@ D.8094, tmp125
+ 768 04dc 1BB2     		sxth	r3, r3	@ tmp127, D.8094
+ 769 04de B3F5207F 		cmp	r3, #640	@ tmp127,
+ 770 04e2 2CDC     		bgt	.L48	@,
+ 262:apps/src/Drawing_apps.c **** 		(p_draw->x2_rx < 0) || (p_draw->x2_rx > H_LINE_SIZE) ||
+ 771              		.loc 1 262 0 is_stmt 1 discriminator 1
+ 772 04e4 019B     		ldr	r3, [sp, #4]	@ tmp128, p_draw
+ 773 04e6 B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp130,
+ 774 04ea 9BB2     		uxth	r3, r3	@ D.8094, tmp129
+ 261:apps/src/Drawing_apps.c **** 	if( (p_draw->x1 < 0) || (p_draw->x1 > H_LINE_SIZE) ||
+ 775              		.loc 1 261 0 discriminator 1
+ 776 04ec 1BB2     		sxth	r3, r3	@ tmp131, D.8094
+ 777 04ee 002B     		cmp	r3, #0	@ tmp131,
+ 778 04f0 25DB     		blt	.L48	@,
+ 779              		.loc 1 262 0
+ 780 04f2 019B     		ldr	r3, [sp, #4]	@ tmp132, p_draw
+ 781 04f4 B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp134,
+ 782 04f8 9BB2     		uxth	r3, r3	@ D.8094, tmp133
+ 783 04fa 1BB2     		sxth	r3, r3	@ tmp135, D.8094
+ 784 04fc B3F5207F 		cmp	r3, #640	@ tmp135,
+ 785 0500 1DDC     		bgt	.L48	@,
+ 263:apps/src/Drawing_apps.c **** 		(p_draw->y1 < 0) || (p_draw->y1 > V_LINE_SIZE) ||
+ 786              		.loc 1 263 0 discriminator 1
+ 787 0502 019B     		ldr	r3, [sp, #4]	@ tmp136, p_draw
+ 788 0504 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp138,
+ 789 0508 9BB2     		uxth	r3, r3	@ D.8094, tmp137
+ 262:apps/src/Drawing_apps.c **** 		(p_draw->x2_rx < 0) || (p_draw->x2_rx > H_LINE_SIZE) ||
+ 790              		.loc 1 262 0 discriminator 1
+ 791 050a 1BB2     		sxth	r3, r3	@ tmp139, D.8094
+ 792 050c 002B     		cmp	r3, #0	@ tmp139,
+ 793 050e 16DB     		blt	.L48	@,
+ 794              		.loc 1 263 0
+ 795 0510 019B     		ldr	r3, [sp, #4]	@ tmp140, p_draw
+ 796 0512 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp142,
+ 797 0516 9BB2     		uxth	r3, r3	@ D.8094, tmp141
+ 798 0518 1BB2     		sxth	r3, r3	@ tmp143, D.8094
+ 799 051a B3F5AF7F 		cmp	r3, #350	@ tmp143,
+ 800 051e 0EDC     		bgt	.L48	@,
+ 264:apps/src/Drawing_apps.c **** 		(p_draw->y2_ry < 0) || (p_draw->y2_ry > V_LINE_SIZE) )
+ 801              		.loc 1 264 0 discriminator 1
+ 802 0520 019B     		ldr	r3, [sp, #4]	@ tmp144, p_draw
+ 803 0522 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp146,
+ 804 0526 9BB2     		uxth	r3, r3	@ D.8094, tmp145
+ 263:apps/src/Drawing_apps.c **** 		(p_draw->y1 < 0) || (p_draw->y1 > V_LINE_SIZE) ||
+ 805              		.loc 1 263 0 discriminator 1
+ 806 0528 1BB2     		sxth	r3, r3	@ tmp147, D.8094
+ 807 052a 002B     		cmp	r3, #0	@ tmp147,
+ 808 052c 07DB     		blt	.L48	@,
+ 809              		.loc 1 264 0
+ 810 052e 019B     		ldr	r3, [sp, #4]	@ tmp148, p_draw
+ 811 0530 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp150,
+ 812 0534 9BB2     		uxth	r3, r3	@ D.8094, tmp149
+ 813 0536 1BB2     		sxth	r3, r3	@ tmp151, D.8094
+ 814 0538 B3F5AF7F 		cmp	r3, #350	@ tmp151,
+ 815 053c 05DD     		ble	.L49	@,
+ 816              	.L48:
+ 265:apps/src/Drawing_apps.c **** 	{
+ 266:apps/src/Drawing_apps.c **** 		result = 1;
+ 817              		.loc 1 266 0
+ 818 053e 0123     		movs	r3, #1	@ tmp152,
+ 819 0540 8DF80F30 		strb	r3, [sp, #15]	@ tmp153, result
+ 267:apps/src/Drawing_apps.c **** 		return(result);
+ 820              		.loc 1 267 0
+ 821 0544 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ D.8093, result
+ 822 0548 07E0     		b	.L50	@
+ 823              	.L49:
+ 268:apps/src/Drawing_apps.c **** 	}
+ 269:apps/src/Drawing_apps.c **** 	result = sDrawAPixel( p_draw );
+ 824              		.loc 1 269 0
+ 825 054a 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 826 054c FFF758FD 		bl	sDrawAPixel	@
+ 827 0550 0346     		mov	r3, r0	@ tmp154,
+ 828 0552 8DF80F30 		strb	r3, [sp, #15]	@ tmp155, result
+ 270:apps/src/Drawing_apps.c **** 	return(result);
+ 829              		.loc 1 270 0
+ 830 0556 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ D.8093, result
+ 831              	.L50:
+ 271:apps/src/Drawing_apps.c **** }
+ 832              		.loc 1 271 0
+ 833 055a 1846     		mov	r0, r3	@, <retval>
+ 834 055c 05B0     		add	sp, sp, #20	@,,
+ 835              		@ sp needed	@
+ 836 055e 5DF804FB 		ldr	pc, [sp], #4	@
+ 837              		.cfi_endproc
+ 838              	.LFE118:
+ 840 0562 00BF     		.align	2
+ 841              		.global	gReadAPointColour
+ 842              		.thumb
+ 843              		.thumb_func
+ 845              	gReadAPointColour:
+ 846              	.LFB119:
+ 272:apps/src/Drawing_apps.c **** 
+ 273:apps/src/Drawing_apps.c **** 
+ 274:apps/src/Drawing_apps.c **** /**
+ 275:apps/src/Drawing_apps.c ****   * @brief
+ 276:apps/src/Drawing_apps.c ****   * @param  None
+ 277:apps/src/Drawing_apps.c ****   * @retval
+ 278:apps/src/Drawing_apps.c ****   */
+ 279:apps/src/Drawing_apps.c **** uint8_t gReadAPointColour( draw_t *p_draw )
+ 280:apps/src/Drawing_apps.c **** {
+ 847              		.loc 1 280 0
+ 848              		.cfi_startproc
+ 849              		@ args = 0, pretend = 0, frame = 16
+ 850              		@ frame_needed = 0, uses_anonymous_args = 0
+ 851              		@ link register save eliminated.
+ 852 0564 84B0     		sub	sp, sp, #16	@,,
+ 853              		.cfi_def_cfa_offset 16
+ 854 0566 0190     		str	r0, [sp, #4]	@ p_draw, p_draw
+ 281:apps/src/Drawing_apps.c **** uint8_t result, tmp_colour;
+ 282:apps/src/Drawing_apps.c **** uint16_t x_coordinate, y_coordinate;
+ 283:apps/src/Drawing_apps.c **** 
+ 284:apps/src/Drawing_apps.c **** 
+ 285:apps/src/Drawing_apps.c **** 	if( (p_draw->x1 < 0) || (p_draw->x1 > H_LINE_SIZE) ||
+ 855              		.loc 1 285 0
+ 856 0568 019B     		ldr	r3, [sp, #4]	@ tmp127, p_draw
+ 857 056a B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp129,
+ 858 056e 9BB2     		uxth	r3, r3	@ D.8096, tmp128
+ 859 0570 1BB2     		sxth	r3, r3	@ tmp130, D.8096
+ 860 0572 002B     		cmp	r3, #0	@ tmp130,
+ 861 0574 34DB     		blt	.L52	@,
+ 862              		.loc 1 285 0 is_stmt 0 discriminator 1
+ 863 0576 019B     		ldr	r3, [sp, #4]	@ tmp131, p_draw
+ 864 0578 B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp133,
+ 865 057c 9BB2     		uxth	r3, r3	@ D.8096, tmp132
+ 866 057e 1BB2     		sxth	r3, r3	@ tmp134, D.8096
+ 867 0580 B3F5207F 		cmp	r3, #640	@ tmp134,
+ 868 0584 2CDC     		bgt	.L52	@,
+ 286:apps/src/Drawing_apps.c **** 			(p_draw->x2_rx < 0) || (p_draw->x2_rx > H_LINE_SIZE) ||
+ 869              		.loc 1 286 0 is_stmt 1 discriminator 1
+ 870 0586 019B     		ldr	r3, [sp, #4]	@ tmp135, p_draw
+ 871 0588 B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp137,
+ 872 058c 9BB2     		uxth	r3, r3	@ D.8096, tmp136
+ 285:apps/src/Drawing_apps.c **** 	if( (p_draw->x1 < 0) || (p_draw->x1 > H_LINE_SIZE) ||
+ 873              		.loc 1 285 0 discriminator 1
+ 874 058e 1BB2     		sxth	r3, r3	@ tmp138, D.8096
+ 875 0590 002B     		cmp	r3, #0	@ tmp138,
+ 876 0592 25DB     		blt	.L52	@,
+ 877              		.loc 1 286 0
+ 878 0594 019B     		ldr	r3, [sp, #4]	@ tmp139, p_draw
+ 879 0596 B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp141,
+ 880 059a 9BB2     		uxth	r3, r3	@ D.8096, tmp140
+ 881 059c 1BB2     		sxth	r3, r3	@ tmp142, D.8096
+ 882 059e B3F5207F 		cmp	r3, #640	@ tmp142,
+ 883 05a2 1DDC     		bgt	.L52	@,
+ 287:apps/src/Drawing_apps.c **** 			(p_draw->y1 < 0) || (p_draw->y1 > V_LINE_SIZE) ||
+ 884              		.loc 1 287 0 discriminator 1
+ 885 05a4 019B     		ldr	r3, [sp, #4]	@ tmp143, p_draw
+ 886 05a6 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp145,
+ 887 05aa 9BB2     		uxth	r3, r3	@ D.8096, tmp144
+ 286:apps/src/Drawing_apps.c **** 			(p_draw->x2_rx < 0) || (p_draw->x2_rx > H_LINE_SIZE) ||
+ 888              		.loc 1 286 0 discriminator 1
+ 889 05ac 1BB2     		sxth	r3, r3	@ tmp146, D.8096
+ 890 05ae 002B     		cmp	r3, #0	@ tmp146,
+ 891 05b0 16DB     		blt	.L52	@,
+ 892              		.loc 1 287 0
+ 893 05b2 019B     		ldr	r3, [sp, #4]	@ tmp147, p_draw
+ 894 05b4 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp149,
+ 895 05b8 9BB2     		uxth	r3, r3	@ D.8096, tmp148
+ 896 05ba 1BB2     		sxth	r3, r3	@ tmp150, D.8096
+ 897 05bc B3F5AF7F 		cmp	r3, #350	@ tmp150,
+ 898 05c0 0EDC     		bgt	.L52	@,
+ 288:apps/src/Drawing_apps.c **** 			(p_draw->y2_ry < 0) || (p_draw->y2_ry > V_LINE_SIZE) )
+ 899              		.loc 1 288 0 discriminator 1
+ 900 05c2 019B     		ldr	r3, [sp, #4]	@ tmp151, p_draw
+ 901 05c4 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp153,
+ 902 05c8 9BB2     		uxth	r3, r3	@ D.8096, tmp152
+ 287:apps/src/Drawing_apps.c **** 			(p_draw->y1 < 0) || (p_draw->y1 > V_LINE_SIZE) ||
+ 903              		.loc 1 287 0 discriminator 1
+ 904 05ca 1BB2     		sxth	r3, r3	@ tmp154, D.8096
+ 905 05cc 002B     		cmp	r3, #0	@ tmp154,
+ 906 05ce 07DB     		blt	.L52	@,
+ 907              		.loc 1 288 0
+ 908 05d0 019B     		ldr	r3, [sp, #4]	@ tmp155, p_draw
+ 909 05d2 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp157,
+ 910 05d6 9BB2     		uxth	r3, r3	@ D.8096, tmp156
+ 911 05d8 1BB2     		sxth	r3, r3	@ tmp158, D.8096
+ 912 05da B3F5AF7F 		cmp	r3, #350	@ tmp158,
+ 913 05de 05DD     		ble	.L53	@,
+ 914              	.L52:
+ 289:apps/src/Drawing_apps.c **** 	{
+ 290:apps/src/Drawing_apps.c **** 		result = 1;
+ 915              		.loc 1 290 0
+ 916 05e0 0123     		movs	r3, #1	@ tmp159,
+ 917 05e2 8DF80930 		strb	r3, [sp, #9]	@ tmp160, result
+ 291:apps/src/Drawing_apps.c **** 		return(result);
+ 918              		.loc 1 291 0
+ 919 05e6 9DF80930 		ldrb	r3, [sp, #9]	@ zero_extendqisi2	@ D.8095, result
+ 920 05ea 3DE0     		b	.L54	@
+ 921              	.L53:
+ 292:apps/src/Drawing_apps.c **** 	}
+ 293:apps/src/Drawing_apps.c **** 
+ 294:apps/src/Drawing_apps.c **** 	x_coordinate = (uint16_t)p_draw->x1;
+ 922              		.loc 1 294 0
+ 923 05ec 019B     		ldr	r3, [sp, #4]	@ tmp161, p_draw
+ 924 05ee B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp163,
+ 925 05f2 9BB2     		uxth	r3, r3	@ D.8096, tmp162
+ 926 05f4 ADF80C30 		strh	r3, [sp, #12]	@ movhi	@ tmp164, x_coordinate
+ 295:apps/src/Drawing_apps.c **** 	y_coordinate = (uint16_t)p_draw->y1;
+ 927              		.loc 1 295 0
+ 928 05f8 019B     		ldr	r3, [sp, #4]	@ tmp165, p_draw
+ 929 05fa B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp167,
+ 930 05fe 9BB2     		uxth	r3, r3	@ D.8096, tmp166
+ 931 0600 ADF80A30 		strh	r3, [sp, #10]	@ movhi	@ tmp168, y_coordinate
+ 296:apps/src/Drawing_apps.c **** 	tmp_colour = ga_Write_Block[y_coordinate][x_coordinate/2];
+ 932              		.loc 1 296 0
+ 933 0604 BDF80A20 		ldrh	r2, [sp, #10]	@ D.8097, y_coordinate
+ 934 0608 BDF80C30 		ldrh	r3, [sp, #12]	@ tmp170, x_coordinate
+ 935 060c 5B08     		lsrs	r3, r3, #1	@ tmp169, tmp170,
+ 936 060e 9BB2     		uxth	r3, r3	@ D.8098, tmp169
+ 937 0610 1846     		mov	r0, r3	@ D.8097, D.8098
+ 938 0612 1749     		ldr	r1, .L57	@ tmp171,
+ 939 0614 1346     		mov	r3, r2	@ tmp172, D.8097
+ 940 0616 9B00     		lsls	r3, r3, #2	@ tmp172, tmp172,
+ 941 0618 1344     		add	r3, r3, r2	@ tmp172, D.8097
+ 942 061a 9B01     		lsls	r3, r3, #6	@ tmp173, tmp172,
+ 943 061c 0344     		add	r3, r3, r0	@ tmp174, D.8097
+ 944 061e 0B44     		add	r3, r3, r1	@ tmp175, tmp171
+ 945 0620 1B78     		ldrb	r3, [r3]	@ tmp176, ga_Write_Block
+ 946 0622 8DF80F30 		strb	r3, [sp, #15]	@ tmp176, tmp_colour
+ 297:apps/src/Drawing_apps.c **** 	if( x_coordinate & 1 )
+ 947              		.loc 1 297 0
+ 948 0626 BDF80C30 		ldrh	r3, [sp, #12]	@ D.8097, x_coordinate
+ 949 062a 03F00103 		and	r3, r3, #1	@ D.8097, D.8097,
+ 950 062e 002B     		cmp	r3, #0	@ D.8097,
+ 951 0630 06D0     		beq	.L55	@,
+ 298:apps/src/Drawing_apps.c **** 	{
+ 299:apps/src/Drawing_apps.c **** 		tmp_colour &= 0x0F;
+ 952              		.loc 1 299 0
+ 953 0632 9DF80F30 		ldrb	r3, [sp, #15]	@ tmp177, tmp_colour
+ 954 0636 03F00F03 		and	r3, r3, #15	@ tmp178, tmp177,
+ 955 063a 8DF80F30 		strb	r3, [sp, #15]	@ tmp179, tmp_colour
+ 956 063e 0AE0     		b	.L56	@
+ 957              	.L55:
+ 300:apps/src/Drawing_apps.c **** 	}
+ 301:apps/src/Drawing_apps.c **** 	else
+ 302:apps/src/Drawing_apps.c **** 	{
+ 303:apps/src/Drawing_apps.c **** 		tmp_colour &= 0xF0;
+ 958              		.loc 1 303 0
+ 959 0640 9DF80F30 		ldrb	r3, [sp, #15]	@ tmp180, tmp_colour
+ 960 0644 23F00F03 		bic	r3, r3, #15	@ tmp181, tmp180,
+ 961 0648 8DF80F30 		strb	r3, [sp, #15]	@ tmp182, tmp_colour
+ 304:apps/src/Drawing_apps.c **** 		tmp_colour >>= 4;
+ 962              		.loc 1 304 0
+ 963 064c 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2	@ tmp183, tmp_colour
+ 964 0650 1B09     		lsrs	r3, r3, #4	@ tmp184, tmp183,
+ 965 0652 8DF80F30 		strb	r3, [sp, #15]	@ tmp185, tmp_colour
+ 966              	.L56:
+ 305:apps/src/Drawing_apps.c **** 	}
+ 306:apps/src/Drawing_apps.c **** 	p_draw->colour = tmp_colour;
+ 967              		.loc 1 306 0
+ 968 0656 019B     		ldr	r3, [sp, #4]	@ tmp186, p_draw
+ 969 0658 9DF80F20 		ldrb	r2, [sp, #15]	@ tmp187, tmp_colour
+ 970 065c 5A70     		strb	r2, [r3, #1]	@ tmp187, p_draw_3(D)->colour
+ 307:apps/src/Drawing_apps.c **** 	result = 0;
+ 971              		.loc 1 307 0
+ 972 065e 0023     		movs	r3, #0	@ tmp188,
+ 973 0660 8DF80930 		strb	r3, [sp, #9]	@ tmp189, result
+ 308:apps/src/Drawing_apps.c **** 	return(result);
+ 974              		.loc 1 308 0
+ 975 0664 9DF80930 		ldrb	r3, [sp, #9]	@ zero_extendqisi2	@ D.8095, result
+ 976              	.L54:
+ 309:apps/src/Drawing_apps.c **** }
+ 977              		.loc 1 309 0
+ 978 0668 1846     		mov	r0, r3	@, <retval>
+ 979 066a 04B0     		add	sp, sp, #16	@,,
+ 980              		@ sp needed	@
+ 981 066c 7047     		bx	lr	@
+ 982              	.L58:
+ 983 066e 00BF     		.align	2
+ 984              	.L57:
+ 985 0670 00000000 		.word	ga_Write_Block
+ 986              		.cfi_endproc
+ 987              	.LFE119:
+ 989              		.align	2
+ 990              		.global	gDrawALineColour
+ 991              		.thumb
+ 992              		.thumb_func
+ 994              	gDrawALineColour:
+ 995              	.LFB120:
+ 310:apps/src/Drawing_apps.c **** 
+ 311:apps/src/Drawing_apps.c **** 
+ 312:apps/src/Drawing_apps.c **** /**
+ 313:apps/src/Drawing_apps.c ****   * @brief
+ 314:apps/src/Drawing_apps.c ****   * @param  None
+ 315:apps/src/Drawing_apps.c ****   * @retval
+ 316:apps/src/Drawing_apps.c ****   */
+ 317:apps/src/Drawing_apps.c **** uint8_t gDrawALineColour( draw_t *p_draw )
+ 318:apps/src/Drawing_apps.c **** {
+ 996              		.loc 1 318 0
+ 997              		.cfi_startproc
+ 998              		@ args = 0, pretend = 0, frame = 32
+ 999              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1000 0674 00B5     		push	{lr}	@
+ 1001              		.cfi_def_cfa_offset 4
+ 1002              		.cfi_offset 14, -4
+ 1003 0676 89B0     		sub	sp, sp, #36	@,,
+ 1004              		.cfi_def_cfa_offset 40
+ 1005 0678 0190     		str	r0, [sp, #4]	@ p_draw, p_draw
+ 319:apps/src/Drawing_apps.c **** uint8_t result;
+ 320:apps/src/Drawing_apps.c **** 
+ 321:apps/src/Drawing_apps.c **** 
+ 322:apps/src/Drawing_apps.c **** 	if( (p_draw->x1 < 0) || (p_draw->x1 > H_LINE_SIZE) ||
+ 1006              		.loc 1 322 0
+ 1007 067a 019B     		ldr	r3, [sp, #4]	@ tmp189, p_draw
+ 1008 067c B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp191,
+ 1009 0680 9BB2     		uxth	r3, r3	@ D.8100, tmp190
+ 1010 0682 1BB2     		sxth	r3, r3	@ tmp192, D.8100
+ 1011 0684 002B     		cmp	r3, #0	@ tmp192,
+ 1012 0686 34DB     		blt	.L60	@,
+ 1013              		.loc 1 322 0 is_stmt 0 discriminator 1
+ 1014 0688 019B     		ldr	r3, [sp, #4]	@ tmp193, p_draw
+ 1015 068a B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp195,
+ 1016 068e 9BB2     		uxth	r3, r3	@ D.8100, tmp194
+ 1017 0690 1BB2     		sxth	r3, r3	@ tmp196, D.8100
+ 1018 0692 B3F5207F 		cmp	r3, #640	@ tmp196,
+ 1019 0696 2CDC     		bgt	.L60	@,
+ 323:apps/src/Drawing_apps.c **** 			(p_draw->x2_rx < 0) || (p_draw->x2_rx > H_LINE_SIZE) ||
+ 1020              		.loc 1 323 0 is_stmt 1 discriminator 1
+ 1021 0698 019B     		ldr	r3, [sp, #4]	@ tmp197, p_draw
+ 1022 069a B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp199,
+ 1023 069e 9BB2     		uxth	r3, r3	@ D.8100, tmp198
+ 322:apps/src/Drawing_apps.c **** 	if( (p_draw->x1 < 0) || (p_draw->x1 > H_LINE_SIZE) ||
+ 1024              		.loc 1 322 0 discriminator 1
+ 1025 06a0 1BB2     		sxth	r3, r3	@ tmp200, D.8100
+ 1026 06a2 002B     		cmp	r3, #0	@ tmp200,
+ 1027 06a4 25DB     		blt	.L60	@,
+ 1028              		.loc 1 323 0
+ 1029 06a6 019B     		ldr	r3, [sp, #4]	@ tmp201, p_draw
+ 1030 06a8 B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp203,
+ 1031 06ac 9BB2     		uxth	r3, r3	@ D.8100, tmp202
+ 1032 06ae 1BB2     		sxth	r3, r3	@ tmp204, D.8100
+ 1033 06b0 B3F5207F 		cmp	r3, #640	@ tmp204,
+ 1034 06b4 1DDC     		bgt	.L60	@,
+ 324:apps/src/Drawing_apps.c **** 			(p_draw->y1 < 0) || (p_draw->y1 > V_LINE_SIZE) ||
+ 1035              		.loc 1 324 0 discriminator 1
+ 1036 06b6 019B     		ldr	r3, [sp, #4]	@ tmp205, p_draw
+ 1037 06b8 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp207,
+ 1038 06bc 9BB2     		uxth	r3, r3	@ D.8100, tmp206
+ 323:apps/src/Drawing_apps.c **** 			(p_draw->x2_rx < 0) || (p_draw->x2_rx > H_LINE_SIZE) ||
+ 1039              		.loc 1 323 0 discriminator 1
+ 1040 06be 1BB2     		sxth	r3, r3	@ tmp208, D.8100
+ 1041 06c0 002B     		cmp	r3, #0	@ tmp208,
+ 1042 06c2 16DB     		blt	.L60	@,
+ 1043              		.loc 1 324 0
+ 1044 06c4 019B     		ldr	r3, [sp, #4]	@ tmp209, p_draw
+ 1045 06c6 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp211,
+ 1046 06ca 9BB2     		uxth	r3, r3	@ D.8100, tmp210
+ 1047 06cc 1BB2     		sxth	r3, r3	@ tmp212, D.8100
+ 1048 06ce B3F5AF7F 		cmp	r3, #350	@ tmp212,
+ 1049 06d2 0EDC     		bgt	.L60	@,
+ 325:apps/src/Drawing_apps.c **** 			(p_draw->y2_ry < 0) || (p_draw->y2_ry > V_LINE_SIZE) )
+ 1050              		.loc 1 325 0 discriminator 1
+ 1051 06d4 019B     		ldr	r3, [sp, #4]	@ tmp213, p_draw
+ 1052 06d6 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp215,
+ 1053 06da 9BB2     		uxth	r3, r3	@ D.8100, tmp214
+ 324:apps/src/Drawing_apps.c **** 			(p_draw->y1 < 0) || (p_draw->y1 > V_LINE_SIZE) ||
+ 1054              		.loc 1 324 0 discriminator 1
+ 1055 06dc 1BB2     		sxth	r3, r3	@ tmp216, D.8100
+ 1056 06de 002B     		cmp	r3, #0	@ tmp216,
+ 1057 06e0 07DB     		blt	.L60	@,
+ 1058              		.loc 1 325 0
+ 1059 06e2 019B     		ldr	r3, [sp, #4]	@ tmp217, p_draw
+ 1060 06e4 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp219,
+ 1061 06e8 9BB2     		uxth	r3, r3	@ D.8100, tmp218
+ 1062 06ea 1BB2     		sxth	r3, r3	@ tmp220, D.8100
+ 1063 06ec B3F5AF7F 		cmp	r3, #350	@ tmp220,
+ 1064 06f0 05DD     		ble	.L61	@,
+ 1065              	.L60:
+ 326:apps/src/Drawing_apps.c **** 	{
+ 327:apps/src/Drawing_apps.c **** 		result = 1;
+ 1066              		.loc 1 327 0
+ 1067 06f2 0123     		movs	r3, #1	@ tmp221,
+ 1068 06f4 8DF81F30 		strb	r3, [sp, #31]	@ tmp222, result
+ 328:apps/src/Drawing_apps.c **** 		return(result);
+ 1069              		.loc 1 328 0
+ 1070 06f8 9DF81F30 		ldrb	r3, [sp, #31]	@ zero_extendqisi2	@ D.8099, result
+ 1071 06fc 5EE1     		b	.L62	@
+ 1072              	.L61:
+ 329:apps/src/Drawing_apps.c **** 	}
+ 330:apps/src/Drawing_apps.c **** 
+ 331:apps/src/Drawing_apps.c **** 	if( p_draw->y2_ry == p_draw->y1 )
+ 1073              		.loc 1 331 0
+ 1074 06fe 019B     		ldr	r3, [sp, #4]	@ tmp223, p_draw
+ 1075 0700 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp225,
+ 1076 0704 9AB2     		uxth	r2, r3	@ D.8100, tmp224
+ 1077 0706 019B     		ldr	r3, [sp, #4]	@ tmp226, p_draw
+ 1078 0708 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp228,
+ 1079 070c 9BB2     		uxth	r3, r3	@ D.8100, tmp227
+ 1080 070e 12B2     		sxth	r2, r2	@ tmp229, D.8100
+ 1081 0710 1BB2     		sxth	r3, r3	@ tmp230, D.8100
+ 1082 0712 9A42     		cmp	r2, r3	@ tmp229, tmp230
+ 1083 0714 1BD1     		bne	.L63	@,
+ 332:apps/src/Drawing_apps.c **** 	{
+ 333:apps/src/Drawing_apps.c **** 		if(p_draw->x2_rx == p_draw->x1)
+ 1084              		.loc 1 333 0
+ 1085 0716 019B     		ldr	r3, [sp, #4]	@ tmp231, p_draw
+ 1086 0718 B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp233,
+ 1087 071c 9AB2     		uxth	r2, r3	@ D.8100, tmp232
+ 1088 071e 019B     		ldr	r3, [sp, #4]	@ tmp234, p_draw
+ 1089 0720 B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp236,
+ 1090 0724 9BB2     		uxth	r3, r3	@ D.8100, tmp235
+ 1091 0726 12B2     		sxth	r2, r2	@ tmp237, D.8100
+ 1092 0728 1BB2     		sxth	r3, r3	@ tmp238, D.8100
+ 1093 072a 9A42     		cmp	r2, r3	@ tmp237, tmp238
+ 1094 072c 06D1     		bne	.L64	@,
+ 334:apps/src/Drawing_apps.c **** 		{
+ 335:apps/src/Drawing_apps.c **** 			result = sDrawAPixel( p_draw );
+ 1095              		.loc 1 335 0
+ 1096 072e 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 1097 0730 FFF766FC 		bl	sDrawAPixel	@
+ 1098 0734 0346     		mov	r3, r0	@ tmp239,
+ 1099 0736 8DF81F30 		strb	r3, [sp, #31]	@ tmp240, result
+ 1100 073a 05E0     		b	.L65	@
+ 1101              	.L64:
+ 336:apps/src/Drawing_apps.c **** 		}
+ 337:apps/src/Drawing_apps.c **** 		else
+ 338:apps/src/Drawing_apps.c **** 		{
+ 339:apps/src/Drawing_apps.c **** 			result = sDrawAHorLineColourFast( p_draw );
+ 1102              		.loc 1 339 0
+ 1103 073c 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 1104 073e FFF795FD 		bl	sDrawAHorLineColourFast	@
+ 1105 0742 0346     		mov	r3, r0	@ tmp241,
+ 1106 0744 8DF81F30 		strb	r3, [sp, #31]	@ tmp242, result
+ 1107              	.L65:
+ 340:apps/src/Drawing_apps.c **** 		}
+ 341:apps/src/Drawing_apps.c **** 		return(result);
+ 1108              		.loc 1 341 0
+ 1109 0748 9DF81F30 		ldrb	r3, [sp, #31]	@ zero_extendqisi2	@ D.8099, result
+ 1110 074c 36E1     		b	.L62	@
+ 1111              	.L63:
+ 342:apps/src/Drawing_apps.c **** 	}
+ 343:apps/src/Drawing_apps.c **** 
+ 344:apps/src/Drawing_apps.c **** int16_t  x, y, addx, addy, dx, dy;
+ 345:apps/src/Drawing_apps.c **** int32_t  P;
+ 346:apps/src/Drawing_apps.c **** int16_t  i;
+ 347:apps/src/Drawing_apps.c **** 
+ 348:apps/src/Drawing_apps.c **** 	if( p_draw->x2_rx >= p_draw->x1 )
+ 1112              		.loc 1 348 0
+ 1113 074e 019B     		ldr	r3, [sp, #4]	@ tmp243, p_draw
+ 1114 0750 B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp245,
+ 1115 0754 9AB2     		uxth	r2, r3	@ D.8100, tmp244
+ 1116 0756 019B     		ldr	r3, [sp, #4]	@ tmp246, p_draw
+ 1117 0758 B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp248,
+ 1118 075c 9BB2     		uxth	r3, r3	@ D.8100, tmp247
+ 1119 075e 12B2     		sxth	r2, r2	@ tmp249, D.8100
+ 1120 0760 1BB2     		sxth	r3, r3	@ tmp250, D.8100
+ 1121 0762 9A42     		cmp	r2, r3	@ tmp249, tmp250
+ 1122 0764 0EDB     		blt	.L66	@,
+ 349:apps/src/Drawing_apps.c **** 	{
+ 350:apps/src/Drawing_apps.c **** 	  dx = p_draw->x2_rx - p_draw->x1;
+ 1123              		.loc 1 350 0
+ 1124 0766 019B     		ldr	r3, [sp, #4]	@ tmp251, p_draw
+ 1125 0768 B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp253,
+ 1126 076c 9BB2     		uxth	r3, r3	@ D.8100, tmp252
+ 1127 076e 9AB2     		uxth	r2, r3	@ D.8101, D.8100
+ 1128 0770 019B     		ldr	r3, [sp, #4]	@ tmp254, p_draw
+ 1129 0772 B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp256,
+ 1130 0776 9BB2     		uxth	r3, r3	@ D.8100, tmp255
+ 1131 0778 9BB2     		uxth	r3, r3	@ D.8101, D.8100
+ 1132 077a D31A     		subs	r3, r2, r3	@ tmp257, D.8101, D.8101
+ 1133 077c 9BB2     		uxth	r3, r3	@ D.8101, tmp257
+ 1134 077e ADF81430 		strh	r3, [sp, #20]	@ movhi	@ tmp258, dx
+ 1135 0782 0DE0     		b	.L67	@
+ 1136              	.L66:
+ 351:apps/src/Drawing_apps.c **** 	}
+ 352:apps/src/Drawing_apps.c **** 	else
+ 353:apps/src/Drawing_apps.c **** 	{
+ 354:apps/src/Drawing_apps.c **** 	  dx = p_draw->x1 - p_draw->x2_rx;
+ 1137              		.loc 1 354 0
+ 1138 0784 019B     		ldr	r3, [sp, #4]	@ tmp259, p_draw
+ 1139 0786 B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp261,
+ 1140 078a 9BB2     		uxth	r3, r3	@ D.8100, tmp260
+ 1141 078c 9AB2     		uxth	r2, r3	@ D.8101, D.8100
+ 1142 078e 019B     		ldr	r3, [sp, #4]	@ tmp262, p_draw
+ 1143 0790 B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp264,
+ 1144 0794 9BB2     		uxth	r3, r3	@ D.8100, tmp263
+ 1145 0796 9BB2     		uxth	r3, r3	@ D.8101, D.8100
+ 1146 0798 D31A     		subs	r3, r2, r3	@ tmp265, D.8101, D.8101
+ 1147 079a 9BB2     		uxth	r3, r3	@ D.8101, tmp265
+ 1148 079c ADF81430 		strh	r3, [sp, #20]	@ movhi	@ tmp266, dx
+ 1149              	.L67:
+ 355:apps/src/Drawing_apps.c **** 	}
+ 356:apps/src/Drawing_apps.c **** 
+ 357:apps/src/Drawing_apps.c **** 	if( p_draw->y2_ry >= p_draw->y1 )
+ 1150              		.loc 1 357 0
+ 1151 07a0 019B     		ldr	r3, [sp, #4]	@ tmp267, p_draw
+ 1152 07a2 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp269,
+ 1153 07a6 9AB2     		uxth	r2, r3	@ D.8100, tmp268
+ 1154 07a8 019B     		ldr	r3, [sp, #4]	@ tmp270, p_draw
+ 1155 07aa B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp272,
+ 1156 07ae 9BB2     		uxth	r3, r3	@ D.8100, tmp271
+ 1157 07b0 12B2     		sxth	r2, r2	@ tmp273, D.8100
+ 1158 07b2 1BB2     		sxth	r3, r3	@ tmp274, D.8100
+ 1159 07b4 9A42     		cmp	r2, r3	@ tmp273, tmp274
+ 1160 07b6 0EDB     		blt	.L68	@,
+ 358:apps/src/Drawing_apps.c **** 	{
+ 359:apps/src/Drawing_apps.c **** 	  dy = p_draw->y2_ry - p_draw->y1;
+ 1161              		.loc 1 359 0
+ 1162 07b8 019B     		ldr	r3, [sp, #4]	@ tmp275, p_draw
+ 1163 07ba B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp277,
+ 1164 07be 9BB2     		uxth	r3, r3	@ D.8100, tmp276
+ 1165 07c0 9AB2     		uxth	r2, r3	@ D.8101, D.8100
+ 1166 07c2 019B     		ldr	r3, [sp, #4]	@ tmp278, p_draw
+ 1167 07c4 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp280,
+ 1168 07c8 9BB2     		uxth	r3, r3	@ D.8100, tmp279
+ 1169 07ca 9BB2     		uxth	r3, r3	@ D.8101, D.8100
+ 1170 07cc D31A     		subs	r3, r2, r3	@ tmp281, D.8101, D.8101
+ 1171 07ce 9BB2     		uxth	r3, r3	@ D.8101, tmp281
+ 1172 07d0 ADF81230 		strh	r3, [sp, #18]	@ movhi	@ tmp282, dy
+ 1173 07d4 0DE0     		b	.L69	@
+ 1174              	.L68:
+ 360:apps/src/Drawing_apps.c **** 	}
+ 361:apps/src/Drawing_apps.c **** 	else
+ 362:apps/src/Drawing_apps.c **** 	{
+ 363:apps/src/Drawing_apps.c **** 		dy = p_draw->y1 - p_draw->y2_ry;
+ 1175              		.loc 1 363 0
+ 1176 07d6 019B     		ldr	r3, [sp, #4]	@ tmp283, p_draw
+ 1177 07d8 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp285,
+ 1178 07dc 9BB2     		uxth	r3, r3	@ D.8100, tmp284
+ 1179 07de 9AB2     		uxth	r2, r3	@ D.8101, D.8100
+ 1180 07e0 019B     		ldr	r3, [sp, #4]	@ tmp286, p_draw
+ 1181 07e2 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp288,
+ 1182 07e6 9BB2     		uxth	r3, r3	@ D.8100, tmp287
+ 1183 07e8 9BB2     		uxth	r3, r3	@ D.8101, D.8100
+ 1184 07ea D31A     		subs	r3, r2, r3	@ tmp289, D.8101, D.8101
+ 1185 07ec 9BB2     		uxth	r3, r3	@ D.8101, tmp289
+ 1186 07ee ADF81230 		strh	r3, [sp, #18]	@ movhi	@ tmp290, dy
+ 1187              	.L69:
+ 364:apps/src/Drawing_apps.c **** 	}
+ 365:apps/src/Drawing_apps.c **** 
+ 366:apps/src/Drawing_apps.c **** 	x = p_draw->x1;
+ 1188              		.loc 1 366 0
+ 1189 07f2 019B     		ldr	r3, [sp, #4]	@ tmp291, p_draw
+ 1190 07f4 DA79     		ldrb	r2, [r3, #7]	@ zero_extendqisi2	@ tmp294,
+ 1191 07f6 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2	@ tmp295,
+ 1192 07f8 1B02     		lsls	r3, r3, #8	@ tmp296, tmp295,
+ 1193 07fa 1343     		orrs	r3, r3, r2	@, tmp297, tmp296, tmp294
+ 1194 07fc 1B04     		lsls	r3, r3, #16	@ tmp298, tmp297,
+ 1195 07fe 1B14     		asrs	r3, r3, #16	@ tmp299, tmp298,
+ 1196 0800 ADF81C30 		strh	r3, [sp, #28]	@ movhi	@ tmp300, x
+ 367:apps/src/Drawing_apps.c **** 	y = p_draw->y1;
+ 1197              		.loc 1 367 0
+ 1198 0804 019B     		ldr	r3, [sp, #4]	@ tmp301, p_draw
+ 1199 0806 5A7A     		ldrb	r2, [r3, #9]	@ zero_extendqisi2	@ tmp304,
+ 1200 0808 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2	@ tmp305,
+ 1201 080a 1B02     		lsls	r3, r3, #8	@ tmp306, tmp305,
+ 1202 080c 1343     		orrs	r3, r3, r2	@, tmp307, tmp306, tmp304
+ 1203 080e 1B04     		lsls	r3, r3, #16	@ tmp308, tmp307,
+ 1204 0810 1B14     		asrs	r3, r3, #16	@ tmp309, tmp308,
+ 1205 0812 ADF81A30 		strh	r3, [sp, #26]	@ movhi	@ tmp310, y
+ 368:apps/src/Drawing_apps.c **** 
+ 369:apps/src/Drawing_apps.c **** 	if(p_draw->x1 > p_draw->x2_rx)
+ 1206              		.loc 1 369 0
+ 1207 0816 019B     		ldr	r3, [sp, #4]	@ tmp311, p_draw
+ 1208 0818 B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp313,
+ 1209 081c 9AB2     		uxth	r2, r3	@ D.8100, tmp312
+ 1210 081e 019B     		ldr	r3, [sp, #4]	@ tmp314, p_draw
+ 1211 0820 B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp316,
+ 1212 0824 9BB2     		uxth	r3, r3	@ D.8100, tmp315
+ 1213 0826 12B2     		sxth	r2, r2	@ tmp317, D.8100
+ 1214 0828 1BB2     		sxth	r3, r3	@ tmp318, D.8100
+ 1215 082a 9A42     		cmp	r2, r3	@ tmp317, tmp318
+ 1216 082c 04DD     		ble	.L70	@,
+ 370:apps/src/Drawing_apps.c **** 	{
+ 371:apps/src/Drawing_apps.c **** 		addx = -1;
+ 1217              		.loc 1 371 0
+ 1218 082e 4FF6FF73 		movw	r3, #65535	@ tmp320,
+ 1219 0832 ADF81830 		strh	r3, [sp, #24]	@ movhi	@ tmp319, addx
+ 1220 0836 02E0     		b	.L71	@
+ 1221              	.L70:
+ 372:apps/src/Drawing_apps.c **** 	}
+ 373:apps/src/Drawing_apps.c **** 	else
+ 374:apps/src/Drawing_apps.c **** 	{
+ 375:apps/src/Drawing_apps.c **** 		addx = 1;
+ 1222              		.loc 1 375 0
+ 1223 0838 0123     		movs	r3, #1	@ tmp322,
+ 1224 083a ADF81830 		strh	r3, [sp, #24]	@ movhi	@ tmp321, addx
+ 1225              	.L71:
+ 376:apps/src/Drawing_apps.c **** 	}
+ 377:apps/src/Drawing_apps.c **** 	if(p_draw->y1 > p_draw->y2_ry)
+ 1226              		.loc 1 377 0
+ 1227 083e 019B     		ldr	r3, [sp, #4]	@ tmp323, p_draw
+ 1228 0840 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp325,
+ 1229 0844 9AB2     		uxth	r2, r3	@ D.8100, tmp324
+ 1230 0846 019B     		ldr	r3, [sp, #4]	@ tmp326, p_draw
+ 1231 0848 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp328,
+ 1232 084c 9BB2     		uxth	r3, r3	@ D.8100, tmp327
+ 1233 084e 12B2     		sxth	r2, r2	@ tmp329, D.8100
+ 1234 0850 1BB2     		sxth	r3, r3	@ tmp330, D.8100
+ 1235 0852 9A42     		cmp	r2, r3	@ tmp329, tmp330
+ 1236 0854 04DD     		ble	.L72	@,
+ 378:apps/src/Drawing_apps.c **** 	{
+ 379:apps/src/Drawing_apps.c **** 		addy = -1;
+ 1237              		.loc 1 379 0
+ 1238 0856 4FF6FF73 		movw	r3, #65535	@ tmp332,
+ 1239 085a ADF81630 		strh	r3, [sp, #22]	@ movhi	@ tmp331, addy
+ 1240 085e 02E0     		b	.L73	@
+ 1241              	.L72:
+ 380:apps/src/Drawing_apps.c **** 	}
+ 381:apps/src/Drawing_apps.c **** 	else
+ 382:apps/src/Drawing_apps.c **** 	{
+ 383:apps/src/Drawing_apps.c **** 		addy = 1;
+ 1242              		.loc 1 383 0
+ 1243 0860 0123     		movs	r3, #1	@ tmp334,
+ 1244 0862 ADF81630 		strh	r3, [sp, #22]	@ movhi	@ tmp333, addy
+ 1245              	.L73:
+ 384:apps/src/Drawing_apps.c **** 	}
+ 385:apps/src/Drawing_apps.c **** 
+ 386:apps/src/Drawing_apps.c **** 	if(dx >= dy)
+ 1246              		.loc 1 386 0
+ 1247 0866 BDF91420 		ldrsh	r2, [sp, #20]	@ tmp335, dx
+ 1248 086a BDF91230 		ldrsh	r3, [sp, #18]	@ tmp336, dy
+ 1249 086e 9A42     		cmp	r2, r3	@ tmp335, tmp336
+ 1250 0870 51DB     		blt	.L74	@,
+ 387:apps/src/Drawing_apps.c **** 	{
+ 388:apps/src/Drawing_apps.c **** 	  P = 2*dy - dx;
+ 1251              		.loc 1 388 0
+ 1252 0872 BDF91230 		ldrsh	r3, [sp, #18]	@ D.8102, dy
+ 1253 0876 5A00     		lsls	r2, r3, #1	@ D.8102, D.8102,
+ 1254 0878 BDF91430 		ldrsh	r3, [sp, #20]	@ D.8102, dx
+ 1255 087c D31A     		subs	r3, r2, r3	@ tmp337, D.8102, D.8102
+ 1256 087e 0393     		str	r3, [sp, #12]	@ tmp337, P
+ 389:apps/src/Drawing_apps.c **** 	  for( i=0; i<=dx; i++ )
+ 1257              		.loc 1 389 0
+ 1258 0880 0023     		movs	r3, #0	@ tmp339,
+ 1259 0882 ADF80A30 		strh	r3, [sp, #10]	@ movhi	@ tmp338, i
+ 1260 0886 3FE0     		b	.L75	@
+ 1261              	.L78:
+ 390:apps/src/Drawing_apps.c **** 	  {
+ 391:apps/src/Drawing_apps.c **** 	  	p_draw->x1 = x;
+ 1262              		.loc 1 391 0
+ 1263 0888 019B     		ldr	r3, [sp, #4]	@ tmp340, p_draw
+ 1264 088a BDF81C20 		ldrh	r2, [sp, #28]	@ movhi	@ tmp341, x
+ 1265 088e A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp342, p_draw_24(D)->x1
+ 392:apps/src/Drawing_apps.c **** 	  	p_draw->y1 = y;
+ 1266              		.loc 1 392 0
+ 1267 0892 019B     		ldr	r3, [sp, #4]	@ tmp343, p_draw
+ 1268 0894 BDF81A20 		ldrh	r2, [sp, #26]	@ movhi	@ tmp344, y
+ 1269 0898 A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp345, p_draw_24(D)->y1
+ 393:apps/src/Drawing_apps.c **** 	  	result = sDrawAPixel( p_draw );
+ 1270              		.loc 1 393 0
+ 1271 089c 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 1272 089e FFF7AFFB 		bl	sDrawAPixel	@
+ 1273 08a2 0346     		mov	r3, r0	@ tmp346,
+ 1274 08a4 8DF81F30 		strb	r3, [sp, #31]	@ tmp347, result
+ 394:apps/src/Drawing_apps.c **** 
+ 395:apps/src/Drawing_apps.c **** 	  	if(P < 0)
+ 1275              		.loc 1 395 0
+ 1276 08a8 039B     		ldr	r3, [sp, #12]	@ tmp348, P
+ 1277 08aa 002B     		cmp	r3, #0	@ tmp348,
+ 1278 08ac 0EDA     		bge	.L76	@,
+ 396:apps/src/Drawing_apps.c **** 	  	{
+ 397:apps/src/Drawing_apps.c **** 	  	  P += 2*dy;
+ 1279              		.loc 1 397 0
+ 1280 08ae BDF91230 		ldrsh	r3, [sp, #18]	@ D.8102, dy
+ 1281 08b2 5B00     		lsls	r3, r3, #1	@ D.8102, D.8102,
+ 1282 08b4 039A     		ldr	r2, [sp, #12]	@ tmp350, P
+ 1283 08b6 1344     		add	r3, r3, r2	@ tmp349, tmp350
+ 1284 08b8 0393     		str	r3, [sp, #12]	@ tmp349, P
+ 398:apps/src/Drawing_apps.c **** 	  	  x += addx;
+ 1285              		.loc 1 398 0
+ 1286 08ba BDF81C20 		ldrh	r2, [sp, #28]	@ x.24, x
+ 1287 08be BDF81830 		ldrh	r3, [sp, #24]	@ addx.25, addx
+ 1288 08c2 1344     		add	r3, r3, r2	@ tmp351, x.24
+ 1289 08c4 9BB2     		uxth	r3, r3	@ D.8101, tmp351
+ 1290 08c6 ADF81C30 		strh	r3, [sp, #28]	@ movhi	@ tmp352, x
+ 1291 08ca 18E0     		b	.L77	@
+ 1292              	.L76:
+ 399:apps/src/Drawing_apps.c **** 	  	}
+ 400:apps/src/Drawing_apps.c **** 	  	else
+ 401:apps/src/Drawing_apps.c **** 	  	{
+ 402:apps/src/Drawing_apps.c **** 	  	  P += 2*dy - 2*dx;
+ 1293              		.loc 1 402 0
+ 1294 08cc BDF91220 		ldrsh	r2, [sp, #18]	@ D.8102, dy
+ 1295 08d0 BDF91430 		ldrsh	r3, [sp, #20]	@ D.8102, dx
+ 1296 08d4 D31A     		subs	r3, r2, r3	@ D.8102, D.8102, D.8102
+ 1297 08d6 5B00     		lsls	r3, r3, #1	@ D.8102, D.8102,
+ 1298 08d8 039A     		ldr	r2, [sp, #12]	@ tmp354, P
+ 1299 08da 1344     		add	r3, r3, r2	@ tmp353, tmp354
+ 1300 08dc 0393     		str	r3, [sp, #12]	@ tmp353, P
+ 403:apps/src/Drawing_apps.c **** 	  	  x += addx;
+ 1301              		.loc 1 403 0
+ 1302 08de BDF81C20 		ldrh	r2, [sp, #28]	@ x.26, x
+ 1303 08e2 BDF81830 		ldrh	r3, [sp, #24]	@ addx.27, addx
+ 1304 08e6 1344     		add	r3, r3, r2	@ tmp355, x.26
+ 1305 08e8 9BB2     		uxth	r3, r3	@ D.8101, tmp355
+ 1306 08ea ADF81C30 		strh	r3, [sp, #28]	@ movhi	@ tmp356, x
+ 404:apps/src/Drawing_apps.c **** 	  	  y += addy;
+ 1307              		.loc 1 404 0
+ 1308 08ee BDF81A20 		ldrh	r2, [sp, #26]	@ y.28, y
+ 1309 08f2 BDF81630 		ldrh	r3, [sp, #22]	@ addy.29, addy
+ 1310 08f6 1344     		add	r3, r3, r2	@ tmp357, y.28
+ 1311 08f8 9BB2     		uxth	r3, r3	@ D.8101, tmp357
+ 1312 08fa ADF81A30 		strh	r3, [sp, #26]	@ movhi	@ tmp358, y
+ 1313              	.L77:
+ 389:apps/src/Drawing_apps.c **** 	  for( i=0; i<=dx; i++ )
+ 1314              		.loc 1 389 0
+ 1315 08fe BDF80A30 		ldrh	r3, [sp, #10]	@ i.30, i
+ 1316 0902 0133     		adds	r3, r3, #1	@ tmp360, tmp359,
+ 1317 0904 ADF80A30 		strh	r3, [sp, #10]	@ movhi	@ tmp361, i
+ 1318              	.L75:
+ 389:apps/src/Drawing_apps.c **** 	  for( i=0; i<=dx; i++ )
+ 1319              		.loc 1 389 0 is_stmt 0 discriminator 1
+ 1320 0908 BDF90A20 		ldrsh	r2, [sp, #10]	@ tmp362, i
+ 1321 090c BDF91430 		ldrsh	r3, [sp, #20]	@ tmp363, dx
+ 1322 0910 9A42     		cmp	r2, r3	@ tmp362, tmp363
+ 1323 0912 B9DD     		ble	.L78	@,
+ 1324 0914 50E0     		b	.L79	@
+ 1325              	.L74:
+ 405:apps/src/Drawing_apps.c **** 	  	}
+ 406:apps/src/Drawing_apps.c **** 	  }
+ 407:apps/src/Drawing_apps.c **** 	}
+ 408:apps/src/Drawing_apps.c **** 	else
+ 409:apps/src/Drawing_apps.c **** 	{
+ 410:apps/src/Drawing_apps.c **** 	  P = 2*dx - dy;
+ 1326              		.loc 1 410 0 is_stmt 1
+ 1327 0916 BDF91430 		ldrsh	r3, [sp, #20]	@ D.8102, dx
+ 1328 091a 5A00     		lsls	r2, r3, #1	@ D.8102, D.8102,
+ 1329 091c BDF91230 		ldrsh	r3, [sp, #18]	@ D.8102, dy
+ 1330 0920 D31A     		subs	r3, r2, r3	@ tmp364, D.8102, D.8102
+ 1331 0922 0393     		str	r3, [sp, #12]	@ tmp364, P
+ 411:apps/src/Drawing_apps.c **** 	  for(i=0; i<=dy; ++i)
+ 1332              		.loc 1 411 0
+ 1333 0924 0023     		movs	r3, #0	@ tmp366,
+ 1334 0926 ADF80A30 		strh	r3, [sp, #10]	@ movhi	@ tmp365, i
+ 1335 092a 3FE0     		b	.L80	@
+ 1336              	.L83:
+ 412:apps/src/Drawing_apps.c **** 	  {
+ 413:apps/src/Drawing_apps.c **** 	  	p_draw->x1 = x;
+ 1337              		.loc 1 413 0
+ 1338 092c 019B     		ldr	r3, [sp, #4]	@ tmp367, p_draw
+ 1339 092e BDF81C20 		ldrh	r2, [sp, #28]	@ movhi	@ tmp368, x
+ 1340 0932 A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp369, p_draw_24(D)->x1
+ 414:apps/src/Drawing_apps.c **** 	  	p_draw->y1 = y;
+ 1341              		.loc 1 414 0
+ 1342 0936 019B     		ldr	r3, [sp, #4]	@ tmp370, p_draw
+ 1343 0938 BDF81A20 		ldrh	r2, [sp, #26]	@ movhi	@ tmp371, y
+ 1344 093c A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp372, p_draw_24(D)->y1
+ 415:apps/src/Drawing_apps.c **** 	  	result = sDrawAPixel( p_draw );
+ 1345              		.loc 1 415 0
+ 1346 0940 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 1347 0942 FFF75DFB 		bl	sDrawAPixel	@
+ 1348 0946 0346     		mov	r3, r0	@ tmp373,
+ 1349 0948 8DF81F30 		strb	r3, [sp, #31]	@ tmp374, result
+ 416:apps/src/Drawing_apps.c **** 
+ 417:apps/src/Drawing_apps.c **** 	  	if(P < 0)
+ 1350              		.loc 1 417 0
+ 1351 094c 039B     		ldr	r3, [sp, #12]	@ tmp375, P
+ 1352 094e 002B     		cmp	r3, #0	@ tmp375,
+ 1353 0950 0EDA     		bge	.L81	@,
+ 418:apps/src/Drawing_apps.c **** 	  	{
+ 419:apps/src/Drawing_apps.c **** 	  	  P += 2*dx;
+ 1354              		.loc 1 419 0
+ 1355 0952 BDF91430 		ldrsh	r3, [sp, #20]	@ D.8102, dx
+ 1356 0956 5B00     		lsls	r3, r3, #1	@ D.8102, D.8102,
+ 1357 0958 039A     		ldr	r2, [sp, #12]	@ tmp377, P
+ 1358 095a 1344     		add	r3, r3, r2	@ tmp376, tmp377
+ 1359 095c 0393     		str	r3, [sp, #12]	@ tmp376, P
+ 420:apps/src/Drawing_apps.c **** 	      y += addy;
+ 1360              		.loc 1 420 0
+ 1361 095e BDF81A20 		ldrh	r2, [sp, #26]	@ y.31, y
+ 1362 0962 BDF81630 		ldrh	r3, [sp, #22]	@ addy.32, addy
+ 1363 0966 1344     		add	r3, r3, r2	@ tmp378, y.31
+ 1364 0968 9BB2     		uxth	r3, r3	@ D.8101, tmp378
+ 1365 096a ADF81A30 		strh	r3, [sp, #26]	@ movhi	@ tmp379, y
+ 1366 096e 18E0     		b	.L82	@
+ 1367              	.L81:
+ 421:apps/src/Drawing_apps.c **** 	    }
+ 422:apps/src/Drawing_apps.c **** 	    else
+ 423:apps/src/Drawing_apps.c **** 	    {
+ 424:apps/src/Drawing_apps.c **** 	      P += 2*dx - 2*dy;
+ 1368              		.loc 1 424 0
+ 1369 0970 BDF91420 		ldrsh	r2, [sp, #20]	@ D.8102, dx
+ 1370 0974 BDF91230 		ldrsh	r3, [sp, #18]	@ D.8102, dy
+ 1371 0978 D31A     		subs	r3, r2, r3	@ D.8102, D.8102, D.8102
+ 1372 097a 5B00     		lsls	r3, r3, #1	@ D.8102, D.8102,
+ 1373 097c 039A     		ldr	r2, [sp, #12]	@ tmp381, P
+ 1374 097e 1344     		add	r3, r3, r2	@ tmp380, tmp381
+ 1375 0980 0393     		str	r3, [sp, #12]	@ tmp380, P
+ 425:apps/src/Drawing_apps.c **** 	      x += addx;
+ 1376              		.loc 1 425 0
+ 1377 0982 BDF81C20 		ldrh	r2, [sp, #28]	@ x.33, x
+ 1378 0986 BDF81830 		ldrh	r3, [sp, #24]	@ addx.34, addx
+ 1379 098a 1344     		add	r3, r3, r2	@ tmp382, x.33
+ 1380 098c 9BB2     		uxth	r3, r3	@ D.8101, tmp382
+ 1381 098e ADF81C30 		strh	r3, [sp, #28]	@ movhi	@ tmp383, x
+ 426:apps/src/Drawing_apps.c **** 	      y += addy;
+ 1382              		.loc 1 426 0
+ 1383 0992 BDF81A20 		ldrh	r2, [sp, #26]	@ y.35, y
+ 1384 0996 BDF81630 		ldrh	r3, [sp, #22]	@ addy.36, addy
+ 1385 099a 1344     		add	r3, r3, r2	@ tmp384, y.35
+ 1386 099c 9BB2     		uxth	r3, r3	@ D.8101, tmp384
+ 1387 099e ADF81A30 		strh	r3, [sp, #26]	@ movhi	@ tmp385, y
+ 1388              	.L82:
+ 411:apps/src/Drawing_apps.c **** 	  for(i=0; i<=dy; ++i)
+ 1389              		.loc 1 411 0
+ 1390 09a2 BDF80A30 		ldrh	r3, [sp, #10]	@ movhi	@ tmp386, i
+ 1391 09a6 0133     		adds	r3, r3, #1	@ tmp387, tmp386,
+ 1392 09a8 ADF80A30 		strh	r3, [sp, #10]	@ movhi	@ tmp388, i
+ 1393              	.L80:
+ 411:apps/src/Drawing_apps.c **** 	  for(i=0; i<=dy; ++i)
+ 1394              		.loc 1 411 0 is_stmt 0 discriminator 1
+ 1395 09ac BDF90A20 		ldrsh	r2, [sp, #10]	@ tmp389, i
+ 1396 09b0 BDF91230 		ldrsh	r3, [sp, #18]	@ tmp390, dy
+ 1397 09b4 9A42     		cmp	r2, r3	@ tmp389, tmp390
+ 1398 09b6 B9DD     		ble	.L83	@,
+ 1399              	.L79:
+ 427:apps/src/Drawing_apps.c **** 	    }
+ 428:apps/src/Drawing_apps.c **** 	  }
+ 429:apps/src/Drawing_apps.c **** 	}
+ 430:apps/src/Drawing_apps.c **** 
+ 431:apps/src/Drawing_apps.c **** 	return(result);
+ 1400              		.loc 1 431 0 is_stmt 1
+ 1401 09b8 9DF81F30 		ldrb	r3, [sp, #31]	@ zero_extendqisi2	@ D.8099, result
+ 1402              	.L62:
+ 432:apps/src/Drawing_apps.c **** }
+ 1403              		.loc 1 432 0
+ 1404 09bc 1846     		mov	r0, r3	@, <retval>
+ 1405 09be 09B0     		add	sp, sp, #36	@,,
+ 1406              		@ sp needed	@
+ 1407 09c0 5DF804FB 		ldr	pc, [sp], #4	@
+ 1408              		.cfi_endproc
+ 1409              	.LFE120:
+ 1411              		.align	2
+ 1412              		.global	gDrawARectangleColour
+ 1413              		.thumb
+ 1414              		.thumb_func
+ 1416              	gDrawARectangleColour:
+ 1417              	.LFB121:
+ 433:apps/src/Drawing_apps.c **** 
+ 434:apps/src/Drawing_apps.c **** 
+ 435:apps/src/Drawing_apps.c **** /**
+ 436:apps/src/Drawing_apps.c ****   * @brief
+ 437:apps/src/Drawing_apps.c ****   * @param  None
+ 438:apps/src/Drawing_apps.c ****   * @retval
+ 439:apps/src/Drawing_apps.c ****   */
+ 440:apps/src/Drawing_apps.c **** uint8_t gDrawARectangleColour( draw_t *p_draw )
+ 441:apps/src/Drawing_apps.c **** {
+ 1418              		.loc 1 441 0
+ 1419              		.cfi_startproc
+ 1420              		@ args = 0, pretend = 0, frame = 24
+ 1421              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1422 09c4 00B5     		push	{lr}	@
+ 1423              		.cfi_def_cfa_offset 4
+ 1424              		.cfi_offset 14, -4
+ 1425 09c6 87B0     		sub	sp, sp, #28	@,,
+ 1426              		.cfi_def_cfa_offset 32
+ 1427 09c8 0190     		str	r0, [sp, #4]	@ p_draw, p_draw
+ 442:apps/src/Drawing_apps.c **** uint8_t result;
+ 443:apps/src/Drawing_apps.c **** 
+ 444:apps/src/Drawing_apps.c **** 	if( (p_draw->x1 < 0) || (p_draw->x1 > H_LINE_SIZE) ||
+ 1428              		.loc 1 444 0
+ 1429 09ca 019B     		ldr	r3, [sp, #4]	@ tmp169, p_draw
+ 1430 09cc B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp171,
+ 1431 09d0 9BB2     		uxth	r3, r3	@ D.8104, tmp170
+ 1432 09d2 1BB2     		sxth	r3, r3	@ tmp172, D.8104
+ 1433 09d4 002B     		cmp	r3, #0	@ tmp172,
+ 1434 09d6 34DB     		blt	.L85	@,
+ 1435              		.loc 1 444 0 is_stmt 0 discriminator 1
+ 1436 09d8 019B     		ldr	r3, [sp, #4]	@ tmp173, p_draw
+ 1437 09da B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp175,
+ 1438 09de 9BB2     		uxth	r3, r3	@ D.8104, tmp174
+ 1439 09e0 1BB2     		sxth	r3, r3	@ tmp176, D.8104
+ 1440 09e2 B3F5207F 		cmp	r3, #640	@ tmp176,
+ 1441 09e6 2CDC     		bgt	.L85	@,
+ 445:apps/src/Drawing_apps.c **** 			(p_draw->x2_rx < 0) || (p_draw->x2_rx > H_LINE_SIZE) ||
+ 1442              		.loc 1 445 0 is_stmt 1 discriminator 1
+ 1443 09e8 019B     		ldr	r3, [sp, #4]	@ tmp177, p_draw
+ 1444 09ea B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp179,
+ 1445 09ee 9BB2     		uxth	r3, r3	@ D.8104, tmp178
+ 444:apps/src/Drawing_apps.c **** 	if( (p_draw->x1 < 0) || (p_draw->x1 > H_LINE_SIZE) ||
+ 1446              		.loc 1 444 0 discriminator 1
+ 1447 09f0 1BB2     		sxth	r3, r3	@ tmp180, D.8104
+ 1448 09f2 002B     		cmp	r3, #0	@ tmp180,
+ 1449 09f4 25DB     		blt	.L85	@,
+ 1450              		.loc 1 445 0
+ 1451 09f6 019B     		ldr	r3, [sp, #4]	@ tmp181, p_draw
+ 1452 09f8 B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp183,
+ 1453 09fc 9BB2     		uxth	r3, r3	@ D.8104, tmp182
+ 1454 09fe 1BB2     		sxth	r3, r3	@ tmp184, D.8104
+ 1455 0a00 B3F5207F 		cmp	r3, #640	@ tmp184,
+ 1456 0a04 1DDC     		bgt	.L85	@,
+ 446:apps/src/Drawing_apps.c **** 			(p_draw->y1 < 0) || (p_draw->y1 > V_LINE_SIZE) ||
+ 1457              		.loc 1 446 0 discriminator 1
+ 1458 0a06 019B     		ldr	r3, [sp, #4]	@ tmp185, p_draw
+ 1459 0a08 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp187,
+ 1460 0a0c 9BB2     		uxth	r3, r3	@ D.8104, tmp186
+ 445:apps/src/Drawing_apps.c **** 			(p_draw->x2_rx < 0) || (p_draw->x2_rx > H_LINE_SIZE) ||
+ 1461              		.loc 1 445 0 discriminator 1
+ 1462 0a0e 1BB2     		sxth	r3, r3	@ tmp188, D.8104
+ 1463 0a10 002B     		cmp	r3, #0	@ tmp188,
+ 1464 0a12 16DB     		blt	.L85	@,
+ 1465              		.loc 1 446 0
+ 1466 0a14 019B     		ldr	r3, [sp, #4]	@ tmp189, p_draw
+ 1467 0a16 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp191,
+ 1468 0a1a 9BB2     		uxth	r3, r3	@ D.8104, tmp190
+ 1469 0a1c 1BB2     		sxth	r3, r3	@ tmp192, D.8104
+ 1470 0a1e B3F5AF7F 		cmp	r3, #350	@ tmp192,
+ 1471 0a22 0EDC     		bgt	.L85	@,
+ 447:apps/src/Drawing_apps.c **** 			(p_draw->y2_ry < 0) || (p_draw->y2_ry > V_LINE_SIZE) )
+ 1472              		.loc 1 447 0 discriminator 1
+ 1473 0a24 019B     		ldr	r3, [sp, #4]	@ tmp193, p_draw
+ 1474 0a26 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp195,
+ 1475 0a2a 9BB2     		uxth	r3, r3	@ D.8104, tmp194
+ 446:apps/src/Drawing_apps.c **** 			(p_draw->y1 < 0) || (p_draw->y1 > V_LINE_SIZE) ||
+ 1476              		.loc 1 446 0 discriminator 1
+ 1477 0a2c 1BB2     		sxth	r3, r3	@ tmp196, D.8104
+ 1478 0a2e 002B     		cmp	r3, #0	@ tmp196,
+ 1479 0a30 07DB     		blt	.L85	@,
+ 1480              		.loc 1 447 0
+ 1481 0a32 019B     		ldr	r3, [sp, #4]	@ tmp197, p_draw
+ 1482 0a34 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp199,
+ 1483 0a38 9BB2     		uxth	r3, r3	@ D.8104, tmp198
+ 1484 0a3a 1BB2     		sxth	r3, r3	@ tmp200, D.8104
+ 1485 0a3c B3F5AF7F 		cmp	r3, #350	@ tmp200,
+ 1486 0a40 05DD     		ble	.L86	@,
+ 1487              	.L85:
+ 448:apps/src/Drawing_apps.c **** 	{
+ 449:apps/src/Drawing_apps.c **** 		result = 1;
+ 1488              		.loc 1 449 0
+ 1489 0a42 0123     		movs	r3, #1	@ tmp201,
+ 1490 0a44 8DF81730 		strb	r3, [sp, #23]	@ tmp202, result
+ 450:apps/src/Drawing_apps.c **** 		return(result);
+ 1491              		.loc 1 450 0
+ 1492 0a48 9DF81730 		ldrb	r3, [sp, #23]	@ zero_extendqisi2	@ D.8103, result
+ 1493 0a4c 45E1     		b	.L87	@
+ 1494              	.L86:
+ 451:apps/src/Drawing_apps.c **** 	}
+ 452:apps/src/Drawing_apps.c **** 
+ 453:apps/src/Drawing_apps.c **** uint16_t left, right, top, bottom, temp, i;
+ 454:apps/src/Drawing_apps.c **** uint8_t flag_fill = 0;
+ 1495              		.loc 1 454 0
+ 1496 0a4e 0023     		movs	r3, #0	@ tmp203,
+ 1497 0a50 8DF80B30 		strb	r3, [sp, #11]	@ tmp204, flag_fill
+ 455:apps/src/Drawing_apps.c **** 
+ 456:apps/src/Drawing_apps.c **** 	left		= p_draw->x1;
+ 1498              		.loc 1 456 0
+ 1499 0a54 019B     		ldr	r3, [sp, #4]	@ tmp205, p_draw
+ 1500 0a56 B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp207,
+ 1501 0a5a 9BB2     		uxth	r3, r3	@ D.8104, tmp206
+ 1502 0a5c ADF81430 		strh	r3, [sp, #20]	@ movhi	@ tmp208, left
+ 457:apps/src/Drawing_apps.c **** 	right		= p_draw->x2_rx;
+ 1503              		.loc 1 457 0
+ 1504 0a60 019B     		ldr	r3, [sp, #4]	@ tmp209, p_draw
+ 1505 0a62 B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp211,
+ 1506 0a66 9BB2     		uxth	r3, r3	@ D.8104, tmp210
+ 1507 0a68 ADF81230 		strh	r3, [sp, #18]	@ movhi	@ tmp212, right
+ 458:apps/src/Drawing_apps.c **** 	top 		= p_draw->y1;
+ 1508              		.loc 1 458 0
+ 1509 0a6c 019B     		ldr	r3, [sp, #4]	@ tmp213, p_draw
+ 1510 0a6e B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp215,
+ 1511 0a72 9BB2     		uxth	r3, r3	@ D.8104, tmp214
+ 1512 0a74 ADF81030 		strh	r3, [sp, #16]	@ movhi	@ tmp216, top
+ 459:apps/src/Drawing_apps.c **** 	bottom 	= p_draw->y2_ry;
+ 1513              		.loc 1 459 0
+ 1514 0a78 019B     		ldr	r3, [sp, #4]	@ tmp217, p_draw
+ 1515 0a7a B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp219,
+ 1516 0a7e 9BB2     		uxth	r3, r3	@ D.8104, tmp218
+ 1517 0a80 ADF80E30 		strh	r3, [sp, #14]	@ movhi	@ tmp220, bottom
+ 460:apps/src/Drawing_apps.c **** 
+ 461:apps/src/Drawing_apps.c **** 	if( (left == right) || (top == bottom) )
+ 1518              		.loc 1 461 0
+ 1519 0a84 BDF81420 		ldrh	r2, [sp, #20]	@ tmp221, left
+ 1520 0a88 BDF81230 		ldrh	r3, [sp, #18]	@ tmp222, right
+ 1521 0a8c 9A42     		cmp	r2, r3	@ tmp221, tmp222
+ 1522 0a8e 05D0     		beq	.L88	@,
+ 1523              		.loc 1 461 0 is_stmt 0 discriminator 1
+ 1524 0a90 BDF81020 		ldrh	r2, [sp, #16]	@ tmp223, top
+ 1525 0a94 BDF80E30 		ldrh	r3, [sp, #14]	@ tmp224, bottom
+ 1526 0a98 9A42     		cmp	r2, r3	@ tmp223, tmp224
+ 1527 0a9a 08D1     		bne	.L89	@,
+ 1528              	.L88:
+ 462:apps/src/Drawing_apps.c **** 	{
+ 463:apps/src/Drawing_apps.c **** 		result = gDrawALineColour( p_draw );
+ 1529              		.loc 1 463 0 is_stmt 1
+ 1530 0a9c 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 1531 0a9e FFF7FEFF 		bl	gDrawALineColour	@
+ 1532 0aa2 0346     		mov	r3, r0	@ tmp225,
+ 1533 0aa4 8DF81730 		strb	r3, [sp, #23]	@ tmp226, result
+ 464:apps/src/Drawing_apps.c **** 		return(result);
+ 1534              		.loc 1 464 0
+ 1535 0aa8 9DF81730 		ldrb	r3, [sp, #23]	@ zero_extendqisi2	@ D.8103, result
+ 1536 0aac 15E1     		b	.L87	@
+ 1537              	.L89:
+ 465:apps/src/Drawing_apps.c **** 	}
+ 466:apps/src/Drawing_apps.c **** 
+ 467:apps/src/Drawing_apps.c **** 	if( top > bottom)
+ 1538              		.loc 1 467 0
+ 1539 0aae BDF81020 		ldrh	r2, [sp, #16]	@ tmp227, top
+ 1540 0ab2 BDF80E30 		ldrh	r3, [sp, #14]	@ tmp228, bottom
+ 1541 0ab6 9A42     		cmp	r2, r3	@ tmp227, tmp228
+ 1542 0ab8 0BD9     		bls	.L90	@,
+ 468:apps/src/Drawing_apps.c **** 	{
+ 469:apps/src/Drawing_apps.c **** 		temp 		= top;
+ 1543              		.loc 1 469 0
+ 1544 0aba BDF81030 		ldrh	r3, [sp, #16]	@ movhi	@ tmp229, top
+ 1545 0abe ADF80830 		strh	r3, [sp, #8]	@ movhi	@ tmp229, temp
+ 470:apps/src/Drawing_apps.c **** 		top			= bottom;
+ 1546              		.loc 1 470 0
+ 1547 0ac2 BDF80E30 		ldrh	r3, [sp, #14]	@ movhi	@ tmp230, bottom
+ 1548 0ac6 ADF81030 		strh	r3, [sp, #16]	@ movhi	@ tmp230, top
+ 471:apps/src/Drawing_apps.c **** 		bottom		= temp;
+ 1549              		.loc 1 471 0
+ 1550 0aca BDF80830 		ldrh	r3, [sp, #8]	@ movhi	@ tmp231, temp
+ 1551 0ace ADF80E30 		strh	r3, [sp, #14]	@ movhi	@ tmp231, bottom
+ 1552              	.L90:
+ 472:apps/src/Drawing_apps.c **** 	}
+ 473:apps/src/Drawing_apps.c **** 	if( left > right )
+ 1553              		.loc 1 473 0
+ 1554 0ad2 BDF81420 		ldrh	r2, [sp, #20]	@ tmp232, left
+ 1555 0ad6 BDF81230 		ldrh	r3, [sp, #18]	@ tmp233, right
+ 1556 0ada 9A42     		cmp	r2, r3	@ tmp232, tmp233
+ 1557 0adc 0BD9     		bls	.L91	@,
+ 474:apps/src/Drawing_apps.c **** 	{
+ 475:apps/src/Drawing_apps.c **** 		temp		= left;
+ 1558              		.loc 1 475 0
+ 1559 0ade BDF81430 		ldrh	r3, [sp, #20]	@ movhi	@ tmp234, left
+ 1560 0ae2 ADF80830 		strh	r3, [sp, #8]	@ movhi	@ tmp234, temp
+ 476:apps/src/Drawing_apps.c **** 		left		= right;
+ 1561              		.loc 1 476 0
+ 1562 0ae6 BDF81230 		ldrh	r3, [sp, #18]	@ movhi	@ tmp235, right
+ 1563 0aea ADF81430 		strh	r3, [sp, #20]	@ movhi	@ tmp235, left
+ 477:apps/src/Drawing_apps.c **** 		right		= temp;
+ 1564              		.loc 1 477 0
+ 1565 0aee BDF80830 		ldrh	r3, [sp, #8]	@ movhi	@ tmp236, temp
+ 1566 0af2 ADF81230 		strh	r3, [sp, #18]	@ movhi	@ tmp236, right
+ 1567              	.L91:
+ 478:apps/src/Drawing_apps.c **** 	}
+ 479:apps/src/Drawing_apps.c **** 	do
+ 480:apps/src/Drawing_apps.c **** 	{
+ 481:apps/src/Drawing_apps.c **** 		for( i = 0; (left + i) <= right; i++ )
+ 1568              		.loc 1 481 0
+ 1569 0af6 0023     		movs	r3, #0	@ tmp238,
+ 1570 0af8 ADF80C30 		strh	r3, [sp, #12]	@ movhi	@ tmp237, i
+ 1571 0afc 2CE0     		b	.L92	@
+ 1572              	.L93:
+ 482:apps/src/Drawing_apps.c **** 		{
+ 483:apps/src/Drawing_apps.c **** 			p_draw->x1 = left + i;
+ 1573              		.loc 1 483 0 discriminator 2
+ 1574 0afe BDF81420 		ldrh	r2, [sp, #20]	@ movhi	@ tmp239, left
+ 1575 0b02 BDF80C30 		ldrh	r3, [sp, #12]	@ movhi	@ tmp240, i
+ 1576 0b06 1344     		add	r3, r3, r2	@ tmp241, tmp239
+ 1577 0b08 9BB2     		uxth	r3, r3	@ D.8106, tmp241
+ 1578 0b0a 9AB2     		uxth	r2, r3	@ D.8104, D.8106
+ 1579 0b0c 019B     		ldr	r3, [sp, #4]	@ tmp242, p_draw
+ 1580 0b0e A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp243, p_draw_20(D)->x1
+ 484:apps/src/Drawing_apps.c **** 			p_draw->y1 = top;
+ 1581              		.loc 1 484 0 discriminator 2
+ 1582 0b12 BDF81020 		ldrh	r2, [sp, #16]	@ top.37, top
+ 1583 0b16 019B     		ldr	r3, [sp, #4]	@ tmp244, p_draw
+ 1584 0b18 A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp245, p_draw_20(D)->y1
+ 485:apps/src/Drawing_apps.c **** 			result |= sDrawAPixel( p_draw );
+ 1585              		.loc 1 485 0 discriminator 2
+ 1586 0b1c 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 1587 0b1e FFF76FFA 		bl	sDrawAPixel	@
+ 1588 0b22 0346     		mov	r3, r0	@ tmp246,
+ 1589 0b24 1A46     		mov	r2, r3	@ D.8107, tmp246
+ 1590 0b26 9DF81730 		ldrb	r3, [sp, #23]	@ tmp247, result
+ 1591 0b2a 1343     		orrs	r3, r3, r2	@, tmp248, tmp247, D.8107
+ 1592 0b2c 8DF81730 		strb	r3, [sp, #23]	@ tmp249, result
+ 486:apps/src/Drawing_apps.c **** 			p_draw->y1 = bottom;
+ 1593              		.loc 1 486 0 discriminator 2
+ 1594 0b30 BDF80E20 		ldrh	r2, [sp, #14]	@ bottom.38, bottom
+ 1595 0b34 019B     		ldr	r3, [sp, #4]	@ tmp250, p_draw
+ 1596 0b36 A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp251, p_draw_20(D)->y1
+ 487:apps/src/Drawing_apps.c **** 			result |= sDrawAPixel( p_draw );
+ 1597              		.loc 1 487 0 discriminator 2
+ 1598 0b3a 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 1599 0b3c FFF760FA 		bl	sDrawAPixel	@
+ 1600 0b40 0346     		mov	r3, r0	@ tmp252,
+ 1601 0b42 1A46     		mov	r2, r3	@ D.8107, tmp252
+ 1602 0b44 9DF81730 		ldrb	r3, [sp, #23]	@ tmp253, result
+ 1603 0b48 1343     		orrs	r3, r3, r2	@, tmp254, tmp253, D.8107
+ 1604 0b4a 8DF81730 		strb	r3, [sp, #23]	@ tmp255, result
+ 481:apps/src/Drawing_apps.c **** 		for( i = 0; (left + i) <= right; i++ )
+ 1605              		.loc 1 481 0 discriminator 2
+ 1606 0b4e BDF80C30 		ldrh	r3, [sp, #12]	@ i.39, i
+ 1607 0b52 0133     		adds	r3, r3, #1	@ tmp256, i.39,
+ 1608 0b54 ADF80C30 		strh	r3, [sp, #12]	@ movhi	@ tmp257, i
+ 1609              	.L92:
+ 481:apps/src/Drawing_apps.c **** 		for( i = 0; (left + i) <= right; i++ )
+ 1610              		.loc 1 481 0 is_stmt 0 discriminator 1
+ 1611 0b58 BDF81420 		ldrh	r2, [sp, #20]	@ D.8105, left
+ 1612 0b5c BDF80C30 		ldrh	r3, [sp, #12]	@ D.8105, i
+ 1613 0b60 1A44     		add	r2, r2, r3	@ D.8105, D.8105
+ 1614 0b62 BDF81230 		ldrh	r3, [sp, #18]	@ D.8105, right
+ 1615 0b66 9A42     		cmp	r2, r3	@ D.8105, D.8105
+ 1616 0b68 C9DD     		ble	.L93	@,
+ 488:apps/src/Drawing_apps.c **** 		}
+ 489:apps/src/Drawing_apps.c **** 		for( i = 0; (top + i) <= bottom; i ++ )
+ 1617              		.loc 1 489 0 is_stmt 1
+ 1618 0b6a 0023     		movs	r3, #0	@ tmp259,
+ 1619 0b6c ADF80C30 		strh	r3, [sp, #12]	@ movhi	@ tmp258, i
+ 1620 0b70 2CE0     		b	.L94	@
+ 1621              	.L95:
+ 490:apps/src/Drawing_apps.c **** 		{
+ 491:apps/src/Drawing_apps.c **** 			p_draw->y1 = top + i;
+ 1622              		.loc 1 491 0 discriminator 2
+ 1623 0b72 BDF81020 		ldrh	r2, [sp, #16]	@ movhi	@ tmp260, top
+ 1624 0b76 BDF80C30 		ldrh	r3, [sp, #12]	@ movhi	@ tmp261, i
+ 1625 0b7a 1344     		add	r3, r3, r2	@ tmp262, tmp260
+ 1626 0b7c 9BB2     		uxth	r3, r3	@ D.8106, tmp262
+ 1627 0b7e 9AB2     		uxth	r2, r3	@ D.8104, D.8106
+ 1628 0b80 019B     		ldr	r3, [sp, #4]	@ tmp263, p_draw
+ 1629 0b82 A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp264, p_draw_20(D)->y1
+ 492:apps/src/Drawing_apps.c **** 			p_draw->x1 = left;
+ 1630              		.loc 1 492 0 discriminator 2
+ 1631 0b86 BDF81420 		ldrh	r2, [sp, #20]	@ left.40, left
+ 1632 0b8a 019B     		ldr	r3, [sp, #4]	@ tmp265, p_draw
+ 1633 0b8c A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp266, p_draw_20(D)->x1
+ 493:apps/src/Drawing_apps.c **** 			result |= sDrawAPixel( p_draw );
+ 1634              		.loc 1 493 0 discriminator 2
+ 1635 0b90 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 1636 0b92 FFF735FA 		bl	sDrawAPixel	@
+ 1637 0b96 0346     		mov	r3, r0	@ tmp267,
+ 1638 0b98 1A46     		mov	r2, r3	@ D.8107, tmp267
+ 1639 0b9a 9DF81730 		ldrb	r3, [sp, #23]	@ tmp268, result
+ 1640 0b9e 1343     		orrs	r3, r3, r2	@, tmp269, tmp268, D.8107
+ 1641 0ba0 8DF81730 		strb	r3, [sp, #23]	@ tmp270, result
+ 494:apps/src/Drawing_apps.c **** 			p_draw->x1 = right;
+ 1642              		.loc 1 494 0 discriminator 2
+ 1643 0ba4 BDF81220 		ldrh	r2, [sp, #18]	@ right.41, right
+ 1644 0ba8 019B     		ldr	r3, [sp, #4]	@ tmp271, p_draw
+ 1645 0baa A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp272, p_draw_20(D)->x1
+ 495:apps/src/Drawing_apps.c **** 			result |= sDrawAPixel( p_draw );
+ 1646              		.loc 1 495 0 discriminator 2
+ 1647 0bae 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 1648 0bb0 FFF726FA 		bl	sDrawAPixel	@
+ 1649 0bb4 0346     		mov	r3, r0	@ tmp273,
+ 1650 0bb6 1A46     		mov	r2, r3	@ D.8107, tmp273
+ 1651 0bb8 9DF81730 		ldrb	r3, [sp, #23]	@ tmp274, result
+ 1652 0bbc 1343     		orrs	r3, r3, r2	@, tmp275, tmp274, D.8107
+ 1653 0bbe 8DF81730 		strb	r3, [sp, #23]	@ tmp276, result
+ 489:apps/src/Drawing_apps.c **** 		for( i = 0; (top + i) <= bottom; i ++ )
+ 1654              		.loc 1 489 0 discriminator 2
+ 1655 0bc2 BDF80C30 		ldrh	r3, [sp, #12]	@ i.42, i
+ 1656 0bc6 0133     		adds	r3, r3, #1	@ tmp277, i.42,
+ 1657 0bc8 ADF80C30 		strh	r3, [sp, #12]	@ movhi	@ tmp278, i
+ 1658              	.L94:
+ 489:apps/src/Drawing_apps.c **** 		for( i = 0; (top + i) <= bottom; i ++ )
+ 1659              		.loc 1 489 0 is_stmt 0 discriminator 1
+ 1660 0bcc BDF81020 		ldrh	r2, [sp, #16]	@ D.8105, top
+ 1661 0bd0 BDF80C30 		ldrh	r3, [sp, #12]	@ D.8105, i
+ 1662 0bd4 1A44     		add	r2, r2, r3	@ D.8105, D.8105
+ 1663 0bd6 BDF80E30 		ldrh	r3, [sp, #14]	@ D.8105, bottom
+ 1664 0bda 9A42     		cmp	r2, r3	@ D.8105, D.8105
+ 1665 0bdc C9DD     		ble	.L95	@,
+ 496:apps/src/Drawing_apps.c **** 		}
+ 497:apps/src/Drawing_apps.c **** 
+ 498:apps/src/Drawing_apps.c **** 		if( p_draw->type )				/* if TYPE is "Fill" ... */
+ 1666              		.loc 1 498 0 is_stmt 1
+ 1667 0bde 019B     		ldr	r3, [sp, #4]	@ tmp279, p_draw
+ 1668 0be0 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2	@ D.8107, p_draw_20(D)->type
+ 1669 0be2 002B     		cmp	r3, #0	@ D.8107,
+ 1670 0be4 72D0     		beq	.L96	@,
+ 499:apps/src/Drawing_apps.c **** 		{
+ 500:apps/src/Drawing_apps.c **** 			flag_fill = 1;
+ 1671              		.loc 1 500 0
+ 1672 0be6 0123     		movs	r3, #1	@ tmp280,
+ 1673 0be8 8DF80B30 		strb	r3, [sp, #11]	@ tmp281, flag_fill
+ 501:apps/src/Drawing_apps.c **** 			if( (right - left) <= 2 )
+ 1674              		.loc 1 501 0
+ 1675 0bec BDF81220 		ldrh	r2, [sp, #18]	@ D.8105, right
+ 1676 0bf0 BDF81430 		ldrh	r3, [sp, #20]	@ D.8105, left
+ 1677 0bf4 D31A     		subs	r3, r2, r3	@ D.8105, D.8105, D.8105
+ 1678 0bf6 022B     		cmp	r3, #2	@ D.8105,
+ 1679 0bf8 26DC     		bgt	.L97	@,
+ 502:apps/src/Drawing_apps.c **** 			{
+ 503:apps/src/Drawing_apps.c **** 				right--;
+ 1680              		.loc 1 503 0
+ 1681 0bfa BDF81230 		ldrh	r3, [sp, #18]	@ right.43, right
+ 1682 0bfe 013B     		subs	r3, r3, #1	@ tmp282, right.43,
+ 1683 0c00 ADF81230 		strh	r3, [sp, #18]	@ movhi	@ tmp283, right
+ 504:apps/src/Drawing_apps.c **** 				p_draw->x1 		= left;
+ 1684              		.loc 1 504 0
+ 1685 0c04 BDF81420 		ldrh	r2, [sp, #20]	@ left.44, left
+ 1686 0c08 019B     		ldr	r3, [sp, #4]	@ tmp284, p_draw
+ 1687 0c0a A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp285, p_draw_20(D)->x1
+ 505:apps/src/Drawing_apps.c **** 				p_draw->y1 		= top;
+ 1688              		.loc 1 505 0
+ 1689 0c0e BDF81020 		ldrh	r2, [sp, #16]	@ top.45, top
+ 1690 0c12 019B     		ldr	r3, [sp, #4]	@ tmp286, p_draw
+ 1691 0c14 A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp287, p_draw_20(D)->y1
+ 506:apps/src/Drawing_apps.c **** 				p_draw->x2_rx	= right;
+ 1692              		.loc 1 506 0
+ 1693 0c18 BDF81220 		ldrh	r2, [sp, #18]	@ right.46, right
+ 1694 0c1c 019B     		ldr	r3, [sp, #4]	@ tmp288, p_draw
+ 1695 0c1e A3F80B20 		strh	r2, [r3, #11]	@ unaligned	@ tmp289, p_draw_20(D)->x2_rx
+ 507:apps/src/Drawing_apps.c **** 				p_draw->y2_ry	= bottom;
+ 1696              		.loc 1 507 0
+ 1697 0c22 BDF80E20 		ldrh	r2, [sp, #14]	@ bottom.47, bottom
+ 1698 0c26 019B     		ldr	r3, [sp, #4]	@ tmp290, p_draw
+ 1699 0c28 A3F80D20 		strh	r2, [r3, #13]	@ unaligned	@ tmp291, p_draw_20(D)->y2_ry
+ 508:apps/src/Drawing_apps.c **** 				result |= gDrawALineColour( p_draw );
+ 1700              		.loc 1 508 0
+ 1701 0c2c 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 1702 0c2e FFF7FEFF 		bl	gDrawALineColour	@
+ 1703 0c32 0346     		mov	r3, r0	@ tmp292,
+ 1704 0c34 1A46     		mov	r2, r3	@ D.8107, tmp292
+ 1705 0c36 9DF81730 		ldrb	r3, [sp, #23]	@ tmp293, result
+ 1706 0c3a 1343     		orrs	r3, r3, r2	@, tmp294, tmp293, D.8107
+ 1707 0c3c 8DF81730 		strb	r3, [sp, #23]	@ tmp295, result
+ 509:apps/src/Drawing_apps.c **** 				flag_fill = 0;
+ 1708              		.loc 1 509 0
+ 1709 0c40 0023     		movs	r3, #0	@ tmp296,
+ 1710 0c42 8DF80B30 		strb	r3, [sp, #11]	@ tmp297, flag_fill
+ 1711 0c46 41E0     		b	.L96	@
+ 1712              	.L97:
+ 510:apps/src/Drawing_apps.c **** 			}
+ 511:apps/src/Drawing_apps.c **** 			else if( (bottom - top) <= 2 )
+ 1713              		.loc 1 511 0
+ 1714 0c48 BDF80E20 		ldrh	r2, [sp, #14]	@ D.8105, bottom
+ 1715 0c4c BDF81030 		ldrh	r3, [sp, #16]	@ D.8105, top
+ 1716 0c50 D31A     		subs	r3, r2, r3	@ D.8105, D.8105, D.8105
+ 1717 0c52 022B     		cmp	r3, #2	@ D.8105,
+ 1718 0c54 26DC     		bgt	.L98	@,
+ 512:apps/src/Drawing_apps.c **** 			{
+ 513:apps/src/Drawing_apps.c **** 				bottom--;
+ 1719              		.loc 1 513 0
+ 1720 0c56 BDF80E30 		ldrh	r3, [sp, #14]	@ bottom.48, bottom
+ 1721 0c5a 013B     		subs	r3, r3, #1	@ tmp298, bottom.48,
+ 1722 0c5c ADF80E30 		strh	r3, [sp, #14]	@ movhi	@ tmp299, bottom
+ 514:apps/src/Drawing_apps.c **** 				p_draw->x1 		= left;
+ 1723              		.loc 1 514 0
+ 1724 0c60 BDF81420 		ldrh	r2, [sp, #20]	@ left.49, left
+ 1725 0c64 019B     		ldr	r3, [sp, #4]	@ tmp300, p_draw
+ 1726 0c66 A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp301, p_draw_20(D)->x1
+ 515:apps/src/Drawing_apps.c **** 				p_draw->y1 		= top;
+ 1727              		.loc 1 515 0
+ 1728 0c6a BDF81020 		ldrh	r2, [sp, #16]	@ top.50, top
+ 1729 0c6e 019B     		ldr	r3, [sp, #4]	@ tmp302, p_draw
+ 1730 0c70 A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp303, p_draw_20(D)->y1
+ 516:apps/src/Drawing_apps.c **** 				p_draw->x2_rx	= right;
+ 1731              		.loc 1 516 0
+ 1732 0c74 BDF81220 		ldrh	r2, [sp, #18]	@ right.51, right
+ 1733 0c78 019B     		ldr	r3, [sp, #4]	@ tmp304, p_draw
+ 1734 0c7a A3F80B20 		strh	r2, [r3, #11]	@ unaligned	@ tmp305, p_draw_20(D)->x2_rx
+ 517:apps/src/Drawing_apps.c **** 				p_draw->y2_ry	= bottom;
+ 1735              		.loc 1 517 0
+ 1736 0c7e BDF80E20 		ldrh	r2, [sp, #14]	@ bottom.52, bottom
+ 1737 0c82 019B     		ldr	r3, [sp, #4]	@ tmp306, p_draw
+ 1738 0c84 A3F80D20 		strh	r2, [r3, #13]	@ unaligned	@ tmp307, p_draw_20(D)->y2_ry
+ 518:apps/src/Drawing_apps.c **** 				result |= gDrawALineColour( p_draw );
+ 1739              		.loc 1 518 0
+ 1740 0c88 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 1741 0c8a FFF7FEFF 		bl	gDrawALineColour	@
+ 1742 0c8e 0346     		mov	r3, r0	@ tmp308,
+ 1743 0c90 1A46     		mov	r2, r3	@ D.8107, tmp308
+ 1744 0c92 9DF81730 		ldrb	r3, [sp, #23]	@ tmp309, result
+ 1745 0c96 1343     		orrs	r3, r3, r2	@, tmp310, tmp309, D.8107
+ 1746 0c98 8DF81730 		strb	r3, [sp, #23]	@ tmp311, result
+ 519:apps/src/Drawing_apps.c **** 				flag_fill = 0;
+ 1747              		.loc 1 519 0
+ 1748 0c9c 0023     		movs	r3, #0	@ tmp312,
+ 1749 0c9e 8DF80B30 		strb	r3, [sp, #11]	@ tmp313, flag_fill
+ 1750 0ca2 13E0     		b	.L96	@
+ 1751              	.L98:
+ 520:apps/src/Drawing_apps.c **** 			}
+ 521:apps/src/Drawing_apps.c **** 			else
+ 522:apps/src/Drawing_apps.c **** 			{
+ 523:apps/src/Drawing_apps.c **** 				left++;
+ 1752              		.loc 1 523 0
+ 1753 0ca4 BDF81430 		ldrh	r3, [sp, #20]	@ left.53, left
+ 1754 0ca8 0133     		adds	r3, r3, #1	@ tmp314, left.53,
+ 1755 0caa ADF81430 		strh	r3, [sp, #20]	@ movhi	@ tmp315, left
+ 524:apps/src/Drawing_apps.c **** 				right--;
+ 1756              		.loc 1 524 0
+ 1757 0cae BDF81230 		ldrh	r3, [sp, #18]	@ right.54, right
+ 1758 0cb2 013B     		subs	r3, r3, #1	@ tmp316, right.54,
+ 1759 0cb4 ADF81230 		strh	r3, [sp, #18]	@ movhi	@ tmp317, right
+ 525:apps/src/Drawing_apps.c **** 				top++;
+ 1760              		.loc 1 525 0
+ 1761 0cb8 BDF81030 		ldrh	r3, [sp, #16]	@ top.55, top
+ 1762 0cbc 0133     		adds	r3, r3, #1	@ tmp318, top.55,
+ 1763 0cbe ADF81030 		strh	r3, [sp, #16]	@ movhi	@ tmp319, top
+ 526:apps/src/Drawing_apps.c **** 				bottom--;
+ 1764              		.loc 1 526 0
+ 1765 0cc2 BDF80E30 		ldrh	r3, [sp, #14]	@ bottom.56, bottom
+ 1766 0cc6 013B     		subs	r3, r3, #1	@ tmp320, bottom.56,
+ 1767 0cc8 ADF80E30 		strh	r3, [sp, #14]	@ movhi	@ tmp321, bottom
+ 1768              	.L96:
+ 527:apps/src/Drawing_apps.c **** 			}
+ 528:apps/src/Drawing_apps.c **** 		}
+ 529:apps/src/Drawing_apps.c **** 	}
+ 530:apps/src/Drawing_apps.c **** 	while( flag_fill );
+ 1769              		.loc 1 530 0
+ 1770 0ccc 9DF80B30 		ldrb	r3, [sp, #11]	@ zero_extendqisi2	@ tmp322, flag_fill
+ 1771 0cd0 002B     		cmp	r3, #0	@ tmp322,
+ 1772 0cd2 7FF410AF 		bne	.L91	@,
+ 531:apps/src/Drawing_apps.c **** 
+ 532:apps/src/Drawing_apps.c **** 	return(result);
+ 1773              		.loc 1 532 0
+ 1774 0cd6 9DF81730 		ldrb	r3, [sp, #23]	@ zero_extendqisi2	@ D.8103, result
+ 1775              	.L87:
+ 533:apps/src/Drawing_apps.c **** }
+ 1776              		.loc 1 533 0
+ 1777 0cda 1846     		mov	r0, r3	@, <retval>
+ 1778 0cdc 07B0     		add	sp, sp, #28	@,,
+ 1779              		@ sp needed	@
+ 1780 0cde 5DF804FB 		ldr	pc, [sp], #4	@
+ 1781              		.cfi_endproc
+ 1782              	.LFE121:
+ 1784 0ce2 00BF     		.align	2
+ 1785              		.global	gDrawAAsciiSymbolColour
+ 1786              		.thumb
+ 1787              		.thumb_func
+ 1789              	gDrawAAsciiSymbolColour:
+ 1790              	.LFB122:
+ 534:apps/src/Drawing_apps.c **** 
+ 535:apps/src/Drawing_apps.c **** 
+ 536:apps/src/Drawing_apps.c **** #define NUM_OF_FONTS_BYTES			8
+ 537:apps/src/Drawing_apps.c **** #define NUM_OF_PIXELS_OF_ROW		8
+ 538:apps/src/Drawing_apps.c **** #define NUM_OF_COLLONS					8
+ 539:apps/src/Drawing_apps.c **** 
+ 540:apps/src/Drawing_apps.c **** /**
+ 541:apps/src/Drawing_apps.c ****   * @brief
+ 542:apps/src/Drawing_apps.c ****   * @param  None
+ 543:apps/src/Drawing_apps.c ****   * @retval
+ 544:apps/src/Drawing_apps.c ****   */
+ 545:apps/src/Drawing_apps.c **** uint8_t gDrawAAsciiSymbolColour( draw_t *p_draw )
+ 546:apps/src/Drawing_apps.c **** {
+ 1791              		.loc 1 546 0
+ 1792              		.cfi_startproc
+ 1793              		@ args = 0, pretend = 0, frame = 40
+ 1794              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1795 0ce4 00B5     		push	{lr}	@
+ 1796              		.cfi_def_cfa_offset 4
+ 1797              		.cfi_offset 14, -4
+ 1798 0ce6 8BB0     		sub	sp, sp, #44	@,,
+ 1799              		.cfi_def_cfa_offset 48
+ 1800 0ce8 0190     		str	r0, [sp, #4]	@ p_draw, p_draw
+ 547:apps/src/Drawing_apps.c **** uint8_t 	result = 0;
+ 1801              		.loc 1 547 0
+ 1802 0cea 0023     		movs	r3, #0	@ tmp135,
+ 1803 0cec 8DF82730 		strb	r3, [sp, #39]	@ tmp136, result
+ 548:apps/src/Drawing_apps.c **** uint8_t 	tmp_pixel;
+ 549:apps/src/Drawing_apps.c **** uint8_t 	tmp_bcount, tmp_min_bcount;
+ 550:apps/src/Drawing_apps.c **** uint8_t 	num_of_pixels_of_row;
+ 551:apps/src/Drawing_apps.c **** uint8_t 	tmp_bytes = 0;
+ 1804              		.loc 1 551 0
+ 1805 0cf0 0023     		movs	r3, #0	@ tmp137,
+ 1806 0cf2 8DF82330 		strb	r3, [sp, #35]	@ tmp138, tmp_bytes
+ 552:apps/src/Drawing_apps.c **** uint32_t 	tmp_num_of_fonts_bytes;
+ 553:apps/src/Drawing_apps.c **** uint8_t 	tmp_num_of_collons;
+ 554:apps/src/Drawing_apps.c **** uint8_t 	tmp_num_of_max_collons;
+ 555:apps/src/Drawing_apps.c **** int16_t  	x, y;
+ 556:apps/src/Drawing_apps.c **** const uint8_t* ptmp_font;
+ 557:apps/src/Drawing_apps.c **** const uint8_t* ptmp_char;
+ 558:apps/src/Drawing_apps.c **** 
+ 559:apps/src/Drawing_apps.c **** 
+ 560:apps/src/Drawing_apps.c **** 	x = p_draw->x1;
+ 1807              		.loc 1 560 0
+ 1808 0cf6 019B     		ldr	r3, [sp, #4]	@ tmp139, p_draw
+ 1809 0cf8 DA79     		ldrb	r2, [r3, #7]	@ zero_extendqisi2	@ tmp142,
+ 1810 0cfa 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2	@ tmp143,
+ 1811 0cfc 1B02     		lsls	r3, r3, #8	@ tmp144, tmp143,
+ 1812 0cfe 1343     		orrs	r3, r3, r2	@, tmp145, tmp144, tmp142
+ 1813 0d00 1B04     		lsls	r3, r3, #16	@ tmp146, tmp145,
+ 1814 0d02 1B14     		asrs	r3, r3, #16	@ tmp147, tmp146,
+ 1815 0d04 ADF82030 		strh	r3, [sp, #32]	@ movhi	@ tmp148, x
+ 561:apps/src/Drawing_apps.c **** 	y = p_draw->y1;
+ 1816              		.loc 1 561 0
+ 1817 0d08 019B     		ldr	r3, [sp, #4]	@ tmp149, p_draw
+ 1818 0d0a 5A7A     		ldrb	r2, [r3, #9]	@ zero_extendqisi2	@ tmp152,
+ 1819 0d0c 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2	@ tmp153,
+ 1820 0d0e 1B02     		lsls	r3, r3, #8	@ tmp154, tmp153,
+ 1821 0d10 1343     		orrs	r3, r3, r2	@, tmp155, tmp154, tmp152
+ 1822 0d12 1B04     		lsls	r3, r3, #16	@ tmp156, tmp155,
+ 1823 0d14 1B14     		asrs	r3, r3, #16	@ tmp157, tmp156,
+ 1824 0d16 ADF81E30 		strh	r3, [sp, #30]	@ movhi	@ tmp158, y
+ 562:apps/src/Drawing_apps.c **** 
+ 563:apps/src/Drawing_apps.c **** 	num_of_pixels_of_row = NUM_OF_PIXELS_OF_ROW;
+ 1825              		.loc 1 563 0
+ 1826 0d1a 0823     		movs	r3, #8	@ tmp159,
+ 1827 0d1c 8DF81D30 		strb	r3, [sp, #29]	@ tmp160, num_of_pixels_of_row
+ 564:apps/src/Drawing_apps.c **** 	tmp_num_of_fonts_bytes = NUM_OF_FONTS_BYTES;
+ 1828              		.loc 1 564 0
+ 1829 0d20 0823     		movs	r3, #8	@ tmp161,
+ 1830 0d22 0693     		str	r3, [sp, #24]	@ tmp161, tmp_num_of_fonts_bytes
+ 565:apps/src/Drawing_apps.c **** 	tmp_num_of_max_collons	= NUM_OF_COLLONS;
+ 1831              		.loc 1 565 0
+ 1832 0d24 0823     		movs	r3, #8	@ tmp162,
+ 1833 0d26 8DF81730 		strb	r3, [sp, #23]	@ tmp163, tmp_num_of_max_collons
+ 566:apps/src/Drawing_apps.c **** 	ptmp_font = (const uint8_t*)gap_fonts[p_draw->ascii_font];
+ 1834              		.loc 1 566 0
+ 1835 0d2a 019B     		ldr	r3, [sp, #4]	@ tmp164, p_draw
+ 1836 0d2c 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2	@ D.8108, p_draw_17(D)->ascii_font
+ 1837 0d2e 1A46     		mov	r2, r3	@ D.8109, D.8108
+ 1838 0d30 434B     		ldr	r3, .L109	@ tmp165,
+ 1839 0d32 53F82230 		ldr	r3, [r3, r2, lsl #2]	@ tmp166, gap_fonts
+ 1840 0d36 0493     		str	r3, [sp, #16]	@ tmp166, ptmp_font
+ 567:apps/src/Drawing_apps.c **** 	ptmp_char = ptmp_font + 4 + p_draw->ascii_sym * tmp_num_of_fonts_bytes;
+ 1841              		.loc 1 567 0
+ 1842 0d38 019B     		ldr	r3, [sp, #4]	@ tmp167, p_draw
+ 1843 0d3a 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2	@ D.8108, p_draw_17(D)->ascii_sym
+ 1844 0d3c 069A     		ldr	r2, [sp, #24]	@ tmp168, tmp_num_of_fonts_bytes
+ 1845 0d3e 02FB03F3 		mul	r3, r2, r3	@ D.8110, tmp168, D.8110
+ 1846 0d42 0433     		adds	r3, r3, #4	@ D.8111, D.8110,
+ 1847 0d44 049A     		ldr	r2, [sp, #16]	@ tmp170, ptmp_font
+ 1848 0d46 1344     		add	r3, r3, r2	@ tmp169, tmp170
+ 1849 0d48 0393     		str	r3, [sp, #12]	@ tmp169, ptmp_char
+ 568:apps/src/Drawing_apps.c **** 
+ 569:apps/src/Drawing_apps.c **** 	for( tmp_num_of_collons = 0; tmp_num_of_collons < tmp_num_of_max_collons; tmp_num_of_collons++ )
+ 1850              		.loc 1 569 0
+ 1851 0d4a 0023     		movs	r3, #0	@ tmp171,
+ 1852 0d4c 8DF82230 		strb	r3, [sp, #34]	@ tmp172, tmp_num_of_collons
+ 1853 0d50 69E0     		b	.L100	@
+ 1854              	.L107:
+ 570:apps/src/Drawing_apps.c **** 	{
+ 571:apps/src/Drawing_apps.c **** 			for( tmp_pixel = num_of_pixels_of_row; tmp_pixel > 0; )
+ 1855              		.loc 1 571 0
+ 1856 0d52 9DF81D30 		ldrb	r3, [sp, #29]	@ tmp173, num_of_pixels_of_row
+ 1857 0d56 8DF82630 		strb	r3, [sp, #38]	@ tmp173, tmp_pixel
+ 1858 0d5a 4DE0     		b	.L101	@
+ 1859              	.L106:
+ 572:apps/src/Drawing_apps.c **** 			{
+ 573:apps/src/Drawing_apps.c **** 				if( tmp_pixel >= 8 )
+ 1860              		.loc 1 573 0
+ 1861 0d5c 9DF82630 		ldrb	r3, [sp, #38]	@ zero_extendqisi2	@ tmp174, tmp_pixel
+ 1862 0d60 072B     		cmp	r3, #7	@ tmp174,
+ 1863 0d62 03D9     		bls	.L102	@,
+ 574:apps/src/Drawing_apps.c **** 				{
+ 575:apps/src/Drawing_apps.c **** 					tmp_min_bcount = 0;
+ 1864              		.loc 1 575 0
+ 1865 0d64 0023     		movs	r3, #0	@ tmp175,
+ 1866 0d66 8DF82430 		strb	r3, [sp, #36]	@ tmp176, tmp_min_bcount
+ 1867 0d6a 05E0     		b	.L103	@
+ 1868              	.L102:
+ 576:apps/src/Drawing_apps.c **** 				}
+ 577:apps/src/Drawing_apps.c **** 				else
+ 578:apps/src/Drawing_apps.c **** 				{
+ 579:apps/src/Drawing_apps.c **** 					tmp_min_bcount = 8 - tmp_pixel;
+ 1869              		.loc 1 579 0
+ 1870 0d6c 9DF82630 		ldrb	r3, [sp, #38]	@ tmp177, tmp_pixel
+ 1871 0d70 C3F10803 		rsb	r3, r3, #8	@ tmp178, tmp177,
+ 1872 0d74 8DF82430 		strb	r3, [sp, #36]	@ tmp179, tmp_min_bcount
+ 1873              	.L103:
+ 580:apps/src/Drawing_apps.c **** 				}
+ 581:apps/src/Drawing_apps.c **** 				tmp_bcount = 8;
+ 1874              		.loc 1 581 0
+ 1875 0d78 0823     		movs	r3, #8	@ tmp180,
+ 1876 0d7a 8DF82530 		strb	r3, [sp, #37]	@ tmp181, tmp_bcount
+ 1877              	.L105:
+ 582:apps/src/Drawing_apps.c **** 				do
+ 583:apps/src/Drawing_apps.c **** 				{
+ 584:apps/src/Drawing_apps.c **** 					if( (1 << (tmp_bcount-1)) & ptmp_char[tmp_bytes] )
+ 1878              		.loc 1 584 0
+ 1879 0d7e 9DF82330 		ldrb	r3, [sp, #35]	@ zero_extendqisi2	@ D.8111, tmp_bytes
+ 1880 0d82 039A     		ldr	r2, [sp, #12]	@ tmp182, ptmp_char
+ 1881 0d84 1344     		add	r3, r3, r2	@ D.8112, tmp182
+ 1882 0d86 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2	@ D.8108, *_37
+ 1883 0d88 1A46     		mov	r2, r3	@ D.8109, D.8108
+ 1884 0d8a 9DF82530 		ldrb	r3, [sp, #37]	@ zero_extendqisi2	@ D.8109, tmp_bcount
+ 1885 0d8e 013B     		subs	r3, r3, #1	@ D.8109, D.8109,
+ 1886 0d90 42FA03F3 		asr	r3, r2, r3	@ D.8109, D.8109, D.8109
+ 1887 0d94 03F00103 		and	r3, r3, #1	@ D.8109, D.8109,
+ 1888 0d98 002B     		cmp	r3, #0	@ D.8109,
+ 1889 0d9a 13D0     		beq	.L104	@,
+ 585:apps/src/Drawing_apps.c **** 					{
+ 586:apps/src/Drawing_apps.c **** 				  	p_draw->x1 = x;
+ 1890              		.loc 1 586 0
+ 1891 0d9c 019B     		ldr	r3, [sp, #4]	@ tmp183, p_draw
+ 1892 0d9e BDF82020 		ldrh	r2, [sp, #32]	@ movhi	@ tmp184, x
+ 1893 0da2 A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp185, p_draw_17(D)->x1
+ 587:apps/src/Drawing_apps.c **** 				  	p_draw->y1 = y;
+ 1894              		.loc 1 587 0
+ 1895 0da6 019B     		ldr	r3, [sp, #4]	@ tmp186, p_draw
+ 1896 0da8 BDF81E20 		ldrh	r2, [sp, #30]	@ movhi	@ tmp187, y
+ 1897 0dac A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp188, p_draw_17(D)->y1
+ 588:apps/src/Drawing_apps.c **** 						result |= sDrawAPixel( p_draw );
+ 1898              		.loc 1 588 0
+ 1899 0db0 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 1900 0db2 FFF725F9 		bl	sDrawAPixel	@
+ 1901 0db6 0346     		mov	r3, r0	@ tmp189,
+ 1902 0db8 1A46     		mov	r2, r3	@ D.8108, tmp189
+ 1903 0dba 9DF82730 		ldrb	r3, [sp, #39]	@ tmp190, result
+ 1904 0dbe 1343     		orrs	r3, r3, r2	@, tmp191, tmp190, D.8108
+ 1905 0dc0 8DF82730 		strb	r3, [sp, #39]	@ tmp192, result
+ 1906              	.L104:
+ 589:apps/src/Drawing_apps.c **** 					}
+ 590:apps/src/Drawing_apps.c **** 					x++;
+ 1907              		.loc 1 590 0
+ 1908 0dc4 BDF82030 		ldrh	r3, [sp, #32]	@ x.57, x
+ 1909 0dc8 0133     		adds	r3, r3, #1	@ tmp194, tmp193,
+ 1910 0dca ADF82030 		strh	r3, [sp, #32]	@ movhi	@ tmp195, x
+ 591:apps/src/Drawing_apps.c **** 					tmp_bcount--;
+ 1911              		.loc 1 591 0
+ 1912 0dce 9DF82530 		ldrb	r3, [sp, #37]	@ zero_extendqisi2	@ tmp_bcount.58, tmp_bcount
+ 1913 0dd2 013B     		subs	r3, r3, #1	@ tmp196, tmp_bcount.58,
+ 1914 0dd4 8DF82530 		strb	r3, [sp, #37]	@ tmp197, tmp_bcount
+ 592:apps/src/Drawing_apps.c **** 				}
+ 593:apps/src/Drawing_apps.c **** 				while(tmp_bcount > tmp_min_bcount);
+ 1915              		.loc 1 593 0
+ 1916 0dd8 9DF82520 		ldrb	r2, [sp, #37]	@ zero_extendqisi2	@ tmp198, tmp_bcount
+ 1917 0ddc 9DF82430 		ldrb	r3, [sp, #36]	@ zero_extendqisi2	@ tmp199, tmp_min_bcount
+ 1918 0de0 9A42     		cmp	r2, r3	@ tmp198, tmp199
+ 1919 0de2 CCD8     		bhi	.L105	@,
+ 594:apps/src/Drawing_apps.c **** 
+ 595:apps/src/Drawing_apps.c **** 				tmp_bytes++;
+ 1920              		.loc 1 595 0
+ 1921 0de4 9DF82330 		ldrb	r3, [sp, #35]	@ zero_extendqisi2	@ tmp_bytes.59, tmp_bytes
+ 1922 0de8 0133     		adds	r3, r3, #1	@ tmp200, tmp_bytes.59,
+ 1923 0dea 8DF82330 		strb	r3, [sp, #35]	@ tmp201, tmp_bytes
+ 596:apps/src/Drawing_apps.c **** 				tmp_pixel -= 8;
+ 1924              		.loc 1 596 0
+ 1925 0dee 9DF82630 		ldrb	r3, [sp, #38]	@ tmp202, tmp_pixel
+ 1926 0df2 083B     		subs	r3, r3, #8	@ tmp203, tmp202,
+ 1927 0df4 8DF82630 		strb	r3, [sp, #38]	@ tmp204, tmp_pixel
+ 1928              	.L101:
+ 571:apps/src/Drawing_apps.c **** 			for( tmp_pixel = num_of_pixels_of_row; tmp_pixel > 0; )
+ 1929              		.loc 1 571 0 discriminator 1
+ 1930 0df8 9DF82630 		ldrb	r3, [sp, #38]	@ zero_extendqisi2	@ tmp205, tmp_pixel
+ 1931 0dfc 002B     		cmp	r3, #0	@ tmp205,
+ 1932 0dfe ADD1     		bne	.L106	@,
+ 597:apps/src/Drawing_apps.c **** 			}
+ 598:apps/src/Drawing_apps.c **** 			x -= num_of_pixels_of_row;
+ 1933              		.loc 1 598 0
+ 1934 0e00 BDF82020 		ldrh	r2, [sp, #32]	@ x.60, x
+ 1935 0e04 9DF81D30 		ldrb	r3, [sp, #29]	@ zero_extendqisi2	@ tmp207, num_of_pixels_of_row
+ 1936 0e08 9BB2     		uxth	r3, r3	@ D.8113, tmp206
+ 1937 0e0a D31A     		subs	r3, r2, r3	@ tmp208, x.60, D.8113
+ 1938 0e0c 9BB2     		uxth	r3, r3	@ D.8113, tmp208
+ 1939 0e0e ADF82030 		strh	r3, [sp, #32]	@ movhi	@ tmp209, x
+ 599:apps/src/Drawing_apps.c **** 			y++;
+ 1940              		.loc 1 599 0
+ 1941 0e12 BDF81E30 		ldrh	r3, [sp, #30]	@ y.61, y
+ 1942 0e16 0133     		adds	r3, r3, #1	@ tmp211, tmp210,
+ 1943 0e18 ADF81E30 		strh	r3, [sp, #30]	@ movhi	@ tmp212, y
+ 569:apps/src/Drawing_apps.c **** 	for( tmp_num_of_collons = 0; tmp_num_of_collons < tmp_num_of_max_collons; tmp_num_of_collons++ )
+ 1944              		.loc 1 569 0
+ 1945 0e1c 9DF82230 		ldrb	r3, [sp, #34]	@ zero_extendqisi2	@ tmp_num_of_collons.62, tmp_num_of_collons
+ 1946 0e20 0133     		adds	r3, r3, #1	@ tmp213, tmp_num_of_collons.62,
+ 1947 0e22 8DF82230 		strb	r3, [sp, #34]	@ tmp214, tmp_num_of_collons
+ 1948              	.L100:
+ 569:apps/src/Drawing_apps.c **** 	for( tmp_num_of_collons = 0; tmp_num_of_collons < tmp_num_of_max_collons; tmp_num_of_collons++ )
+ 1949              		.loc 1 569 0 is_stmt 0 discriminator 1
+ 1950 0e26 9DF82220 		ldrb	r2, [sp, #34]	@ zero_extendqisi2	@ tmp215, tmp_num_of_collons
+ 1951 0e2a 9DF81730 		ldrb	r3, [sp, #23]	@ zero_extendqisi2	@ tmp216, tmp_num_of_max_collons
+ 1952 0e2e 9A42     		cmp	r2, r3	@ tmp215, tmp216
+ 1953 0e30 8FD3     		bcc	.L107	@,
+ 600:apps/src/Drawing_apps.c **** 	}
+ 601:apps/src/Drawing_apps.c **** 
+ 602:apps/src/Drawing_apps.c **** 	return(result);
+ 1954              		.loc 1 602 0 is_stmt 1
+ 1955 0e32 9DF82730 		ldrb	r3, [sp, #39]	@ zero_extendqisi2	@ D.8114, result
+ 603:apps/src/Drawing_apps.c **** }
+ 1956              		.loc 1 603 0
+ 1957 0e36 1846     		mov	r0, r3	@, <retval>
+ 1958 0e38 0BB0     		add	sp, sp, #44	@,,
+ 1959              		@ sp needed	@
+ 1960 0e3a 5DF804FB 		ldr	pc, [sp], #4	@
+ 1961              	.L110:
+ 1962 0e3e 00BF     		.align	2
+ 1963              	.L109:
+ 1964 0e40 00000000 		.word	gap_fonts
+ 1965              		.cfi_endproc
+ 1966              	.LFE122:
+ 1968              		.align	2
+ 1969              		.global	gDrawAEllipseColour
+ 1970              		.thumb
+ 1971              		.thumb_func
+ 1973              	gDrawAEllipseColour:
+ 1974              	.LFB123:
+ 604:apps/src/Drawing_apps.c **** 
+ 605:apps/src/Drawing_apps.c **** 
+ 606:apps/src/Drawing_apps.c **** /**
+ 607:apps/src/Drawing_apps.c ****   * @brief
+ 608:apps/src/Drawing_apps.c ****   * @param  None
+ 609:apps/src/Drawing_apps.c ****   * @retval
+ 610:apps/src/Drawing_apps.c ****   */
+ 611:apps/src/Drawing_apps.c **** uint8_t gDrawAEllipseColour( draw_t *p_draw )
+ 612:apps/src/Drawing_apps.c **** {
+ 1975              		.loc 1 612 0
+ 1976              		.cfi_startproc
+ 1977              		@ args = 0, pretend = 0, frame = 56
+ 1978              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1979 0e44 00B5     		push	{lr}	@
+ 1980              		.cfi_def_cfa_offset 4
+ 1981              		.cfi_offset 14, -4
+ 1982 0e46 8FB0     		sub	sp, sp, #60	@,,
+ 1983              		.cfi_def_cfa_offset 64
+ 1984 0e48 0190     		str	r0, [sp, #4]	@ p_draw, p_draw
+ 613:apps/src/Drawing_apps.c **** uint8_t result = 0;
+ 1985              		.loc 1 613 0
+ 1986 0e4a 0023     		movs	r3, #0	@ tmp281,
+ 1987 0e4c 8DF83730 		strb	r3, [sp, #55]	@ tmp282, result
+ 614:apps/src/Drawing_apps.c **** int32_t width, height;
+ 615:apps/src/Drawing_apps.c **** int32_t a2, b2;
+ 616:apps/src/Drawing_apps.c **** int32_t fa2, fb2;
+ 617:apps/src/Drawing_apps.c **** int32_t x0, y0, x, y, sigma;
+ 618:apps/src/Drawing_apps.c **** 
+ 619:apps/src/Drawing_apps.c **** 
+ 620:apps/src/Drawing_apps.c **** 	x0 = p_draw->x1;
+ 1988              		.loc 1 620 0
+ 1989 0e50 019B     		ldr	r3, [sp, #4]	@ tmp283, p_draw
+ 1990 0e52 B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp285,
+ 1991 0e56 9BB2     		uxth	r3, r3	@ D.8115, tmp284
+ 1992 0e58 1BB2     		sxth	r3, r3	@ tmp286, D.8115
+ 1993 0e5a 0993     		str	r3, [sp, #36]	@ tmp286, x0
+ 621:apps/src/Drawing_apps.c **** 	y0 = p_draw->y1;
+ 1994              		.loc 1 621 0
+ 1995 0e5c 019B     		ldr	r3, [sp, #4]	@ tmp287, p_draw
+ 1996 0e5e B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp289,
+ 1997 0e62 9BB2     		uxth	r3, r3	@ D.8115, tmp288
+ 1998 0e64 1BB2     		sxth	r3, r3	@ tmp290, D.8115
+ 1999 0e66 0893     		str	r3, [sp, #32]	@ tmp290, y0
+ 622:apps/src/Drawing_apps.c **** 	width = p_draw->x2_rx;
+ 2000              		.loc 1 622 0
+ 2001 0e68 019B     		ldr	r3, [sp, #4]	@ tmp291, p_draw
+ 2002 0e6a B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp293,
+ 2003 0e6e 9BB2     		uxth	r3, r3	@ D.8115, tmp292
+ 2004 0e70 1BB2     		sxth	r3, r3	@ tmp294, D.8115
+ 2005 0e72 0793     		str	r3, [sp, #28]	@ tmp294, width
+ 623:apps/src/Drawing_apps.c **** 	height = p_draw->y2_ry;
+ 2006              		.loc 1 623 0
+ 2007 0e74 019B     		ldr	r3, [sp, #4]	@ tmp295, p_draw
+ 2008 0e76 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp297,
+ 2009 0e7a 9BB2     		uxth	r3, r3	@ D.8115, tmp296
+ 2010 0e7c 1BB2     		sxth	r3, r3	@ tmp298, D.8115
+ 2011 0e7e 0693     		str	r3, [sp, #24]	@ tmp298, height
+ 624:apps/src/Drawing_apps.c **** 
+ 625:apps/src/Drawing_apps.c **** 	a2 = width * width;
+ 2012              		.loc 1 625 0
+ 2013 0e80 079B     		ldr	r3, [sp, #28]	@ tmp300, width
+ 2014 0e82 079A     		ldr	r2, [sp, #28]	@ tmp301, width
+ 2015 0e84 02FB03F3 		mul	r3, r2, r3	@ tmp299, tmp301, tmp300
+ 2016 0e88 0593     		str	r3, [sp, #20]	@ tmp299, a2
+ 626:apps/src/Drawing_apps.c **** 	b2 = height * height;
+ 2017              		.loc 1 626 0
+ 2018 0e8a 069B     		ldr	r3, [sp, #24]	@ tmp303, height
+ 2019 0e8c 069A     		ldr	r2, [sp, #24]	@ tmp304, height
+ 2020 0e8e 02FB03F3 		mul	r3, r2, r3	@ tmp302, tmp304, tmp303
+ 2021 0e92 0493     		str	r3, [sp, #16]	@ tmp302, b2
+ 627:apps/src/Drawing_apps.c **** 	fa2 = 4 * a2;
+ 2022              		.loc 1 627 0
+ 2023 0e94 059B     		ldr	r3, [sp, #20]	@ tmp306, a2
+ 2024 0e96 9B00     		lsls	r3, r3, #2	@ tmp305, tmp306,
+ 2025 0e98 0393     		str	r3, [sp, #12]	@ tmp305, fa2
+ 628:apps/src/Drawing_apps.c **** 	fb2 = 4 * b2;
+ 2026              		.loc 1 628 0
+ 2027 0e9a 049B     		ldr	r3, [sp, #16]	@ tmp308, b2
+ 2028 0e9c 9B00     		lsls	r3, r3, #2	@ tmp307, tmp308,
+ 2029 0e9e 0293     		str	r3, [sp, #8]	@ tmp307, fb2
+ 629:apps/src/Drawing_apps.c **** 
+ 630:apps/src/Drawing_apps.c **** 	/* first half */
+ 631:apps/src/Drawing_apps.c **** 	for (x = 0, y = height, sigma = 2*b2+a2*(1-2*height); b2*x <= a2*y; x++)
+ 2030              		.loc 1 631 0
+ 2031 0ea0 0023     		movs	r3, #0	@ tmp309,
+ 2032 0ea2 0C93     		str	r3, [sp, #48]	@ tmp309, x
+ 2033 0ea4 069B     		ldr	r3, [sp, #24]	@ tmp310, height
+ 2034 0ea6 0B93     		str	r3, [sp, #44]	@ tmp310, y
+ 2035 0ea8 049B     		ldr	r3, [sp, #16]	@ tmp311, b2
+ 2036 0eaa 5900     		lsls	r1, r3, #1	@ D.8116, tmp311,
+ 2037 0eac 069A     		ldr	r2, [sp, #24]	@ tmp312, height
+ 2038 0eae 1346     		mov	r3, r2	@ tmp313, tmp312
+ 2039 0eb0 DB07     		lsls	r3, r3, #31	@ tmp313, tmp313,
+ 2040 0eb2 9B1A     		subs	r3, r3, r2	@ tmp313, tmp313, tmp312
+ 2041 0eb4 5B00     		lsls	r3, r3, #1	@ tmp314, tmp313,
+ 2042 0eb6 0133     		adds	r3, r3, #1	@ D.8116, D.8116,
+ 2043 0eb8 059A     		ldr	r2, [sp, #20]	@ tmp315, a2
+ 2044 0eba 02FB03F3 		mul	r3, r2, r3	@ D.8116, tmp315, D.8116
+ 2045 0ebe 0B44     		add	r3, r3, r1	@ tmp316, D.8116
+ 2046 0ec0 0A93     		str	r3, [sp, #40]	@ tmp316, sigma
+ 2047 0ec2 FEE0     		b	.L112	@
+ 2048              	.L116:
+ 632:apps/src/Drawing_apps.c **** 	{
+ 633:apps/src/Drawing_apps.c **** 		if( p_draw->type == 0 )
+ 2049              		.loc 1 633 0
+ 2050 0ec4 019B     		ldr	r3, [sp, #4]	@ tmp317, p_draw
+ 2051 0ec6 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2	@ D.8117, p_draw_18(D)->type
+ 2052 0ec8 002B     		cmp	r3, #0	@ D.8117,
+ 2053 0eca 77D1     		bne	.L113	@,
+ 634:apps/src/Drawing_apps.c **** 		{
+ 635:apps/src/Drawing_apps.c **** 			p_draw->x1 = (int16_t)(x0 + x);
+ 2054              		.loc 1 635 0
+ 2055 0ecc 099B     		ldr	r3, [sp, #36]	@ tmp318, x0
+ 2056 0ece 9AB2     		uxth	r2, r3	@ D.8118, tmp318
+ 2057 0ed0 0C9B     		ldr	r3, [sp, #48]	@ tmp319, x
+ 2058 0ed2 9BB2     		uxth	r3, r3	@ D.8118, tmp319
+ 2059 0ed4 1344     		add	r3, r3, r2	@ tmp320, D.8118
+ 2060 0ed6 9BB2     		uxth	r3, r3	@ D.8118, tmp320
+ 2061 0ed8 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2062 0eda 019B     		ldr	r3, [sp, #4]	@ tmp321, p_draw
+ 2063 0edc A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp322, p_draw_18(D)->x1
+ 636:apps/src/Drawing_apps.c **** 			p_draw->y1 = (int16_t)(y0 + y);
+ 2064              		.loc 1 636 0
+ 2065 0ee0 089B     		ldr	r3, [sp, #32]	@ tmp323, y0
+ 2066 0ee2 9AB2     		uxth	r2, r3	@ D.8118, tmp323
+ 2067 0ee4 0B9B     		ldr	r3, [sp, #44]	@ tmp324, y
+ 2068 0ee6 9BB2     		uxth	r3, r3	@ D.8118, tmp324
+ 2069 0ee8 1344     		add	r3, r3, r2	@ tmp325, D.8118
+ 2070 0eea 9BB2     		uxth	r3, r3	@ D.8118, tmp325
+ 2071 0eec 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2072 0eee 019B     		ldr	r3, [sp, #4]	@ tmp326, p_draw
+ 2073 0ef0 A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp327, p_draw_18(D)->y1
+ 637:apps/src/Drawing_apps.c **** 			result |= sDrawAPixel( p_draw );
+ 2074              		.loc 1 637 0
+ 2075 0ef4 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 2076 0ef6 FFF783F8 		bl	sDrawAPixel	@
+ 2077 0efa 0346     		mov	r3, r0	@ tmp328,
+ 2078 0efc 1A46     		mov	r2, r3	@ D.8117, tmp328
+ 2079 0efe 9DF83730 		ldrb	r3, [sp, #55]	@ tmp329, result
+ 2080 0f02 1343     		orrs	r3, r3, r2	@, tmp330, tmp329, D.8117
+ 2081 0f04 8DF83730 		strb	r3, [sp, #55]	@ tmp331, result
+ 638:apps/src/Drawing_apps.c **** 
+ 639:apps/src/Drawing_apps.c **** 			p_draw->x1 = (int16_t)(x0 - x);
+ 2082              		.loc 1 639 0
+ 2083 0f08 099B     		ldr	r3, [sp, #36]	@ tmp332, x0
+ 2084 0f0a 9AB2     		uxth	r2, r3	@ D.8118, tmp332
+ 2085 0f0c 0C9B     		ldr	r3, [sp, #48]	@ tmp333, x
+ 2086 0f0e 9BB2     		uxth	r3, r3	@ D.8118, tmp333
+ 2087 0f10 D31A     		subs	r3, r2, r3	@ tmp334, D.8118, D.8118
+ 2088 0f12 9BB2     		uxth	r3, r3	@ D.8118, tmp334
+ 2089 0f14 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2090 0f16 019B     		ldr	r3, [sp, #4]	@ tmp335, p_draw
+ 2091 0f18 A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp336, p_draw_18(D)->x1
+ 640:apps/src/Drawing_apps.c **** 			p_draw->y1 = (int16_t)(y0 + y);
+ 2092              		.loc 1 640 0
+ 2093 0f1c 089B     		ldr	r3, [sp, #32]	@ tmp337, y0
+ 2094 0f1e 9AB2     		uxth	r2, r3	@ D.8118, tmp337
+ 2095 0f20 0B9B     		ldr	r3, [sp, #44]	@ tmp338, y
+ 2096 0f22 9BB2     		uxth	r3, r3	@ D.8118, tmp338
+ 2097 0f24 1344     		add	r3, r3, r2	@ tmp339, D.8118
+ 2098 0f26 9BB2     		uxth	r3, r3	@ D.8118, tmp339
+ 2099 0f28 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2100 0f2a 019B     		ldr	r3, [sp, #4]	@ tmp340, p_draw
+ 2101 0f2c A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp341, p_draw_18(D)->y1
+ 641:apps/src/Drawing_apps.c **** 			result |= sDrawAPixel( p_draw );
+ 2102              		.loc 1 641 0
+ 2103 0f30 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 2104 0f32 FFF765F8 		bl	sDrawAPixel	@
+ 2105 0f36 0346     		mov	r3, r0	@ tmp342,
+ 2106 0f38 1A46     		mov	r2, r3	@ D.8117, tmp342
+ 2107 0f3a 9DF83730 		ldrb	r3, [sp, #55]	@ tmp343, result
+ 2108 0f3e 1343     		orrs	r3, r3, r2	@, tmp344, tmp343, D.8117
+ 2109 0f40 8DF83730 		strb	r3, [sp, #55]	@ tmp345, result
+ 642:apps/src/Drawing_apps.c **** 
+ 643:apps/src/Drawing_apps.c **** 			p_draw->x1 = (int16_t)(x0 + x);
+ 2110              		.loc 1 643 0
+ 2111 0f44 099B     		ldr	r3, [sp, #36]	@ tmp346, x0
+ 2112 0f46 9AB2     		uxth	r2, r3	@ D.8118, tmp346
+ 2113 0f48 0C9B     		ldr	r3, [sp, #48]	@ tmp347, x
+ 2114 0f4a 9BB2     		uxth	r3, r3	@ D.8118, tmp347
+ 2115 0f4c 1344     		add	r3, r3, r2	@ tmp348, D.8118
+ 2116 0f4e 9BB2     		uxth	r3, r3	@ D.8118, tmp348
+ 2117 0f50 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2118 0f52 019B     		ldr	r3, [sp, #4]	@ tmp349, p_draw
+ 2119 0f54 A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp350, p_draw_18(D)->x1
+ 644:apps/src/Drawing_apps.c **** 			p_draw->y1 = (int16_t)(y0 - y);
+ 2120              		.loc 1 644 0
+ 2121 0f58 089B     		ldr	r3, [sp, #32]	@ tmp351, y0
+ 2122 0f5a 9AB2     		uxth	r2, r3	@ D.8118, tmp351
+ 2123 0f5c 0B9B     		ldr	r3, [sp, #44]	@ tmp352, y
+ 2124 0f5e 9BB2     		uxth	r3, r3	@ D.8118, tmp352
+ 2125 0f60 D31A     		subs	r3, r2, r3	@ tmp353, D.8118, D.8118
+ 2126 0f62 9BB2     		uxth	r3, r3	@ D.8118, tmp353
+ 2127 0f64 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2128 0f66 019B     		ldr	r3, [sp, #4]	@ tmp354, p_draw
+ 2129 0f68 A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp355, p_draw_18(D)->y1
+ 645:apps/src/Drawing_apps.c **** 			result |= sDrawAPixel( p_draw );
+ 2130              		.loc 1 645 0
+ 2131 0f6c 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 2132 0f6e FFF747F8 		bl	sDrawAPixel	@
+ 2133 0f72 0346     		mov	r3, r0	@ tmp356,
+ 2134 0f74 1A46     		mov	r2, r3	@ D.8117, tmp356
+ 2135 0f76 9DF83730 		ldrb	r3, [sp, #55]	@ tmp357, result
+ 2136 0f7a 1343     		orrs	r3, r3, r2	@, tmp358, tmp357, D.8117
+ 2137 0f7c 8DF83730 		strb	r3, [sp, #55]	@ tmp359, result
+ 646:apps/src/Drawing_apps.c **** 
+ 647:apps/src/Drawing_apps.c **** 			p_draw->x1 = (int16_t)(x0 - x);
+ 2138              		.loc 1 647 0
+ 2139 0f80 099B     		ldr	r3, [sp, #36]	@ tmp360, x0
+ 2140 0f82 9AB2     		uxth	r2, r3	@ D.8118, tmp360
+ 2141 0f84 0C9B     		ldr	r3, [sp, #48]	@ tmp361, x
+ 2142 0f86 9BB2     		uxth	r3, r3	@ D.8118, tmp361
+ 2143 0f88 D31A     		subs	r3, r2, r3	@ tmp362, D.8118, D.8118
+ 2144 0f8a 9BB2     		uxth	r3, r3	@ D.8118, tmp362
+ 2145 0f8c 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2146 0f8e 019B     		ldr	r3, [sp, #4]	@ tmp363, p_draw
+ 2147 0f90 A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp364, p_draw_18(D)->x1
+ 648:apps/src/Drawing_apps.c **** 			p_draw->y1 = (int16_t)(y0 - y);
+ 2148              		.loc 1 648 0
+ 2149 0f94 089B     		ldr	r3, [sp, #32]	@ tmp365, y0
+ 2150 0f96 9AB2     		uxth	r2, r3	@ D.8118, tmp365
+ 2151 0f98 0B9B     		ldr	r3, [sp, #44]	@ tmp366, y
+ 2152 0f9a 9BB2     		uxth	r3, r3	@ D.8118, tmp366
+ 2153 0f9c D31A     		subs	r3, r2, r3	@ tmp367, D.8118, D.8118
+ 2154 0f9e 9BB2     		uxth	r3, r3	@ D.8118, tmp367
+ 2155 0fa0 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2156 0fa2 019B     		ldr	r3, [sp, #4]	@ tmp368, p_draw
+ 2157 0fa4 A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp369, p_draw_18(D)->y1
+ 649:apps/src/Drawing_apps.c **** 			result |= sDrawAPixel( p_draw );
+ 2158              		.loc 1 649 0
+ 2159 0fa8 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 2160 0faa FFF729F8 		bl	sDrawAPixel	@
+ 2161 0fae 0346     		mov	r3, r0	@ tmp370,
+ 2162 0fb0 1A46     		mov	r2, r3	@ D.8117, tmp370
+ 2163 0fb2 9DF83730 		ldrb	r3, [sp, #55]	@ tmp371, result
+ 2164 0fb6 1343     		orrs	r3, r3, r2	@, tmp372, tmp371, D.8117
+ 2165 0fb8 8DF83730 		strb	r3, [sp, #55]	@ tmp373, result
+ 2166              	.L113:
+ 650:apps/src/Drawing_apps.c **** 		}
+ 651:apps/src/Drawing_apps.c **** 
+ 652:apps/src/Drawing_apps.c **** 		if (sigma >= 0)
+ 2167              		.loc 1 652 0
+ 2168 0fbc 0A9B     		ldr	r3, [sp, #40]	@ tmp374, sigma
+ 2169 0fbe 002B     		cmp	r3, #0	@ tmp374,
+ 2170 0fc0 73DB     		blt	.L114	@,
+ 653:apps/src/Drawing_apps.c **** 		{
+ 654:apps/src/Drawing_apps.c **** 			if( p_draw->type )				/* if TYPE is "Fill" ... */
+ 2171              		.loc 1 654 0
+ 2172 0fc2 019B     		ldr	r3, [sp, #4]	@ tmp375, p_draw
+ 2173 0fc4 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2	@ D.8117, p_draw_18(D)->type
+ 2174 0fc6 002B     		cmp	r3, #0	@ D.8117,
+ 2175 0fc8 63D0     		beq	.L115	@,
+ 655:apps/src/Drawing_apps.c **** 			{
+ 656:apps/src/Drawing_apps.c **** 				p_draw->x1 		= x0 - x;
+ 2176              		.loc 1 656 0
+ 2177 0fca 099B     		ldr	r3, [sp, #36]	@ tmp376, x0
+ 2178 0fcc 9AB2     		uxth	r2, r3	@ D.8118, tmp376
+ 2179 0fce 0C9B     		ldr	r3, [sp, #48]	@ tmp377, x
+ 2180 0fd0 9BB2     		uxth	r3, r3	@ D.8118, tmp377
+ 2181 0fd2 D31A     		subs	r3, r2, r3	@ tmp378, D.8118, D.8118
+ 2182 0fd4 9BB2     		uxth	r3, r3	@ D.8118, tmp378
+ 2183 0fd6 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2184 0fd8 019B     		ldr	r3, [sp, #4]	@ tmp379, p_draw
+ 2185 0fda A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp380, p_draw_18(D)->x1
+ 657:apps/src/Drawing_apps.c **** 				p_draw->y1 		= y0 + y;
+ 2186              		.loc 1 657 0
+ 2187 0fde 089B     		ldr	r3, [sp, #32]	@ tmp381, y0
+ 2188 0fe0 9AB2     		uxth	r2, r3	@ D.8118, tmp381
+ 2189 0fe2 0B9B     		ldr	r3, [sp, #44]	@ tmp382, y
+ 2190 0fe4 9BB2     		uxth	r3, r3	@ D.8118, tmp382
+ 2191 0fe6 1344     		add	r3, r3, r2	@ tmp383, D.8118
+ 2192 0fe8 9BB2     		uxth	r3, r3	@ D.8118, tmp383
+ 2193 0fea 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2194 0fec 019B     		ldr	r3, [sp, #4]	@ tmp384, p_draw
+ 2195 0fee A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp385, p_draw_18(D)->y1
+ 658:apps/src/Drawing_apps.c **** 				p_draw->x2_rx	= x0 + x;
+ 2196              		.loc 1 658 0
+ 2197 0ff2 099B     		ldr	r3, [sp, #36]	@ tmp386, x0
+ 2198 0ff4 9AB2     		uxth	r2, r3	@ D.8118, tmp386
+ 2199 0ff6 0C9B     		ldr	r3, [sp, #48]	@ tmp387, x
+ 2200 0ff8 9BB2     		uxth	r3, r3	@ D.8118, tmp387
+ 2201 0ffa 1344     		add	r3, r3, r2	@ tmp388, D.8118
+ 2202 0ffc 9BB2     		uxth	r3, r3	@ D.8118, tmp388
+ 2203 0ffe 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2204 1000 019B     		ldr	r3, [sp, #4]	@ tmp389, p_draw
+ 2205 1002 A3F80B20 		strh	r2, [r3, #11]	@ unaligned	@ tmp390, p_draw_18(D)->x2_rx
+ 659:apps/src/Drawing_apps.c **** 				p_draw->y2_ry	= y0 + y;
+ 2206              		.loc 1 659 0
+ 2207 1006 089B     		ldr	r3, [sp, #32]	@ tmp391, y0
+ 2208 1008 9AB2     		uxth	r2, r3	@ D.8118, tmp391
+ 2209 100a 0B9B     		ldr	r3, [sp, #44]	@ tmp392, y
+ 2210 100c 9BB2     		uxth	r3, r3	@ D.8118, tmp392
+ 2211 100e 1344     		add	r3, r3, r2	@ tmp393, D.8118
+ 2212 1010 9BB2     		uxth	r3, r3	@ D.8118, tmp393
+ 2213 1012 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2214 1014 019B     		ldr	r3, [sp, #4]	@ tmp394, p_draw
+ 2215 1016 A3F80D20 		strh	r2, [r3, #13]	@ unaligned	@ tmp395, p_draw_18(D)->y2_ry
+ 660:apps/src/Drawing_apps.c **** 				result |= gDrawALineColour( p_draw );
+ 2216              		.loc 1 660 0
+ 2217 101a 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 2218 101c FFF7FEFF 		bl	gDrawALineColour	@
+ 2219 1020 0346     		mov	r3, r0	@ tmp396,
+ 2220 1022 1A46     		mov	r2, r3	@ D.8117, tmp396
+ 2221 1024 9DF83730 		ldrb	r3, [sp, #55]	@ tmp397, result
+ 2222 1028 1343     		orrs	r3, r3, r2	@, tmp398, tmp397, D.8117
+ 2223 102a 8DF83730 		strb	r3, [sp, #55]	@ tmp399, result
+ 661:apps/src/Drawing_apps.c **** 
+ 662:apps/src/Drawing_apps.c **** 				p_draw->x1 		= x0 - x;
+ 2224              		.loc 1 662 0
+ 2225 102e 099B     		ldr	r3, [sp, #36]	@ tmp400, x0
+ 2226 1030 9AB2     		uxth	r2, r3	@ D.8118, tmp400
+ 2227 1032 0C9B     		ldr	r3, [sp, #48]	@ tmp401, x
+ 2228 1034 9BB2     		uxth	r3, r3	@ D.8118, tmp401
+ 2229 1036 D31A     		subs	r3, r2, r3	@ tmp402, D.8118, D.8118
+ 2230 1038 9BB2     		uxth	r3, r3	@ D.8118, tmp402
+ 2231 103a 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2232 103c 019B     		ldr	r3, [sp, #4]	@ tmp403, p_draw
+ 2233 103e A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp404, p_draw_18(D)->x1
+ 663:apps/src/Drawing_apps.c **** 				p_draw->y1 		= y0 - y;
+ 2234              		.loc 1 663 0
+ 2235 1042 089B     		ldr	r3, [sp, #32]	@ tmp405, y0
+ 2236 1044 9AB2     		uxth	r2, r3	@ D.8118, tmp405
+ 2237 1046 0B9B     		ldr	r3, [sp, #44]	@ tmp406, y
+ 2238 1048 9BB2     		uxth	r3, r3	@ D.8118, tmp406
+ 2239 104a D31A     		subs	r3, r2, r3	@ tmp407, D.8118, D.8118
+ 2240 104c 9BB2     		uxth	r3, r3	@ D.8118, tmp407
+ 2241 104e 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2242 1050 019B     		ldr	r3, [sp, #4]	@ tmp408, p_draw
+ 2243 1052 A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp409, p_draw_18(D)->y1
+ 664:apps/src/Drawing_apps.c **** 				p_draw->x2_rx	= x0 + x;
+ 2244              		.loc 1 664 0
+ 2245 1056 099B     		ldr	r3, [sp, #36]	@ tmp410, x0
+ 2246 1058 9AB2     		uxth	r2, r3	@ D.8118, tmp410
+ 2247 105a 0C9B     		ldr	r3, [sp, #48]	@ tmp411, x
+ 2248 105c 9BB2     		uxth	r3, r3	@ D.8118, tmp411
+ 2249 105e 1344     		add	r3, r3, r2	@ tmp412, D.8118
+ 2250 1060 9BB2     		uxth	r3, r3	@ D.8118, tmp412
+ 2251 1062 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2252 1064 019B     		ldr	r3, [sp, #4]	@ tmp413, p_draw
+ 2253 1066 A3F80B20 		strh	r2, [r3, #11]	@ unaligned	@ tmp414, p_draw_18(D)->x2_rx
+ 665:apps/src/Drawing_apps.c **** 				p_draw->y2_ry	= y0 - y;
+ 2254              		.loc 1 665 0
+ 2255 106a 089B     		ldr	r3, [sp, #32]	@ tmp415, y0
+ 2256 106c 9AB2     		uxth	r2, r3	@ D.8118, tmp415
+ 2257 106e 0B9B     		ldr	r3, [sp, #44]	@ tmp416, y
+ 2258 1070 9BB2     		uxth	r3, r3	@ D.8118, tmp416
+ 2259 1072 D31A     		subs	r3, r2, r3	@ tmp417, D.8118, D.8118
+ 2260 1074 9BB2     		uxth	r3, r3	@ D.8118, tmp417
+ 2261 1076 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2262 1078 019B     		ldr	r3, [sp, #4]	@ tmp418, p_draw
+ 2263 107a A3F80D20 		strh	r2, [r3, #13]	@ unaligned	@ tmp419, p_draw_18(D)->y2_ry
+ 666:apps/src/Drawing_apps.c **** 				result |= gDrawALineColour( p_draw );
+ 2264              		.loc 1 666 0
+ 2265 107e 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 2266 1080 FFF7FEFF 		bl	gDrawALineColour	@
+ 2267 1084 0346     		mov	r3, r0	@ tmp420,
+ 2268 1086 1A46     		mov	r2, r3	@ D.8117, tmp420
+ 2269 1088 9DF83730 		ldrb	r3, [sp, #55]	@ tmp421, result
+ 2270 108c 1343     		orrs	r3, r3, r2	@, tmp422, tmp421, D.8117
+ 2271 108e 8DF83730 		strb	r3, [sp, #55]	@ tmp423, result
+ 2272              	.L115:
+ 667:apps/src/Drawing_apps.c **** 			}
+ 668:apps/src/Drawing_apps.c **** 			sigma += fa2 * (1 - y);
+ 2273              		.loc 1 668 0
+ 2274 1092 0B9B     		ldr	r3, [sp, #44]	@ tmp424, y
+ 2275 1094 C3F10103 		rsb	r3, r3, #1	@ D.8116, tmp424,
+ 2276 1098 039A     		ldr	r2, [sp, #12]	@ tmp425, fa2
+ 2277 109a 02FB03F3 		mul	r3, r2, r3	@ D.8116, tmp425, D.8116
+ 2278 109e 0A9A     		ldr	r2, [sp, #40]	@ tmp427, sigma
+ 2279 10a0 1344     		add	r3, r3, r2	@ tmp426, tmp427
+ 2280 10a2 0A93     		str	r3, [sp, #40]	@ tmp426, sigma
+ 669:apps/src/Drawing_apps.c **** 			y--;
+ 2281              		.loc 1 669 0
+ 2282 10a4 0B9B     		ldr	r3, [sp, #44]	@ tmp429, y
+ 2283 10a6 013B     		subs	r3, r3, #1	@ tmp428, tmp429,
+ 2284 10a8 0B93     		str	r3, [sp, #44]	@ tmp428, y
+ 2285              	.L114:
+ 670:apps/src/Drawing_apps.c **** 		}
+ 671:apps/src/Drawing_apps.c **** 		sigma += b2 * ((4 * x) + 6);
+ 2286              		.loc 1 671 0
+ 2287 10aa 0C9B     		ldr	r3, [sp, #48]	@ tmp430, x
+ 2288 10ac 9B00     		lsls	r3, r3, #2	@ D.8116, tmp430,
+ 2289 10ae 0633     		adds	r3, r3, #6	@ D.8116, D.8116,
+ 2290 10b0 049A     		ldr	r2, [sp, #16]	@ tmp431, b2
+ 2291 10b2 02FB03F3 		mul	r3, r2, r3	@ D.8116, tmp431, D.8116
+ 2292 10b6 0A9A     		ldr	r2, [sp, #40]	@ tmp433, sigma
+ 2293 10b8 1344     		add	r3, r3, r2	@ tmp432, tmp433
+ 2294 10ba 0A93     		str	r3, [sp, #40]	@ tmp432, sigma
+ 631:apps/src/Drawing_apps.c **** 	for (x = 0, y = height, sigma = 2*b2+a2*(1-2*height); b2*x <= a2*y; x++)
+ 2295              		.loc 1 631 0
+ 2296 10bc 0C9B     		ldr	r3, [sp, #48]	@ tmp435, x
+ 2297 10be 0133     		adds	r3, r3, #1	@ tmp434, tmp435,
+ 2298 10c0 0C93     		str	r3, [sp, #48]	@ tmp434, x
+ 2299              	.L112:
+ 631:apps/src/Drawing_apps.c **** 	for (x = 0, y = height, sigma = 2*b2+a2*(1-2*height); b2*x <= a2*y; x++)
+ 2300              		.loc 1 631 0 is_stmt 0 discriminator 1
+ 2301 10c2 049B     		ldr	r3, [sp, #16]	@ tmp436, b2
+ 2302 10c4 0C9A     		ldr	r2, [sp, #48]	@ tmp437, x
+ 2303 10c6 02FB03F2 		mul	r2, r2, r3	@ D.8116, tmp437, tmp436
+ 2304 10ca 059B     		ldr	r3, [sp, #20]	@ tmp438, a2
+ 2305 10cc 0B99     		ldr	r1, [sp, #44]	@ tmp439, y
+ 2306 10ce 01FB03F3 		mul	r3, r1, r3	@ D.8116, tmp439, tmp438
+ 2307 10d2 9A42     		cmp	r2, r3	@ D.8116, D.8116
+ 2308 10d4 7FF7F6AE 		ble	.L116	@,
+ 672:apps/src/Drawing_apps.c **** 	}
+ 673:apps/src/Drawing_apps.c **** 
+ 674:apps/src/Drawing_apps.c **** 	/* second half */
+ 675:apps/src/Drawing_apps.c **** 	for (x = width, y = 0, sigma = 2*a2+b2*(1-2*width); a2*y <= b2*x; y++)
+ 2309              		.loc 1 675 0 is_stmt 1
+ 2310 10d8 079B     		ldr	r3, [sp, #28]	@ tmp440, width
+ 2311 10da 0C93     		str	r3, [sp, #48]	@ tmp440, x
+ 2312 10dc 0023     		movs	r3, #0	@ tmp441,
+ 2313 10de 0B93     		str	r3, [sp, #44]	@ tmp441, y
+ 2314 10e0 059B     		ldr	r3, [sp, #20]	@ tmp442, a2
+ 2315 10e2 5900     		lsls	r1, r3, #1	@ D.8116, tmp442,
+ 2316 10e4 079A     		ldr	r2, [sp, #28]	@ tmp443, width
+ 2317 10e6 1346     		mov	r3, r2	@ tmp444, tmp443
+ 2318 10e8 DB07     		lsls	r3, r3, #31	@ tmp444, tmp444,
+ 2319 10ea 9B1A     		subs	r3, r3, r2	@ tmp444, tmp444, tmp443
+ 2320 10ec 5B00     		lsls	r3, r3, #1	@ tmp445, tmp444,
+ 2321 10ee 0133     		adds	r3, r3, #1	@ D.8116, D.8116,
+ 2322 10f0 049A     		ldr	r2, [sp, #16]	@ tmp446, b2
+ 2323 10f2 02FB03F3 		mul	r3, r2, r3	@ D.8116, tmp446, D.8116
+ 2324 10f6 0B44     		add	r3, r3, r1	@ tmp447, D.8116
+ 2325 10f8 0A93     		str	r3, [sp, #40]	@ tmp447, sigma
+ 2326 10fa FBE0     		b	.L117	@
+ 2327              	.L121:
+ 676:apps/src/Drawing_apps.c **** 	{
+ 677:apps/src/Drawing_apps.c **** 		if( p_draw->type == 0 )
+ 2328              		.loc 1 677 0
+ 2329 10fc 019B     		ldr	r3, [sp, #4]	@ tmp448, p_draw
+ 2330 10fe DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2	@ D.8117, p_draw_18(D)->type
+ 2331 1100 002B     		cmp	r3, #0	@ D.8117,
+ 2332 1102 78D1     		bne	.L118	@,
+ 678:apps/src/Drawing_apps.c **** 		{
+ 679:apps/src/Drawing_apps.c **** 			p_draw->x1 = (int16_t)(x0 + x);
+ 2333              		.loc 1 679 0
+ 2334 1104 099B     		ldr	r3, [sp, #36]	@ tmp449, x0
+ 2335 1106 9AB2     		uxth	r2, r3	@ D.8118, tmp449
+ 2336 1108 0C9B     		ldr	r3, [sp, #48]	@ tmp450, x
+ 2337 110a 9BB2     		uxth	r3, r3	@ D.8118, tmp450
+ 2338 110c 1344     		add	r3, r3, r2	@ tmp451, D.8118
+ 2339 110e 9BB2     		uxth	r3, r3	@ D.8118, tmp451
+ 2340 1110 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2341 1112 019B     		ldr	r3, [sp, #4]	@ tmp452, p_draw
+ 2342 1114 A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp453, p_draw_18(D)->x1
+ 680:apps/src/Drawing_apps.c **** 			p_draw->y1 = (int16_t)(y0 + y);
+ 2343              		.loc 1 680 0
+ 2344 1118 089B     		ldr	r3, [sp, #32]	@ tmp454, y0
+ 2345 111a 9AB2     		uxth	r2, r3	@ D.8118, tmp454
+ 2346 111c 0B9B     		ldr	r3, [sp, #44]	@ tmp455, y
+ 2347 111e 9BB2     		uxth	r3, r3	@ D.8118, tmp455
+ 2348 1120 1344     		add	r3, r3, r2	@ tmp456, D.8118
+ 2349 1122 9BB2     		uxth	r3, r3	@ D.8118, tmp456
+ 2350 1124 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2351 1126 019B     		ldr	r3, [sp, #4]	@ tmp457, p_draw
+ 2352 1128 A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp458, p_draw_18(D)->y1
+ 681:apps/src/Drawing_apps.c **** 			result |= sDrawAPixel( p_draw );
+ 2353              		.loc 1 681 0
+ 2354 112c 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 2355 112e FEF767FF 		bl	sDrawAPixel	@
+ 2356 1132 0346     		mov	r3, r0	@ tmp459,
+ 2357 1134 1A46     		mov	r2, r3	@ D.8117, tmp459
+ 2358 1136 9DF83730 		ldrb	r3, [sp, #55]	@ tmp460, result
+ 2359 113a 1343     		orrs	r3, r3, r2	@, tmp461, tmp460, D.8117
+ 2360 113c 8DF83730 		strb	r3, [sp, #55]	@ tmp462, result
+ 682:apps/src/Drawing_apps.c **** 
+ 683:apps/src/Drawing_apps.c **** 			p_draw->x1 = (int16_t)(x0 - x);
+ 2361              		.loc 1 683 0
+ 2362 1140 099B     		ldr	r3, [sp, #36]	@ tmp463, x0
+ 2363 1142 9AB2     		uxth	r2, r3	@ D.8118, tmp463
+ 2364 1144 0C9B     		ldr	r3, [sp, #48]	@ tmp464, x
+ 2365 1146 9BB2     		uxth	r3, r3	@ D.8118, tmp464
+ 2366 1148 D31A     		subs	r3, r2, r3	@ tmp465, D.8118, D.8118
+ 2367 114a 9BB2     		uxth	r3, r3	@ D.8118, tmp465
+ 2368 114c 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2369 114e 019B     		ldr	r3, [sp, #4]	@ tmp466, p_draw
+ 2370 1150 A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp467, p_draw_18(D)->x1
+ 684:apps/src/Drawing_apps.c **** 			p_draw->y1 = (int16_t)(y0 + y);
+ 2371              		.loc 1 684 0
+ 2372 1154 089B     		ldr	r3, [sp, #32]	@ tmp468, y0
+ 2373 1156 9AB2     		uxth	r2, r3	@ D.8118, tmp468
+ 2374 1158 0B9B     		ldr	r3, [sp, #44]	@ tmp469, y
+ 2375 115a 9BB2     		uxth	r3, r3	@ D.8118, tmp469
+ 2376 115c 1344     		add	r3, r3, r2	@ tmp470, D.8118
+ 2377 115e 9BB2     		uxth	r3, r3	@ D.8118, tmp470
+ 2378 1160 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2379 1162 019B     		ldr	r3, [sp, #4]	@ tmp471, p_draw
+ 2380 1164 A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp472, p_draw_18(D)->y1
+ 685:apps/src/Drawing_apps.c **** 			result |= sDrawAPixel( p_draw );
+ 2381              		.loc 1 685 0
+ 2382 1168 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 2383 116a FEF749FF 		bl	sDrawAPixel	@
+ 2384 116e 0346     		mov	r3, r0	@ tmp473,
+ 2385 1170 1A46     		mov	r2, r3	@ D.8117, tmp473
+ 2386 1172 9DF83730 		ldrb	r3, [sp, #55]	@ tmp474, result
+ 2387 1176 1343     		orrs	r3, r3, r2	@, tmp475, tmp474, D.8117
+ 2388 1178 8DF83730 		strb	r3, [sp, #55]	@ tmp476, result
+ 686:apps/src/Drawing_apps.c **** 
+ 687:apps/src/Drawing_apps.c **** 			p_draw->x1 = (int16_t)(x0 + x);
+ 2389              		.loc 1 687 0
+ 2390 117c 099B     		ldr	r3, [sp, #36]	@ tmp477, x0
+ 2391 117e 9AB2     		uxth	r2, r3	@ D.8118, tmp477
+ 2392 1180 0C9B     		ldr	r3, [sp, #48]	@ tmp478, x
+ 2393 1182 9BB2     		uxth	r3, r3	@ D.8118, tmp478
+ 2394 1184 1344     		add	r3, r3, r2	@ tmp479, D.8118
+ 2395 1186 9BB2     		uxth	r3, r3	@ D.8118, tmp479
+ 2396 1188 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2397 118a 019B     		ldr	r3, [sp, #4]	@ tmp480, p_draw
+ 2398 118c A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp481, p_draw_18(D)->x1
+ 688:apps/src/Drawing_apps.c **** 			p_draw->y1 = (int16_t)(y0 - y);
+ 2399              		.loc 1 688 0
+ 2400 1190 089B     		ldr	r3, [sp, #32]	@ tmp482, y0
+ 2401 1192 9AB2     		uxth	r2, r3	@ D.8118, tmp482
+ 2402 1194 0B9B     		ldr	r3, [sp, #44]	@ tmp483, y
+ 2403 1196 9BB2     		uxth	r3, r3	@ D.8118, tmp483
+ 2404 1198 D31A     		subs	r3, r2, r3	@ tmp484, D.8118, D.8118
+ 2405 119a 9BB2     		uxth	r3, r3	@ D.8118, tmp484
+ 2406 119c 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2407 119e 019B     		ldr	r3, [sp, #4]	@ tmp485, p_draw
+ 2408 11a0 A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp486, p_draw_18(D)->y1
+ 689:apps/src/Drawing_apps.c **** 			result |= sDrawAPixel( p_draw );
+ 2409              		.loc 1 689 0
+ 2410 11a4 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 2411 11a6 FEF72BFF 		bl	sDrawAPixel	@
+ 2412 11aa 0346     		mov	r3, r0	@ tmp487,
+ 2413 11ac 1A46     		mov	r2, r3	@ D.8117, tmp487
+ 2414 11ae 9DF83730 		ldrb	r3, [sp, #55]	@ tmp488, result
+ 2415 11b2 1343     		orrs	r3, r3, r2	@, tmp489, tmp488, D.8117
+ 2416 11b4 8DF83730 		strb	r3, [sp, #55]	@ tmp490, result
+ 690:apps/src/Drawing_apps.c **** 
+ 691:apps/src/Drawing_apps.c **** 			p_draw->x1 = (int16_t)(x0 - x);
+ 2417              		.loc 1 691 0
+ 2418 11b8 099B     		ldr	r3, [sp, #36]	@ tmp491, x0
+ 2419 11ba 9AB2     		uxth	r2, r3	@ D.8118, tmp491
+ 2420 11bc 0C9B     		ldr	r3, [sp, #48]	@ tmp492, x
+ 2421 11be 9BB2     		uxth	r3, r3	@ D.8118, tmp492
+ 2422 11c0 D31A     		subs	r3, r2, r3	@ tmp493, D.8118, D.8118
+ 2423 11c2 9BB2     		uxth	r3, r3	@ D.8118, tmp493
+ 2424 11c4 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2425 11c6 019B     		ldr	r3, [sp, #4]	@ tmp494, p_draw
+ 2426 11c8 A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp495, p_draw_18(D)->x1
+ 692:apps/src/Drawing_apps.c **** 			p_draw->y1 = (int16_t)(y0 - y);
+ 2427              		.loc 1 692 0
+ 2428 11cc 089B     		ldr	r3, [sp, #32]	@ tmp496, y0
+ 2429 11ce 9AB2     		uxth	r2, r3	@ D.8118, tmp496
+ 2430 11d0 0B9B     		ldr	r3, [sp, #44]	@ tmp497, y
+ 2431 11d2 9BB2     		uxth	r3, r3	@ D.8118, tmp497
+ 2432 11d4 D31A     		subs	r3, r2, r3	@ tmp498, D.8118, D.8118
+ 2433 11d6 9BB2     		uxth	r3, r3	@ D.8118, tmp498
+ 2434 11d8 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2435 11da 019B     		ldr	r3, [sp, #4]	@ tmp499, p_draw
+ 2436 11dc A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp500, p_draw_18(D)->y1
+ 693:apps/src/Drawing_apps.c **** 			result |= sDrawAPixel( p_draw );
+ 2437              		.loc 1 693 0
+ 2438 11e0 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 2439 11e2 FEF70DFF 		bl	sDrawAPixel	@
+ 2440 11e6 0346     		mov	r3, r0	@ tmp501,
+ 2441 11e8 1A46     		mov	r2, r3	@ D.8117, tmp501
+ 2442 11ea 9DF83730 		ldrb	r3, [sp, #55]	@ tmp502, result
+ 2443 11ee 1343     		orrs	r3, r3, r2	@, tmp503, tmp502, D.8117
+ 2444 11f0 8DF83730 		strb	r3, [sp, #55]	@ tmp504, result
+ 2445 11f4 63E0     		b	.L119	@
+ 2446              	.L118:
+ 694:apps/src/Drawing_apps.c **** 		}
+ 695:apps/src/Drawing_apps.c **** 		else				/* if TYPE is "Fill" ... */
+ 696:apps/src/Drawing_apps.c **** 		{
+ 697:apps/src/Drawing_apps.c **** 			p_draw->x1 		= x0 - x;
+ 2447              		.loc 1 697 0
+ 2448 11f6 099B     		ldr	r3, [sp, #36]	@ tmp505, x0
+ 2449 11f8 9AB2     		uxth	r2, r3	@ D.8118, tmp505
+ 2450 11fa 0C9B     		ldr	r3, [sp, #48]	@ tmp506, x
+ 2451 11fc 9BB2     		uxth	r3, r3	@ D.8118, tmp506
+ 2452 11fe D31A     		subs	r3, r2, r3	@ tmp507, D.8118, D.8118
+ 2453 1200 9BB2     		uxth	r3, r3	@ D.8118, tmp507
+ 2454 1202 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2455 1204 019B     		ldr	r3, [sp, #4]	@ tmp508, p_draw
+ 2456 1206 A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp509, p_draw_18(D)->x1
+ 698:apps/src/Drawing_apps.c **** 			p_draw->y1 		= y0 + y;
+ 2457              		.loc 1 698 0
+ 2458 120a 089B     		ldr	r3, [sp, #32]	@ tmp510, y0
+ 2459 120c 9AB2     		uxth	r2, r3	@ D.8118, tmp510
+ 2460 120e 0B9B     		ldr	r3, [sp, #44]	@ tmp511, y
+ 2461 1210 9BB2     		uxth	r3, r3	@ D.8118, tmp511
+ 2462 1212 1344     		add	r3, r3, r2	@ tmp512, D.8118
+ 2463 1214 9BB2     		uxth	r3, r3	@ D.8118, tmp512
+ 2464 1216 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2465 1218 019B     		ldr	r3, [sp, #4]	@ tmp513, p_draw
+ 2466 121a A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp514, p_draw_18(D)->y1
+ 699:apps/src/Drawing_apps.c **** 			p_draw->x2_rx	= x0 + x;
+ 2467              		.loc 1 699 0
+ 2468 121e 099B     		ldr	r3, [sp, #36]	@ tmp515, x0
+ 2469 1220 9AB2     		uxth	r2, r3	@ D.8118, tmp515
+ 2470 1222 0C9B     		ldr	r3, [sp, #48]	@ tmp516, x
+ 2471 1224 9BB2     		uxth	r3, r3	@ D.8118, tmp516
+ 2472 1226 1344     		add	r3, r3, r2	@ tmp517, D.8118
+ 2473 1228 9BB2     		uxth	r3, r3	@ D.8118, tmp517
+ 2474 122a 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2475 122c 019B     		ldr	r3, [sp, #4]	@ tmp518, p_draw
+ 2476 122e A3F80B20 		strh	r2, [r3, #11]	@ unaligned	@ tmp519, p_draw_18(D)->x2_rx
+ 700:apps/src/Drawing_apps.c **** 			p_draw->y2_ry	= y0 + y;
+ 2477              		.loc 1 700 0
+ 2478 1232 089B     		ldr	r3, [sp, #32]	@ tmp520, y0
+ 2479 1234 9AB2     		uxth	r2, r3	@ D.8118, tmp520
+ 2480 1236 0B9B     		ldr	r3, [sp, #44]	@ tmp521, y
+ 2481 1238 9BB2     		uxth	r3, r3	@ D.8118, tmp521
+ 2482 123a 1344     		add	r3, r3, r2	@ tmp522, D.8118
+ 2483 123c 9BB2     		uxth	r3, r3	@ D.8118, tmp522
+ 2484 123e 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2485 1240 019B     		ldr	r3, [sp, #4]	@ tmp523, p_draw
+ 2486 1242 A3F80D20 		strh	r2, [r3, #13]	@ unaligned	@ tmp524, p_draw_18(D)->y2_ry
+ 701:apps/src/Drawing_apps.c **** 			result |= gDrawALineColour( p_draw );
+ 2487              		.loc 1 701 0
+ 2488 1246 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 2489 1248 FFF7FEFF 		bl	gDrawALineColour	@
+ 2490 124c 0346     		mov	r3, r0	@ tmp525,
+ 2491 124e 1A46     		mov	r2, r3	@ D.8117, tmp525
+ 2492 1250 9DF83730 		ldrb	r3, [sp, #55]	@ tmp526, result
+ 2493 1254 1343     		orrs	r3, r3, r2	@, tmp527, tmp526, D.8117
+ 2494 1256 8DF83730 		strb	r3, [sp, #55]	@ tmp528, result
+ 702:apps/src/Drawing_apps.c **** 
+ 703:apps/src/Drawing_apps.c **** 			p_draw->x1 		= x0 - x;
+ 2495              		.loc 1 703 0
+ 2496 125a 099B     		ldr	r3, [sp, #36]	@ tmp529, x0
+ 2497 125c 9AB2     		uxth	r2, r3	@ D.8118, tmp529
+ 2498 125e 0C9B     		ldr	r3, [sp, #48]	@ tmp530, x
+ 2499 1260 9BB2     		uxth	r3, r3	@ D.8118, tmp530
+ 2500 1262 D31A     		subs	r3, r2, r3	@ tmp531, D.8118, D.8118
+ 2501 1264 9BB2     		uxth	r3, r3	@ D.8118, tmp531
+ 2502 1266 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2503 1268 019B     		ldr	r3, [sp, #4]	@ tmp532, p_draw
+ 2504 126a A3F80720 		strh	r2, [r3, #7]	@ unaligned	@ tmp533, p_draw_18(D)->x1
+ 704:apps/src/Drawing_apps.c **** 			p_draw->y1 		= y0 - y;
+ 2505              		.loc 1 704 0
+ 2506 126e 089B     		ldr	r3, [sp, #32]	@ tmp534, y0
+ 2507 1270 9AB2     		uxth	r2, r3	@ D.8118, tmp534
+ 2508 1272 0B9B     		ldr	r3, [sp, #44]	@ tmp535, y
+ 2509 1274 9BB2     		uxth	r3, r3	@ D.8118, tmp535
+ 2510 1276 D31A     		subs	r3, r2, r3	@ tmp536, D.8118, D.8118
+ 2511 1278 9BB2     		uxth	r3, r3	@ D.8118, tmp536
+ 2512 127a 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2513 127c 019B     		ldr	r3, [sp, #4]	@ tmp537, p_draw
+ 2514 127e A3F80920 		strh	r2, [r3, #9]	@ unaligned	@ tmp538, p_draw_18(D)->y1
+ 705:apps/src/Drawing_apps.c **** 			p_draw->x2_rx	= x0 + x;
+ 2515              		.loc 1 705 0
+ 2516 1282 099B     		ldr	r3, [sp, #36]	@ tmp539, x0
+ 2517 1284 9AB2     		uxth	r2, r3	@ D.8118, tmp539
+ 2518 1286 0C9B     		ldr	r3, [sp, #48]	@ tmp540, x
+ 2519 1288 9BB2     		uxth	r3, r3	@ D.8118, tmp540
+ 2520 128a 1344     		add	r3, r3, r2	@ tmp541, D.8118
+ 2521 128c 9BB2     		uxth	r3, r3	@ D.8118, tmp541
+ 2522 128e 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2523 1290 019B     		ldr	r3, [sp, #4]	@ tmp542, p_draw
+ 2524 1292 A3F80B20 		strh	r2, [r3, #11]	@ unaligned	@ tmp543, p_draw_18(D)->x2_rx
+ 706:apps/src/Drawing_apps.c **** 			p_draw->y2_ry	= y0 - y;
+ 2525              		.loc 1 706 0
+ 2526 1296 089B     		ldr	r3, [sp, #32]	@ tmp544, y0
+ 2527 1298 9AB2     		uxth	r2, r3	@ D.8118, tmp544
+ 2528 129a 0B9B     		ldr	r3, [sp, #44]	@ tmp545, y
+ 2529 129c 9BB2     		uxth	r3, r3	@ D.8118, tmp545
+ 2530 129e D31A     		subs	r3, r2, r3	@ tmp546, D.8118, D.8118
+ 2531 12a0 9BB2     		uxth	r3, r3	@ D.8118, tmp546
+ 2532 12a2 9AB2     		uxth	r2, r3	@ D.8115, D.8118
+ 2533 12a4 019B     		ldr	r3, [sp, #4]	@ tmp547, p_draw
+ 2534 12a6 A3F80D20 		strh	r2, [r3, #13]	@ unaligned	@ tmp548, p_draw_18(D)->y2_ry
+ 707:apps/src/Drawing_apps.c **** 			result |= gDrawALineColour( p_draw );
+ 2535              		.loc 1 707 0
+ 2536 12aa 0198     		ldr	r0, [sp, #4]	@, p_draw
+ 2537 12ac FFF7FEFF 		bl	gDrawALineColour	@
+ 2538 12b0 0346     		mov	r3, r0	@ tmp549,
+ 2539 12b2 1A46     		mov	r2, r3	@ D.8117, tmp549
+ 2540 12b4 9DF83730 		ldrb	r3, [sp, #55]	@ tmp550, result
+ 2541 12b8 1343     		orrs	r3, r3, r2	@, tmp551, tmp550, D.8117
+ 2542 12ba 8DF83730 		strb	r3, [sp, #55]	@ tmp552, result
+ 2543              	.L119:
+ 708:apps/src/Drawing_apps.c **** 		}
+ 709:apps/src/Drawing_apps.c **** 
+ 710:apps/src/Drawing_apps.c **** 		if (sigma >= 0)
+ 2544              		.loc 1 710 0
+ 2545 12be 0A9B     		ldr	r3, [sp, #40]	@ tmp553, sigma
+ 2546 12c0 002B     		cmp	r3, #0	@ tmp553,
+ 2547 12c2 0BDB     		blt	.L120	@,
+ 711:apps/src/Drawing_apps.c **** 		{
+ 712:apps/src/Drawing_apps.c **** 			sigma += fb2 * (1 - x);
+ 2548              		.loc 1 712 0
+ 2549 12c4 0C9B     		ldr	r3, [sp, #48]	@ tmp554, x
+ 2550 12c6 C3F10103 		rsb	r3, r3, #1	@ D.8116, tmp554,
+ 2551 12ca 029A     		ldr	r2, [sp, #8]	@ tmp555, fb2
+ 2552 12cc 02FB03F3 		mul	r3, r2, r3	@ D.8116, tmp555, D.8116
+ 2553 12d0 0A9A     		ldr	r2, [sp, #40]	@ tmp557, sigma
+ 2554 12d2 1344     		add	r3, r3, r2	@ tmp556, tmp557
+ 2555 12d4 0A93     		str	r3, [sp, #40]	@ tmp556, sigma
+ 713:apps/src/Drawing_apps.c **** 			x--;
+ 2556              		.loc 1 713 0
+ 2557 12d6 0C9B     		ldr	r3, [sp, #48]	@ tmp559, x
+ 2558 12d8 013B     		subs	r3, r3, #1	@ tmp558, tmp559,
+ 2559 12da 0C93     		str	r3, [sp, #48]	@ tmp558, x
+ 2560              	.L120:
+ 714:apps/src/Drawing_apps.c **** 		}
+ 715:apps/src/Drawing_apps.c **** 		sigma += a2 * ((4 * y) + 6);
+ 2561              		.loc 1 715 0
+ 2562 12dc 0B9B     		ldr	r3, [sp, #44]	@ tmp560, y
+ 2563 12de 9B00     		lsls	r3, r3, #2	@ D.8116, tmp560,
+ 2564 12e0 0633     		adds	r3, r3, #6	@ D.8116, D.8116,
+ 2565 12e2 059A     		ldr	r2, [sp, #20]	@ tmp561, a2
+ 2566 12e4 02FB03F3 		mul	r3, r2, r3	@ D.8116, tmp561, D.8116
+ 2567 12e8 0A9A     		ldr	r2, [sp, #40]	@ tmp563, sigma
+ 2568 12ea 1344     		add	r3, r3, r2	@ tmp562, tmp563
+ 2569 12ec 0A93     		str	r3, [sp, #40]	@ tmp562, sigma
+ 675:apps/src/Drawing_apps.c **** 	for (x = width, y = 0, sigma = 2*a2+b2*(1-2*width); a2*y <= b2*x; y++)
+ 2570              		.loc 1 675 0
+ 2571 12ee 0B9B     		ldr	r3, [sp, #44]	@ tmp565, y
+ 2572 12f0 0133     		adds	r3, r3, #1	@ tmp564, tmp565,
+ 2573 12f2 0B93     		str	r3, [sp, #44]	@ tmp564, y
+ 2574              	.L117:
+ 675:apps/src/Drawing_apps.c **** 	for (x = width, y = 0, sigma = 2*a2+b2*(1-2*width); a2*y <= b2*x; y++)
+ 2575              		.loc 1 675 0 is_stmt 0 discriminator 1
+ 2576 12f4 059B     		ldr	r3, [sp, #20]	@ tmp566, a2
+ 2577 12f6 0B9A     		ldr	r2, [sp, #44]	@ tmp567, y
+ 2578 12f8 02FB03F2 		mul	r2, r2, r3	@ D.8116, tmp567, tmp566
+ 2579 12fc 049B     		ldr	r3, [sp, #16]	@ tmp568, b2
+ 2580 12fe 0C99     		ldr	r1, [sp, #48]	@ tmp569, x
+ 2581 1300 01FB03F3 		mul	r3, r1, r3	@ D.8116, tmp569, tmp568
+ 2582 1304 9A42     		cmp	r2, r3	@ D.8116, D.8116
+ 2583 1306 7FF7F9AE 		ble	.L121	@,
+ 716:apps/src/Drawing_apps.c **** 	}
+ 717:apps/src/Drawing_apps.c **** 
+ 718:apps/src/Drawing_apps.c **** 	return(result);
+ 2584              		.loc 1 718 0 is_stmt 1
+ 2585 130a 9DF83730 		ldrb	r3, [sp, #55]	@ zero_extendqisi2	@ D.8119, result
+ 719:apps/src/Drawing_apps.c **** }
+ 2586              		.loc 1 719 0
+ 2587 130e 1846     		mov	r0, r3	@, <retval>
+ 2588 1310 0FB0     		add	sp, sp, #60	@,,
+ 2589              		@ sp needed	@
+ 2590 1312 5DF804FB 		ldr	pc, [sp], #4	@
+ 2591              		.cfi_endproc
+ 2592              	.LFE123:
+ 2594 1316 00BF     		.align	2
+ 2595              		.global	gSetADrawFrame
+ 2596              		.thumb
+ 2597              		.thumb_func
+ 2599              	gSetADrawFrame:
+ 2600              	.LFB124:
+ 720:apps/src/Drawing_apps.c **** 
+ 721:apps/src/Drawing_apps.c **** 
+ 722:apps/src/Drawing_apps.c **** /**
+ 723:apps/src/Drawing_apps.c ****   * @brief
+ 724:apps/src/Drawing_apps.c ****   * @param  None
+ 725:apps/src/Drawing_apps.c ****   * @retval
+ 726:apps/src/Drawing_apps.c ****   */
+ 727:apps/src/Drawing_apps.c **** uint8_t gSetADrawFrame( draw_t *p_draw )
+ 728:apps/src/Drawing_apps.c **** {
+ 2601              		.loc 1 728 0
+ 2602              		.cfi_startproc
+ 2603              		@ args = 0, pretend = 0, frame = 16
+ 2604              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2605              		@ link register save eliminated.
+ 2606 1318 84B0     		sub	sp, sp, #16	@,,
+ 2607              		.cfi_def_cfa_offset 16
+ 2608 131a 0190     		str	r0, [sp, #4]	@ p_draw, p_draw
+ 729:apps/src/Drawing_apps.c **** uint16_t x1_coordinate, y1_coordinate, x2_coordinate, y2_coordinate;
+ 730:apps/src/Drawing_apps.c **** 
+ 731:apps/src/Drawing_apps.c **** 
+ 732:apps/src/Drawing_apps.c **** 	if( (p_draw->x1 < 0) || (p_draw->x1 > H_LINE_SIZE) ||
+ 2609              		.loc 1 732 0
+ 2610 131c 019B     		ldr	r3, [sp, #4]	@ tmp124, p_draw
+ 2611 131e B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp126,
+ 2612 1322 9BB2     		uxth	r3, r3	@ D.8121, tmp125
+ 2613 1324 1BB2     		sxth	r3, r3	@ tmp127, D.8121
+ 2614 1326 002B     		cmp	r3, #0	@ tmp127,
+ 2615 1328 34DB     		blt	.L124	@,
+ 2616              		.loc 1 732 0 is_stmt 0 discriminator 1
+ 2617 132a 019B     		ldr	r3, [sp, #4]	@ tmp128, p_draw
+ 2618 132c B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp130,
+ 2619 1330 9BB2     		uxth	r3, r3	@ D.8121, tmp129
+ 2620 1332 1BB2     		sxth	r3, r3	@ tmp131, D.8121
+ 2621 1334 B3F5207F 		cmp	r3, #640	@ tmp131,
+ 2622 1338 2CDC     		bgt	.L124	@,
+ 733:apps/src/Drawing_apps.c **** 			(p_draw->x2_rx < 0) || (p_draw->x2_rx > H_LINE_SIZE) ||
+ 2623              		.loc 1 733 0 is_stmt 1 discriminator 1
+ 2624 133a 019B     		ldr	r3, [sp, #4]	@ tmp132, p_draw
+ 2625 133c B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp134,
+ 2626 1340 9BB2     		uxth	r3, r3	@ D.8121, tmp133
+ 732:apps/src/Drawing_apps.c **** 	if( (p_draw->x1 < 0) || (p_draw->x1 > H_LINE_SIZE) ||
+ 2627              		.loc 1 732 0 discriminator 1
+ 2628 1342 1BB2     		sxth	r3, r3	@ tmp135, D.8121
+ 2629 1344 002B     		cmp	r3, #0	@ tmp135,
+ 2630 1346 25DB     		blt	.L124	@,
+ 2631              		.loc 1 733 0
+ 2632 1348 019B     		ldr	r3, [sp, #4]	@ tmp136, p_draw
+ 2633 134a B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp138,
+ 2634 134e 9BB2     		uxth	r3, r3	@ D.8121, tmp137
+ 2635 1350 1BB2     		sxth	r3, r3	@ tmp139, D.8121
+ 2636 1352 B3F5207F 		cmp	r3, #640	@ tmp139,
+ 2637 1356 1DDC     		bgt	.L124	@,
+ 734:apps/src/Drawing_apps.c **** 			(p_draw->y1 < 0) || (p_draw->y1 > V_LINE_SIZE) ||
+ 2638              		.loc 1 734 0 discriminator 1
+ 2639 1358 019B     		ldr	r3, [sp, #4]	@ tmp140, p_draw
+ 2640 135a B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp142,
+ 2641 135e 9BB2     		uxth	r3, r3	@ D.8121, tmp141
+ 733:apps/src/Drawing_apps.c **** 			(p_draw->x2_rx < 0) || (p_draw->x2_rx > H_LINE_SIZE) ||
+ 2642              		.loc 1 733 0 discriminator 1
+ 2643 1360 1BB2     		sxth	r3, r3	@ tmp143, D.8121
+ 2644 1362 002B     		cmp	r3, #0	@ tmp143,
+ 2645 1364 16DB     		blt	.L124	@,
+ 2646              		.loc 1 734 0
+ 2647 1366 019B     		ldr	r3, [sp, #4]	@ tmp144, p_draw
+ 2648 1368 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp146,
+ 2649 136c 9BB2     		uxth	r3, r3	@ D.8121, tmp145
+ 2650 136e 1BB2     		sxth	r3, r3	@ tmp147, D.8121
+ 2651 1370 B3F5AF7F 		cmp	r3, #350	@ tmp147,
+ 2652 1374 0EDC     		bgt	.L124	@,
+ 735:apps/src/Drawing_apps.c **** 			(p_draw->y2_ry < 0) || (p_draw->y2_ry > V_LINE_SIZE) )
+ 2653              		.loc 1 735 0 discriminator 1
+ 2654 1376 019B     		ldr	r3, [sp, #4]	@ tmp148, p_draw
+ 2655 1378 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp150,
+ 2656 137c 9BB2     		uxth	r3, r3	@ D.8121, tmp149
+ 734:apps/src/Drawing_apps.c **** 			(p_draw->y1 < 0) || (p_draw->y1 > V_LINE_SIZE) ||
+ 2657              		.loc 1 734 0 discriminator 1
+ 2658 137e 1BB2     		sxth	r3, r3	@ tmp151, D.8121
+ 2659 1380 002B     		cmp	r3, #0	@ tmp151,
+ 2660 1382 07DB     		blt	.L124	@,
+ 2661              		.loc 1 735 0
+ 2662 1384 019B     		ldr	r3, [sp, #4]	@ tmp152, p_draw
+ 2663 1386 B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp154,
+ 2664 138a 9BB2     		uxth	r3, r3	@ D.8121, tmp153
+ 2665 138c 1BB2     		sxth	r3, r3	@ tmp155, D.8121
+ 2666 138e B3F5AF7F 		cmp	r3, #350	@ tmp155,
+ 2667 1392 01DD     		ble	.L125	@,
+ 2668              	.L124:
+ 736:apps/src/Drawing_apps.c **** 	{
+ 737:apps/src/Drawing_apps.c **** 		return(1);
+ 2669              		.loc 1 737 0
+ 2670 1394 0123     		movs	r3, #1	@ D.8120,
+ 2671 1396 46E0     		b	.L126	@
+ 2672              	.L125:
+ 738:apps/src/Drawing_apps.c **** 	}
+ 739:apps/src/Drawing_apps.c **** 	x1_coordinate = (uint16_t)p_draw->x1;
+ 2673              		.loc 1 739 0
+ 2674 1398 019B     		ldr	r3, [sp, #4]	@ tmp156, p_draw
+ 2675 139a B3F90730 		ldrsh	r3, [r3, #7]	@ unaligned	@ tmp158,
+ 2676 139e 9BB2     		uxth	r3, r3	@ D.8121, tmp157
+ 2677 13a0 ADF80E30 		strh	r3, [sp, #14]	@ movhi	@ tmp159, x1_coordinate
+ 740:apps/src/Drawing_apps.c **** 	y1_coordinate = (uint16_t)p_draw->y1;
+ 2678              		.loc 1 740 0
+ 2679 13a4 019B     		ldr	r3, [sp, #4]	@ tmp160, p_draw
+ 2680 13a6 B3F90930 		ldrsh	r3, [r3, #9]	@ unaligned	@ tmp162,
+ 2681 13aa 9BB2     		uxth	r3, r3	@ D.8121, tmp161
+ 2682 13ac ADF80C30 		strh	r3, [sp, #12]	@ movhi	@ tmp163, y1_coordinate
+ 741:apps/src/Drawing_apps.c **** 	x2_coordinate = (uint16_t)p_draw->x2_rx;
+ 2683              		.loc 1 741 0
+ 2684 13b0 019B     		ldr	r3, [sp, #4]	@ tmp164, p_draw
+ 2685 13b2 B3F90B30 		ldrsh	r3, [r3, #11]	@ unaligned	@ tmp166,
+ 2686 13b6 9BB2     		uxth	r3, r3	@ D.8121, tmp165
+ 2687 13b8 ADF80A30 		strh	r3, [sp, #10]	@ movhi	@ tmp167, x2_coordinate
+ 742:apps/src/Drawing_apps.c **** 	y2_coordinate = (uint16_t)p_draw->y2_ry;
+ 2688              		.loc 1 742 0
+ 2689 13bc 019B     		ldr	r3, [sp, #4]	@ tmp168, p_draw
+ 2690 13be B3F90D30 		ldrsh	r3, [r3, #13]	@ unaligned	@ tmp170,
+ 2691 13c2 9BB2     		uxth	r3, r3	@ D.8121, tmp169
+ 2692 13c4 ADF80830 		strh	r3, [sp, #8]	@ movhi	@ tmp171, y2_coordinate
+ 743:apps/src/Drawing_apps.c **** 
+ 744:apps/src/Drawing_apps.c **** 	if( x1_coordinate > x2_coordinate )
+ 2693              		.loc 1 744 0
+ 2694 13c8 BDF80E20 		ldrh	r2, [sp, #14]	@ tmp172, x1_coordinate
+ 2695 13cc BDF80A30 		ldrh	r3, [sp, #10]	@ tmp173, x2_coordinate
+ 2696 13d0 9A42     		cmp	r2, r3	@ tmp172, tmp173
+ 2697 13d2 08D9     		bls	.L127	@,
+ 745:apps/src/Drawing_apps.c **** 	{
+ 746:apps/src/Drawing_apps.c **** 		windowframe.x2 = x1_coordinate;
+ 2698              		.loc 1 746 0
+ 2699 13d4 154B     		ldr	r3, .L131	@ tmp174,
+ 2700 13d6 BDF80E20 		ldrh	r2, [sp, #14]	@ movhi	@ tmp175, x1_coordinate
+ 2701 13da 9A80     		strh	r2, [r3, #4]	@ movhi	@ tmp175, windowframe.x2
+ 747:apps/src/Drawing_apps.c **** 		windowframe.x1 = x2_coordinate;
+ 2702              		.loc 1 747 0
+ 2703 13dc 134B     		ldr	r3, .L131	@ tmp176,
+ 2704 13de BDF80A20 		ldrh	r2, [sp, #10]	@ movhi	@ tmp177, x2_coordinate
+ 2705 13e2 1A80     		strh	r2, [r3]	@ movhi	@ tmp177, windowframe.x1
+ 2706 13e4 07E0     		b	.L128	@
+ 2707              	.L127:
+ 748:apps/src/Drawing_apps.c **** 	}
+ 749:apps/src/Drawing_apps.c **** 	else
+ 750:apps/src/Drawing_apps.c **** 	{
+ 751:apps/src/Drawing_apps.c **** 		windowframe.x1 = x1_coordinate;
+ 2708              		.loc 1 751 0
+ 2709 13e6 114B     		ldr	r3, .L131	@ tmp178,
+ 2710 13e8 BDF80E20 		ldrh	r2, [sp, #14]	@ movhi	@ tmp179, x1_coordinate
+ 2711 13ec 1A80     		strh	r2, [r3]	@ movhi	@ tmp179, windowframe.x1
+ 752:apps/src/Drawing_apps.c **** 		windowframe.x2 = x2_coordinate;
+ 2712              		.loc 1 752 0
+ 2713 13ee 0F4B     		ldr	r3, .L131	@ tmp180,
+ 2714 13f0 BDF80A20 		ldrh	r2, [sp, #10]	@ movhi	@ tmp181, x2_coordinate
+ 2715 13f4 9A80     		strh	r2, [r3, #4]	@ movhi	@ tmp181, windowframe.x2
+ 2716              	.L128:
+ 753:apps/src/Drawing_apps.c **** 	}
+ 754:apps/src/Drawing_apps.c **** 
+ 755:apps/src/Drawing_apps.c **** 	if( y1_coordinate > y2_coordinate )
+ 2717              		.loc 1 755 0
+ 2718 13f6 BDF80C20 		ldrh	r2, [sp, #12]	@ tmp182, y1_coordinate
+ 2719 13fa BDF80830 		ldrh	r3, [sp, #8]	@ tmp183, y2_coordinate
+ 2720 13fe 9A42     		cmp	r2, r3	@ tmp182, tmp183
+ 2721 1400 08D9     		bls	.L129	@,
+ 756:apps/src/Drawing_apps.c **** 	{
+ 757:apps/src/Drawing_apps.c **** 		windowframe.y2 = y1_coordinate;
+ 2722              		.loc 1 757 0
+ 2723 1402 0A4B     		ldr	r3, .L131	@ tmp184,
+ 2724 1404 BDF80C20 		ldrh	r2, [sp, #12]	@ movhi	@ tmp185, y1_coordinate
+ 2725 1408 DA80     		strh	r2, [r3, #6]	@ movhi	@ tmp185, windowframe.y2
+ 758:apps/src/Drawing_apps.c **** 		windowframe.y1 = y2_coordinate;
+ 2726              		.loc 1 758 0
+ 2727 140a 084B     		ldr	r3, .L131	@ tmp186,
+ 2728 140c BDF80820 		ldrh	r2, [sp, #8]	@ movhi	@ tmp187, y2_coordinate
+ 2729 1410 5A80     		strh	r2, [r3, #2]	@ movhi	@ tmp187, windowframe.y1
+ 2730 1412 07E0     		b	.L130	@
+ 2731              	.L129:
+ 759:apps/src/Drawing_apps.c **** 	}
+ 760:apps/src/Drawing_apps.c **** 	else
+ 761:apps/src/Drawing_apps.c **** 	{
+ 762:apps/src/Drawing_apps.c **** 		windowframe.y1 = y1_coordinate;
+ 2732              		.loc 1 762 0
+ 2733 1414 054B     		ldr	r3, .L131	@ tmp188,
+ 2734 1416 BDF80C20 		ldrh	r2, [sp, #12]	@ movhi	@ tmp189, y1_coordinate
+ 2735 141a 5A80     		strh	r2, [r3, #2]	@ movhi	@ tmp189, windowframe.y1
+ 763:apps/src/Drawing_apps.c **** 		windowframe.y2 = y2_coordinate;
+ 2736              		.loc 1 763 0
+ 2737 141c 034B     		ldr	r3, .L131	@ tmp190,
+ 2738 141e BDF80820 		ldrh	r2, [sp, #8]	@ movhi	@ tmp191, y2_coordinate
+ 2739 1422 DA80     		strh	r2, [r3, #6]	@ movhi	@ tmp191, windowframe.y2
+ 2740              	.L130:
+ 764:apps/src/Drawing_apps.c **** 	}
+ 765:apps/src/Drawing_apps.c **** 	return(0);
+ 2741              		.loc 1 765 0
+ 2742 1424 0023     		movs	r3, #0	@ D.8120,
+ 2743              	.L126:
+ 766:apps/src/Drawing_apps.c **** }
+ 2744              		.loc 1 766 0
+ 2745 1426 1846     		mov	r0, r3	@, <retval>
+ 2746 1428 04B0     		add	sp, sp, #16	@,,
+ 2747              		@ sp needed	@
+ 2748 142a 7047     		bx	lr	@
+ 2749              	.L132:
+ 2750              		.align	2
+ 2751              	.L131:
+ 2752 142c 00000000 		.word	windowframe
+ 2753              		.cfi_endproc
+ 2754              	.LFE124:
+ 2756              	.Letext0:
+ 2757              		.file 2 "d:\\armgcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 2758              		.file 3 "d:\\armgcc\\arm-none-eabi\\include\\stdint.h"
+ 2759              		.file 4 "apps/inc/Drawing_apps.h"
+ 2760              		.file 5 "cmsis_core/core_cm4.h"
+ 2761              		.file 6 "apps/inc/VGA_Out_apps.h"
+ 2762              		.file 7 "apps/inc/fonts.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Drawing_apps.c
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:60     .data:00000000 $d
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:63     .data:00000000 windowframe
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:77     .rodata:00000000 gap_fonts
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:74     .rodata:00000000 $d
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:81     .text:00000000 $t
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:85     .text:00000000 sDrawAPixel
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:385    .text:00000264 $d
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:390    .text:0000026c $t
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:394    .text:0000026c sDrawAHorLineColourFast
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:735    .text:000004b8 $d
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:740    .text:000004c0 $t
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:745    .text:000004c0 gDrawAPointColour
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:845    .text:00000564 gReadAPointColour
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:985    .text:00000670 $d
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:989    .text:00000674 $t
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:994    .text:00000674 gDrawALineColour
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:1416   .text:000009c4 gDrawARectangleColour
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:1789   .text:00000ce4 gDrawAAsciiSymbolColour
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:1964   .text:00000e40 $d
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:1968   .text:00000e44 $t
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:1973   .text:00000e44 gDrawAEllipseColour
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:2599   .text:00001318 gSetADrawFrame
+C:\Users\Spas\AppData\Local\Temp\ccbrFnZf.s:2752   .text:0000142c $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 wm4.0.bb49f1eb716983c9014b6db3ebb18dd1
+                           .group:00000000 wm4.chip.h.31.ffb1374c8cfd711bf08b18cb482cdecd
+                           .group:00000000 wm4.features.h.22.6a4ca7cd053637cc1d0db6c16f39b2d7
+                           .group:00000000 wm4._default_types.h.15.8b2cb27e528498f8ff711db085d6e489
+                           .group:00000000 wm4.stdint.h.20.796e373797e732130a803d4c0338fa1b
+                           .group:00000000 wm4.sam4s8b.h.216.85427310ee57c6602cdb44976ff8eafc
+                           .group:00000000 wm4.core_cm4.h.47.facd8ba456d1edc74a9cd34e5ef24231
+                           .group:00000000 wm4.core_cmInstr.h.39.3d3d1b4a79aef37532666dc6ee87c6ac
+                           .group:00000000 wm4.core_cm4_simd.h.43.d8e10c63b7db2f2a1586965c37b6affe
+                           .group:00000000 wm4.core_cm4.h.178.877dd53394110c198a69aa86aba65870
+                           .group:00000000 wm4.acc.h.31.dfd29459e721169d72014eb762f71214
+                           .group:00000000 wm4.adc.h.31.c6656640e20d1eafe623af86cb226fca
+                           .group:00000000 wm4.chipid.h.31.3af5a36d0a4a9a225c9afb52a1aea0b9
+                           .group:00000000 wm4.crccu.h.31.a496852d13935483993734d587fc2f8e
+                           .group:00000000 wm4.dacc.h.31.c9217b43fde87abb246765d0ddcb9c5a
+                           .group:00000000 wm4.efc.h.31.0bf8e93e6585804f24ede0a4e728599a
+                           .group:00000000 wm4.gpbr.h.31.7a5e3dd0c356c6b68d5c512bbdf67f08
+                           .group:00000000 wm4.hsmci.h.31.9d224a62fa1ec786508b485b0627d948
+                           .group:00000000 wm4.matrix.h.31.c705893f10dd90abec557434f19f4c80
+                           .group:00000000 wm4.pdc.h.31.e2d19841c81c9c2bbeeb400b89d315b5
+                           .group:00000000 wm4.pio.h.31.8c8983d26a861f040f0f117c14ec06d2
+                           .group:00000000 wm4.pmc.h.31.ee762809cf9b67f8c369267b7f38d1b3
+                           .group:00000000 wm4.pwm.h.31.da9b7d8dc8ac9c261fdee7e206bdee45
+                           .group:00000000 wm4.rstc.h.31.96e972cc48a3044e9dca7f2d844f33fb
+                           .group:00000000 wm4.rtc.h.31.f40a4fc6ecffe9e0a8284c655825715f
+                           .group:00000000 wm4.rtt.h.31.f70870f04ef5dbcac3269f990b758352
+                           .group:00000000 wm4.spi.h.31.f86a4b9d7f4ee32bf9133e4926aa8885
+                           .group:00000000 wm4.ssc.h.31.b805b08edc780a096d6650d6ca36d1ca
+                           .group:00000000 wm4.supc.h.31.131b9cb8083389b79a4bd5bf451243ef
+                           .group:00000000 wm4.tc.h.31.8da8c788d3223db5455d03e5435ef8db
+                           .group:00000000 wm4.twi.h.31.22147bf5d3d32053731c632df0e79c3c
+                           .group:00000000 wm4.uart.h.31.8e28760a665c54768e00ff4c7a643590
+                           .group:00000000 wm4.udp.h.31.edd1ad37d3ebc2c446bab55b82a89df9
+                           .group:00000000 wm4.usart.h.31.f84a5833fa97905e15d92372b7a4d3aa
+                           .group:00000000 wm4.wdt.h.31.bf9508cda074277d961fffa2c014b7c4
+                           .group:00000000 wm4.hsmci.h.31.3557701962362e69e14e53f685fa289c
+                           .group:00000000 wm4.ssc.h.31.b3090d071ea322e9320de7b3374b6c7d
+                           .group:00000000 wm4.spi.h.31.0c099f04fc71f13866451dd19f165ce5
+                           .group:00000000 wm4.tc0.h.31.82f2382972b60e05b032ad12082a9b88
+                           .group:00000000 wm4.tc1.h.31.a45ad165f1e4a4be41030d128002f2e1
+                           .group:00000000 wm4.twi0.h.31.a2f6579ad734afdd1f8957b7fc33aa94
+                           .group:00000000 wm4.twi1.h.31.dcb9c8cbe7f017d537033c87ba5ff61b
+                           .group:00000000 wm4.pwm.h.31.2d9663b87a377027ead59c1615e3084b
+                           .group:00000000 wm4.usart0.h.31.ec6af36a3993709e003c7713e45e6d44
+                           .group:00000000 wm4.usart1.h.31.eafbafd9baa63489c7d4b47b07dd4359
+                           .group:00000000 wm4.udp.h.31.72bce9f16287d99e27dc398746c7b41a
+                           .group:00000000 wm4.adc.h.31.d1d169655aedc0ac5464b9bc3e038d91
+                           .group:00000000 wm4.dacc.h.31.f498d7e9c6281f6aa2a76955bd19179f
+                           .group:00000000 wm4.acc.h.31.bd89452c6f6042da160b09b91f7b4ad6
+                           .group:00000000 wm4.crccu.h.31.0f8ee11e21f25cd8f0d59ee9bd2d6017
+                           .group:00000000 wm4.matrix.h.31.16f7506a18ec96f1a889a659d8f54158
+                           .group:00000000 wm4.pmc.h.31.8ee9f69608f942cb1f3f8bedac24c137
+                           .group:00000000 wm4.uart0.h.31.107626f9f656553c6d028df3e0c36652
+                           .group:00000000 wm4.chipid.h.31.3d621c981fbba4cbcdf919961d16a7e0
+                           .group:00000000 wm4.uart1.h.31.8229a0a664aa704025162a106c6f1697
+                           .group:00000000 wm4.efc0.h.31.aa56af1c721ea83a50dc1967a8959b7e
+                           .group:00000000 wm4.pioa.h.31.577ac2183c73a1a02e92e91a0e37e8fe
+                           .group:00000000 wm4.piob.h.31.3d18377ca5f71fef4e536cd97e1dced2
+                           .group:00000000 wm4.pioc.h.31.9fd85e02d9919f268f52f61ee7874ed4
+                           .group:00000000 wm4.rstc.h.31.d42d559221b78874dbf800ea2429b8d0
+                           .group:00000000 wm4.supc.h.31.851dbe7e029de2cc98417e6c6ce74d66
+                           .group:00000000 wm4.rtt.h.31.b6f3540f51d07e433e9f2b607b78fa5d
+                           .group:00000000 wm4.wdt.h.31.e29a378018b6da05e80df7a7d3fae91a
+                           .group:00000000 wm4.rtc.h.31.62bff3fa21e4de3cfaf653749f73ca5b
+                           .group:00000000 wm4.gpbr.h.31.a690ec9ac14ca127f47cc304a062f896
+                           .group:00000000 wm4.sam4s8b.h.310.cfe4025ce42f19fc6dad5600399e6497
+                           .group:00000000 wm4.sam4s8b.h.31.bac0ae8aa6a8295f4ede171816a1bfbd
+                           .group:00000000 wm4.sam4s8b.h.455.d99766a935df92fcae5a6292daf0b9af
+                           .group:00000000 wm4.newlib.h.8.fec018e441fee7bfa1923812ad010f97
+                           .group:00000000 wm4.config.h.212.4163ef2871a828c674038d036b081cfd
+                           .group:00000000 wm4._ansi.h.23.2147fde150631f5584b9dc29b914d1b8
+                           .group:00000000 wm4.assert.h.11.7fe9eb241be6b0fee772a1e693b81ae3
+                           .group:00000000 wm4.acc.h.61.44cfae6040af09278183f92220a11c11
+                           .group:00000000 wm4.assert.h.11.7043852a511d37ae606afa012e67e471
+                           .group:00000000 wm4.adc.h.62.836e1c74f33a3b2357c489804b9e4164
+                           .group:00000000 wm4.async.h.38.b923efd27c82eb8a5a30fb0d9a711171
+                           .group:00000000 wm4.dacc.h.61.de15528749b6a5508d4e234e0989531c
+                           .group:00000000 wm4.efc.h.51.dca436509f69196baef24b3ff3ad1b51
+                           .group:00000000 wm4.flashd.h.38.2c9bfdc532d7034a024627acda3e3c0b
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.184.159df79b4ca79c76561572a55985524c
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.stddef.h.39.7e3d906ac58942e0b374c527445f5de5
+                           .group:00000000 wm4.lock.h.2.9bc98482741e5e2a9450b12934a684ea
+                           .group:00000000 wm4._types.h.54.d3d34a3b7f3cc230cd159baf022b4b08
+                           .group:00000000 wm4.stddef.h.158.61317cdbfb4026324507d123a50b0fd6
+                           .group:00000000 wm4.reent.h.17.8bd9e4098e0428508c282cad794fae43
+                           .group:00000000 wm4.types.h.23.0d949686bbcadd1621462d4fa1f884f9
+                           .group:00000000 wm4.types.h.2.e9cec8c90ab35f77d9f499e06ae02400
+                           .group:00000000 wm4.types.h.80.56707660962b21991903f1fee7c13bb3
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.64.0f05fa42cfe2db7fc44729a52d3ba948
+                           .group:00000000 wm4.hsmci.h.110.610f58f6a31861e37bc09b5b7be09388
+                           .group:00000000 wm4.pio.h.68.5d85e14ea6ea0da924da53053bc590d1
+                           .group:00000000 wm4.rtc.h.38.8bf78db8651343e80a889203827406a5
+                           .group:00000000 wm4.spi.h.38.450641354031b1013c08519149294c78
+                           .group:00000000 wm4.spi_pdc.h.38.75857b1dd4449731562322c9709581d8
+                           .group:00000000 wm4.twi.h.38.68f2e661eb174ca9ca74eef9740d9a3a
+                           .group:00000000 wm4.twid.h.31.9ea8c90af654647ca4d6e3b74e701509
+                           .group:00000000 wm4.usart.h.55.88c716ee7c3b6ed0339de6e194786a12
+                           .group:00000000 wm4.trace.h.65.364d8fb880402737deb1646f3fc9e1eb
+                           .group:00000000 wm4.chip.h.106.a1f123eb25606bfd56ed06360bda02b0
+                           .group:00000000 wm4.VGA_Out_apps.h.18.308fcc0316a2d9ff2e1d2e83a41b3959
+
+UNDEFINED SYMBOLS
+Sinclair_S
+Sinclair_Inverted_S
+ga_Write_Block

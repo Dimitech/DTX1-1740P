@@ -1,0 +1,1155 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
+   5              		.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
+   6              		.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
+   7              		.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
+   8              		.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
+   9              		.eabi_attribute 26, 1	@ Tag_ABI_enum_size
+  10              		.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
+  11              		.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
+  12              		.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
+  13              		.file	"spi.c"
+  14              	@ GNU C (GNU Tools for ARM Embedded Processors) version 4.8.4 20140725 (release) [ARM/embedded-4_8-
+  15              	@	compiled by GNU C version 4.7.4, GMP version 4.3.2, MPFR version 2.4.2, MPC version 0.8.1
+  16              	@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+  17              	@ options passed:  -I . -I apps -I apps/inc -I apps/src -I apps/src/fonts
+  18              	@ -I cmsis_boot -I cmsis_boot/startup -I cmsis_core
+  19              	@ -I SAM4S_StdPeriph_Driver -I SAM4S_StdPeriph_Driver/Include
+  20              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S
+  21              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/component
+  22              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/instance
+  23              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/pio
+  24              	@ -I SAM4S_StdPeriph_Driver/Source -I SAM4S_StdPeriph_Driver/Source/SAM4S
+  25              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/include
+  26              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/source -I user_libs
+  27              	@ -I user_libs/inc -I user_libs/src -imultilib armv7e-m
+  28              	@ -iprefix d:\armgcc\bin\../lib/gcc/arm-none-eabi/4.8.4/
+  29              	@ -isysroot d:\armgcc\bin\../arm-none-eabi
+  30              	@ -MD out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.d
+  31              	@ -MF out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.o.dep -MP
+  32              	@ -MQ out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.o
+  33              	@ -D__USES_INITFINI__ -D gcc
+  34              	@ SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c -mcpu=cortex-m4 -mthumb
+  35              	@ -auxbase-strip out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.o
+  36              	@ -ggdb3 -O0 -Wall -Wpointer-arith -Wswitch -Wnested-externs -std=gnu99
+  37              	@ -fomit-frame-pointer -fverbose-asm -funsigned-char
+  38              	@ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
+  39              	@ -fbranch-count-reg -fcommon -fdelete-null-pointer-checks -fdwarf2-cfi-asm
+  40              	@ -fearly-inlining -feliminate-unused-debug-types -ffunction-cse -fgcse-lm
+  41              	@ -fgnu-runtime -fgnu-unique -fident -finline-atomics -fira-hoist-pressure
+  42              	@ -fira-share-save-slots -fira-share-spill-slots -fivopts
+  43              	@ -fkeep-static-consts -fleading-underscore -fmath-errno
+  44              	@ -fmerge-debug-strings -fmove-loop-invariants -fomit-frame-pointer
+  45              	@ -fpeephole -fprefetch-loop-arrays -freg-struct-return
+  46              	@ -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  47              	@ -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  48              	@ -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  49              	@ -fsched-stalled-insns-dep -fshow-column -fsigned-zeros
+  50              	@ -fsplit-ivs-in-unroller -fstrict-volatile-bitfields -fsync-libcalls
+  51              	@ -ftrapping-math -ftree-coalesce-vars -ftree-cselim -ftree-forwprop
+  52              	@ -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
+  53              	@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop -ftree-pta
+  54              	@ -ftree-reassoc -ftree-scev-cprop -ftree-slp-vectorize
+  55              	@ -ftree-vect-loop-version -funit-at-a-time -fverbose-asm
+  56              	@ -fzero-initialized-in-bss -mlittle-endian -mpic-data-is-text-relative
+  57              	@ -msched-prolog -mthumb -munaligned-access -mvectorize-with-neon-quad
+  58              	
+  59              		.text
+  60              	.Ltext0:
+  61              		.cfi_sections	.debug_frame
+  62              		.align	2
+  63              		.global	SPI_Enable
+  64              		.thumb
+  65              		.thumb_func
+  67              	SPI_Enable:
+  68              	.LFB116:
+  69              		.file 1 "SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c"
+   1:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /* ----------------------------------------------------------------------------
+   2:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *         SAM Software Package License
+   3:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * ----------------------------------------------------------------------------
+   4:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * Copyright (c) 2011, Atmel Corporation
+   5:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+   6:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * All rights reserved.
+   7:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+   8:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * Redistribution and use in source and binary forms, with or without
+   9:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * modification, are permitted provided that the following conditions are met:
+  10:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+  11:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * - Redistributions of source code must retain the above copyright notice,
+  12:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * this list of conditions and the disclaimer below.
+  13:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+  14:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * Atmel's name may not be used to endorse or promote products derived from
+  15:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * this software without specific prior written permission.
+  16:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+  17:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR
+  18:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  19:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  20:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT, INDIRECT,
+  21:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  22:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  23:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  24:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  25:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  26:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  27:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * ----------------------------------------------------------------------------
+  28:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+  29:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+  30:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /** \addtogroup spi_module Working with SPI
+  31:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *  \ingroup peripherals_module
+  32:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * The SPI driver provides the interface to configure and use the SPI
+  33:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * peripheral.
+  34:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+  35:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * The Serial Peripheral Interface (SPI) circuit is a synchronous serial
+  36:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * data link that provides communication with external devices in Master
+  37:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * or Slave Mode.
+  38:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+  39:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * To use the SPI, the user has to follow these few steps:
+  40:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * -# Enable the SPI pins required by the application (see pio.h).
+  41:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * -# Configure the SPI using the \ref SPI_Configure(). This enables the
+  42:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *    peripheral clock. The mode register is loaded with the given value.
+  43:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * -# Configure all the necessary chip selects with \ref SPI_ConfigureNPCS().
+  44:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * -# Enable the SPI by calling \ref SPI_Enable().
+  45:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * -# Send/receive data using \ref SPI_Write() and \ref SPI_Read(). Note that \ref SPI_Read()
+  46:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *    must be called after \ref SPI_Write() to retrieve the last value read.
+  47:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * -# Send/receive data using the PDC with the \ref SPI_WriteBuffer() and
+  48:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *    \ref SPI_ReadBuffer() functions.
+  49:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * -# Disable the SPI by calling \ref SPI_Disable().
+  50:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+  51:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * For more accurate information, please look at the SPI section of the
+  52:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * Datasheet.
+  53:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+  54:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * Related files :\n
+  55:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \ref spi.c\n
+  56:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \ref spi.h.\n
+  57:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** */
+  58:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /*@{*/
+  59:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /*@}*/
+  60:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+  61:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+  62:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \file
+  63:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+  64:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * Implementation of Serial Peripheral Interface (SPI) controller.
+  65:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+  66:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+  67:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+  68:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /*----------------------------------------------------------------------------
+  69:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *        Headers
+  70:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *----------------------------------------------------------------------------*/
+  71:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+  72:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** #include "chip.h"
+  73:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+  74:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** #include <stdint.h>
+  75:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+  76:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /*----------------------------------------------------------------------------
+  77:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *        Exported functions
+  78:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *----------------------------------------------------------------------------*/
+  79:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+  80:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+  81:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Enables a SPI peripheral.
+  82:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+  83:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi  Pointer to an Spi instance.
+  84:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+  85:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern void SPI_Enable( Spi* spi )
+  86:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+  70              		.loc 1 86 0
+  71              		.cfi_startproc
+  72              		@ args = 0, pretend = 0, frame = 8
+  73              		@ frame_needed = 0, uses_anonymous_args = 0
+  74              		@ link register save eliminated.
+  75 0000 82B0     		sub	sp, sp, #8	@,,
+  76              		.cfi_def_cfa_offset 8
+  77 0002 0190     		str	r0, [sp, #4]	@ spi, spi
+  87:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_CR = SPI_CR_SPIEN ;
+  78              		.loc 1 87 0
+  79 0004 019B     		ldr	r3, [sp, #4]	@ tmp110, spi
+  80 0006 0122     		movs	r2, #1	@ tmp111,
+  81 0008 1A60     		str	r2, [r3]	@ tmp111, spi_1(D)->SPI_CR
+  88:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+  82              		.loc 1 88 0
+  83 000a 02B0     		add	sp, sp, #8	@,,
+  84              		@ sp needed	@
+  85 000c 7047     		bx	lr	@
+  86              		.cfi_endproc
+  87              	.LFE116:
+  89 000e 00BF     		.align	2
+  90              		.global	SPI_Disable
+  91              		.thumb
+  92              		.thumb_func
+  94              	SPI_Disable:
+  95              	.LFB117:
+  89:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+  90:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+  91:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Disables a SPI peripheral.
+  92:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+  93:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi  Pointer to an Spi instance.
+  94:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+  95:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern void SPI_Disable( Spi* spi )
+  96:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+  96              		.loc 1 96 0
+  97              		.cfi_startproc
+  98              		@ args = 0, pretend = 0, frame = 8
+  99              		@ frame_needed = 0, uses_anonymous_args = 0
+ 100              		@ link register save eliminated.
+ 101 0010 82B0     		sub	sp, sp, #8	@,,
+ 102              		.cfi_def_cfa_offset 8
+ 103 0012 0190     		str	r0, [sp, #4]	@ spi, spi
+  97:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_CR = SPI_CR_SPIDIS ;
+ 104              		.loc 1 97 0
+ 105 0014 019B     		ldr	r3, [sp, #4]	@ tmp110, spi
+ 106 0016 0222     		movs	r2, #2	@ tmp111,
+ 107 0018 1A60     		str	r2, [r3]	@ tmp111, spi_1(D)->SPI_CR
+  98:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 108              		.loc 1 98 0
+ 109 001a 02B0     		add	sp, sp, #8	@,,
+ 110              		@ sp needed	@
+ 111 001c 7047     		bx	lr	@
+ 112              		.cfi_endproc
+ 113              	.LFE117:
+ 115 001e 00BF     		.align	2
+ 116              		.global	SPI_EnableIt
+ 117              		.thumb
+ 118              		.thumb_func
+ 120              	SPI_EnableIt:
+ 121              	.LFB118:
+  99:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 100:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 101:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Enables one or more interrupt sources of a SPI peripheral.
+ 102:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+ 103:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi  Pointer to an Spi instance.
+ 104:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param sources Bitwise OR of selected interrupt sources.
+ 105:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+ 106:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern void SPI_EnableIt( Spi* spi, uint32_t dwSources )
+ 107:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 122              		.loc 1 107 0
+ 123              		.cfi_startproc
+ 124              		@ args = 0, pretend = 0, frame = 8
+ 125              		@ frame_needed = 0, uses_anonymous_args = 0
+ 126              		@ link register save eliminated.
+ 127 0020 82B0     		sub	sp, sp, #8	@,,
+ 128              		.cfi_def_cfa_offset 8
+ 129 0022 0190     		str	r0, [sp, #4]	@ spi, spi
+ 130 0024 0091     		str	r1, [sp]	@ dwSources, dwSources
+ 108:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_IER = dwSources ;
+ 131              		.loc 1 108 0
+ 132 0026 019B     		ldr	r3, [sp, #4]	@ tmp110, spi
+ 133 0028 009A     		ldr	r2, [sp]	@ tmp111, dwSources
+ 134 002a 5A61     		str	r2, [r3, #20]	@ tmp111, spi_1(D)->SPI_IER
+ 109:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 135              		.loc 1 109 0
+ 136 002c 02B0     		add	sp, sp, #8	@,,
+ 137              		@ sp needed	@
+ 138 002e 7047     		bx	lr	@
+ 139              		.cfi_endproc
+ 140              	.LFE118:
+ 142              		.align	2
+ 143              		.global	SPI_DisableIt
+ 144              		.thumb
+ 145              		.thumb_func
+ 147              	SPI_DisableIt:
+ 148              	.LFB119:
+ 110:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 111:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 112:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Disables one or more interrupt sources of a SPI peripheral.
+ 113:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+ 114:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi  Pointer to an Spi instance.
+ 115:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param sources Bitwise OR of selected interrupt sources.
+ 116:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+ 117:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern void SPI_DisableIt( Spi* spi, uint32_t dwSources )
+ 118:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 149              		.loc 1 118 0
+ 150              		.cfi_startproc
+ 151              		@ args = 0, pretend = 0, frame = 8
+ 152              		@ frame_needed = 0, uses_anonymous_args = 0
+ 153              		@ link register save eliminated.
+ 154 0030 82B0     		sub	sp, sp, #8	@,,
+ 155              		.cfi_def_cfa_offset 8
+ 156 0032 0190     		str	r0, [sp, #4]	@ spi, spi
+ 157 0034 0091     		str	r1, [sp]	@ dwSources, dwSources
+ 119:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_IDR = dwSources ;
+ 158              		.loc 1 119 0
+ 159 0036 019B     		ldr	r3, [sp, #4]	@ tmp110, spi
+ 160 0038 009A     		ldr	r2, [sp]	@ tmp111, dwSources
+ 161 003a 9A61     		str	r2, [r3, #24]	@ tmp111, spi_1(D)->SPI_IDR
+ 120:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 162              		.loc 1 120 0
+ 163 003c 02B0     		add	sp, sp, #8	@,,
+ 164              		@ sp needed	@
+ 165 003e 7047     		bx	lr	@
+ 166              		.cfi_endproc
+ 167              	.LFE119:
+ 169              		.align	2
+ 170              		.global	SPI_Configure
+ 171              		.thumb
+ 172              		.thumb_func
+ 174              	SPI_Configure:
+ 175              	.LFB120:
+ 121:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 122:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 123:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Configures a SPI peripheral as specified. The configuration can be computed
+ 124:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * using several macros (see \ref spi_configuration_macros).
+ 125:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+ 126:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi  Pointer to an Spi instance.
+ 127:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param id   Peripheral ID of the SPI.
+ 128:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param configuration  Value of the SPI configuration register.
+ 129:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+ 130:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern void SPI_Configure( Spi* spi, uint32_t dwId, uint32_t dwConfiguration )
+ 131:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 176              		.loc 1 131 0
+ 177              		.cfi_startproc
+ 178              		@ args = 0, pretend = 0, frame = 16
+ 179              		@ frame_needed = 0, uses_anonymous_args = 0
+ 180 0040 00B5     		push	{lr}	@
+ 181              		.cfi_def_cfa_offset 4
+ 182              		.cfi_offset 14, -4
+ 183 0042 85B0     		sub	sp, sp, #20	@,,
+ 184              		.cfi_def_cfa_offset 24
+ 185 0044 0390     		str	r0, [sp, #12]	@ spi, spi
+ 186 0046 0291     		str	r1, [sp, #8]	@ dwId, dwId
+ 187 0048 0192     		str	r2, [sp, #4]	@ dwConfiguration, dwConfiguration
+ 132:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     PMC_EnablePeripheral( dwId ) ;
+ 188              		.loc 1 132 0
+ 189 004a 0298     		ldr	r0, [sp, #8]	@, dwId
+ 190 004c FFF7FEFF 		bl	PMC_EnablePeripheral	@
+ 133:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_CR = SPI_CR_SPIDIS ;
+ 191              		.loc 1 133 0
+ 192 0050 039B     		ldr	r3, [sp, #12]	@ tmp110, spi
+ 193 0052 0222     		movs	r2, #2	@ tmp111,
+ 194 0054 1A60     		str	r2, [r3]	@ tmp111, spi_2(D)->SPI_CR
+ 134:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 135:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     /* Execute a software reset of the SPI twice */
+ 136:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_CR = SPI_CR_SWRST ;
+ 195              		.loc 1 136 0
+ 196 0056 039B     		ldr	r3, [sp, #12]	@ tmp112, spi
+ 197 0058 8022     		movs	r2, #128	@ tmp113,
+ 198 005a 1A60     		str	r2, [r3]	@ tmp113, spi_2(D)->SPI_CR
+ 137:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_CR = SPI_CR_SWRST ;
+ 199              		.loc 1 137 0
+ 200 005c 039B     		ldr	r3, [sp, #12]	@ tmp114, spi
+ 201 005e 8022     		movs	r2, #128	@ tmp115,
+ 202 0060 1A60     		str	r2, [r3]	@ tmp115, spi_2(D)->SPI_CR
+ 138:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_MR = dwConfiguration ;
+ 203              		.loc 1 138 0
+ 204 0062 039B     		ldr	r3, [sp, #12]	@ tmp116, spi
+ 205 0064 019A     		ldr	r2, [sp, #4]	@ tmp117, dwConfiguration
+ 206 0066 5A60     		str	r2, [r3, #4]	@ tmp117, spi_2(D)->SPI_MR
+ 139:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 207              		.loc 1 139 0
+ 208 0068 05B0     		add	sp, sp, #20	@,,
+ 209              		@ sp needed	@
+ 210 006a 5DF804FB 		ldr	pc, [sp], #4	@
+ 211              		.cfi_endproc
+ 212              	.LFE120:
+ 214 006e 00BF     		.align	2
+ 215              		.global	SPI_ConfigureNPCS
+ 216              		.thumb
+ 217              		.thumb_func
+ 219              	SPI_ConfigureNPCS:
+ 220              	.LFB121:
+ 140:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 141:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 142:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 143:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Configures a chip select of a SPI peripheral. The chip select configuration
+ 144:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * is computed using several macros (see \ref spi_configuration_macros).
+ 145:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+ 146:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi   Pointer to an Spi instance.
+ 147:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param npcs  Chip select to configure (0, 1, 2 or 3).
+ 148:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param configuration  Desired chip select configuration.
+ 149:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+ 150:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** void SPI_ConfigureNPCS( Spi* spi, uint32_t dwNpcs, uint32_t dwConfiguration )
+ 151:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 221              		.loc 1 151 0
+ 222              		.cfi_startproc
+ 223              		@ args = 0, pretend = 0, frame = 16
+ 224              		@ frame_needed = 0, uses_anonymous_args = 0
+ 225              		@ link register save eliminated.
+ 226 0070 84B0     		sub	sp, sp, #16	@,,
+ 227              		.cfi_def_cfa_offset 16
+ 228 0072 0390     		str	r0, [sp, #12]	@ spi, spi
+ 229 0074 0291     		str	r1, [sp, #8]	@ dwNpcs, dwNpcs
+ 230 0076 0192     		str	r2, [sp, #4]	@ dwConfiguration, dwConfiguration
+ 152:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_CSR[dwNpcs] = dwConfiguration ;
+ 231              		.loc 1 152 0
+ 232 0078 039B     		ldr	r3, [sp, #12]	@ tmp110, spi
+ 233 007a 029A     		ldr	r2, [sp, #8]	@ tmp112, dwNpcs
+ 234 007c 0C32     		adds	r2, r2, #12	@ tmp111, tmp112,
+ 235 007e 0199     		ldr	r1, [sp, #4]	@ tmp113, dwConfiguration
+ 236 0080 43F82210 		str	r1, [r3, r2, lsl #2]	@ tmp113, spi_1(D)->SPI_CSR
+ 153:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 237              		.loc 1 153 0
+ 238 0084 04B0     		add	sp, sp, #16	@,,
+ 239              		@ sp needed	@
+ 240 0086 7047     		bx	lr	@
+ 241              		.cfi_endproc
+ 242              	.LFE121:
+ 244              		.align	2
+ 245              		.global	SPI_GetStatus
+ 246              		.thumb
+ 247              		.thumb_func
+ 249              	SPI_GetStatus:
+ 250              	.LFB122:
+ 154:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 155:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 156:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Get the current status register of the given SPI peripheral.
+ 157:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \note This resets the internal value of the status register, so further
+ 158:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * read may yield different values.
+ 159:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi   Pointer to a Spi instance.
+ 160:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \return  SPI status register.
+ 161:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+ 162:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern uint32_t SPI_GetStatus( Spi* spi )
+ 163:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 251              		.loc 1 163 0
+ 252              		.cfi_startproc
+ 253              		@ args = 0, pretend = 0, frame = 8
+ 254              		@ frame_needed = 0, uses_anonymous_args = 0
+ 255              		@ link register save eliminated.
+ 256 0088 82B0     		sub	sp, sp, #8	@,,
+ 257              		.cfi_def_cfa_offset 8
+ 258 008a 0190     		str	r0, [sp, #4]	@ spi, spi
+ 164:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     return spi->SPI_SR ;
+ 259              		.loc 1 164 0
+ 260 008c 019B     		ldr	r3, [sp, #4]	@ tmp112, spi
+ 261 008e 1B69     		ldr	r3, [r3, #16]	@ D.7353, spi_1(D)->SPI_SR
+ 165:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 262              		.loc 1 165 0
+ 263 0090 1846     		mov	r0, r3	@, <retval>
+ 264 0092 02B0     		add	sp, sp, #8	@,,
+ 265              		@ sp needed	@
+ 266 0094 7047     		bx	lr	@
+ 267              		.cfi_endproc
+ 268              	.LFE122:
+ 270 0096 00BF     		.align	2
+ 271              		.global	SPI_Read
+ 272              		.thumb
+ 273              		.thumb_func
+ 275              	SPI_Read:
+ 276              	.LFB123:
+ 166:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 167:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 168:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Reads and returns the last word of data received by a SPI peripheral. This
+ 169:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * method must be called after a successful SPI_Write call.
+ 170:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+ 171:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi  Pointer to an Spi instance.
+ 172:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+ 173:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \return readed data.
+ 174:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+ 175:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern uint32_t SPI_Read( Spi* spi )
+ 176:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 277              		.loc 1 176 0
+ 278              		.cfi_startproc
+ 279              		@ args = 0, pretend = 0, frame = 8
+ 280              		@ frame_needed = 0, uses_anonymous_args = 0
+ 281              		@ link register save eliminated.
+ 282 0098 82B0     		sub	sp, sp, #8	@,,
+ 283              		.cfi_def_cfa_offset 8
+ 284 009a 0190     		str	r0, [sp, #4]	@ spi, spi
+ 177:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     while ( (spi->SPI_SR & SPI_SR_RDRF) == 0 ) ;
+ 285              		.loc 1 177 0
+ 286 009c 00BF     		nop
+ 287              	.L10:
+ 288              		.loc 1 177 0 is_stmt 0 discriminator 1
+ 289 009e 019B     		ldr	r3, [sp, #4]	@ tmp115, spi
+ 290 00a0 1B69     		ldr	r3, [r3, #16]	@ D.7354, spi_1(D)->SPI_SR
+ 291 00a2 03F00103 		and	r3, r3, #1	@ D.7354, D.7354,
+ 292 00a6 002B     		cmp	r3, #0	@ D.7354,
+ 293 00a8 F9D0     		beq	.L10	@,
+ 178:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 179:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     return spi->SPI_RDR & 0xFFFF ;
+ 294              		.loc 1 179 0 is_stmt 1
+ 295 00aa 019B     		ldr	r3, [sp, #4]	@ tmp116, spi
+ 296 00ac 9B68     		ldr	r3, [r3, #8]	@ D.7354, spi_1(D)->SPI_RDR
+ 297 00ae 9BB2     		uxth	r3, r3	@ D.7355, D.7354
+ 180:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 298              		.loc 1 180 0
+ 299 00b0 1846     		mov	r0, r3	@, <retval>
+ 300 00b2 02B0     		add	sp, sp, #8	@,,
+ 301              		@ sp needed	@
+ 302 00b4 7047     		bx	lr	@
+ 303              		.cfi_endproc
+ 304              	.LFE123:
+ 306 00b6 00BF     		.align	2
+ 307              		.global	SPI_Write
+ 308              		.thumb
+ 309              		.thumb_func
+ 311              	SPI_Write:
+ 312              	.LFB124:
+ 181:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 182:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 183:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Sends data through a SPI peripheral. If the SPI is configured to use a fixed
+ 184:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * peripheral select, the npcs value is meaningless. Otherwise, it identifies
+ 185:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * the component which shall be addressed.
+ 186:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+ 187:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi   Pointer to an Spi instance.
+ 188:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param npcs  Chip select of the component to address (0, 1, 2 or 3).
+ 189:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param data  Word of data to send.
+ 190:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+ 191:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern void SPI_Write( Spi* spi, uint32_t dwNpcs, uint16_t wData )
+ 192:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 313              		.loc 1 192 0
+ 314              		.cfi_startproc
+ 315              		@ args = 0, pretend = 0, frame = 16
+ 316              		@ frame_needed = 0, uses_anonymous_args = 0
+ 317              		@ link register save eliminated.
+ 318 00b8 84B0     		sub	sp, sp, #16	@,,
+ 319              		.cfi_def_cfa_offset 16
+ 320 00ba 0390     		str	r0, [sp, #12]	@ spi, spi
+ 321 00bc 0291     		str	r1, [sp, #8]	@ dwNpcs, dwNpcs
+ 322 00be 1346     		mov	r3, r2	@ tmp122, wData
+ 323 00c0 ADF80630 		strh	r3, [sp, #6]	@ movhi	@ tmp123, wData
+ 193:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     /* Send data */
+ 194:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     while ( (spi->SPI_SR & SPI_SR_TXEMPTY) == 0 ) ;
+ 324              		.loc 1 194 0
+ 325 00c4 00BF     		nop
+ 326              	.L13:
+ 327              		.loc 1 194 0 is_stmt 0 discriminator 1
+ 328 00c6 039B     		ldr	r3, [sp, #12]	@ tmp124, spi
+ 329 00c8 1B69     		ldr	r3, [r3, #16]	@ D.7356, spi_1(D)->SPI_SR
+ 330 00ca 03F40073 		and	r3, r3, #512	@ D.7356, D.7356,
+ 331 00ce 002B     		cmp	r3, #0	@ D.7356,
+ 332 00d0 F9D0     		beq	.L13	@,
+ 195:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_TDR = wData | SPI_PCS( dwNpcs ) ;
+ 333              		.loc 1 195 0 is_stmt 1
+ 334 00d2 BDF80620 		ldrh	r2, [sp, #6]	@ D.7357, wData
+ 335 00d6 029B     		ldr	r3, [sp, #8]	@ dwNpcs.0, dwNpcs
+ 336 00d8 0121     		movs	r1, #1	@ tmp125,
+ 337 00da 01FA03F3 		lsl	r3, r1, r3	@ D.7357, tmp125, dwNpcs.0
+ 338 00de DB43     		mvns	r3, r3	@ D.7357, D.7357
+ 339 00e0 03F00F03 		and	r3, r3, #15	@ D.7357, D.7357,
+ 340 00e4 1B04     		lsls	r3, r3, #16	@ D.7357, D.7357,
+ 341 00e6 1343     		orrs	r3, r3, r2	@, D.7357, D.7357, D.7357
+ 342 00e8 1A46     		mov	r2, r3	@ D.7356, D.7357
+ 343 00ea 039B     		ldr	r3, [sp, #12]	@ tmp126, spi
+ 344 00ec DA60     		str	r2, [r3, #12]	@ D.7356, spi_1(D)->SPI_TDR
+ 196:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     while ( (spi->SPI_SR & SPI_SR_TDRE) == 0 ) ;
+ 345              		.loc 1 196 0
+ 346 00ee 00BF     		nop
+ 347              	.L14:
+ 348              		.loc 1 196 0 is_stmt 0 discriminator 1
+ 349 00f0 039B     		ldr	r3, [sp, #12]	@ tmp127, spi
+ 350 00f2 1B69     		ldr	r3, [r3, #16]	@ D.7356, spi_1(D)->SPI_SR
+ 351 00f4 03F00203 		and	r3, r3, #2	@ D.7356, D.7356,
+ 352 00f8 002B     		cmp	r3, #0	@ D.7356,
+ 353 00fa F9D0     		beq	.L14	@,
+ 197:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 354              		.loc 1 197 0 is_stmt 1
+ 355 00fc 04B0     		add	sp, sp, #16	@,,
+ 356              		@ sp needed	@
+ 357 00fe 7047     		bx	lr	@
+ 358              		.cfi_endproc
+ 359              	.LFE124:
+ 361              		.align	2
+ 362              		.global	SPI_IsFinished
+ 363              		.thumb
+ 364              		.thumb_func
+ 366              	SPI_IsFinished:
+ 367              	.LFB125:
+ 198:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 199:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 200:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Check if SPI transfer finish.
+ 201:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+ 202:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi  Pointer to an Spi instance.
+ 203:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+ 204:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \return Returns 1 if there is no pending write operation on the SPI; otherwise
+ 205:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * returns 0.
+ 206:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+ 207:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern uint32_t SPI_IsFinished( Spi* spi )
+ 208:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 368              		.loc 1 208 0
+ 369              		.cfi_startproc
+ 370              		@ args = 0, pretend = 0, frame = 8
+ 371              		@ frame_needed = 0, uses_anonymous_args = 0
+ 372              		@ link register save eliminated.
+ 373 0100 82B0     		sub	sp, sp, #8	@,,
+ 374              		.cfi_def_cfa_offset 8
+ 375 0102 0190     		str	r0, [sp, #4]	@ spi, spi
+ 209:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     return ((spi->SPI_SR & SPI_SR_TXEMPTY) != 0) ;
+ 376              		.loc 1 209 0
+ 377 0104 019B     		ldr	r3, [sp, #4]	@ tmp115, spi
+ 378 0106 1B69     		ldr	r3, [r3, #16]	@ D.7358, spi_1(D)->SPI_SR
+ 379 0108 03F40073 		and	r3, r3, #512	@ D.7358, D.7358,
+ 380 010c 002B     		cmp	r3, #0	@ D.7358,
+ 381 010e 0CBF     		ite	eq	@
+ 382 0110 0023     		moveq	r3, #0	@, tmp117
+ 383 0112 0123     		movne	r3, #1	@, tmp117
+ 384 0114 DBB2     		uxtb	r3, r3	@ D.7359, tmp116
+ 210:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 385              		.loc 1 210 0
+ 386 0116 1846     		mov	r0, r3	@, <retval>
+ 387 0118 02B0     		add	sp, sp, #8	@,,
+ 388              		@ sp needed	@
+ 389 011a 7047     		bx	lr	@
+ 390              		.cfi_endproc
+ 391              	.LFE125:
+ 393              		.align	2
+ 394              		.global	SPI_PdcEnableTx
+ 395              		.thumb
+ 396              		.thumb_func
+ 398              	SPI_PdcEnableTx:
+ 399              	.LFB126:
+ 211:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 212:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 213:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Enable Spi PDC transmit
+ 214:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi  Pointer to an Spi instance.
+ 215:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** */
+ 216:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern void SPI_PdcEnableTx( Spi* spi )
+ 217:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 400              		.loc 1 217 0
+ 401              		.cfi_startproc
+ 402              		@ args = 0, pretend = 0, frame = 8
+ 403              		@ frame_needed = 0, uses_anonymous_args = 0
+ 404              		@ link register save eliminated.
+ 405 011c 82B0     		sub	sp, sp, #8	@,,
+ 406              		.cfi_def_cfa_offset 8
+ 407 011e 0190     		str	r0, [sp, #4]	@ spi, spi
+ 218:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_PTCR = SPI_PTCR_TXTEN ;
+ 408              		.loc 1 218 0
+ 409 0120 019B     		ldr	r3, [sp, #4]	@ tmp110, spi
+ 410 0122 4FF48072 		mov	r2, #256	@ tmp111,
+ 411 0126 C3F82021 		str	r2, [r3, #288]	@ tmp111, spi_1(D)->SPI_PTCR
+ 219:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 412              		.loc 1 219 0
+ 413 012a 02B0     		add	sp, sp, #8	@,,
+ 414              		@ sp needed	@
+ 415 012c 7047     		bx	lr	@
+ 416              		.cfi_endproc
+ 417              	.LFE126:
+ 419 012e 00BF     		.align	2
+ 420              		.global	SPI_PdcDisableTx
+ 421              		.thumb
+ 422              		.thumb_func
+ 424              	SPI_PdcDisableTx:
+ 425              	.LFB127:
+ 220:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 221:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 222:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Disable Spi PDC transmit
+ 223:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi  Pointer to an Spi instance.
+ 224:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** */
+ 225:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern void SPI_PdcDisableTx( Spi* spi )
+ 226:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 426              		.loc 1 226 0
+ 427              		.cfi_startproc
+ 428              		@ args = 0, pretend = 0, frame = 8
+ 429              		@ frame_needed = 0, uses_anonymous_args = 0
+ 430              		@ link register save eliminated.
+ 431 0130 82B0     		sub	sp, sp, #8	@,,
+ 432              		.cfi_def_cfa_offset 8
+ 433 0132 0190     		str	r0, [sp, #4]	@ spi, spi
+ 227:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_PTCR = SPI_PTCR_TXTDIS ;
+ 434              		.loc 1 227 0
+ 435 0134 019B     		ldr	r3, [sp, #4]	@ tmp110, spi
+ 436 0136 4FF40072 		mov	r2, #512	@ tmp111,
+ 437 013a C3F82021 		str	r2, [r3, #288]	@ tmp111, spi_1(D)->SPI_PTCR
+ 228:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 438              		.loc 1 228 0
+ 439 013e 02B0     		add	sp, sp, #8	@,,
+ 440              		@ sp needed	@
+ 441 0140 7047     		bx	lr	@
+ 442              		.cfi_endproc
+ 443              	.LFE127:
+ 445 0142 00BF     		.align	2
+ 446              		.global	SPI_PdcEnableRx
+ 447              		.thumb
+ 448              		.thumb_func
+ 450              	SPI_PdcEnableRx:
+ 451              	.LFB128:
+ 229:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 230:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 231:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Enable Spi PDC receive
+ 232:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi  Pointer to an Spi instance.
+ 233:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** */
+ 234:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern void SPI_PdcEnableRx( Spi* spi )
+ 235:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 452              		.loc 1 235 0
+ 453              		.cfi_startproc
+ 454              		@ args = 0, pretend = 0, frame = 8
+ 455              		@ frame_needed = 0, uses_anonymous_args = 0
+ 456              		@ link register save eliminated.
+ 457 0144 82B0     		sub	sp, sp, #8	@,,
+ 458              		.cfi_def_cfa_offset 8
+ 459 0146 0190     		str	r0, [sp, #4]	@ spi, spi
+ 236:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_PTCR = SPI_PTCR_RXTEN ;
+ 460              		.loc 1 236 0
+ 461 0148 019B     		ldr	r3, [sp, #4]	@ tmp110, spi
+ 462 014a 0122     		movs	r2, #1	@ tmp111,
+ 463 014c C3F82021 		str	r2, [r3, #288]	@ tmp111, spi_1(D)->SPI_PTCR
+ 237:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 464              		.loc 1 237 0
+ 465 0150 02B0     		add	sp, sp, #8	@,,
+ 466              		@ sp needed	@
+ 467 0152 7047     		bx	lr	@
+ 468              		.cfi_endproc
+ 469              	.LFE128:
+ 471              		.align	2
+ 472              		.global	SPI_PdcDisableRx
+ 473              		.thumb
+ 474              		.thumb_func
+ 476              	SPI_PdcDisableRx:
+ 477              	.LFB129:
+ 238:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 239:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 240:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Disable Spi PDC receive
+ 241:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi  Pointer to an Spi instance.
+ 242:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** */
+ 243:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern void SPI_PdcDisableRx( Spi* spi )
+ 244:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 478              		.loc 1 244 0
+ 479              		.cfi_startproc
+ 480              		@ args = 0, pretend = 0, frame = 8
+ 481              		@ frame_needed = 0, uses_anonymous_args = 0
+ 482              		@ link register save eliminated.
+ 483 0154 82B0     		sub	sp, sp, #8	@,,
+ 484              		.cfi_def_cfa_offset 8
+ 485 0156 0190     		str	r0, [sp, #4]	@ spi, spi
+ 245:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_PTCR = SPI_PTCR_RXTDIS ;
+ 486              		.loc 1 245 0
+ 487 0158 019B     		ldr	r3, [sp, #4]	@ tmp110, spi
+ 488 015a 0222     		movs	r2, #2	@ tmp111,
+ 489 015c C3F82021 		str	r2, [r3, #288]	@ tmp111, spi_1(D)->SPI_PTCR
+ 246:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 490              		.loc 1 246 0
+ 491 0160 02B0     		add	sp, sp, #8	@,,
+ 492              		@ sp needed	@
+ 493 0162 7047     		bx	lr	@
+ 494              		.cfi_endproc
+ 495              	.LFE129:
+ 497              		.align	2
+ 498              		.global	SPI_PdcSetTx
+ 499              		.thumb
+ 500              		.thumb_func
+ 502              	SPI_PdcSetTx:
+ 503              	.LFB130:
+ 247:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 248:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 249:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Set PDC transmit and next transmit buffer address and size.
+ 250:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+ 251:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi    Pointer to an Spi instance.
+ 252:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param txBuf  PDC transmit buffer address.
+ 253:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param txCount  Length in bytes of the transmit buffer.
+ 254:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param txNextBuf  PDC next transmit buffer address.
+ 255:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param txNextCount  Length in bytes of the next transmit buffer.
+ 256:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+ 257:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern void SPI_PdcSetTx( Spi* spi, void* pvTxBuf, uint32_t dwTxCount, void* pvTxNextBuf, uint32_t 
+ 258:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 504              		.loc 1 258 0
+ 505              		.cfi_startproc
+ 506              		@ args = 4, pretend = 0, frame = 16
+ 507              		@ frame_needed = 0, uses_anonymous_args = 0
+ 508              		@ link register save eliminated.
+ 509 0164 84B0     		sub	sp, sp, #16	@,,
+ 510              		.cfi_def_cfa_offset 16
+ 511 0166 0390     		str	r0, [sp, #12]	@ spi, spi
+ 512 0168 0291     		str	r1, [sp, #8]	@ pvTxBuf, pvTxBuf
+ 513 016a 0192     		str	r2, [sp, #4]	@ dwTxCount, dwTxCount
+ 514 016c 0093     		str	r3, [sp]	@ pvTxNextBuf, pvTxNextBuf
+ 259:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_TPR = (uint32_t)pvTxBuf ;
+ 515              		.loc 1 259 0
+ 516 016e 029A     		ldr	r2, [sp, #8]	@ pvTxBuf.1, pvTxBuf
+ 517 0170 039B     		ldr	r3, [sp, #12]	@ tmp112, spi
+ 518 0172 C3F80821 		str	r2, [r3, #264]	@ pvTxBuf.1, spi_3(D)->SPI_TPR
+ 260:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_TCR = dwTxCount ;
+ 519              		.loc 1 260 0
+ 520 0176 039B     		ldr	r3, [sp, #12]	@ tmp113, spi
+ 521 0178 019A     		ldr	r2, [sp, #4]	@ tmp114, dwTxCount
+ 522 017a C3F80C21 		str	r2, [r3, #268]	@ tmp114, spi_3(D)->SPI_TCR
+ 261:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_TNPR = (uint32_t)pvTxNextBuf ;
+ 523              		.loc 1 261 0
+ 524 017e 009A     		ldr	r2, [sp]	@ pvTxNextBuf.2, pvTxNextBuf
+ 525 0180 039B     		ldr	r3, [sp, #12]	@ tmp115, spi
+ 526 0182 C3F81821 		str	r2, [r3, #280]	@ pvTxNextBuf.2, spi_3(D)->SPI_TNPR
+ 262:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_TNCR = dwTxNextCount ;
+ 527              		.loc 1 262 0
+ 528 0186 039B     		ldr	r3, [sp, #12]	@ tmp116, spi
+ 529 0188 049A     		ldr	r2, [sp, #16]	@ tmp117, dwTxNextCount
+ 530 018a C3F81C21 		str	r2, [r3, #284]	@ tmp117, spi_3(D)->SPI_TNCR
+ 263:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 531              		.loc 1 263 0
+ 532 018e 04B0     		add	sp, sp, #16	@,,
+ 533              		@ sp needed	@
+ 534 0190 7047     		bx	lr	@
+ 535              		.cfi_endproc
+ 536              	.LFE130:
+ 538 0192 00BF     		.align	2
+ 539              		.global	SPI_PdcSetRx
+ 540              		.thumb
+ 541              		.thumb_func
+ 543              	SPI_PdcSetRx:
+ 544              	.LFB131:
+ 264:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 265:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 266:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Set PDC receive and next receive buffer address and size.
+ 267:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+ 268:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi    Pointer to an Spi instance.
+ 269:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param rxBuf  PDC receive buffer address.
+ 270:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param rxCount  Length in bytes of the receive buffer.
+ 271:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param rxNextBuf  PDC next receive buffer address.
+ 272:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param rxNextCount  Length in bytes of the next receive buffer.
+ 273:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+ 274:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern void SPI_PdcSetRx( Spi* spi, void* pvRxBuf, uint32_t dwRxCount, void* pvRxNextBuf, uint32_t 
+ 275:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 545              		.loc 1 275 0
+ 546              		.cfi_startproc
+ 547              		@ args = 4, pretend = 0, frame = 16
+ 548              		@ frame_needed = 0, uses_anonymous_args = 0
+ 549              		@ link register save eliminated.
+ 550 0194 84B0     		sub	sp, sp, #16	@,,
+ 551              		.cfi_def_cfa_offset 16
+ 552 0196 0390     		str	r0, [sp, #12]	@ spi, spi
+ 553 0198 0291     		str	r1, [sp, #8]	@ pvRxBuf, pvRxBuf
+ 554 019a 0192     		str	r2, [sp, #4]	@ dwRxCount, dwRxCount
+ 555 019c 0093     		str	r3, [sp]	@ pvRxNextBuf, pvRxNextBuf
+ 276:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_RPR = (uint32_t)pvRxBuf ;
+ 556              		.loc 1 276 0
+ 557 019e 029A     		ldr	r2, [sp, #8]	@ pvRxBuf.3, pvRxBuf
+ 558 01a0 039B     		ldr	r3, [sp, #12]	@ tmp112, spi
+ 559 01a2 C3F80021 		str	r2, [r3, #256]	@ pvRxBuf.3, spi_3(D)->SPI_RPR
+ 277:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_RCR = dwRxCount ;
+ 560              		.loc 1 277 0
+ 561 01a6 039B     		ldr	r3, [sp, #12]	@ tmp113, spi
+ 562 01a8 019A     		ldr	r2, [sp, #4]	@ tmp114, dwRxCount
+ 563 01aa C3F80421 		str	r2, [r3, #260]	@ tmp114, spi_3(D)->SPI_RCR
+ 278:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_RNPR = (uint32_t)pvRxNextBuf ;
+ 564              		.loc 1 278 0
+ 565 01ae 009A     		ldr	r2, [sp]	@ pvRxNextBuf.4, pvRxNextBuf
+ 566 01b0 039B     		ldr	r3, [sp, #12]	@ tmp115, spi
+ 567 01b2 C3F81021 		str	r2, [r3, #272]	@ pvRxNextBuf.4, spi_3(D)->SPI_RNPR
+ 279:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     spi->SPI_RNCR = dwRxNextCount ;
+ 568              		.loc 1 279 0
+ 569 01b6 039B     		ldr	r3, [sp, #12]	@ tmp116, spi
+ 570 01b8 049A     		ldr	r2, [sp, #16]	@ tmp117, dwRxNextCount
+ 571 01ba C3F81421 		str	r2, [r3, #276]	@ tmp117, spi_3(D)->SPI_RNCR
+ 280:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 572              		.loc 1 280 0
+ 573 01be 04B0     		add	sp, sp, #16	@,,
+ 574              		@ sp needed	@
+ 575 01c0 7047     		bx	lr	@
+ 576              		.cfi_endproc
+ 577              	.LFE131:
+ 579 01c2 00BF     		.align	2
+ 580              		.global	SPI_WriteBuffer
+ 581              		.thumb
+ 582              		.thumb_func
+ 584              	SPI_WriteBuffer:
+ 585              	.LFB132:
+ 281:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 282:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 283:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Sends the contents of buffer through a SPI peripheral, using the PDC to
+ 284:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * take care of the transfer.
+ 285:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+ 286:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi     Pointer to an Spi instance.
+ 287:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param buffer  Data buffer to send.
+ 288:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param length  Length of the data buffer.
+ 289:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+ 290:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern uint32_t SPI_WriteBuffer( Spi* spi, void* pvBuffer, uint32_t dwLength )
+ 291:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 586              		.loc 1 291 0
+ 587              		.cfi_startproc
+ 588              		@ args = 0, pretend = 0, frame = 16
+ 589              		@ frame_needed = 0, uses_anonymous_args = 0
+ 590              		@ link register save eliminated.
+ 591 01c4 84B0     		sub	sp, sp, #16	@,,
+ 592              		.cfi_def_cfa_offset 16
+ 593 01c6 0390     		str	r0, [sp, #12]	@ spi, spi
+ 594 01c8 0291     		str	r1, [sp, #8]	@ pvBuffer, pvBuffer
+ 595 01ca 0192     		str	r2, [sp, #4]	@ dwLength, dwLength
+ 292:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     /* Check if first bank is free */
+ 293:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     if ( spi->SPI_TCR == 0 )
+ 596              		.loc 1 293 0
+ 597 01cc 039B     		ldr	r3, [sp, #12]	@ tmp116, spi
+ 598 01ce D3F80C31 		ldr	r3, [r3, #268]	@ D.7362, spi_2(D)->SPI_TCR
+ 599 01d2 002B     		cmp	r3, #0	@ D.7362,
+ 600 01d4 0ED1     		bne	.L24	@,
+ 294:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     {
+ 295:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****         spi->SPI_TPR = (uint32_t)pvBuffer ;
+ 601              		.loc 1 295 0
+ 602 01d6 029A     		ldr	r2, [sp, #8]	@ pvBuffer.5, pvBuffer
+ 603 01d8 039B     		ldr	r3, [sp, #12]	@ tmp117, spi
+ 604 01da C3F80821 		str	r2, [r3, #264]	@ pvBuffer.5, spi_2(D)->SPI_TPR
+ 296:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****         spi->SPI_TCR = dwLength ;
+ 605              		.loc 1 296 0
+ 606 01de 039B     		ldr	r3, [sp, #12]	@ tmp118, spi
+ 607 01e0 019A     		ldr	r2, [sp, #4]	@ tmp119, dwLength
+ 608 01e2 C3F80C21 		str	r2, [r3, #268]	@ tmp119, spi_2(D)->SPI_TCR
+ 297:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****         spi->SPI_PTCR = PERIPH_PTCR_TXTEN ;
+ 609              		.loc 1 297 0
+ 610 01e6 039B     		ldr	r3, [sp, #12]	@ tmp120, spi
+ 611 01e8 4FF48072 		mov	r2, #256	@ tmp121,
+ 612 01ec C3F82021 		str	r2, [r3, #288]	@ tmp121, spi_2(D)->SPI_PTCR
+ 298:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 299:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****         return 1 ;
+ 613              		.loc 1 299 0
+ 614 01f0 0123     		movs	r3, #1	@ D.7361,
+ 615 01f2 0FE0     		b	.L25	@
+ 616              	.L24:
+ 300:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     }
+ 301:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     /* Check if second bank is free */
+ 302:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     else
+ 303:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     {
+ 304:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****         if ( spi->SPI_TNCR == 0 )
+ 617              		.loc 1 304 0
+ 618 01f4 039B     		ldr	r3, [sp, #12]	@ tmp122, spi
+ 619 01f6 D3F81C31 		ldr	r3, [r3, #284]	@ D.7362, spi_2(D)->SPI_TNCR
+ 620 01fa 002B     		cmp	r3, #0	@ D.7362,
+ 621 01fc 09D1     		bne	.L26	@,
+ 305:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****         {
+ 306:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****             spi->SPI_TNPR = (uint32_t)pvBuffer ;
+ 622              		.loc 1 306 0
+ 623 01fe 029A     		ldr	r2, [sp, #8]	@ pvBuffer.6, pvBuffer
+ 624 0200 039B     		ldr	r3, [sp, #12]	@ tmp123, spi
+ 625 0202 C3F81821 		str	r2, [r3, #280]	@ pvBuffer.6, spi_2(D)->SPI_TNPR
+ 307:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****             spi->SPI_TNCR = dwLength ;
+ 626              		.loc 1 307 0
+ 627 0206 039B     		ldr	r3, [sp, #12]	@ tmp124, spi
+ 628 0208 019A     		ldr	r2, [sp, #4]	@ tmp125, dwLength
+ 629 020a C3F81C21 		str	r2, [r3, #284]	@ tmp125, spi_2(D)->SPI_TNCR
+ 308:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 309:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****             return 1 ;
+ 630              		.loc 1 309 0
+ 631 020e 0123     		movs	r3, #1	@ D.7361,
+ 632 0210 00E0     		b	.L25	@
+ 633              	.L26:
+ 310:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****         }
+ 311:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     }
+ 312:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 313:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     /* No free banks */
+ 314:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     return 0 ;
+ 634              		.loc 1 314 0
+ 635 0212 0023     		movs	r3, #0	@ D.7361,
+ 636              	.L25:
+ 315:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 637              		.loc 1 315 0
+ 638 0214 1846     		mov	r0, r3	@, <retval>
+ 639 0216 04B0     		add	sp, sp, #16	@,,
+ 640              		@ sp needed	@
+ 641 0218 7047     		bx	lr	@
+ 642              		.cfi_endproc
+ 643              	.LFE132:
+ 645 021a 00BF     		.align	2
+ 646              		.global	SPI_ReadBuffer
+ 647              		.thumb
+ 648              		.thumb_func
+ 650              	SPI_ReadBuffer:
+ 651              	.LFB133:
+ 316:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 317:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** /**
+ 318:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \brief Reads data from a SPI peripheral until the provided buffer is filled. This
+ 319:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * method does NOT need to be called after SPI_Write or SPI_WriteBuffer.
+ 320:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  *
+ 321:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param spi     Pointer to an Spi instance.
+ 322:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param buffer  Data buffer to store incoming bytes.
+ 323:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  * \param length  Length in bytes of the data buffer.
+ 324:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****  */
+ 325:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** extern uint32_t SPI_ReadBuffer( Spi* spi, void *pvBuffer, uint32_t dwLength )
+ 326:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** {
+ 652              		.loc 1 326 0
+ 653              		.cfi_startproc
+ 654              		@ args = 0, pretend = 0, frame = 16
+ 655              		@ frame_needed = 0, uses_anonymous_args = 0
+ 656              		@ link register save eliminated.
+ 657 021c 84B0     		sub	sp, sp, #16	@,,
+ 658              		.cfi_def_cfa_offset 16
+ 659 021e 0390     		str	r0, [sp, #12]	@ spi, spi
+ 660 0220 0291     		str	r1, [sp, #8]	@ pvBuffer, pvBuffer
+ 661 0222 0192     		str	r2, [sp, #4]	@ dwLength, dwLength
+ 327:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     /* Check if the first bank is free */
+ 328:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     if ( spi->SPI_RCR == 0 )
+ 662              		.loc 1 328 0
+ 663 0224 039B     		ldr	r3, [sp, #12]	@ tmp116, spi
+ 664 0226 D3F80431 		ldr	r3, [r3, #260]	@ D.7364, spi_2(D)->SPI_RCR
+ 665 022a 002B     		cmp	r3, #0	@ D.7364,
+ 666 022c 0DD1     		bne	.L28	@,
+ 329:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     {
+ 330:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****         spi->SPI_RPR = (uint32_t)pvBuffer ;
+ 667              		.loc 1 330 0
+ 668 022e 029A     		ldr	r2, [sp, #8]	@ pvBuffer.7, pvBuffer
+ 669 0230 039B     		ldr	r3, [sp, #12]	@ tmp117, spi
+ 670 0232 C3F80021 		str	r2, [r3, #256]	@ pvBuffer.7, spi_2(D)->SPI_RPR
+ 331:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****         spi->SPI_RCR = dwLength ;
+ 671              		.loc 1 331 0
+ 672 0236 039B     		ldr	r3, [sp, #12]	@ tmp118, spi
+ 673 0238 019A     		ldr	r2, [sp, #4]	@ tmp119, dwLength
+ 674 023a C3F80421 		str	r2, [r3, #260]	@ tmp119, spi_2(D)->SPI_RCR
+ 332:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****         spi->SPI_PTCR = PERIPH_PTCR_RXTEN ;
+ 675              		.loc 1 332 0
+ 676 023e 039B     		ldr	r3, [sp, #12]	@ tmp120, spi
+ 677 0240 0122     		movs	r2, #1	@ tmp121,
+ 678 0242 C3F82021 		str	r2, [r3, #288]	@ tmp121, spi_2(D)->SPI_PTCR
+ 333:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 334:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****         return 1 ;
+ 679              		.loc 1 334 0
+ 680 0246 0123     		movs	r3, #1	@ D.7363,
+ 681 0248 0FE0     		b	.L29	@
+ 682              	.L28:
+ 335:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     }
+ 336:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     /* Check if second bank is free */
+ 337:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     else
+ 338:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     {
+ 339:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****         if ( spi->SPI_RNCR == 0 )
+ 683              		.loc 1 339 0
+ 684 024a 039B     		ldr	r3, [sp, #12]	@ tmp122, spi
+ 685 024c D3F81431 		ldr	r3, [r3, #276]	@ D.7364, spi_2(D)->SPI_RNCR
+ 686 0250 002B     		cmp	r3, #0	@ D.7364,
+ 687 0252 09D1     		bne	.L30	@,
+ 340:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****         {
+ 341:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****             spi->SPI_RNPR = (uint32_t)pvBuffer ;
+ 688              		.loc 1 341 0
+ 689 0254 029A     		ldr	r2, [sp, #8]	@ pvBuffer.8, pvBuffer
+ 690 0256 039B     		ldr	r3, [sp, #12]	@ tmp123, spi
+ 691 0258 C3F81021 		str	r2, [r3, #272]	@ pvBuffer.8, spi_2(D)->SPI_RNPR
+ 342:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****             spi->SPI_RNCR = dwLength ;
+ 692              		.loc 1 342 0
+ 693 025c 039B     		ldr	r3, [sp, #12]	@ tmp124, spi
+ 694 025e 019A     		ldr	r2, [sp, #4]	@ tmp125, dwLength
+ 695 0260 C3F81421 		str	r2, [r3, #276]	@ tmp125, spi_2(D)->SPI_RNCR
+ 343:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****             return 1 ;
+ 696              		.loc 1 343 0
+ 697 0264 0123     		movs	r3, #1	@ D.7363,
+ 698 0266 00E0     		b	.L29	@
+ 699              	.L30:
+ 344:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****         }
+ 345:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     }
+ 346:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** 
+ 347:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     /* No free bank */
+ 348:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c ****     return 0 ;
+ 700              		.loc 1 348 0
+ 701 0268 0023     		movs	r3, #0	@ D.7363,
+ 702              	.L29:
+ 349:SAM4S_StdPeriph_Driver/Source/SAM4S/source/spi.c **** }
+ 703              		.loc 1 349 0
+ 704 026a 1846     		mov	r0, r3	@, <retval>
+ 705 026c 04B0     		add	sp, sp, #16	@,,
+ 706              		@ sp needed	@
+ 707 026e 7047     		bx	lr	@
+ 708              		.cfi_endproc
+ 709              	.LFE133:
+ 711              	.Letext0:
+ 712              		.file 2 "d:\\armgcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 713              		.file 3 "d:\\armgcc\\arm-none-eabi\\include\\stdint.h"
+ 714              		.file 4 "SAM4S_StdPeriph_Driver/Include/SAM4S/component/spi.h"
+ 715              		.file 5 "cmsis_core/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 spi.c
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:62     .text:00000000 $t
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:67     .text:00000000 SPI_Enable
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:94     .text:00000010 SPI_Disable
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:120    .text:00000020 SPI_EnableIt
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:147    .text:00000030 SPI_DisableIt
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:174    .text:00000040 SPI_Configure
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:219    .text:00000070 SPI_ConfigureNPCS
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:249    .text:00000088 SPI_GetStatus
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:275    .text:00000098 SPI_Read
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:311    .text:000000b8 SPI_Write
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:366    .text:00000100 SPI_IsFinished
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:398    .text:0000011c SPI_PdcEnableTx
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:424    .text:00000130 SPI_PdcDisableTx
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:450    .text:00000144 SPI_PdcEnableRx
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:476    .text:00000154 SPI_PdcDisableRx
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:502    .text:00000164 SPI_PdcSetTx
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:543    .text:00000194 SPI_PdcSetRx
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:584    .text:000001c4 SPI_WriteBuffer
+C:\Users\Spas\AppData\Local\Temp\ccJxWHoa.s:650    .text:0000021c SPI_ReadBuffer
+                     .debug_frame:00000010 $d
+                           .group:00000000 wm4.0.bb49f1eb716983c9014b6db3ebb18dd1
+                           .group:00000000 wm4.chip.h.31.ffb1374c8cfd711bf08b18cb482cdecd
+                           .group:00000000 wm4.features.h.22.6a4ca7cd053637cc1d0db6c16f39b2d7
+                           .group:00000000 wm4._default_types.h.15.8b2cb27e528498f8ff711db085d6e489
+                           .group:00000000 wm4.stdint.h.20.796e373797e732130a803d4c0338fa1b
+                           .group:00000000 wm4.sam4s8b.h.216.85427310ee57c6602cdb44976ff8eafc
+                           .group:00000000 wm4.core_cm4.h.47.facd8ba456d1edc74a9cd34e5ef24231
+                           .group:00000000 wm4.core_cmInstr.h.39.3d3d1b4a79aef37532666dc6ee87c6ac
+                           .group:00000000 wm4.core_cm4_simd.h.43.d8e10c63b7db2f2a1586965c37b6affe
+                           .group:00000000 wm4.core_cm4.h.178.877dd53394110c198a69aa86aba65870
+                           .group:00000000 wm4.acc.h.31.dfd29459e721169d72014eb762f71214
+                           .group:00000000 wm4.adc.h.31.c6656640e20d1eafe623af86cb226fca
+                           .group:00000000 wm4.chipid.h.31.3af5a36d0a4a9a225c9afb52a1aea0b9
+                           .group:00000000 wm4.crccu.h.31.a496852d13935483993734d587fc2f8e
+                           .group:00000000 wm4.dacc.h.31.c9217b43fde87abb246765d0ddcb9c5a
+                           .group:00000000 wm4.efc.h.31.0bf8e93e6585804f24ede0a4e728599a
+                           .group:00000000 wm4.gpbr.h.31.7a5e3dd0c356c6b68d5c512bbdf67f08
+                           .group:00000000 wm4.hsmci.h.31.9d224a62fa1ec786508b485b0627d948
+                           .group:00000000 wm4.matrix.h.31.c705893f10dd90abec557434f19f4c80
+                           .group:00000000 wm4.pdc.h.31.e2d19841c81c9c2bbeeb400b89d315b5
+                           .group:00000000 wm4.pio.h.31.8c8983d26a861f040f0f117c14ec06d2
+                           .group:00000000 wm4.pmc.h.31.ee762809cf9b67f8c369267b7f38d1b3
+                           .group:00000000 wm4.pwm.h.31.da9b7d8dc8ac9c261fdee7e206bdee45
+                           .group:00000000 wm4.rstc.h.31.96e972cc48a3044e9dca7f2d844f33fb
+                           .group:00000000 wm4.rtc.h.31.f40a4fc6ecffe9e0a8284c655825715f
+                           .group:00000000 wm4.rtt.h.31.f70870f04ef5dbcac3269f990b758352
+                           .group:00000000 wm4.spi.h.31.f86a4b9d7f4ee32bf9133e4926aa8885
+                           .group:00000000 wm4.ssc.h.31.b805b08edc780a096d6650d6ca36d1ca
+                           .group:00000000 wm4.supc.h.31.131b9cb8083389b79a4bd5bf451243ef
+                           .group:00000000 wm4.tc.h.31.8da8c788d3223db5455d03e5435ef8db
+                           .group:00000000 wm4.twi.h.31.22147bf5d3d32053731c632df0e79c3c
+                           .group:00000000 wm4.uart.h.31.8e28760a665c54768e00ff4c7a643590
+                           .group:00000000 wm4.udp.h.31.edd1ad37d3ebc2c446bab55b82a89df9
+                           .group:00000000 wm4.usart.h.31.f84a5833fa97905e15d92372b7a4d3aa
+                           .group:00000000 wm4.wdt.h.31.bf9508cda074277d961fffa2c014b7c4
+                           .group:00000000 wm4.hsmci.h.31.3557701962362e69e14e53f685fa289c
+                           .group:00000000 wm4.ssc.h.31.b3090d071ea322e9320de7b3374b6c7d
+                           .group:00000000 wm4.spi.h.31.0c099f04fc71f13866451dd19f165ce5
+                           .group:00000000 wm4.tc0.h.31.82f2382972b60e05b032ad12082a9b88
+                           .group:00000000 wm4.tc1.h.31.a45ad165f1e4a4be41030d128002f2e1
+                           .group:00000000 wm4.twi0.h.31.a2f6579ad734afdd1f8957b7fc33aa94
+                           .group:00000000 wm4.twi1.h.31.dcb9c8cbe7f017d537033c87ba5ff61b
+                           .group:00000000 wm4.pwm.h.31.2d9663b87a377027ead59c1615e3084b
+                           .group:00000000 wm4.usart0.h.31.ec6af36a3993709e003c7713e45e6d44
+                           .group:00000000 wm4.usart1.h.31.eafbafd9baa63489c7d4b47b07dd4359
+                           .group:00000000 wm4.udp.h.31.72bce9f16287d99e27dc398746c7b41a
+                           .group:00000000 wm4.adc.h.31.d1d169655aedc0ac5464b9bc3e038d91
+                           .group:00000000 wm4.dacc.h.31.f498d7e9c6281f6aa2a76955bd19179f
+                           .group:00000000 wm4.acc.h.31.bd89452c6f6042da160b09b91f7b4ad6
+                           .group:00000000 wm4.crccu.h.31.0f8ee11e21f25cd8f0d59ee9bd2d6017
+                           .group:00000000 wm4.matrix.h.31.16f7506a18ec96f1a889a659d8f54158
+                           .group:00000000 wm4.pmc.h.31.8ee9f69608f942cb1f3f8bedac24c137
+                           .group:00000000 wm4.uart0.h.31.107626f9f656553c6d028df3e0c36652
+                           .group:00000000 wm4.chipid.h.31.3d621c981fbba4cbcdf919961d16a7e0
+                           .group:00000000 wm4.uart1.h.31.8229a0a664aa704025162a106c6f1697
+                           .group:00000000 wm4.efc0.h.31.aa56af1c721ea83a50dc1967a8959b7e
+                           .group:00000000 wm4.pioa.h.31.577ac2183c73a1a02e92e91a0e37e8fe
+                           .group:00000000 wm4.piob.h.31.3d18377ca5f71fef4e536cd97e1dced2
+                           .group:00000000 wm4.pioc.h.31.9fd85e02d9919f268f52f61ee7874ed4
+                           .group:00000000 wm4.rstc.h.31.d42d559221b78874dbf800ea2429b8d0
+                           .group:00000000 wm4.supc.h.31.851dbe7e029de2cc98417e6c6ce74d66
+                           .group:00000000 wm4.rtt.h.31.b6f3540f51d07e433e9f2b607b78fa5d
+                           .group:00000000 wm4.wdt.h.31.e29a378018b6da05e80df7a7d3fae91a
+                           .group:00000000 wm4.rtc.h.31.62bff3fa21e4de3cfaf653749f73ca5b
+                           .group:00000000 wm4.gpbr.h.31.a690ec9ac14ca127f47cc304a062f896
+                           .group:00000000 wm4.sam4s8b.h.310.cfe4025ce42f19fc6dad5600399e6497
+                           .group:00000000 wm4.sam4s8b.h.31.bac0ae8aa6a8295f4ede171816a1bfbd
+                           .group:00000000 wm4.sam4s8b.h.455.d99766a935df92fcae5a6292daf0b9af
+                           .group:00000000 wm4.newlib.h.8.fec018e441fee7bfa1923812ad010f97
+                           .group:00000000 wm4.config.h.212.4163ef2871a828c674038d036b081cfd
+                           .group:00000000 wm4._ansi.h.23.2147fde150631f5584b9dc29b914d1b8
+                           .group:00000000 wm4.assert.h.11.7fe9eb241be6b0fee772a1e693b81ae3
+                           .group:00000000 wm4.acc.h.61.44cfae6040af09278183f92220a11c11
+                           .group:00000000 wm4.assert.h.11.7043852a511d37ae606afa012e67e471
+                           .group:00000000 wm4.adc.h.62.836e1c74f33a3b2357c489804b9e4164
+                           .group:00000000 wm4.async.h.38.b923efd27c82eb8a5a30fb0d9a711171
+                           .group:00000000 wm4.dacc.h.61.de15528749b6a5508d4e234e0989531c
+                           .group:00000000 wm4.efc.h.51.dca436509f69196baef24b3ff3ad1b51
+                           .group:00000000 wm4.flashd.h.38.2c9bfdc532d7034a024627acda3e3c0b
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.184.159df79b4ca79c76561572a55985524c
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.stddef.h.39.7e3d906ac58942e0b374c527445f5de5
+                           .group:00000000 wm4.lock.h.2.9bc98482741e5e2a9450b12934a684ea
+                           .group:00000000 wm4._types.h.54.d3d34a3b7f3cc230cd159baf022b4b08
+                           .group:00000000 wm4.stddef.h.158.61317cdbfb4026324507d123a50b0fd6
+                           .group:00000000 wm4.reent.h.17.8bd9e4098e0428508c282cad794fae43
+                           .group:00000000 wm4.types.h.23.0d949686bbcadd1621462d4fa1f884f9
+                           .group:00000000 wm4.types.h.2.e9cec8c90ab35f77d9f499e06ae02400
+                           .group:00000000 wm4.types.h.80.56707660962b21991903f1fee7c13bb3
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.64.0f05fa42cfe2db7fc44729a52d3ba948
+                           .group:00000000 wm4.hsmci.h.110.610f58f6a31861e37bc09b5b7be09388
+                           .group:00000000 wm4.pio.h.68.5d85e14ea6ea0da924da53053bc590d1
+                           .group:00000000 wm4.rtc.h.38.8bf78db8651343e80a889203827406a5
+                           .group:00000000 wm4.spi.h.38.450641354031b1013c08519149294c78
+                           .group:00000000 wm4.spi_pdc.h.38.75857b1dd4449731562322c9709581d8
+                           .group:00000000 wm4.twi.h.38.68f2e661eb174ca9ca74eef9740d9a3a
+                           .group:00000000 wm4.twid.h.31.9ea8c90af654647ca4d6e3b74e701509
+                           .group:00000000 wm4.usart.h.55.88c716ee7c3b6ed0339de6e194786a12
+                           .group:00000000 wm4.trace.h.65.364d8fb880402737deb1646f3fc9e1eb
+                           .group:00000000 wm4.chip.h.106.a1f123eb25606bfd56ed06360bda02b0
+
+UNDEFINED SYMBOLS
+PMC_EnablePeripheral

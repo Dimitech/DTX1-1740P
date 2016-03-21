@@ -1,0 +1,1100 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
+   5              		.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
+   6              		.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
+   7              		.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
+   8              		.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
+   9              		.eabi_attribute 26, 1	@ Tag_ABI_enum_size
+  10              		.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
+  11              		.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
+  12              		.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
+  13              		.file	"system_sam4s.c"
+  14              	@ GNU C (GNU Tools for ARM Embedded Processors) version 4.8.4 20140725 (release) [ARM/embedded-4_8-
+  15              	@	compiled by GNU C version 4.7.4, GMP version 4.3.2, MPFR version 2.4.2, MPC version 0.8.1
+  16              	@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+  17              	@ options passed:  -I . -I apps -I apps/inc -I apps/src -I apps/src/fonts
+  18              	@ -I cmsis_boot -I cmsis_boot/startup -I cmsis_core
+  19              	@ -I SAM4S_StdPeriph_Driver -I SAM4S_StdPeriph_Driver/Include
+  20              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S
+  21              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/component
+  22              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/instance
+  23              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/pio
+  24              	@ -I SAM4S_StdPeriph_Driver/Source -I SAM4S_StdPeriph_Driver/Source/SAM4S
+  25              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/include
+  26              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/source -I user_libs
+  27              	@ -I user_libs/inc -I user_libs/src -imultilib armv7e-m
+  28              	@ -iprefix d:\armgcc\bin\../lib/gcc/arm-none-eabi/4.8.4/
+  29              	@ -isysroot d:\armgcc\bin\../arm-none-eabi
+  30              	@ -MD out/cmsis_boot/system_sam4s.d -MF out/cmsis_boot/system_sam4s.o.dep
+  31              	@ -MP -MQ out/cmsis_boot/system_sam4s.o -D__USES_INITFINI__ -D gcc
+  32              	@ cmsis_boot/system_sam4s.c -mcpu=cortex-m4 -mthumb
+  33              	@ -auxbase-strip out/cmsis_boot/system_sam4s.o -ggdb3 -O0 -Wall
+  34              	@ -Wpointer-arith -Wswitch -Wnested-externs -std=gnu99 -fomit-frame-pointer
+  35              	@ -fverbose-asm -funsigned-char
+  36              	@ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
+  37              	@ -fbranch-count-reg -fcommon -fdelete-null-pointer-checks -fdwarf2-cfi-asm
+  38              	@ -fearly-inlining -feliminate-unused-debug-types -ffunction-cse -fgcse-lm
+  39              	@ -fgnu-runtime -fgnu-unique -fident -finline-atomics -fira-hoist-pressure
+  40              	@ -fira-share-save-slots -fira-share-spill-slots -fivopts
+  41              	@ -fkeep-static-consts -fleading-underscore -fmath-errno
+  42              	@ -fmerge-debug-strings -fmove-loop-invariants -fomit-frame-pointer
+  43              	@ -fpeephole -fprefetch-loop-arrays -freg-struct-return
+  44              	@ -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  45              	@ -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  46              	@ -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  47              	@ -fsched-stalled-insns-dep -fshow-column -fsigned-zeros
+  48              	@ -fsplit-ivs-in-unroller -fstrict-volatile-bitfields -fsync-libcalls
+  49              	@ -ftrapping-math -ftree-coalesce-vars -ftree-cselim -ftree-forwprop
+  50              	@ -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
+  51              	@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop -ftree-pta
+  52              	@ -ftree-reassoc -ftree-scev-cprop -ftree-slp-vectorize
+  53              	@ -ftree-vect-loop-version -funit-at-a-time -fverbose-asm
+  54              	@ -fzero-initialized-in-bss -mlittle-endian -mpic-data-is-text-relative
+  55              	@ -msched-prolog -mthumb -munaligned-access -mvectorize-with-neon-quad
+  56              	
+  57              		.text
+  58              	.Ltext0:
+  59              		.cfi_sections	.debug_frame
+  60              		.global	SystemCoreClock
+  61              		.data
+  62              		.align	2
+  65              	SystemCoreClock:
+  66 0000 001BB700 		.word	12000000
+  67              		.text
+  68              		.align	2
+  69              		.global	SystemCoreClockUpdate
+  70              		.thumb
+  71              		.thumb_func
+  73              	SystemCoreClockUpdate:
+  74              	.LFB116:
+  75              		.file 1 "cmsis_boot/system_sam4s.c"
+   1:cmsis_boot/system_sam4s.c **** /**************************************************************************//**
+   2:cmsis_boot/system_sam4s.c ****  * @file     system_SAM4S.c
+   3:cmsis_boot/system_sam4s.c ****  * @brief    CMSIS Cortex-M4 Device System Source File
+   4:cmsis_boot/system_sam4s.c ****  *           for Atmel SAM4S Device Series
+   5:cmsis_boot/system_sam4s.c ****  * @version  V1.10
+   6:cmsis_boot/system_sam4s.c ****  * @date     05. March 2013
+   7:cmsis_boot/system_sam4s.c ****  *
+   8:cmsis_boot/system_sam4s.c ****  * @note
+   9:cmsis_boot/system_sam4s.c ****  * Copyright (C) 2012-2013 ARM Limited. All rights reserved.
+  10:cmsis_boot/system_sam4s.c ****  *
+  11:cmsis_boot/system_sam4s.c ****  * @par
+  12:cmsis_boot/system_sam4s.c ****  * ARM Limited (ARM) is supplying this software for use with Cortex-M
+  13:cmsis_boot/system_sam4s.c ****  * processor based microcontrollers.  This file can be freely distributed
+  14:cmsis_boot/system_sam4s.c ****  * within development tools that are supporting such ARM based processors.
+  15:cmsis_boot/system_sam4s.c ****  *
+  16:cmsis_boot/system_sam4s.c ****  * @par
+  17:cmsis_boot/system_sam4s.c ****  * THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
+  18:cmsis_boot/system_sam4s.c ****  * OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
+  19:cmsis_boot/system_sam4s.c ****  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
+  20:cmsis_boot/system_sam4s.c ****  * ARM SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR
+  21:cmsis_boot/system_sam4s.c ****  * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
+  22:cmsis_boot/system_sam4s.c ****  *
+  23:cmsis_boot/system_sam4s.c ****  ******************************************************************************/
+  24:cmsis_boot/system_sam4s.c **** 
+  25:cmsis_boot/system_sam4s.c **** #include <stdint.h>
+  26:cmsis_boot/system_sam4s.c **** #include "chip.h"                      // Device header
+  27:cmsis_boot/system_sam4s.c **** 
+  28:cmsis_boot/system_sam4s.c **** /*
+  29:cmsis_boot/system_sam4s.c **** //-------- <<< Use Configuration Wizard in Context Menu >>> ------------------
+  30:cmsis_boot/system_sam4s.c **** */
+  31:cmsis_boot/system_sam4s.c **** 
+  32:cmsis_boot/system_sam4s.c **** /*--------------------- Embedded Flash Controllers Configuration -------------
+  33:cmsis_boot/system_sam4s.c **** //
+  34:cmsis_boot/system_sam4s.c **** // <e0> Embedded Flash Controller  (EEFC)
+  35:cmsis_boot/system_sam4s.c **** //   <o1.8..11>  FWS: Flash Wait State <1-16><#-1>
+  36:cmsis_boot/system_sam4s.c **** //   <o1.24>     FAM: Flash Access Mode
+  37:cmsis_boot/system_sam4s.c **** //                 <0=> 128-bit in read mode (enhance speed)
+  38:cmsis_boot/system_sam4s.c **** //                 <1=> 64-bit in read mode (enhance power consumption)
+  39:cmsis_boot/system_sam4s.c **** // </e0>
+  40:cmsis_boot/system_sam4s.c **** */
+  41:cmsis_boot/system_sam4s.c **** #define EEFC_SETUP      1               // Reset values:
+  42:cmsis_boot/system_sam4s.c **** #define EEFC_FMR_Val    0x00000500      // 0x00000000
+  43:cmsis_boot/system_sam4s.c **** 
+  44:cmsis_boot/system_sam4s.c **** 
+  45:cmsis_boot/system_sam4s.c **** /*--------------------- Power Management Controller Configuration ------------
+  46:cmsis_boot/system_sam4s.c **** //
+  47:cmsis_boot/system_sam4s.c **** // <e> Power Management Controller (PMC)
+  48:cmsis_boot/system_sam4s.c **** //   <h> System Clock Enable Register (PMC_SCER)
+  49:cmsis_boot/system_sam4s.c **** //     <o1.7>      UDP:  USB Device Port Clock Enable
+  50:cmsis_boot/system_sam4s.c **** //     <o1.8>      PCK0: Programmable Clock 0 Output Enable
+  51:cmsis_boot/system_sam4s.c **** //     <o1.9>      PCK1: Programmable Clock 1 Output Enable
+  52:cmsis_boot/system_sam4s.c **** //     <o1.10>     PCK2: Programmable Clock 2 Output Enable
+  53:cmsis_boot/system_sam4s.c **** //   </h>
+  54:cmsis_boot/system_sam4s.c **** //
+  55:cmsis_boot/system_sam4s.c **** //   <h> Peripheral Clock Enable Register 0 (PMC_PCER0)
+  56:cmsis_boot/system_sam4s.c **** //     <o2.2>      PID2:  Real Time Clock Clock Enable
+  57:cmsis_boot/system_sam4s.c **** //     <o2.3>      PID3:  Real Time Timer Clock Enable
+  58:cmsis_boot/system_sam4s.c **** //     <o2.4>      PID4:  Watchdog Timer Clock Enable
+  59:cmsis_boot/system_sam4s.c **** //     <o2.5>      PID5:  Power Management Controller Clock Enable
+  60:cmsis_boot/system_sam4s.c **** //     <o2.6>      PID6:  Enhanced Embedded Flash Controller Clock Enable
+  61:cmsis_boot/system_sam4s.c **** //     <o2.8>      PID8:  UART 0 Clock Enable
+  62:cmsis_boot/system_sam4s.c **** //     <o2.9>      PID9:  UART 1 Clock Enable Clock Enable
+  63:cmsis_boot/system_sam4s.c **** //     <o2.10>     PID10: Static Memory Controller Clock Enable
+  64:cmsis_boot/system_sam4s.c **** //     <o2.11>     PID11: Parallel I/O Controller A Clock Enable
+  65:cmsis_boot/system_sam4s.c **** //     <o2.12>     PID12: Parallel I/O Controller B Clock Enable
+  66:cmsis_boot/system_sam4s.c **** //     <o2.13>     PID13: Parallel I/O Controller C Clock Enable
+  67:cmsis_boot/system_sam4s.c **** //     <o2.14>     PID14: USART 0 Clock Enable
+  68:cmsis_boot/system_sam4s.c **** //     <o2.15>     PID15: USART 1 Clock Enable
+  69:cmsis_boot/system_sam4s.c **** //     <o2.18>     PID18: Multimedia Card Interface Clock Enable
+  70:cmsis_boot/system_sam4s.c **** //     <o2.19>     PID19: Two-wire Interface 0 Clock Enable
+  71:cmsis_boot/system_sam4s.c **** //     <o2.20>     PID20: Two-wire Interface 1 Clock Enable
+  72:cmsis_boot/system_sam4s.c **** //     <o2.21>     PID21: Serial Peripheral Interface Clock Enable
+  73:cmsis_boot/system_sam4s.c **** //     <o2.22>     PID22: Synchronous Serial Controller Clock Enable
+  74:cmsis_boot/system_sam4s.c **** //     <o2.23>     PID23: Timer Counter 0 Clock Enable
+  75:cmsis_boot/system_sam4s.c **** //     <o2.24>     PID24: Timer Counter 1 Clock Enable
+  76:cmsis_boot/system_sam4s.c **** //     <o2.25>     PID25: Timer Counter 2 Clock Enable
+  77:cmsis_boot/system_sam4s.c **** //     <o2.26>     PID26: Timer Counter 3 Clock Enable
+  78:cmsis_boot/system_sam4s.c **** //     <o2.27>     PID27: Timer Counter 4 Clock Enable
+  79:cmsis_boot/system_sam4s.c **** //     <o2.28>     PID28: Timer Counter 5 Clock Enable
+  80:cmsis_boot/system_sam4s.c **** //     <o2.29>     PID29: Analog-to-Digital Converter Clock Enable
+  81:cmsis_boot/system_sam4s.c **** //     <o2.30>     PID30: Digital-to-Analog Converter Clock Enable
+  82:cmsis_boot/system_sam4s.c **** //     <o2.31>     PID31: Pulse Width Modulation Clock Enable
+  83:cmsis_boot/system_sam4s.c **** //   </h>
+  84:cmsis_boot/system_sam4s.c **** //
+  85:cmsis_boot/system_sam4s.c **** //   <h> Peripheral Clock Enable Register 1 (PMC_PCER1)
+  86:cmsis_boot/system_sam4s.c **** //     <o3.0>      PID32: CRC Calculation Unit Clock Enable
+  87:cmsis_boot/system_sam4s.c **** //     <o3.1>      PID33: Analog Comparator Clock Enable
+  88:cmsis_boot/system_sam4s.c **** //     <o3.2>      PID34: USB Device Port Clock Enable
+  89:cmsis_boot/system_sam4s.c **** //   </h>
+  90:cmsis_boot/system_sam4s.c **** //
+  91:cmsis_boot/system_sam4s.c **** //   <h> Main Oscillator Register (CKGR_MOR)
+  92:cmsis_boot/system_sam4s.c **** //     <o4.0>      MOSCXTEN: Main Crystal Oscillator Enable
+  93:cmsis_boot/system_sam4s.c **** //     <o4.1>      MOSCXTBY: Main Crystal Oscillator Bypass
+  94:cmsis_boot/system_sam4s.c **** //     <o4.3>      MOSCRCEN: Main On-chip RC Oscillator Enable
+  95:cmsis_boot/system_sam4s.c **** //     <o4.4..6>   MOSCRCF: Main On-chip RC Oscillator Frequency Selection
+  96:cmsis_boot/system_sam4s.c **** //                   <0=> 4MHz <1=> 8 MHz <2=> 12 MHz <3=> Reserved
+  97:cmsis_boot/system_sam4s.c **** //     <o4.8..15>  MOSCXTST: Main Crystal Oscillator Startup Time <0-255>
+  98:cmsis_boot/system_sam4s.c **** //     <o4.24>     MOSCSEL: Main Oscillator Selection
+  99:cmsis_boot/system_sam4s.c **** //                   <0=> Main On-chip RC Oscillator <1=> Main Crystal Oscillator
+ 100:cmsis_boot/system_sam4s.c **** //     <o4.25>     CFDEN: Clock Failure Detector Enable
+ 101:cmsis_boot/system_sam4s.c **** //   </h>
+ 102:cmsis_boot/system_sam4s.c **** //
+ 103:cmsis_boot/system_sam4s.c **** //   <h> Clock Generator Phase Locked Loop A Register (CKGR_PLLAR)
+ 104:cmsis_boot/system_sam4s.c **** //                   <i> PLL A Freq = (Main CLOCK Freq / DIVA) * (MULA + 1)
+ 105:cmsis_boot/system_sam4s.c **** //                   <i> Example: XTAL = 12 MHz, DIVA = 1, MULA = 14  =>  PLLA =  168 MHz
+ 106:cmsis_boot/system_sam4s.c **** //     <o5.0..7>   DIVA: PLL Divider A <0-255>
+ 107:cmsis_boot/system_sam4s.c **** //                   <i> 0        - Divider output is 0
+ 108:cmsis_boot/system_sam4s.c **** //                   <i> 1        - Divider is bypassed
+ 109:cmsis_boot/system_sam4s.c **** //                   <i> 2 .. 255 - Divider output is the Main Clock divided by DIVA
+ 110:cmsis_boot/system_sam4s.c **** //     <o5.8..13>  PLLACOUNT: PLL A Counter <0-63>
+ 111:cmsis_boot/system_sam4s.c **** //                   <i> Number of Slow Clocks before the LOCKA bit is set in
+ 112:cmsis_boot/system_sam4s.c **** //                   <i> PMC_SR after CKGR_PLLAR is written
+ 113:cmsis_boot/system_sam4s.c **** //     <o5.16..26> MULA: PLL A Multiplier <0-2047>
+ 114:cmsis_boot/system_sam4s.c **** //                   <i> 0         - The PLL A is deactivated
+ 115:cmsis_boot/system_sam4s.c **** //                   <i> 1 .. 2047 - The PLL A Clock frequency is the PLL a input
+ 116:cmsis_boot/system_sam4s.c **** //                   <i>             frequency multiplied by MULA + 1
+ 117:cmsis_boot/system_sam4s.c **** //   </h>
+ 118:cmsis_boot/system_sam4s.c **** //
+ 119:cmsis_boot/system_sam4s.c **** //   <h> Clock Generator Phase Locked Loop B Register (CKGR_PLLBR)
+ 120:cmsis_boot/system_sam4s.c **** //                   <i> PLL B Freq = (Main CLOCK Freq / DIVB) * (MULB + 1)
+ 121:cmsis_boot/system_sam4s.c **** //                   <i> Example: XTAL = 12 MHz, DIVB = 1, MULB = 14  =>  PLLB =  168 MHz
+ 122:cmsis_boot/system_sam4s.c **** //     <o6.0..7>   DIVB: PLL Divider B <0-255>
+ 123:cmsis_boot/system_sam4s.c **** //                   <i> 0        - Divider output is 0
+ 124:cmsis_boot/system_sam4s.c **** //                   <i> 1        - Divider is bypassed
+ 125:cmsis_boot/system_sam4s.c **** //                   <i> 2 .. 255 - Divider output is the Main Clock divided by DIVB
+ 126:cmsis_boot/system_sam4s.c **** //     <o6.8..13>  PLLBCOUNT: PLL A Counter <0-63>
+ 127:cmsis_boot/system_sam4s.c **** //                   <i> Number of Slow Clocks before the LOCKA bit is set in
+ 128:cmsis_boot/system_sam4s.c **** //                   <i> PMC_SR after CKGR_PLLBR is written
+ 129:cmsis_boot/system_sam4s.c **** //     <o6.16..26> MULB: PLL B Multiplier <0-2047>
+ 130:cmsis_boot/system_sam4s.c **** //                   <i> 0         - The PLL B is deactivated
+ 131:cmsis_boot/system_sam4s.c **** //                   <i> 1 .. 2047 - The PLL B Clock frequency is the PLL a input
+ 132:cmsis_boot/system_sam4s.c **** //                   <i>             frequency multiplied by MULB + 1
+ 133:cmsis_boot/system_sam4s.c **** //   </h>
+ 134:cmsis_boot/system_sam4s.c **** //
+ 135:cmsis_boot/system_sam4s.c **** //   <h> Master Clock Register (PMC_MCKR)
+ 136:cmsis_boot/system_sam4s.c **** //     <o7.0..1>   CSS: Master Clock Selection
+ 137:cmsis_boot/system_sam4s.c **** //                   <0=> Slow Clock
+ 138:cmsis_boot/system_sam4s.c **** //                   <1=> Main Clock
+ 139:cmsis_boot/system_sam4s.c **** //                   <2=> PLL A Clock
+ 140:cmsis_boot/system_sam4s.c **** //                   <3=> PLL B Clock
+ 141:cmsis_boot/system_sam4s.c **** //     <o7.4..6>   PRES: Master Clock Prescaler
+ 142:cmsis_boot/system_sam4s.c **** //                   <0=> Clock        <1=> Clock / 2
+ 143:cmsis_boot/system_sam4s.c **** //                   <2=> Clock / 4    <3=> Clock / 8
+ 144:cmsis_boot/system_sam4s.c **** //                   <4=> Clock / 16   <5=> Clock / 32
+ 145:cmsis_boot/system_sam4s.c **** //                   <6=> Clock / 64   <7=> Clock / 3
+ 146:cmsis_boot/system_sam4s.c **** //     <o7.12>     PLLADIV2: PLLA Divisor by 2
+ 147:cmsis_boot/system_sam4s.c **** //     <o7.13>     PLLBDIV2: PLLB Divisor by 2
+ 148:cmsis_boot/system_sam4s.c **** //   </h>
+ 149:cmsis_boot/system_sam4s.c **** //
+ 150:cmsis_boot/system_sam4s.c **** //   <h> USB Clock Register (PMC_USB)
+ 151:cmsis_boot/system_sam4s.c **** //     <o8.0>      USBS: USB Input Clock Selection
+ 152:cmsis_boot/system_sam4s.c **** //                   <0=> PLL A Clock
+ 153:cmsis_boot/system_sam4s.c **** //                   <1=> PLL B Clock
+ 154:cmsis_boot/system_sam4s.c **** //     <o8.8..11>  USBDIV: USB Input Clock Devider <0-15>
+ 155:cmsis_boot/system_sam4s.c **** //                   <i>  USB Clock is Input clock divided by USBDIV+1
+ 156:cmsis_boot/system_sam4s.c **** //   </h>
+ 157:cmsis_boot/system_sam4s.c **** //
+ 158:cmsis_boot/system_sam4s.c **** //   <h> Programmable Clock Register 0 (PMC_PCK0)
+ 159:cmsis_boot/system_sam4s.c **** //     <o9.0..2>   CSS: Master Clock Selection
+ 160:cmsis_boot/system_sam4s.c **** //                   <0=> Slow Clock
+ 161:cmsis_boot/system_sam4s.c **** //                   <1=> Main Clock
+ 162:cmsis_boot/system_sam4s.c **** //                   <2=> PLL A Clock
+ 163:cmsis_boot/system_sam4s.c **** //                   <3=> PLL B Clock
+ 164:cmsis_boot/system_sam4s.c **** //                   <4=> Master Clock
+ 165:cmsis_boot/system_sam4s.c **** //                   <5=> Reserved
+ 166:cmsis_boot/system_sam4s.c **** //                   <6=> Reserved
+ 167:cmsis_boot/system_sam4s.c **** //                   <7=> Reserved
+ 168:cmsis_boot/system_sam4s.c **** //     <o9.4..6>   PRES: Programmable Clock Prescaler
+ 169:cmsis_boot/system_sam4s.c **** //                   <0=> Clock        <1=> Clock / 2
+ 170:cmsis_boot/system_sam4s.c **** //                   <2=> Clock / 4    <3=> Clock / 8
+ 171:cmsis_boot/system_sam4s.c **** //                   <4=> Clock / 16   <5=> Clock / 32
+ 172:cmsis_boot/system_sam4s.c **** //                   <6=> Clock / 64   <7=> Reserved
+ 173:cmsis_boot/system_sam4s.c **** //   </h>
+ 174:cmsis_boot/system_sam4s.c **** //
+ 175:cmsis_boot/system_sam4s.c **** //   <h> Programmable Clock Register 1 (PMC_PCK1)
+ 176:cmsis_boot/system_sam4s.c **** //     <o10.0..2>  CSS: Master Clock Selection
+ 177:cmsis_boot/system_sam4s.c **** //                   <0=> Slow Clock
+ 178:cmsis_boot/system_sam4s.c **** //                   <1=> Main Clock
+ 179:cmsis_boot/system_sam4s.c **** //                   <2=> PLL A Clock
+ 180:cmsis_boot/system_sam4s.c **** //                   <3=> PLL B Clock
+ 181:cmsis_boot/system_sam4s.c **** //                   <4=> Master Clock
+ 182:cmsis_boot/system_sam4s.c **** //                   <5=> Reserved
+ 183:cmsis_boot/system_sam4s.c **** //                   <6=> Reserved
+ 184:cmsis_boot/system_sam4s.c **** //                   <7=> Reserved
+ 185:cmsis_boot/system_sam4s.c **** //     <o10.4..6>  PRES: Programmable Clock Prescaler
+ 186:cmsis_boot/system_sam4s.c **** //                   <0=> Clock        <1=> Clock / 2
+ 187:cmsis_boot/system_sam4s.c **** //                   <2=> Clock / 4    <3=> Clock / 8
+ 188:cmsis_boot/system_sam4s.c **** //                   <4=> Clock / 16   <5=> Clock / 32
+ 189:cmsis_boot/system_sam4s.c **** //                   <6=> Clock / 64   <7=> Reserved
+ 190:cmsis_boot/system_sam4s.c **** //   </h>
+ 191:cmsis_boot/system_sam4s.c **** //
+ 192:cmsis_boot/system_sam4s.c **** //   <h> Programmable Clock Register 2 (PMC_PCK2)
+ 193:cmsis_boot/system_sam4s.c **** //     <o11.0..2>  CSS: Master Clock Selection
+ 194:cmsis_boot/system_sam4s.c **** //                   <0=> Slow Clock
+ 195:cmsis_boot/system_sam4s.c **** //                   <1=> Main Clock
+ 196:cmsis_boot/system_sam4s.c **** //                   <2=> PLL A Clock
+ 197:cmsis_boot/system_sam4s.c **** //                   <3=> PLL B Clock
+ 198:cmsis_boot/system_sam4s.c **** //                   <4=> Master Clock
+ 199:cmsis_boot/system_sam4s.c **** //                   <5=> Reserved
+ 200:cmsis_boot/system_sam4s.c **** //                   <6=> Reserved
+ 201:cmsis_boot/system_sam4s.c **** //                   <7=> Reserved
+ 202:cmsis_boot/system_sam4s.c **** //     <o11.4..6>  PRES: Programmable Clock Prescaler
+ 203:cmsis_boot/system_sam4s.c **** //                   <0=> Clock        <1=> Clock / 2
+ 204:cmsis_boot/system_sam4s.c **** //                   <2=> Clock / 4    <3=> Clock / 8
+ 205:cmsis_boot/system_sam4s.c **** //                   <4=> Clock / 16   <5=> Clock / 32
+ 206:cmsis_boot/system_sam4s.c **** //                   <6=> Clock / 64   <7=> Reserved
+ 207:cmsis_boot/system_sam4s.c **** //   </h>
+ 208:cmsis_boot/system_sam4s.c **** // </e>
+ 209:cmsis_boot/system_sam4s.c **** */
+ 210:cmsis_boot/system_sam4s.c **** #define PMC_SETUP       1               // Reset values:
+ 211:cmsis_boot/system_sam4s.c **** #define PMC_SCER_Val    0x00000100      // WO register (0x00000001)
+ 212:cmsis_boot/system_sam4s.c **** #define PMC_PCER0_Val   0x00003C00      // WO register (0x00000000)
+ 213:cmsis_boot/system_sam4s.c **** #define PMC_PCER1_Val   0x00000000      // WO register (0x00000000)
+ 214:cmsis_boot/system_sam4s.c **** #define CKGR_MOR_Val    0x01370F21      // 0x00000001
+ 215:cmsis_boot/system_sam4s.c **** //#define CKGR_PLLAR_Val  0x20270804			// for MCK=120MHz osc=12MHz, DivA=4, MULA=39 (PLL MUL=MULA+1
+ 216:cmsis_boot/system_sam4s.c **** #define CKGR_PLLAR_Val  0x20190803			// for 100MHz osc=12MHz, DivA=3, MULA=49 (PLL MUL=MULA+1) MCK=
+ 217:cmsis_boot/system_sam4s.c **** #define CKGR_PLLBR_Val  0x00000600			// 0x00170604      // 0x00003F00
+ 218:cmsis_boot/system_sam4s.c **** #define PMC_MCKR_Val    0x00000002			// 0x00000002      // 0x00000001
+ 219:cmsis_boot/system_sam4s.c **** #define PMC_USB_Val     0x00000101      // 0x00000000
+ 220:cmsis_boot/system_sam4s.c **** #define PMC_PCK0_Val    0x00000002      // 0x00000000
+ 221:cmsis_boot/system_sam4s.c **** #define PMC_PCK1_Val    0x00000000      // 0x00000000
+ 222:cmsis_boot/system_sam4s.c **** #define PMC_PCK2_Val    0x00000000      // 0x00000000
+ 223:cmsis_boot/system_sam4s.c **** 
+ 224:cmsis_boot/system_sam4s.c **** 
+ 225:cmsis_boot/system_sam4s.c **** /*--------------------- Watchdog Configuration -------------------------------
+ 226:cmsis_boot/system_sam4s.c **** //
+ 227:cmsis_boot/system_sam4s.c **** // <e> Watchdog Disable
+ 228:cmsis_boot/system_sam4s.c **** // </e>
+ 229:cmsis_boot/system_sam4s.c **** */
+ 230:cmsis_boot/system_sam4s.c **** #define WDT_SETUP       1               // Reset values:
+ 231:cmsis_boot/system_sam4s.c **** 
+ 232:cmsis_boot/system_sam4s.c **** 
+ 233:cmsis_boot/system_sam4s.c **** /*
+ 234:cmsis_boot/system_sam4s.c **** //-------- <<< end of configuration section >>> ------------------------------
+ 235:cmsis_boot/system_sam4s.c **** */
+ 236:cmsis_boot/system_sam4s.c **** 
+ 237:cmsis_boot/system_sam4s.c **** /*----------------------------------------------------------------------------
+ 238:cmsis_boot/system_sam4s.c ****   Check the register settings
+ 239:cmsis_boot/system_sam4s.c ****  *----------------------------------------------------------------------------*/
+ 240:cmsis_boot/system_sam4s.c **** #define CHECK_RANGE(val, min, max)                ((val < min) || (val > max))
+ 241:cmsis_boot/system_sam4s.c **** #define CHECK_RSVD(val, mask)                     (val & mask)
+ 242:cmsis_boot/system_sam4s.c **** 
+ 243:cmsis_boot/system_sam4s.c **** /* Embedded Flash Controllers Configuration ----------------------------------*/
+ 244:cmsis_boot/system_sam4s.c **** #if (CHECK_RSVD((EEFC_FMR_Val),  ~0x01000F01))
+ 245:cmsis_boot/system_sam4s.c ****    #error "EEFC_FMR: Invalid values of reserved bits!"
+ 246:cmsis_boot/system_sam4s.c **** #endif
+ 247:cmsis_boot/system_sam4s.c **** 
+ 248:cmsis_boot/system_sam4s.c **** /* Power Management Controller Configuration ---------------------------------*/
+ 249:cmsis_boot/system_sam4s.c **** #if (CHECK_RSVD((PMC_SCER_Val),   ~0x00000780))
+ 250:cmsis_boot/system_sam4s.c ****    #error "PMC_SCER: Invalid values of reserved bits!"
+ 251:cmsis_boot/system_sam4s.c **** #endif
+ 252:cmsis_boot/system_sam4s.c **** 
+ 253:cmsis_boot/system_sam4s.c **** #if (CHECK_RSVD((PMC_PCER0_Val),   ~0xFFFFFFFC))
+ 254:cmsis_boot/system_sam4s.c ****    #error "PMC_PCER0: Invalid values of reserved bits!"
+ 255:cmsis_boot/system_sam4s.c **** #endif
+ 256:cmsis_boot/system_sam4s.c **** 
+ 257:cmsis_boot/system_sam4s.c **** #if (CHECK_RSVD((PMC_PCER1_Val),   ~0x00000007))
+ 258:cmsis_boot/system_sam4s.c ****    #error "PMC_PCER1: Invalid values of reserved bits!"
+ 259:cmsis_boot/system_sam4s.c **** #endif
+ 260:cmsis_boot/system_sam4s.c **** 
+ 261:cmsis_boot/system_sam4s.c **** #if (CHECK_RSVD((CKGR_MOR_Val),   ~0x03FFFF7F))
+ 262:cmsis_boot/system_sam4s.c ****    #error "CKGR_MOR: Invalid values of reserved bits!"
+ 263:cmsis_boot/system_sam4s.c **** #endif
+ 264:cmsis_boot/system_sam4s.c **** 
+ 265:cmsis_boot/system_sam4s.c **** #if (CHECK_RSVD((CKGR_PLLAR_Val), ~0x27FF3FFF))
+ 266:cmsis_boot/system_sam4s.c ****    #error "CKGR_PLLAR: Invalid values of reserved bits!"
+ 267:cmsis_boot/system_sam4s.c **** #endif
+ 268:cmsis_boot/system_sam4s.c **** 
+ 269:cmsis_boot/system_sam4s.c **** #if (CHECK_RSVD((CKGR_PLLBR_Val), ~0x07FF3FFF))
+ 270:cmsis_boot/system_sam4s.c ****    #error "CKGR_PLLBR: Invalid values of reserved bits!"
+ 271:cmsis_boot/system_sam4s.c **** #endif
+ 272:cmsis_boot/system_sam4s.c **** 
+ 273:cmsis_boot/system_sam4s.c **** #if (CHECK_RSVD((PMC_MCKR_Val),   ~0x00003073))
+ 274:cmsis_boot/system_sam4s.c ****    #error "PMC_MCKR: Invalid values of reserved bits!"
+ 275:cmsis_boot/system_sam4s.c **** #endif
+ 276:cmsis_boot/system_sam4s.c **** 
+ 277:cmsis_boot/system_sam4s.c **** #if (CHECK_RSVD((PMC_USB_Val),   ~0x00000F01))
+ 278:cmsis_boot/system_sam4s.c ****    #error "PMC_USB: Invalid values of reserved bits!"
+ 279:cmsis_boot/system_sam4s.c **** #endif
+ 280:cmsis_boot/system_sam4s.c **** 
+ 281:cmsis_boot/system_sam4s.c **** #if (CHECK_RSVD((PMC_PCK0_Val),   ~0x00000077))
+ 282:cmsis_boot/system_sam4s.c ****    #error "PMC_PCK0: Invalid values of reserved bits!"
+ 283:cmsis_boot/system_sam4s.c **** #endif
+ 284:cmsis_boot/system_sam4s.c **** 
+ 285:cmsis_boot/system_sam4s.c **** #if (CHECK_RSVD((PMC_PCK1_Val),   ~0x00000077))
+ 286:cmsis_boot/system_sam4s.c ****    #error "PMC_PCK1: Invalid values of reserved bits!"
+ 287:cmsis_boot/system_sam4s.c **** #endif
+ 288:cmsis_boot/system_sam4s.c **** 
+ 289:cmsis_boot/system_sam4s.c **** #if (CHECK_RSVD((PMC_PCK2_Val),   ~0x00000077))
+ 290:cmsis_boot/system_sam4s.c ****    #error "PMC_PCK2: Invalid values of reserved bits!"
+ 291:cmsis_boot/system_sam4s.c **** #endif
+ 292:cmsis_boot/system_sam4s.c **** 
+ 293:cmsis_boot/system_sam4s.c **** 
+ 294:cmsis_boot/system_sam4s.c **** /*----------------------------------------------------------------------------
+ 295:cmsis_boot/system_sam4s.c ****   DEFINES
+ 296:cmsis_boot/system_sam4s.c ****  *----------------------------------------------------------------------------*/
+ 297:cmsis_boot/system_sam4s.c **** 
+ 298:cmsis_boot/system_sam4s.c **** /*----------------------------------------------------------------------------
+ 299:cmsis_boot/system_sam4s.c ****   Define clocks
+ 300:cmsis_boot/system_sam4s.c ****  *----------------------------------------------------------------------------*/
+ 301:cmsis_boot/system_sam4s.c **** #define XTAL        (12000000UL)        /* Crystal frequency                  */
+ 302:cmsis_boot/system_sam4s.c **** #define XTAL32      (   32768UL)        /* 32k crystal frequency              */
+ 303:cmsis_boot/system_sam4s.c **** #define OSC_CLK     (      XTAL)        /* Main oscillator frequency          */
+ 304:cmsis_boot/system_sam4s.c **** #define OSC32_CLK   (    XTAL32)        /* 32k oscillator frequency           */
+ 305:cmsis_boot/system_sam4s.c **** #define ERC_OSC     (   32000UL)        /* Embedded RC oscillator freqquency  */
+ 306:cmsis_boot/system_sam4s.c **** #define EFRC_OSC    ( 4000000UL)        /* Embedded fast RC oscillator freq   */
+ 307:cmsis_boot/system_sam4s.c **** 
+ 308:cmsis_boot/system_sam4s.c **** /*----------------------------------------------------------------------------
+ 309:cmsis_boot/system_sam4s.c ****   Clock Variable definitions
+ 310:cmsis_boot/system_sam4s.c ****  *----------------------------------------------------------------------------*/
+ 311:cmsis_boot/system_sam4s.c **** uint32_t SystemCoreClock = XTAL;/*!< System Clock Frequency (Core Clock)*/
+ 312:cmsis_boot/system_sam4s.c **** 
+ 313:cmsis_boot/system_sam4s.c **** 
+ 314:cmsis_boot/system_sam4s.c **** /*----------------------------------------------------------------------------
+ 315:cmsis_boot/system_sam4s.c ****   Clock functions
+ 316:cmsis_boot/system_sam4s.c ****  *----------------------------------------------------------------------------*/
+ 317:cmsis_boot/system_sam4s.c **** void SystemCoreClockUpdate (void)            /* Get Core Clock Frequency      */
+ 318:cmsis_boot/system_sam4s.c **** {
+  76              		.loc 1 318 0
+  77              		.cfi_startproc
+  78              		@ args = 0, pretend = 0, frame = 0
+  79              		@ frame_needed = 0, uses_anonymous_args = 0
+  80              		@ link register save eliminated.
+ 319:cmsis_boot/system_sam4s.c ****   /* Determine clock frequency according to clock register values */
+ 320:cmsis_boot/system_sam4s.c ****   switch (PMC->PMC_MCKR & (uint32_t) PMC_MCKR_CSS_Msk) {
+  81              		.loc 1 320 0
+  82 0000 5E4B     		ldr	r3, .L29	@ D.7385,
+  83 0002 1B6B     		ldr	r3, [r3, #48]	@ D.7386, _1->PMC_MCKR
+  84 0004 03F00303 		and	r3, r3, #3	@ D.7386, D.7386,
+  85 0008 032B     		cmp	r3, #3	@ D.7386,
+  86 000a 00F29C80 		bhi	.L26	@
+  87 000e 01A1     		adr	r1, .L4	@,
+  88 0010 51F823F0 		ldr	pc, [r1, r3, lsl #2]	@, D.7386
+  89              		.p2align 2
+  90              	.L4:
+  91 0014 25000000 		.word	.L3+1
+  92 0018 45000000 		.word	.L5+1
+  93 001c 95000000 		.word	.L6+1
+  94 0020 95000000 		.word	.L6+1
+  95              		.p2align 1
+  96              	.L3:
+ 321:cmsis_boot/system_sam4s.c ****   case PMC_MCKR_CSS_SLOW_CLK:  /* Slow clock */
+ 322:cmsis_boot/system_sam4s.c ****     if (SUPC->SUPC_SR & SUPC_SR_OSCSEL) {
+  97              		.loc 1 322 0
+  98 0024 564B     		ldr	r3, .L29+4	@ D.7387,
+  99 0026 5B69     		ldr	r3, [r3, #20]	@ D.7386, _4->SUPC_SR
+ 100 0028 03F08003 		and	r3, r3, #128	@ D.7386, D.7386,
+ 101 002c 002B     		cmp	r3, #0	@ D.7386,
+ 102 002e 04D0     		beq	.L7	@,
+ 323:cmsis_boot/system_sam4s.c ****       SystemCoreClock = XTAL32;
+ 103              		.loc 1 323 0
+ 104 0030 544B     		ldr	r3, .L29+8	@ tmp175,
+ 105 0032 4FF40042 		mov	r2, #32768	@ tmp176,
+ 106 0036 1A60     		str	r2, [r3]	@ tmp176, SystemCoreClock
+ 324:cmsis_boot/system_sam4s.c ****     } else {
+ 325:cmsis_boot/system_sam4s.c ****       SystemCoreClock = CHIP_FREQ_SLCK_RC;
+ 326:cmsis_boot/system_sam4s.c ****     }
+ 327:cmsis_boot/system_sam4s.c ****     break;
+ 107              		.loc 1 327 0
+ 108 0038 86E0     		b	.L9	@
+ 109              	.L7:
+ 325:cmsis_boot/system_sam4s.c ****       SystemCoreClock = CHIP_FREQ_SLCK_RC;
+ 110              		.loc 1 325 0
+ 111 003a 524B     		ldr	r3, .L29+8	@ tmp177,
+ 112 003c 4FF4FA42 		mov	r2, #32000	@ tmp178,
+ 113 0040 1A60     		str	r2, [r3]	@ tmp178, SystemCoreClock
+ 114              		.loc 1 327 0
+ 115 0042 81E0     		b	.L9	@
+ 116              	.L5:
+ 328:cmsis_boot/system_sam4s.c ****   case PMC_MCKR_CSS_MAIN_CLK:  /* Main clock */
+ 329:cmsis_boot/system_sam4s.c ****     if (PMC->CKGR_MOR & CKGR_MOR_MOSCSEL) {
+ 117              		.loc 1 329 0
+ 118 0044 4D4B     		ldr	r3, .L29	@ D.7385,
+ 119 0046 1B6A     		ldr	r3, [r3, #32]	@ D.7386, _7->CKGR_MOR
+ 120 0048 03F08073 		and	r3, r3, #16777216	@ D.7386, D.7386,
+ 121 004c 002B     		cmp	r3, #0	@ D.7386,
+ 122 004e 03D0     		beq	.L10	@,
+ 330:cmsis_boot/system_sam4s.c ****       SystemCoreClock = XTAL;
+ 123              		.loc 1 330 0
+ 124 0050 4C4B     		ldr	r3, .L29+8	@ tmp179,
+ 125 0052 4D4A     		ldr	r2, .L29+12	@ tmp180,
+ 126 0054 1A60     		str	r2, [r3]	@ tmp180, SystemCoreClock
+ 127 0056 1CE0     		b	.L11	@
+ 128              	.L10:
+ 331:cmsis_boot/system_sam4s.c ****     } else {
+ 332:cmsis_boot/system_sam4s.c ****       SystemCoreClock = CHIP_FREQ_MAINCK_RC_4MHZ;
+ 129              		.loc 1 332 0
+ 130 0058 4A4B     		ldr	r3, .L29+8	@ tmp181,
+ 131 005a 4C4A     		ldr	r2, .L29+16	@ tmp182,
+ 132 005c 1A60     		str	r2, [r3]	@ tmp182, SystemCoreClock
+ 333:cmsis_boot/system_sam4s.c **** 
+ 334:cmsis_boot/system_sam4s.c ****       switch (PMC->CKGR_MOR & CKGR_MOR_MOSCRCF_Msk) {
+ 133              		.loc 1 334 0
+ 134 005e 474B     		ldr	r3, .L29	@ D.7385,
+ 135 0060 1B6A     		ldr	r3, [r3, #32]	@ D.7386, _10->CKGR_MOR
+ 136 0062 03F07003 		and	r3, r3, #112	@ D.7386, D.7386,
+ 137 0066 102B     		cmp	r3, #16	@ D.7386,
+ 138 0068 04D0     		beq	.L13	@,
+ 139 006a 202B     		cmp	r3, #32	@ D.7386,
+ 140 006c 08D0     		beq	.L14	@,
+ 141 006e 002B     		cmp	r3, #0	@ D.7386,
+ 142 0070 0ED0     		beq	.L27	@,
+ 335:cmsis_boot/system_sam4s.c ****       case CKGR_MOR_MOSCRCF_4_MHz:
+ 336:cmsis_boot/system_sam4s.c ****         break;
+ 337:cmsis_boot/system_sam4s.c ****       case CKGR_MOR_MOSCRCF_8_MHz:
+ 338:cmsis_boot/system_sam4s.c ****         SystemCoreClock *= 2U;
+ 339:cmsis_boot/system_sam4s.c ****         break;
+ 340:cmsis_boot/system_sam4s.c ****       case CKGR_MOR_MOSCRCF_12_MHz:
+ 341:cmsis_boot/system_sam4s.c ****         SystemCoreClock *= 3U;
+ 342:cmsis_boot/system_sam4s.c ****         break;
+ 343:cmsis_boot/system_sam4s.c ****       default:
+ 344:cmsis_boot/system_sam4s.c ****         break;
+ 143              		.loc 1 344 0
+ 144 0072 0EE0     		b	.L11	@
+ 145              	.L13:
+ 338:cmsis_boot/system_sam4s.c ****         SystemCoreClock *= 2U;
+ 146              		.loc 1 338 0
+ 147 0074 434B     		ldr	r3, .L29+8	@ tmp183,
+ 148 0076 1B68     		ldr	r3, [r3]	@ SystemCoreClock.0, SystemCoreClock
+ 149 0078 5A00     		lsls	r2, r3, #1	@ SystemCoreClock.1, SystemCoreClock.0,
+ 150 007a 424B     		ldr	r3, .L29+8	@ tmp184,
+ 151 007c 1A60     		str	r2, [r3]	@ SystemCoreClock.1, SystemCoreClock
+ 339:cmsis_boot/system_sam4s.c ****         break;
+ 152              		.loc 1 339 0
+ 153 007e 08E0     		b	.L11	@
+ 154              	.L14:
+ 341:cmsis_boot/system_sam4s.c ****         SystemCoreClock *= 3U;
+ 155              		.loc 1 341 0
+ 156 0080 404B     		ldr	r3, .L29+8	@ tmp185,
+ 157 0082 1A68     		ldr	r2, [r3]	@ SystemCoreClock.2, SystemCoreClock
+ 158 0084 1346     		mov	r3, r2	@ tmp186, SystemCoreClock.2
+ 159 0086 5B00     		lsls	r3, r3, #1	@ tmp186, tmp186,
+ 160 0088 1A44     		add	r2, r2, r3	@ SystemCoreClock.3, tmp186
+ 161 008a 3E4B     		ldr	r3, .L29+8	@ tmp187,
+ 162 008c 1A60     		str	r2, [r3]	@ SystemCoreClock.3, SystemCoreClock
+ 342:cmsis_boot/system_sam4s.c ****         break;
+ 163              		.loc 1 342 0
+ 164 008e 00E0     		b	.L11	@
+ 165              	.L27:
+ 336:cmsis_boot/system_sam4s.c ****         break;
+ 166              		.loc 1 336 0
+ 167 0090 00BF     		nop
+ 168              	.L11:
+ 345:cmsis_boot/system_sam4s.c ****       }
+ 346:cmsis_boot/system_sam4s.c ****     }
+ 347:cmsis_boot/system_sam4s.c ****     break;
+ 169              		.loc 1 347 0
+ 170 0092 59E0     		b	.L9	@
+ 171              	.L6:
+ 348:cmsis_boot/system_sam4s.c ****   case PMC_MCKR_CSS_PLLA_CLK:  /* PLLA clock */
+ 349:cmsis_boot/system_sam4s.c ****   case PMC_MCKR_CSS_PLLB_CLK:  /* PLLB clock */
+ 350:cmsis_boot/system_sam4s.c ****     if (PMC->CKGR_MOR & CKGR_MOR_MOSCSEL) {
+ 172              		.loc 1 350 0
+ 173 0094 394B     		ldr	r3, .L29	@ D.7385,
+ 174 0096 1B6A     		ldr	r3, [r3, #32]	@ D.7386, _17->CKGR_MOR
+ 175 0098 03F08073 		and	r3, r3, #16777216	@ D.7386, D.7386,
+ 176 009c 002B     		cmp	r3, #0	@ D.7386,
+ 177 009e 03D0     		beq	.L16	@,
+ 351:cmsis_boot/system_sam4s.c ****       SystemCoreClock = XTAL;
+ 178              		.loc 1 351 0
+ 179 00a0 384B     		ldr	r3, .L29+8	@ tmp188,
+ 180 00a2 394A     		ldr	r2, .L29+12	@ tmp189,
+ 181 00a4 1A60     		str	r2, [r3]	@ tmp189, SystemCoreClock
+ 182 00a6 1CE0     		b	.L17	@
+ 183              	.L16:
+ 352:cmsis_boot/system_sam4s.c ****     } else {
+ 353:cmsis_boot/system_sam4s.c ****       SystemCoreClock = CHIP_FREQ_MAINCK_RC_4MHZ;
+ 184              		.loc 1 353 0
+ 185 00a8 364B     		ldr	r3, .L29+8	@ tmp190,
+ 186 00aa 384A     		ldr	r2, .L29+16	@ tmp191,
+ 187 00ac 1A60     		str	r2, [r3]	@ tmp191, SystemCoreClock
+ 354:cmsis_boot/system_sam4s.c **** 
+ 355:cmsis_boot/system_sam4s.c ****       switch (PMC->CKGR_MOR & CKGR_MOR_MOSCRCF_Msk) {
+ 188              		.loc 1 355 0
+ 189 00ae 334B     		ldr	r3, .L29	@ D.7385,
+ 190 00b0 1B6A     		ldr	r3, [r3, #32]	@ D.7386, _20->CKGR_MOR
+ 191 00b2 03F07003 		and	r3, r3, #112	@ D.7386, D.7386,
+ 192 00b6 102B     		cmp	r3, #16	@ D.7386,
+ 193 00b8 04D0     		beq	.L19	@,
+ 194 00ba 202B     		cmp	r3, #32	@ D.7386,
+ 195 00bc 08D0     		beq	.L20	@,
+ 196 00be 002B     		cmp	r3, #0	@ D.7386,
+ 197 00c0 0ED0     		beq	.L28	@,
+ 356:cmsis_boot/system_sam4s.c ****       case CKGR_MOR_MOSCRCF_4_MHz:
+ 357:cmsis_boot/system_sam4s.c ****         break;
+ 358:cmsis_boot/system_sam4s.c ****       case CKGR_MOR_MOSCRCF_8_MHz:
+ 359:cmsis_boot/system_sam4s.c ****         SystemCoreClock *= 2U;
+ 360:cmsis_boot/system_sam4s.c ****         break;
+ 361:cmsis_boot/system_sam4s.c ****       case CKGR_MOR_MOSCRCF_12_MHz:
+ 362:cmsis_boot/system_sam4s.c ****         SystemCoreClock *= 3U;
+ 363:cmsis_boot/system_sam4s.c ****         break;
+ 364:cmsis_boot/system_sam4s.c ****       default:
+ 365:cmsis_boot/system_sam4s.c ****         break;
+ 198              		.loc 1 365 0
+ 199 00c2 0EE0     		b	.L17	@
+ 200              	.L19:
+ 359:cmsis_boot/system_sam4s.c ****         SystemCoreClock *= 2U;
+ 201              		.loc 1 359 0
+ 202 00c4 2F4B     		ldr	r3, .L29+8	@ tmp192,
+ 203 00c6 1B68     		ldr	r3, [r3]	@ SystemCoreClock.4, SystemCoreClock
+ 204 00c8 5A00     		lsls	r2, r3, #1	@ SystemCoreClock.5, SystemCoreClock.4,
+ 205 00ca 2E4B     		ldr	r3, .L29+8	@ tmp193,
+ 206 00cc 1A60     		str	r2, [r3]	@ SystemCoreClock.5, SystemCoreClock
+ 360:cmsis_boot/system_sam4s.c ****         break;
+ 207              		.loc 1 360 0
+ 208 00ce 08E0     		b	.L17	@
+ 209              	.L20:
+ 362:cmsis_boot/system_sam4s.c ****         SystemCoreClock *= 3U;
+ 210              		.loc 1 362 0
+ 211 00d0 2C4B     		ldr	r3, .L29+8	@ tmp194,
+ 212 00d2 1A68     		ldr	r2, [r3]	@ SystemCoreClock.6, SystemCoreClock
+ 213 00d4 1346     		mov	r3, r2	@ tmp195, SystemCoreClock.6
+ 214 00d6 5B00     		lsls	r3, r3, #1	@ tmp195, tmp195,
+ 215 00d8 1A44     		add	r2, r2, r3	@ SystemCoreClock.7, tmp195
+ 216 00da 2A4B     		ldr	r3, .L29+8	@ tmp196,
+ 217 00dc 1A60     		str	r2, [r3]	@ SystemCoreClock.7, SystemCoreClock
+ 363:cmsis_boot/system_sam4s.c ****         break;
+ 218              		.loc 1 363 0
+ 219 00de 00E0     		b	.L17	@
+ 220              	.L28:
+ 357:cmsis_boot/system_sam4s.c ****         break;
+ 221              		.loc 1 357 0
+ 222 00e0 00BF     		nop
+ 223              	.L17:
+ 366:cmsis_boot/system_sam4s.c ****       }
+ 367:cmsis_boot/system_sam4s.c ****     }
+ 368:cmsis_boot/system_sam4s.c ****     if ((uint32_t) (PMC->PMC_MCKR & (uint32_t) PMC_MCKR_CSS_Msk) == PMC_MCKR_CSS_PLLA_CLK) {
+ 224              		.loc 1 368 0
+ 225 00e2 264B     		ldr	r3, .L29	@ D.7385,
+ 226 00e4 1B6B     		ldr	r3, [r3, #48]	@ D.7386, _27->PMC_MCKR
+ 227 00e6 03F00303 		and	r3, r3, #3	@ D.7386, D.7386,
+ 228 00ea 022B     		cmp	r3, #2	@ D.7386,
+ 229 00ec 15D1     		bne	.L22	@,
+ 369:cmsis_boot/system_sam4s.c ****       SystemCoreClock *= ((((PMC->CKGR_PLLAR) & CKGR_PLLAR_MULA_Msk) >>
+ 230              		.loc 1 369 0
+ 231 00ee 234B     		ldr	r3, .L29	@ D.7385,
+ 232 00f0 9A6A     		ldr	r2, [r3, #40]	@ D.7386, _30->CKGR_PLLAR
+ 233 00f2 274B     		ldr	r3, .L29+20	@ D.7386,
+ 234 00f4 1340     		ands	r3, r3, r2	@, D.7386, D.7386, D.7386
+ 235 00f6 1B0C     		lsrs	r3, r3, #16	@ D.7386, D.7386,
+ 370:cmsis_boot/system_sam4s.c ****                                   CKGR_PLLAR_MULA_Pos) + 1U);
+ 236              		.loc 1 370 0
+ 237 00f8 0133     		adds	r3, r3, #1	@ D.7386, D.7386,
+ 369:cmsis_boot/system_sam4s.c ****       SystemCoreClock *= ((((PMC->CKGR_PLLAR) & CKGR_PLLAR_MULA_Msk) >>
+ 238              		.loc 1 369 0
+ 239 00fa 224A     		ldr	r2, .L29+8	@ tmp197,
+ 240 00fc 1268     		ldr	r2, [r2]	@ SystemCoreClock.8, SystemCoreClock
+ 241 00fe 02FB03F2 		mul	r2, r2, r3	@ SystemCoreClock.9, SystemCoreClock.8, D.7386
+ 242 0102 204B     		ldr	r3, .L29+8	@ tmp198,
+ 243 0104 1A60     		str	r2, [r3]	@ SystemCoreClock.9, SystemCoreClock
+ 371:cmsis_boot/system_sam4s.c ****       SystemCoreClock /= ((((PMC->CKGR_PLLAR) & CKGR_PLLAR_DIVA_Msk) >>
+ 244              		.loc 1 371 0
+ 245 0106 1F4B     		ldr	r3, .L29+8	@ tmp199,
+ 246 0108 1A68     		ldr	r2, [r3]	@ SystemCoreClock.10, SystemCoreClock
+ 247 010a 1C4B     		ldr	r3, .L29	@ D.7385,
+ 248 010c 9B6A     		ldr	r3, [r3, #40]	@ D.7386, _38->CKGR_PLLAR
+ 249 010e DBB2     		uxtb	r3, r3	@ D.7386, D.7386
+ 250 0110 B2FBF3F2 		udiv	r2, r2, r3	@ SystemCoreClock.11, SystemCoreClock.10, D.7386
+ 251 0114 1B4B     		ldr	r3, .L29+8	@ tmp200,
+ 252 0116 1A60     		str	r2, [r3]	@ SystemCoreClock.11, SystemCoreClock
+ 372:cmsis_boot/system_sam4s.c ****                                   CKGR_PLLAR_DIVA_Pos));
+ 373:cmsis_boot/system_sam4s.c ****     } else {
+ 374:cmsis_boot/system_sam4s.c ****       SystemCoreClock *= ((((PMC->CKGR_PLLBR) & CKGR_PLLBR_MULB_Msk) >>
+ 375:cmsis_boot/system_sam4s.c ****                                    CKGR_PLLBR_MULB_Pos) + 1U);
+ 376:cmsis_boot/system_sam4s.c ****       SystemCoreClock /= ((((PMC->CKGR_PLLBR) & CKGR_PLLBR_DIVB_Msk) >>
+ 377:cmsis_boot/system_sam4s.c ****                                        CKGR_PLLBR_DIVB_Pos));
+ 378:cmsis_boot/system_sam4s.c ****     }
+ 379:cmsis_boot/system_sam4s.c ****     break;
+ 253              		.loc 1 379 0
+ 254 0118 16E0     		b	.L9	@
+ 255              	.L22:
+ 374:cmsis_boot/system_sam4s.c ****       SystemCoreClock *= ((((PMC->CKGR_PLLBR) & CKGR_PLLBR_MULB_Msk) >>
+ 256              		.loc 1 374 0
+ 257 011a 184B     		ldr	r3, .L29	@ D.7385,
+ 258 011c DA6A     		ldr	r2, [r3, #44]	@ D.7386, _42->CKGR_PLLBR
+ 259 011e 1C4B     		ldr	r3, .L29+20	@ D.7386,
+ 260 0120 1340     		ands	r3, r3, r2	@, D.7386, D.7386, D.7386
+ 261 0122 1B0C     		lsrs	r3, r3, #16	@ D.7386, D.7386,
+ 375:cmsis_boot/system_sam4s.c ****                                    CKGR_PLLBR_MULB_Pos) + 1U);
+ 262              		.loc 1 375 0
+ 263 0124 0133     		adds	r3, r3, #1	@ D.7386, D.7386,
+ 374:cmsis_boot/system_sam4s.c ****       SystemCoreClock *= ((((PMC->CKGR_PLLBR) & CKGR_PLLBR_MULB_Msk) >>
+ 264              		.loc 1 374 0
+ 265 0126 174A     		ldr	r2, .L29+8	@ tmp201,
+ 266 0128 1268     		ldr	r2, [r2]	@ SystemCoreClock.12, SystemCoreClock
+ 267 012a 02FB03F2 		mul	r2, r2, r3	@ SystemCoreClock.13, SystemCoreClock.12, D.7386
+ 268 012e 154B     		ldr	r3, .L29+8	@ tmp202,
+ 269 0130 1A60     		str	r2, [r3]	@ SystemCoreClock.13, SystemCoreClock
+ 376:cmsis_boot/system_sam4s.c ****       SystemCoreClock /= ((((PMC->CKGR_PLLBR) & CKGR_PLLBR_DIVB_Msk) >>
+ 270              		.loc 1 376 0
+ 271 0132 144B     		ldr	r3, .L29+8	@ tmp203,
+ 272 0134 1A68     		ldr	r2, [r3]	@ SystemCoreClock.14, SystemCoreClock
+ 273 0136 114B     		ldr	r3, .L29	@ D.7385,
+ 274 0138 DB6A     		ldr	r3, [r3, #44]	@ D.7386, _50->CKGR_PLLBR
+ 275 013a DBB2     		uxtb	r3, r3	@ D.7386, D.7386
+ 276 013c B2FBF3F2 		udiv	r2, r2, r3	@ SystemCoreClock.15, SystemCoreClock.14, D.7386
+ 277 0140 104B     		ldr	r3, .L29+8	@ tmp204,
+ 278 0142 1A60     		str	r2, [r3]	@ SystemCoreClock.15, SystemCoreClock
+ 279              		.loc 1 379 0
+ 280 0144 00E0     		b	.L9	@
+ 281              	.L26:
+ 380:cmsis_boot/system_sam4s.c ****   default:
+ 381:cmsis_boot/system_sam4s.c ****     break;
+ 282              		.loc 1 381 0
+ 283 0146 00BF     		nop
+ 284              	.L9:
+ 382:cmsis_boot/system_sam4s.c ****   }
+ 383:cmsis_boot/system_sam4s.c **** 
+ 384:cmsis_boot/system_sam4s.c ****   if ((PMC->PMC_MCKR & PMC_MCKR_PRES_Msk) == PMC_MCKR_PRES_CLK_3) {
+ 285              		.loc 1 384 0
+ 286 0148 0C4B     		ldr	r3, .L29	@ D.7385,
+ 287 014a 1B6B     		ldr	r3, [r3, #48]	@ D.7386, _54->PMC_MCKR
+ 288 014c 03F07003 		and	r3, r3, #112	@ D.7386, D.7386,
+ 289 0150 702B     		cmp	r3, #112	@ D.7386,
+ 290 0152 08D1     		bne	.L24	@,
+ 385:cmsis_boot/system_sam4s.c ****     SystemCoreClock /= 3U;
+ 291              		.loc 1 385 0
+ 292 0154 0B4B     		ldr	r3, .L29+8	@ tmp205,
+ 293 0156 1A68     		ldr	r2, [r3]	@ SystemCoreClock.16, SystemCoreClock
+ 294 0158 0E4B     		ldr	r3, .L29+24	@ tmp207,
+ 295 015a A3FB0213 		umull	r1, r3, r3, r2	@, tmp206, tmp207, SystemCoreClock.16
+ 296 015e 5A08     		lsrs	r2, r3, #1	@ SystemCoreClock.17, tmp206,
+ 297 0160 084B     		ldr	r3, .L29+8	@ tmp208,
+ 298 0162 1A60     		str	r2, [r3]	@ SystemCoreClock.17, SystemCoreClock
+ 299 0164 09E0     		b	.L1	@
+ 300              	.L24:
+ 386:cmsis_boot/system_sam4s.c ****   } else {
+ 387:cmsis_boot/system_sam4s.c ****     SystemCoreClock >>= ((PMC->PMC_MCKR & PMC_MCKR_PRES_Msk) >> PMC_MCKR_PRES_Pos);
+ 301              		.loc 1 387 0
+ 302 0166 074B     		ldr	r3, .L29+8	@ tmp209,
+ 303 0168 1A68     		ldr	r2, [r3]	@ SystemCoreClock.18, SystemCoreClock
+ 304 016a 044B     		ldr	r3, .L29	@ D.7385,
+ 305 016c 1B6B     		ldr	r3, [r3, #48]	@ D.7386, _60->PMC_MCKR
+ 306 016e 03F07003 		and	r3, r3, #112	@ D.7386, D.7386,
+ 307 0172 1B09     		lsrs	r3, r3, #4	@ D.7386, D.7386,
+ 308 0174 DA40     		lsrs	r2, r2, r3	@ SystemCoreClock.19, SystemCoreClock.18, D.7388
+ 309 0176 034B     		ldr	r3, .L29+8	@ tmp210,
+ 310 0178 1A60     		str	r2, [r3]	@ SystemCoreClock.19, SystemCoreClock
+ 311              	.L1:
+ 388:cmsis_boot/system_sam4s.c ****   }
+ 389:cmsis_boot/system_sam4s.c **** }
+ 312              		.loc 1 389 0
+ 313 017a 7047     		bx	lr	@
+ 314              	.L30:
+ 315              		.align	2
+ 316              	.L29:
+ 317 017c 00040E40 		.word	1074660352
+ 318 0180 10140E40 		.word	1074664464
+ 319 0184 00000000 		.word	SystemCoreClock
+ 320 0188 001BB700 		.word	12000000
+ 321 018c 00093D00 		.word	4000000
+ 322 0190 0000FF07 		.word	134152192
+ 323 0194 ABAAAAAA 		.word	-1431655765
+ 324              		.cfi_endproc
+ 325              	.LFE116:
+ 327              		.align	2
+ 328              		.global	SystemInit
+ 329              		.thumb
+ 330              		.thumb_func
+ 332              	SystemInit:
+ 333              	.LFB117:
+ 390:cmsis_boot/system_sam4s.c **** 
+ 391:cmsis_boot/system_sam4s.c **** /**
+ 392:cmsis_boot/system_sam4s.c ****  * Initialize the system
+ 393:cmsis_boot/system_sam4s.c ****  *
+ 394:cmsis_boot/system_sam4s.c ****  * @param  none
+ 395:cmsis_boot/system_sam4s.c ****  * @return none
+ 396:cmsis_boot/system_sam4s.c ****  *
+ 397:cmsis_boot/system_sam4s.c ****  * @brief  Setup the microcontroller system.
+ 398:cmsis_boot/system_sam4s.c ****  *         Initialize the System.
+ 399:cmsis_boot/system_sam4s.c ****  */
+ 400:cmsis_boot/system_sam4s.c **** void SystemInit (void)
+ 401:cmsis_boot/system_sam4s.c **** {
+ 334              		.loc 1 401 0
+ 335              		.cfi_startproc
+ 336              		@ args = 0, pretend = 0, frame = 0
+ 337              		@ frame_needed = 0, uses_anonymous_args = 0
+ 338              		@ link register save eliminated.
+ 402:cmsis_boot/system_sam4s.c **** #if (EEFC_SETUP == 1)                   /* Embedded Flash Controller 0/1 Setup  */
+ 403:cmsis_boot/system_sam4s.c ****   EFC0->EEFC_FMR = EEFC_FMR_Val;
+ 339              		.loc 1 403 0
+ 340 0198 394B     		ldr	r3, .L39	@ D.7389,
+ 341 019a 4FF4A062 		mov	r2, #1280	@ tmp157,
+ 342 019e 1A60     		str	r2, [r3]	@ tmp157, _1->EEFC_FMR
+ 404:cmsis_boot/system_sam4s.c **** #if defined(ID_EFC1)
+ 405:cmsis_boot/system_sam4s.c ****   EFC1->EEFC_FMR = EEFC_FMR_Val;
+ 406:cmsis_boot/system_sam4s.c **** #endif
+ 407:cmsis_boot/system_sam4s.c **** #endif
+ 408:cmsis_boot/system_sam4s.c **** 
+ 409:cmsis_boot/system_sam4s.c ****   PMC->PMC_WPMR = 0x504D4300;           /* Disable write protect              */
+ 343              		.loc 1 409 0
+ 344 01a0 384B     		ldr	r3, .L39+4	@ D.7390,
+ 345 01a2 394A     		ldr	r2, .L39+8	@ tmp158,
+ 346 01a4 C3F8E420 		str	r2, [r3, #228]	@ tmp158, _2->PMC_WPMR
+ 410:cmsis_boot/system_sam4s.c **** 
+ 411:cmsis_boot/system_sam4s.c **** #if (PMC_SETUP == 1)                    /* Power Management Controller Setup  */
+ 412:cmsis_boot/system_sam4s.c **** 
+ 413:cmsis_boot/system_sam4s.c ****   /* before we change the clocksetup we switch Master Clock Source to MAIN_CLK */
+ 414:cmsis_boot/system_sam4s.c ****   PMC->PMC_MCKR = (PMC->PMC_MCKR & ~PMC_MCKR_CSS_Msk) | PMC_MCKR_CSS_MAIN_CLK;
+ 347              		.loc 1 414 0
+ 348 01a8 364B     		ldr	r3, .L39+4	@ D.7390,
+ 349 01aa 364A     		ldr	r2, .L39+4	@ D.7390,
+ 350 01ac 126B     		ldr	r2, [r2, #48]	@ D.7391, _4->PMC_MCKR
+ 351 01ae 22F00302 		bic	r2, r2, #3	@ D.7391, D.7391,
+ 352 01b2 42F00102 		orr	r2, r2, #1	@ D.7391, D.7391,
+ 353 01b6 1A63     		str	r2, [r3, #48]	@ D.7391, _3->PMC_MCKR
+ 415:cmsis_boot/system_sam4s.c ****   while (!(PMC->PMC_SR & PMC_SR_MCKRDY));     /* Wait for MCKRDY                    */
+ 354              		.loc 1 415 0
+ 355 01b8 00BF     		nop
+ 356              	.L32:
+ 357              		.loc 1 415 0 is_stmt 0 discriminator 1
+ 358 01ba 324B     		ldr	r3, .L39+4	@ D.7390,
+ 359 01bc 9B6E     		ldr	r3, [r3, #104]	@ D.7391, _8->PMC_SR
+ 360 01be 03F00803 		and	r3, r3, #8	@ D.7391, D.7391,
+ 361 01c2 002B     		cmp	r3, #0	@ D.7391,
+ 362 01c4 F9D0     		beq	.L32	@,
+ 416:cmsis_boot/system_sam4s.c **** 
+ 417:cmsis_boot/system_sam4s.c **** #if (CKGR_MOR_Val & (CKGR_MOR_MOSCRCEN | CKGR_MOR_MOSCXTEN))             /* If MOSCRCEN or MOSCXTEN
+ 418:cmsis_boot/system_sam4s.c ****   PMC->CKGR_MOR  =  (PMC->CKGR_MOR &  CKGR_MOR_MOSCSEL) |                /* Keep the current MOSCSE
+ 363              		.loc 1 418 0 is_stmt 1
+ 364 01c6 2F4A     		ldr	r2, .L39+4	@ D.7390,
+ 365 01c8 2E4B     		ldr	r3, .L39+4	@ D.7390,
+ 366 01ca 1B6A     		ldr	r3, [r3, #32]	@ D.7391, _12->CKGR_MOR
+ 367 01cc 03F08071 		and	r1, r3, #16777216	@ D.7391, D.7391,
+ 419:cmsis_boot/system_sam4s.c ****                     (CKGR_MOR_Val  & ~CKGR_MOR_MOSCSEL) |                /* Set value except MOSCSE
+ 368              		.loc 1 419 0
+ 369 01d0 2E4B     		ldr	r3, .L39+12	@ D.7391,
+ 370 01d2 0B43     		orrs	r3, r3, r1	@, D.7391, D.7391, D.7391
+ 418:cmsis_boot/system_sam4s.c ****   PMC->CKGR_MOR  =  (PMC->CKGR_MOR &  CKGR_MOR_MOSCSEL) |                /* Keep the current MOSCSE
+ 371              		.loc 1 418 0
+ 372 01d4 1362     		str	r3, [r2, #32]	@ D.7391, _11->CKGR_MOR
+ 420:cmsis_boot/system_sam4s.c ****                     (CKGR_MOR_MOSCRCEN | CKGR_MOR_MOSCXTEN);             /* and enable bothe OSC   
+ 421:cmsis_boot/system_sam4s.c **** #if (CKGR_MOR_Val & CKGR_MOR_MOSCRCEN)
+ 422:cmsis_boot/system_sam4s.c ****   while (!(PMC->PMC_SR & PMC_SR_MOSCRCS));    /* Wait for MOSCRCS                   */
+ 423:cmsis_boot/system_sam4s.c **** #endif
+ 424:cmsis_boot/system_sam4s.c **** #if (CKGR_MOR_Val & CKGR_MOR_MOSCXTEN)
+ 425:cmsis_boot/system_sam4s.c ****   while (!(PMC->PMC_SR & PMC_SR_MOSCXTS));    /* Wait for MOSCXTS                   */
+ 373              		.loc 1 425 0
+ 374 01d6 00BF     		nop
+ 375              	.L33:
+ 376              		.loc 1 425 0 is_stmt 0 discriminator 1
+ 377 01d8 2A4B     		ldr	r3, .L39+4	@ D.7390,
+ 378 01da 9B6E     		ldr	r3, [r3, #104]	@ D.7391, _16->PMC_SR
+ 379 01dc 03F00103 		and	r3, r3, #1	@ D.7391, D.7391,
+ 380 01e0 002B     		cmp	r3, #0	@ D.7391,
+ 381 01e2 F9D0     		beq	.L33	@,
+ 426:cmsis_boot/system_sam4s.c **** #endif
+ 427:cmsis_boot/system_sam4s.c ****   PMC->CKGR_MOR  =  CKGR_MOR_Val;             /* set the desired selection          */
+ 382              		.loc 1 427 0 is_stmt 1
+ 383 01e4 274B     		ldr	r3, .L39+4	@ D.7390,
+ 384 01e6 2A4A     		ldr	r2, .L39+16	@ tmp159,
+ 385 01e8 1A62     		str	r2, [r3, #32]	@ tmp159, _19->CKGR_MOR
+ 428:cmsis_boot/system_sam4s.c ****   while (!(PMC->PMC_SR & PMC_SR_MOSCSELS));   /* Wait for MOSCSELS                  */
+ 386              		.loc 1 428 0
+ 387 01ea 00BF     		nop
+ 388              	.L34:
+ 389              		.loc 1 428 0 is_stmt 0 discriminator 1
+ 390 01ec 254B     		ldr	r3, .L39+4	@ D.7390,
+ 391 01ee 9B6E     		ldr	r3, [r3, #104]	@ D.7391, _20->PMC_SR
+ 392 01f0 03F48033 		and	r3, r3, #65536	@ D.7391, D.7391,
+ 393 01f4 002B     		cmp	r3, #0	@ D.7391,
+ 394 01f6 F9D0     		beq	.L34	@,
+ 429:cmsis_boot/system_sam4s.c **** #endif
+ 430:cmsis_boot/system_sam4s.c **** 
+ 431:cmsis_boot/system_sam4s.c **** #if (CKGR_PLLAR_Val & CKGR_PLLAR_MULA_Msk)    /* If MULA != 0                       */
+ 432:cmsis_boot/system_sam4s.c ****   PMC->CKGR_PLLAR = CKGR_PLLAR_Val | CKGR_PLLAR_ONE;
+ 395              		.loc 1 432 0 is_stmt 1
+ 396 01f8 224B     		ldr	r3, .L39+4	@ D.7390,
+ 397 01fa 264A     		ldr	r2, .L39+20	@ tmp160,
+ 398 01fc 9A62     		str	r2, [r3, #40]	@ tmp160, _23->CKGR_PLLAR
+ 433:cmsis_boot/system_sam4s.c ****   while (!(PMC->PMC_SR & PMC_SR_LOCKA));      /* Wait for LOCKA                     */
+ 399              		.loc 1 433 0
+ 400 01fe 00BF     		nop
+ 401              	.L35:
+ 402              		.loc 1 433 0 is_stmt 0 discriminator 1
+ 403 0200 204B     		ldr	r3, .L39+4	@ D.7390,
+ 404 0202 9B6E     		ldr	r3, [r3, #104]	@ D.7391, _24->PMC_SR
+ 405 0204 03F00203 		and	r3, r3, #2	@ D.7391, D.7391,
+ 406 0208 002B     		cmp	r3, #0	@ D.7391,
+ 407 020a F9D0     		beq	.L35	@,
+ 434:cmsis_boot/system_sam4s.c **** #endif
+ 435:cmsis_boot/system_sam4s.c **** 
+ 436:cmsis_boot/system_sam4s.c **** #if (CKGR_PLLBR_Val & CKGR_PLLBR_MULB_Msk)    /* If MULB != 0                       */
+ 437:cmsis_boot/system_sam4s.c ****   PMC->CKGR_PLLBR = CKGR_PLLBR_Val;
+ 438:cmsis_boot/system_sam4s.c ****   while (!(PMC->PMC_SR & PMC_SR_LOCKB));      /* Wait for LOCKB                     */
+ 439:cmsis_boot/system_sam4s.c **** #endif
+ 440:cmsis_boot/system_sam4s.c **** 
+ 441:cmsis_boot/system_sam4s.c ****   if ((PMC_MCKR_Val & 0x03) >= 2) {
+ 442:cmsis_boot/system_sam4s.c ****     /* Write PRES field only                                                  */
+ 443:cmsis_boot/system_sam4s.c ****     PMC->PMC_MCKR = (PMC->PMC_MCKR & ~0x70) | (PMC_MCKR_Val & 0x70);
+ 408              		.loc 1 443 0 is_stmt 1
+ 409 020c 1D4B     		ldr	r3, .L39+4	@ D.7390,
+ 410 020e 1D4A     		ldr	r2, .L39+4	@ D.7390,
+ 411 0210 126B     		ldr	r2, [r2, #48]	@ D.7391, _28->PMC_MCKR
+ 412 0212 22F07002 		bic	r2, r2, #112	@ D.7391, D.7391,
+ 413 0216 1A63     		str	r2, [r3, #48]	@ D.7391, _27->PMC_MCKR
+ 444:cmsis_boot/system_sam4s.c ****   } else {
+ 445:cmsis_boot/system_sam4s.c ****     /* Write CSS field only                                                   */
+ 446:cmsis_boot/system_sam4s.c ****     PMC->PMC_MCKR = (PMC->PMC_MCKR & ~0x03) | (PMC_MCKR_Val & 0x03);
+ 447:cmsis_boot/system_sam4s.c ****   }
+ 448:cmsis_boot/system_sam4s.c ****   while (!(PMC->PMC_SR & PMC_SR_MCKRDY));     /* Wait for MCKRDY                    */
+ 414              		.loc 1 448 0
+ 415 0218 00BF     		nop
+ 416              	.L36:
+ 417              		.loc 1 448 0 is_stmt 0 discriminator 1
+ 418 021a 1A4B     		ldr	r3, .L39+4	@ D.7390,
+ 419 021c 9B6E     		ldr	r3, [r3, #104]	@ D.7391, _31->PMC_SR
+ 420 021e 03F00803 		and	r3, r3, #8	@ D.7391, D.7391,
+ 421 0222 002B     		cmp	r3, #0	@ D.7391,
+ 422 0224 F9D0     		beq	.L36	@,
+ 449:cmsis_boot/system_sam4s.c ****   PMC->PMC_MCKR   =  PMC_MCKR_Val;            /* Write all MCKR                     */
+ 423              		.loc 1 449 0 is_stmt 1
+ 424 0226 174B     		ldr	r3, .L39+4	@ D.7390,
+ 425 0228 0222     		movs	r2, #2	@ tmp161,
+ 426 022a 1A63     		str	r2, [r3, #48]	@ tmp161, _34->PMC_MCKR
+ 450:cmsis_boot/system_sam4s.c ****   while (!(PMC->PMC_SR & PMC_SR_MCKRDY));     /* Wait for MCKRDY                    */
+ 427              		.loc 1 450 0
+ 428 022c 00BF     		nop
+ 429              	.L37:
+ 430              		.loc 1 450 0 is_stmt 0 discriminator 1
+ 431 022e 154B     		ldr	r3, .L39+4	@ D.7390,
+ 432 0230 9B6E     		ldr	r3, [r3, #104]	@ D.7391, _35->PMC_SR
+ 433 0232 03F00803 		and	r3, r3, #8	@ D.7391, D.7391,
+ 434 0236 002B     		cmp	r3, #0	@ D.7391,
+ 435 0238 F9D0     		beq	.L37	@,
+ 451:cmsis_boot/system_sam4s.c **** 
+ 452:cmsis_boot/system_sam4s.c ****   PMC->PMC_USB   = PMC_USB_Val;
+ 436              		.loc 1 452 0 is_stmt 1
+ 437 023a 124B     		ldr	r3, .L39+4	@ D.7390,
+ 438 023c 40F20112 		movw	r2, #257	@ tmp162,
+ 439 0240 9A63     		str	r2, [r3, #56]	@ tmp162, _38->PMC_USB
+ 453:cmsis_boot/system_sam4s.c ****   PMC->PMC_SCER  = PMC_SCER_Val;
+ 440              		.loc 1 453 0
+ 441 0242 104B     		ldr	r3, .L39+4	@ D.7390,
+ 442 0244 4FF48072 		mov	r2, #256	@ tmp163,
+ 443 0248 1A60     		str	r2, [r3]	@ tmp163, _39->PMC_SCER
+ 454:cmsis_boot/system_sam4s.c ****   PMC->PMC_PCER0 = PMC_PCER0_Val;
+ 444              		.loc 1 454 0
+ 445 024a 0E4B     		ldr	r3, .L39+4	@ D.7390,
+ 446 024c 4FF47052 		mov	r2, #15360	@ tmp164,
+ 447 0250 1A61     		str	r2, [r3, #16]	@ tmp164, _40->PMC_PCER0
+ 455:cmsis_boot/system_sam4s.c ****   PMC->PMC_PCER1 = PMC_PCER1_Val;
+ 448              		.loc 1 455 0
+ 449 0252 0C4B     		ldr	r3, .L39+4	@ D.7390,
+ 450 0254 0022     		movs	r2, #0	@ tmp165,
+ 451 0256 C3F80021 		str	r2, [r3, #256]	@ tmp165, _41->PMC_PCER1
+ 456:cmsis_boot/system_sam4s.c **** 
+ 457:cmsis_boot/system_sam4s.c **** #if (PMC_SCER_Val & PMC_SCER_PCK0)
+ 458:cmsis_boot/system_sam4s.c ****   PMC->PMC_PCK[0] = PMC_PCK0_Val;             /* Write PCK0                         */
+ 452              		.loc 1 458 0
+ 453 025a 0A4B     		ldr	r3, .L39+4	@ D.7390,
+ 454 025c 0222     		movs	r2, #2	@ tmp166,
+ 455 025e 1A64     		str	r2, [r3, #64]	@ tmp166, _42->PMC_PCK
+ 459:cmsis_boot/system_sam4s.c ****   while (!(PMC->PMC_SR & PMC_SR_PCKRDY0));    /* Wait for PCKRDY0                   */
+ 456              		.loc 1 459 0
+ 457 0260 00BF     		nop
+ 458              	.L38:
+ 459              		.loc 1 459 0 is_stmt 0 discriminator 1
+ 460 0262 084B     		ldr	r3, .L39+4	@ D.7390,
+ 461 0264 9B6E     		ldr	r3, [r3, #104]	@ D.7391, _43->PMC_SR
+ 462 0266 03F48073 		and	r3, r3, #256	@ D.7391, D.7391,
+ 463 026a 002B     		cmp	r3, #0	@ D.7391,
+ 464 026c F9D0     		beq	.L38	@,
+ 460:cmsis_boot/system_sam4s.c **** #endif
+ 461:cmsis_boot/system_sam4s.c **** #if (PMC_SCER_Val & PMC_SCER_PCK1)
+ 462:cmsis_boot/system_sam4s.c ****   PMC->PMC_PCK[1] = PMC_PCK1_Val;             /* Write PCK1                         */
+ 463:cmsis_boot/system_sam4s.c ****   while (!(PMC->PMC_SR & PMC_SR_PCKRDY1));    /* Wait for PCKRDY1                   */
+ 464:cmsis_boot/system_sam4s.c **** #endif
+ 465:cmsis_boot/system_sam4s.c **** #if (PMC_SCER_Val & PMC_SCER_PCK2)
+ 466:cmsis_boot/system_sam4s.c ****   PMC->PMC_PCK[2] = PMC_PCK2_Val;             /* Write PCK2                         */
+ 467:cmsis_boot/system_sam4s.c ****   while (!(PMC->PMC_SR & PMC_SR_PCKRDY2));    /* Wait for PCKRDY2                   */
+ 468:cmsis_boot/system_sam4s.c **** #endif
+ 469:cmsis_boot/system_sam4s.c **** 
+ 470:cmsis_boot/system_sam4s.c **** #endif
+ 471:cmsis_boot/system_sam4s.c ****   PMC->PMC_WPMR = 0x504D4301;                 /* Enable write protect               */
+ 465              		.loc 1 471 0 is_stmt 1
+ 466 026e 054B     		ldr	r3, .L39+4	@ D.7390,
+ 467 0270 094A     		ldr	r2, .L39+24	@ tmp167,
+ 468 0272 C3F8E420 		str	r2, [r3, #228]	@ tmp167, _46->PMC_WPMR
+ 472:cmsis_boot/system_sam4s.c **** 
+ 473:cmsis_boot/system_sam4s.c **** #if (WDT_SETUP == 1)                          /* Watchdog Setup                     */
+ 474:cmsis_boot/system_sam4s.c ****   WDT->WDT_MR = WDT_MR_WDDIS;
+ 469              		.loc 1 474 0
+ 470 0276 094B     		ldr	r3, .L39+28	@ D.7392,
+ 471 0278 4FF40042 		mov	r2, #32768	@ tmp168,
+ 472 027c 5A60     		str	r2, [r3, #4]	@ tmp168, _47->WDT_MR
+ 475:cmsis_boot/system_sam4s.c **** #endif
+ 476:cmsis_boot/system_sam4s.c **** }
+ 473              		.loc 1 476 0
+ 474 027e 7047     		bx	lr	@
+ 475              	.L40:
+ 476              		.align	2
+ 477              	.L39:
+ 478 0280 000A0E40 		.word	1074661888
+ 479 0284 00040E40 		.word	1074660352
+ 480 0288 00434D50 		.word	1347240704
+ 481 028c 290F3700 		.word	3608361
+ 482 0290 210F3701 		.word	20385569
+ 483 0294 03081920 		.word	538511363
+ 484 0298 01434D50 		.word	1347240705
+ 485 029c 50140E40 		.word	1074664528
+ 486              		.cfi_endproc
+ 487              	.LFE117:
+ 489              	.Letext0:
+ 490              		.file 2 "d:\\armgcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 491              		.file 3 "d:\\armgcc\\arm-none-eabi\\include\\stdint.h"
+ 492              		.file 4 "SAM4S_StdPeriph_Driver/Include/SAM4S/component/efc.h"
+ 493              		.file 5 "SAM4S_StdPeriph_Driver/Include/SAM4S/component/pmc.h"
+ 494              		.file 6 "SAM4S_StdPeriph_Driver/Include/SAM4S/component/supc.h"
+ 495              		.file 7 "SAM4S_StdPeriph_Driver/Include/SAM4S/component/wdt.h"
+ 496              		.file 8 "cmsis_core/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 system_sam4s.c
+C:\Users\Spas\AppData\Local\Temp\ccxjg6ZA.s:65     .data:00000000 SystemCoreClock
+C:\Users\Spas\AppData\Local\Temp\ccxjg6ZA.s:62     .data:00000000 $d
+C:\Users\Spas\AppData\Local\Temp\ccxjg6ZA.s:68     .text:00000000 $t
+C:\Users\Spas\AppData\Local\Temp\ccxjg6ZA.s:73     .text:00000000 SystemCoreClockUpdate
+C:\Users\Spas\AppData\Local\Temp\ccxjg6ZA.s:91     .text:00000014 $d
+C:\Users\Spas\AppData\Local\Temp\ccxjg6ZA.s:95     .text:00000024 $t
+C:\Users\Spas\AppData\Local\Temp\ccxjg6ZA.s:317    .text:0000017c $d
+C:\Users\Spas\AppData\Local\Temp\ccxjg6ZA.s:327    .text:00000198 $t
+C:\Users\Spas\AppData\Local\Temp\ccxjg6ZA.s:332    .text:00000198 SystemInit
+C:\Users\Spas\AppData\Local\Temp\ccxjg6ZA.s:478    .text:00000280 $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 wm4.0.bb49f1eb716983c9014b6db3ebb18dd1
+                           .group:00000000 wm4.features.h.22.6a4ca7cd053637cc1d0db6c16f39b2d7
+                           .group:00000000 wm4._default_types.h.15.8b2cb27e528498f8ff711db085d6e489
+                           .group:00000000 wm4.stdint.h.20.796e373797e732130a803d4c0338fa1b
+                           .group:00000000 wm4.chip.h.31.ffb1374c8cfd711bf08b18cb482cdecd
+                           .group:00000000 wm4.sam4s8b.h.31.f56bf564560a056c2bcd3009dbea152b
+                           .group:00000000 wm4.core_cm4.h.47.facd8ba456d1edc74a9cd34e5ef24231
+                           .group:00000000 wm4.core_cmInstr.h.39.3d3d1b4a79aef37532666dc6ee87c6ac
+                           .group:00000000 wm4.core_cm4_simd.h.43.d8e10c63b7db2f2a1586965c37b6affe
+                           .group:00000000 wm4.core_cm4.h.178.877dd53394110c198a69aa86aba65870
+                           .group:00000000 wm4.acc.h.31.dfd29459e721169d72014eb762f71214
+                           .group:00000000 wm4.adc.h.31.c6656640e20d1eafe623af86cb226fca
+                           .group:00000000 wm4.chipid.h.31.3af5a36d0a4a9a225c9afb52a1aea0b9
+                           .group:00000000 wm4.crccu.h.31.a496852d13935483993734d587fc2f8e
+                           .group:00000000 wm4.dacc.h.31.c9217b43fde87abb246765d0ddcb9c5a
+                           .group:00000000 wm4.efc.h.31.0bf8e93e6585804f24ede0a4e728599a
+                           .group:00000000 wm4.gpbr.h.31.7a5e3dd0c356c6b68d5c512bbdf67f08
+                           .group:00000000 wm4.hsmci.h.31.9d224a62fa1ec786508b485b0627d948
+                           .group:00000000 wm4.matrix.h.31.c705893f10dd90abec557434f19f4c80
+                           .group:00000000 wm4.pdc.h.31.e2d19841c81c9c2bbeeb400b89d315b5
+                           .group:00000000 wm4.pio.h.31.8c8983d26a861f040f0f117c14ec06d2
+                           .group:00000000 wm4.pmc.h.31.ee762809cf9b67f8c369267b7f38d1b3
+                           .group:00000000 wm4.pwm.h.31.da9b7d8dc8ac9c261fdee7e206bdee45
+                           .group:00000000 wm4.rstc.h.31.96e972cc48a3044e9dca7f2d844f33fb
+                           .group:00000000 wm4.rtc.h.31.f40a4fc6ecffe9e0a8284c655825715f
+                           .group:00000000 wm4.rtt.h.31.f70870f04ef5dbcac3269f990b758352
+                           .group:00000000 wm4.spi.h.31.f86a4b9d7f4ee32bf9133e4926aa8885
+                           .group:00000000 wm4.ssc.h.31.b805b08edc780a096d6650d6ca36d1ca
+                           .group:00000000 wm4.supc.h.31.131b9cb8083389b79a4bd5bf451243ef
+                           .group:00000000 wm4.tc.h.31.8da8c788d3223db5455d03e5435ef8db
+                           .group:00000000 wm4.twi.h.31.22147bf5d3d32053731c632df0e79c3c
+                           .group:00000000 wm4.uart.h.31.8e28760a665c54768e00ff4c7a643590
+                           .group:00000000 wm4.udp.h.31.edd1ad37d3ebc2c446bab55b82a89df9
+                           .group:00000000 wm4.usart.h.31.f84a5833fa97905e15d92372b7a4d3aa
+                           .group:00000000 wm4.wdt.h.31.bf9508cda074277d961fffa2c014b7c4
+                           .group:00000000 wm4.hsmci.h.31.3557701962362e69e14e53f685fa289c
+                           .group:00000000 wm4.ssc.h.31.b3090d071ea322e9320de7b3374b6c7d
+                           .group:00000000 wm4.spi.h.31.0c099f04fc71f13866451dd19f165ce5
+                           .group:00000000 wm4.tc0.h.31.82f2382972b60e05b032ad12082a9b88
+                           .group:00000000 wm4.tc1.h.31.a45ad165f1e4a4be41030d128002f2e1
+                           .group:00000000 wm4.twi0.h.31.a2f6579ad734afdd1f8957b7fc33aa94
+                           .group:00000000 wm4.twi1.h.31.dcb9c8cbe7f017d537033c87ba5ff61b
+                           .group:00000000 wm4.pwm.h.31.2d9663b87a377027ead59c1615e3084b
+                           .group:00000000 wm4.usart0.h.31.ec6af36a3993709e003c7713e45e6d44
+                           .group:00000000 wm4.usart1.h.31.eafbafd9baa63489c7d4b47b07dd4359
+                           .group:00000000 wm4.udp.h.31.72bce9f16287d99e27dc398746c7b41a
+                           .group:00000000 wm4.adc.h.31.d1d169655aedc0ac5464b9bc3e038d91
+                           .group:00000000 wm4.dacc.h.31.f498d7e9c6281f6aa2a76955bd19179f
+                           .group:00000000 wm4.acc.h.31.bd89452c6f6042da160b09b91f7b4ad6
+                           .group:00000000 wm4.crccu.h.31.0f8ee11e21f25cd8f0d59ee9bd2d6017
+                           .group:00000000 wm4.matrix.h.31.16f7506a18ec96f1a889a659d8f54158
+                           .group:00000000 wm4.pmc.h.31.8ee9f69608f942cb1f3f8bedac24c137
+                           .group:00000000 wm4.uart0.h.31.107626f9f656553c6d028df3e0c36652
+                           .group:00000000 wm4.chipid.h.31.3d621c981fbba4cbcdf919961d16a7e0
+                           .group:00000000 wm4.uart1.h.31.8229a0a664aa704025162a106c6f1697
+                           .group:00000000 wm4.efc0.h.31.aa56af1c721ea83a50dc1967a8959b7e
+                           .group:00000000 wm4.pioa.h.31.577ac2183c73a1a02e92e91a0e37e8fe
+                           .group:00000000 wm4.piob.h.31.3d18377ca5f71fef4e536cd97e1dced2
+                           .group:00000000 wm4.pioc.h.31.9fd85e02d9919f268f52f61ee7874ed4
+                           .group:00000000 wm4.rstc.h.31.d42d559221b78874dbf800ea2429b8d0
+                           .group:00000000 wm4.supc.h.31.851dbe7e029de2cc98417e6c6ce74d66
+                           .group:00000000 wm4.rtt.h.31.b6f3540f51d07e433e9f2b607b78fa5d
+                           .group:00000000 wm4.wdt.h.31.e29a378018b6da05e80df7a7d3fae91a
+                           .group:00000000 wm4.rtc.h.31.62bff3fa21e4de3cfaf653749f73ca5b
+                           .group:00000000 wm4.gpbr.h.31.a690ec9ac14ca127f47cc304a062f896
+                           .group:00000000 wm4.sam4s8b.h.310.cfe4025ce42f19fc6dad5600399e6497
+                           .group:00000000 wm4.sam4s8b.h.31.bac0ae8aa6a8295f4ede171816a1bfbd
+                           .group:00000000 wm4.sam4s8b.h.455.d99766a935df92fcae5a6292daf0b9af
+                           .group:00000000 wm4.newlib.h.8.fec018e441fee7bfa1923812ad010f97
+                           .group:00000000 wm4.config.h.212.4163ef2871a828c674038d036b081cfd
+                           .group:00000000 wm4._ansi.h.23.2147fde150631f5584b9dc29b914d1b8
+                           .group:00000000 wm4.assert.h.11.7fe9eb241be6b0fee772a1e693b81ae3
+                           .group:00000000 wm4.acc.h.61.44cfae6040af09278183f92220a11c11
+                           .group:00000000 wm4.assert.h.11.7043852a511d37ae606afa012e67e471
+                           .group:00000000 wm4.adc.h.62.836e1c74f33a3b2357c489804b9e4164
+                           .group:00000000 wm4.async.h.38.b923efd27c82eb8a5a30fb0d9a711171
+                           .group:00000000 wm4.dacc.h.61.de15528749b6a5508d4e234e0989531c
+                           .group:00000000 wm4.efc.h.51.dca436509f69196baef24b3ff3ad1b51
+                           .group:00000000 wm4.flashd.h.38.2c9bfdc532d7034a024627acda3e3c0b
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.184.159df79b4ca79c76561572a55985524c
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.stddef.h.39.7e3d906ac58942e0b374c527445f5de5
+                           .group:00000000 wm4.lock.h.2.9bc98482741e5e2a9450b12934a684ea
+                           .group:00000000 wm4._types.h.54.d3d34a3b7f3cc230cd159baf022b4b08
+                           .group:00000000 wm4.stddef.h.158.61317cdbfb4026324507d123a50b0fd6
+                           .group:00000000 wm4.reent.h.17.8bd9e4098e0428508c282cad794fae43
+                           .group:00000000 wm4.types.h.23.0d949686bbcadd1621462d4fa1f884f9
+                           .group:00000000 wm4.types.h.2.e9cec8c90ab35f77d9f499e06ae02400
+                           .group:00000000 wm4.types.h.80.56707660962b21991903f1fee7c13bb3
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.64.0f05fa42cfe2db7fc44729a52d3ba948
+                           .group:00000000 wm4.hsmci.h.110.610f58f6a31861e37bc09b5b7be09388
+                           .group:00000000 wm4.pio.h.68.5d85e14ea6ea0da924da53053bc590d1
+                           .group:00000000 wm4.rtc.h.38.8bf78db8651343e80a889203827406a5
+                           .group:00000000 wm4.spi.h.38.450641354031b1013c08519149294c78
+                           .group:00000000 wm4.spi_pdc.h.38.75857b1dd4449731562322c9709581d8
+                           .group:00000000 wm4.twi.h.38.68f2e661eb174ca9ca74eef9740d9a3a
+                           .group:00000000 wm4.twid.h.31.9ea8c90af654647ca4d6e3b74e701509
+                           .group:00000000 wm4.usart.h.55.88c716ee7c3b6ed0339de6e194786a12
+                           .group:00000000 wm4.trace.h.65.364d8fb880402737deb1646f3fc9e1eb
+                           .group:00000000 wm4.chip.h.106.a1f123eb25606bfd56ed06360bda02b0
+
+NO UNDEFINED SYMBOLS

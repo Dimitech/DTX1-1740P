@@ -1,0 +1,475 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
+   5              		.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
+   6              		.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
+   7              		.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
+   8              		.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
+   9              		.eabi_attribute 26, 1	@ Tag_ABI_enum_size
+  10              		.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
+  11              		.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
+  12              		.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
+  13              		.file	"mspi_apps.c"
+  14              	@ GNU C (GNU Tools for ARM Embedded Processors) version 4.8.4 20140725 (release) [ARM/embedded-4_8-
+  15              	@	compiled by GNU C version 4.7.4, GMP version 4.3.2, MPFR version 2.4.2, MPC version 0.8.1
+  16              	@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+  17              	@ options passed:  -I . -I apps -I apps/inc -I apps/src -I apps/src/fonts
+  18              	@ -I cmsis_boot -I cmsis_boot/startup -I cmsis_core
+  19              	@ -I SAM4S_StdPeriph_Driver -I SAM4S_StdPeriph_Driver/Include
+  20              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S
+  21              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/component
+  22              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/instance
+  23              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/pio
+  24              	@ -I SAM4S_StdPeriph_Driver/Source -I SAM4S_StdPeriph_Driver/Source/SAM4S
+  25              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/include
+  26              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/source -I user_libs
+  27              	@ -I user_libs/inc -I user_libs/src -imultilib armv7e-m
+  28              	@ -iprefix d:\armgcc\bin\../lib/gcc/arm-none-eabi/4.8.4/
+  29              	@ -isysroot d:\armgcc\bin\../arm-none-eabi -MD out/apps/src/mspi_apps.d
+  30              	@ -MF out/apps/src/mspi_apps.o.dep -MP -MQ out/apps/src/mspi_apps.o
+  31              	@ -D__USES_INITFINI__ -D gcc apps/src/mspi_apps.c -mcpu=cortex-m4 -mthumb
+  32              	@ -auxbase-strip out/apps/src/mspi_apps.o -ggdb3 -O0 -Wall -Wpointer-arith
+  33              	@ -Wswitch -Wnested-externs -std=gnu99 -fomit-frame-pointer -fverbose-asm
+  34              	@ -funsigned-char
+  35              	@ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
+  36              	@ -fbranch-count-reg -fcommon -fdelete-null-pointer-checks -fdwarf2-cfi-asm
+  37              	@ -fearly-inlining -feliminate-unused-debug-types -ffunction-cse -fgcse-lm
+  38              	@ -fgnu-runtime -fgnu-unique -fident -finline-atomics -fira-hoist-pressure
+  39              	@ -fira-share-save-slots -fira-share-spill-slots -fivopts
+  40              	@ -fkeep-static-consts -fleading-underscore -fmath-errno
+  41              	@ -fmerge-debug-strings -fmove-loop-invariants -fomit-frame-pointer
+  42              	@ -fpeephole -fprefetch-loop-arrays -freg-struct-return
+  43              	@ -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  44              	@ -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  45              	@ -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  46              	@ -fsched-stalled-insns-dep -fshow-column -fsigned-zeros
+  47              	@ -fsplit-ivs-in-unroller -fstrict-volatile-bitfields -fsync-libcalls
+  48              	@ -ftrapping-math -ftree-coalesce-vars -ftree-cselim -ftree-forwprop
+  49              	@ -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
+  50              	@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop -ftree-pta
+  51              	@ -ftree-reassoc -ftree-scev-cprop -ftree-slp-vectorize
+  52              	@ -ftree-vect-loop-version -funit-at-a-time -fverbose-asm
+  53              	@ -fzero-initialized-in-bss -mlittle-endian -mpic-data-is-text-relative
+  54              	@ -msched-prolog -mthumb -munaligned-access -mvectorize-with-neon-quad
+  55              	
+  56              		.text
+  57              	.Ltext0:
+  58              		.cfi_sections	.debug_frame
+  59              		.global	pins_MSPI
+  60              		.data
+  61              		.align	2
+  64              	pins_MSPI:
+  65              	@ mask:
+  66 0000 00080000 		.word	2048
+  67              	@ pio:
+  68 0004 000E0E40 		.word	1074662912
+  69              	@ id:
+  70 0008 0B       		.byte	11
+  71              	@ type:
+  72 0009 00       		.byte	0
+  73              	@ attribute:
+  74 000a 00       		.byte	0
+  75 000b 00       		.space	1
+  76              	@ mask:
+  77 000c 00100000 		.word	4096
+  78              	@ pio:
+  79 0010 000E0E40 		.word	1074662912
+  80              	@ id:
+  81 0014 0B       		.byte	11
+  82              	@ type:
+  83 0015 04       		.byte	4
+  84              	@ attribute:
+  85 0016 00       		.byte	0
+  86 0017 00       		.space	1
+  87              	@ mask:
+  88 0018 00100000 		.word	4096
+  89              	@ pio:
+  90 001c 000E0E40 		.word	1074662912
+  91              	@ id:
+  92 0020 0B       		.byte	11
+  93              	@ type:
+  94 0021 00       		.byte	0
+  95              	@ attribute:
+  96 0022 00       		.byte	0
+  97 0023 00       		.space	1
+  98              	@ mask:
+  99 0024 00400000 		.word	16384
+ 100              	@ pio:
+ 101 0028 000E0E40 		.word	1074662912
+ 102              	@ id:
+ 103 002c 0B       		.byte	11
+ 104              	@ type:
+ 105 002d 00       		.byte	0
+ 106              	@ attribute:
+ 107 002e 00       		.byte	0
+ 108 002f 00       		.space	1
+ 109              		.text
+ 110              		.align	2
+ 111              		.global	PIOA_IRQHandler
+ 112              		.thumb
+ 113              		.thumb_func
+ 115              	PIOA_IRQHandler:
+ 116              	.LFB116:
+ 117              		.file 1 "apps/src/mspi_apps.c"
+   1:apps/src/mspi_apps.c **** /**
+   2:apps/src/mspi_apps.c ****   ******************************************************************************
+   3:apps/src/mspi_apps.c ****   * @file     mspi_apps.c
+   4:apps/src/mspi_apps.c ****   * @author   Spas Spasov
+   5:apps/src/mspi_apps.c ****   * @version  V1.0.0
+   6:apps/src/mspi_apps.c ****   * @date     10.2014
+   7:apps/src/mspi_apps.c ****   * @brief
+   8:apps/src/mspi_apps.c ****   *
+   9:apps/src/mspi_apps.c ****   *
+  10:apps/src/mspi_apps.c ****   ******************************************************************************
+  11:apps/src/mspi_apps.c ****   * @attention
+  12:apps/src/mspi_apps.c ****   *
+  13:apps/src/mspi_apps.c ****   ******************************************************************************
+  14:apps/src/mspi_apps.c ****   */
+  15:apps/src/mspi_apps.c **** 
+  16:apps/src/mspi_apps.c **** /* Includes ------------------------------------------------------------------*/
+  17:apps/src/mspi_apps.c **** #include "chip.h"             			/* Device header			*/
+  18:apps/src/mspi_apps.c **** #include "mspi_apps.h"
+  19:apps/src/mspi_apps.c **** 
+  20:apps/src/mspi_apps.c **** /* Private typedef -----------------------------------------------------------*/
+  21:apps/src/mspi_apps.c **** /* None */
+  22:apps/src/mspi_apps.c **** 
+  23:apps/src/mspi_apps.c **** /* Private define ------------------------------------------------------------*/
+  24:apps/src/mspi_apps.c **** /** SPI pins */
+  25:apps/src/mspi_apps.c **** #define PIN_MSPI_MISO 						{PIO_PA12, PIOA, ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
+  26:apps/src/mspi_apps.c **** #define PIN_MSPI_MISO_FLOW 					{PIO_PA12, PIOA, ID_PIOA, PIO_INPUT, PIO_DEFAULT}
+  27:apps/src/mspi_apps.c **** #define PIN_MSPI_MOSI 						{PIO_PA12, PIOA, ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
+  28:apps/src/mspi_apps.c **** #define PIN_MSPI_SPCK 						{PIO_PA14, PIOA, ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
+  29:apps/src/mspi_apps.c **** 
+  30:apps/src/mspi_apps.c **** /** mSPI mSS pin */
+  31:apps/src/mspi_apps.c **** #define PIN_MSPI_MSS 						{PIO_PA11, PIOA, ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
+  32:apps/src/mspi_apps.c **** 
+  33:apps/src/mspi_apps.c **** #define MSPI         						SPI
+  34:apps/src/mspi_apps.c **** #define MSPI_CS_NUM         				0
+  35:apps/src/mspi_apps.c **** 
+  36:apps/src/mspi_apps.c **** #define MSPI_DTX_1740_ADDRESS				0x17
+  37:apps/src/mspi_apps.c **** #define EPTY_TX_SPI_BUFF					0
+  38:apps/src/mspi_apps.c **** 
+  39:apps/src/mspi_apps.c **** /* Private macro -------------------------------------------------------------*/
+  40:apps/src/mspi_apps.c **** 
+  41:apps/src/mspi_apps.c **** /* Private variables ---------------------------------------------------------*/
+  42:apps/src/mspi_apps.c **** Pin pins_MSPI[] = {PIN_MSPI_MSS, PIN_MSPI_MISO_FLOW, PIN_MSPI_MOSI, PIN_MSPI_SPCK};
+  43:apps/src/mspi_apps.c **** 
+  44:apps/src/mspi_apps.c **** /* Private function prototypes -----------------------------------------------*/
+  45:apps/src/mspi_apps.c **** 
+  46:apps/src/mspi_apps.c **** /* Public function prototypes ------------------------------------------------*/
+  47:apps/src/mspi_apps.c **** 
+  48:apps/src/mspi_apps.c **** /* Private functions ---------------------------------------------------------*/
+  49:apps/src/mspi_apps.c **** 
+  50:apps/src/mspi_apps.c **** /**
+  51:apps/src/mspi_apps.c ****  * \brief Interrupt handler for PIOA Controller.
+  52:apps/src/mspi_apps.c ****  */
+  53:apps/src/mspi_apps.c **** void PIOA_IRQHandler( void )
+  54:apps/src/mspi_apps.c **** {
+ 118              		.loc 1 54 0
+ 119              		.cfi_startproc
+ 120              		@ args = 0, pretend = 0, frame = 8
+ 121              		@ frame_needed = 0, uses_anonymous_args = 0
+ 122              		@ link register save eliminated.
+ 123 0000 82B0     		sub	sp, sp, #8	@,,
+ 124              		.cfi_def_cfa_offset 8
+  55:apps/src/mspi_apps.c **** volatile uint32_t dummy;
+  56:apps/src/mspi_apps.c **** 
+  57:apps/src/mspi_apps.c **** 	dummy = PIOA->PIO_ISR;
+ 125              		.loc 1 57 0
+ 126 0002 024B     		ldr	r3, .L2	@ D.7229,
+ 127 0004 DB6C     		ldr	r3, [r3, #76]	@ dummy.0, _1->PIO_ISR
+ 128 0006 0193     		str	r3, [sp, #4]	@ dummy.0, dummy
+  58:apps/src/mspi_apps.c **** }
+ 129              		.loc 1 58 0
+ 130 0008 02B0     		add	sp, sp, #8	@,,
+ 131              		@ sp needed	@
+ 132 000a 7047     		bx	lr	@
+ 133              	.L3:
+ 134              		.align	2
+ 135              	.L2:
+ 136 000c 000E0E40 		.word	1074662912
+ 137              		.cfi_endproc
+ 138              	.LFE116:
+ 140              		.align	2
+ 141              		.global	SPI_IRQHandler
+ 142              		.thumb
+ 143              		.thumb_func
+ 145              	SPI_IRQHandler:
+ 146              	.LFB117:
+  59:apps/src/mspi_apps.c **** 
+  60:apps/src/mspi_apps.c **** 
+  61:apps/src/mspi_apps.c **** /**
+  62:apps/src/mspi_apps.c ****  * \brief Interrupt handler for SPI.
+  63:apps/src/mspi_apps.c ****  */
+  64:apps/src/mspi_apps.c **** void SPI_IRQHandler( void )
+  65:apps/src/mspi_apps.c **** {
+ 147              		.loc 1 65 0
+ 148              		.cfi_startproc
+ 149              		@ args = 0, pretend = 0, frame = 8
+ 150              		@ frame_needed = 0, uses_anonymous_args = 0
+ 151              		@ link register save eliminated.
+ 152 0010 82B0     		sub	sp, sp, #8	@,,
+ 153              		.cfi_def_cfa_offset 8
+  66:apps/src/mspi_apps.c **** volatile uint32_t dummy;
+  67:apps/src/mspi_apps.c **** 
+  68:apps/src/mspi_apps.c **** 	dummy = SPI->SPI_SR;
+ 154              		.loc 1 68 0
+ 155 0012 024B     		ldr	r3, .L5	@ D.7230,
+ 156 0014 1B69     		ldr	r3, [r3, #16]	@ dummy.1, _1->SPI_SR
+ 157 0016 0193     		str	r3, [sp, #4]	@ dummy.1, dummy
+  69:apps/src/mspi_apps.c **** }
+ 158              		.loc 1 69 0
+ 159 0018 02B0     		add	sp, sp, #8	@,,
+ 160              		@ sp needed	@
+ 161 001a 7047     		bx	lr	@
+ 162              	.L6:
+ 163              		.align	2
+ 164              	.L5:
+ 165 001c 00800040 		.word	1073774592
+ 166              		.cfi_endproc
+ 167              	.LFE117:
+ 169              		.align	2
+ 170              		.thumb
+ 171              		.thumb_func
+ 173              	mSpiPinsInit:
+ 174              	.LFB118:
+  70:apps/src/mspi_apps.c **** 
+  71:apps/src/mspi_apps.c **** 
+  72:apps/src/mspi_apps.c **** /**
+  73:apps/src/mspi_apps.c ****   * @brief
+  74:apps/src/mspi_apps.c ****   * @param  None
+  75:apps/src/mspi_apps.c ****   * @retval None
+  76:apps/src/mspi_apps.c ****   */
+  77:apps/src/mspi_apps.c **** static void mSpiPinsInit( void )
+  78:apps/src/mspi_apps.c **** {
+ 175              		.loc 1 78 0
+ 176              		.cfi_startproc
+ 177              		@ args = 0, pretend = 0, frame = 0
+ 178              		@ frame_needed = 0, uses_anonymous_args = 0
+ 179 0020 08B5     		push	{r3, lr}	@
+ 180              		.cfi_def_cfa_offset 8
+ 181              		.cfi_offset 3, -8
+ 182              		.cfi_offset 14, -4
+  79:apps/src/mspi_apps.c **** 
+  80:apps/src/mspi_apps.c **** 
+  81:apps/src/mspi_apps.c **** 	/* pin PA11 - mSS, pin PA12 - MISO, pin PA12 - MOSI, pin PA12 - SPCK,  */
+  82:apps/src/mspi_apps.c **** 	PIO_Configure(pins_MSPI, PIO_LISTSIZE(pins_MSPI));
+ 183              		.loc 1 82 0
+ 184 0022 0248     		ldr	r0, .L8	@,
+ 185 0024 0421     		movs	r1, #4	@,
+ 186 0026 FFF7FEFF 		bl	PIO_Configure	@
+  83:apps/src/mspi_apps.c **** }
+ 187              		.loc 1 83 0
+ 188 002a 08BD     		pop	{r3, pc}	@
+ 189              	.L9:
+ 190              		.align	2
+ 191              	.L8:
+ 192 002c 00000000 		.word	pins_MSPI
+ 193              		.cfi_endproc
+ 194              	.LFE118:
+ 196              		.align	2
+ 197              		.global	mSpiSart
+ 198              		.thumb
+ 199              		.thumb_func
+ 201              	mSpiSart:
+ 202              	.LFB119:
+  84:apps/src/mspi_apps.c **** 
+  85:apps/src/mspi_apps.c **** 
+  86:apps/src/mspi_apps.c **** /* Public functions ----------------------------------------------------------*/
+  87:apps/src/mspi_apps.c **** 
+  88:apps/src/mspi_apps.c **** /**
+  89:apps/src/mspi_apps.c ****   * @brief
+  90:apps/src/mspi_apps.c ****   * @param  None
+  91:apps/src/mspi_apps.c ****   * @retval None
+  92:apps/src/mspi_apps.c ****   */
+  93:apps/src/mspi_apps.c **** void mSpiSart( void )
+  94:apps/src/mspi_apps.c **** {
+ 203              		.loc 1 94 0
+ 204              		.cfi_startproc
+ 205              		@ args = 0, pretend = 0, frame = 0
+ 206              		@ frame_needed = 0, uses_anonymous_args = 0
+ 207 0030 08B5     		push	{r3, lr}	@
+ 208              		.cfi_def_cfa_offset 8
+ 209              		.cfi_offset 3, -8
+ 210              		.cfi_offset 14, -4
+  95:apps/src/mspi_apps.c **** 
+  96:apps/src/mspi_apps.c **** 
+  97:apps/src/mspi_apps.c **** 	mSpiPinsInit();
+ 211              		.loc 1 97 0
+ 212 0032 FFF7F5FF 		bl	mSpiPinsInit	@
+  98:apps/src/mspi_apps.c **** 	SPI_Configure( MSPI, ID_SPI, SPI_MR_PCS(0) | SPI_MR_DLYBCS(6));
+ 213              		.loc 1 98 0
+ 214 0036 0E48     		ldr	r0, .L11	@,
+ 215 0038 1521     		movs	r1, #21	@,
+ 216 003a 4FF0C062 		mov	r2, #100663296	@,
+ 217 003e FFF7FEFF 		bl	SPI_Configure	@
+  99:apps/src/mspi_apps.c **** 	SPI_ConfigureNPCS( MSPI,MSPI_CS_NUM, SPI_CSR_CPOL | SPI_CSR_BITS_8_BIT | SPI_CSR_SCBR(20) );
+ 218              		.loc 1 99 0
+ 219 0042 0B48     		ldr	r0, .L11	@,
+ 220 0044 0021     		movs	r1, #0	@,
+ 221 0046 41F20142 		movw	r2, #5121	@,
+ 222 004a FFF7FEFF 		bl	SPI_ConfigureNPCS	@
+ 100:apps/src/mspi_apps.c **** 	SPI_Read( MSPI );
+ 223              		.loc 1 100 0
+ 224 004e 0848     		ldr	r0, .L11	@,
+ 225 0050 FFF7FEFF 		bl	SPI_Read	@
+ 101:apps/src/mspi_apps.c **** 	SPI_Write( MSPI, MSPI_CS_NUM, EPTY_TX_SPI_BUFF );
+ 226              		.loc 1 101 0
+ 227 0054 0648     		ldr	r0, .L11	@,
+ 228 0056 0021     		movs	r1, #0	@,
+ 229 0058 0022     		movs	r2, #0	@,
+ 230 005a FFF7FEFF 		bl	SPI_Write	@
+ 102:apps/src/mspi_apps.c **** 	SPI_EnableIt( MSPI, SPI_IER_RDRF );
+ 231              		.loc 1 102 0
+ 232 005e 0448     		ldr	r0, .L11	@,
+ 233 0060 0121     		movs	r1, #1	@,
+ 234 0062 FFF7FEFF 		bl	SPI_EnableIt	@
+ 103:apps/src/mspi_apps.c **** 	SPI_Enable( MSPI );
+ 235              		.loc 1 103 0
+ 236 0066 0248     		ldr	r0, .L11	@,
+ 237 0068 FFF7FEFF 		bl	SPI_Enable	@
+ 104:apps/src/mspi_apps.c **** }
+ 238              		.loc 1 104 0
+ 239 006c 08BD     		pop	{r3, pc}	@
+ 240              	.L12:
+ 241 006e 00BF     		.align	2
+ 242              	.L11:
+ 243 0070 00800040 		.word	1073774592
+ 244              		.cfi_endproc
+ 245              	.LFE119:
+ 247              	.Letext0:
+ 248              		.file 2 "d:\\armgcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 249              		.file 3 "d:\\armgcc\\arm-none-eabi\\include\\stdint.h"
+ 250              		.file 4 "SAM4S_StdPeriph_Driver/Include/SAM4S/component/pio.h"
+ 251              		.file 5 "SAM4S_StdPeriph_Driver/Include/SAM4S/component/spi.h"
+ 252              		.file 6 "SAM4S_StdPeriph_Driver/Source/SAM4S/include/pio.h"
+ 253              		.file 7 "cmsis_core/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 mspi_apps.c
+C:\Users\Spas\AppData\Local\Temp\ccLxeExo.s:64     .data:00000000 pins_MSPI
+C:\Users\Spas\AppData\Local\Temp\ccLxeExo.s:61     .data:00000000 $d
+C:\Users\Spas\AppData\Local\Temp\ccLxeExo.s:110    .text:00000000 $t
+C:\Users\Spas\AppData\Local\Temp\ccLxeExo.s:115    .text:00000000 PIOA_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccLxeExo.s:136    .text:0000000c $d
+C:\Users\Spas\AppData\Local\Temp\ccLxeExo.s:140    .text:00000010 $t
+C:\Users\Spas\AppData\Local\Temp\ccLxeExo.s:145    .text:00000010 SPI_IRQHandler
+C:\Users\Spas\AppData\Local\Temp\ccLxeExo.s:165    .text:0000001c $d
+C:\Users\Spas\AppData\Local\Temp\ccLxeExo.s:169    .text:00000020 $t
+C:\Users\Spas\AppData\Local\Temp\ccLxeExo.s:173    .text:00000020 mSpiPinsInit
+C:\Users\Spas\AppData\Local\Temp\ccLxeExo.s:192    .text:0000002c $d
+C:\Users\Spas\AppData\Local\Temp\ccLxeExo.s:196    .text:00000030 $t
+C:\Users\Spas\AppData\Local\Temp\ccLxeExo.s:201    .text:00000030 mSpiSart
+C:\Users\Spas\AppData\Local\Temp\ccLxeExo.s:243    .text:00000070 $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 wm4.0.bb49f1eb716983c9014b6db3ebb18dd1
+                           .group:00000000 wm4.chip.h.31.ffb1374c8cfd711bf08b18cb482cdecd
+                           .group:00000000 wm4.features.h.22.6a4ca7cd053637cc1d0db6c16f39b2d7
+                           .group:00000000 wm4._default_types.h.15.8b2cb27e528498f8ff711db085d6e489
+                           .group:00000000 wm4.stdint.h.20.796e373797e732130a803d4c0338fa1b
+                           .group:00000000 wm4.sam4s8b.h.216.85427310ee57c6602cdb44976ff8eafc
+                           .group:00000000 wm4.core_cm4.h.47.facd8ba456d1edc74a9cd34e5ef24231
+                           .group:00000000 wm4.core_cmInstr.h.39.3d3d1b4a79aef37532666dc6ee87c6ac
+                           .group:00000000 wm4.core_cm4_simd.h.43.d8e10c63b7db2f2a1586965c37b6affe
+                           .group:00000000 wm4.core_cm4.h.178.877dd53394110c198a69aa86aba65870
+                           .group:00000000 wm4.acc.h.31.dfd29459e721169d72014eb762f71214
+                           .group:00000000 wm4.adc.h.31.c6656640e20d1eafe623af86cb226fca
+                           .group:00000000 wm4.chipid.h.31.3af5a36d0a4a9a225c9afb52a1aea0b9
+                           .group:00000000 wm4.crccu.h.31.a496852d13935483993734d587fc2f8e
+                           .group:00000000 wm4.dacc.h.31.c9217b43fde87abb246765d0ddcb9c5a
+                           .group:00000000 wm4.efc.h.31.0bf8e93e6585804f24ede0a4e728599a
+                           .group:00000000 wm4.gpbr.h.31.7a5e3dd0c356c6b68d5c512bbdf67f08
+                           .group:00000000 wm4.hsmci.h.31.9d224a62fa1ec786508b485b0627d948
+                           .group:00000000 wm4.matrix.h.31.c705893f10dd90abec557434f19f4c80
+                           .group:00000000 wm4.pdc.h.31.e2d19841c81c9c2bbeeb400b89d315b5
+                           .group:00000000 wm4.pio.h.31.8c8983d26a861f040f0f117c14ec06d2
+                           .group:00000000 wm4.pmc.h.31.ee762809cf9b67f8c369267b7f38d1b3
+                           .group:00000000 wm4.pwm.h.31.da9b7d8dc8ac9c261fdee7e206bdee45
+                           .group:00000000 wm4.rstc.h.31.96e972cc48a3044e9dca7f2d844f33fb
+                           .group:00000000 wm4.rtc.h.31.f40a4fc6ecffe9e0a8284c655825715f
+                           .group:00000000 wm4.rtt.h.31.f70870f04ef5dbcac3269f990b758352
+                           .group:00000000 wm4.spi.h.31.f86a4b9d7f4ee32bf9133e4926aa8885
+                           .group:00000000 wm4.ssc.h.31.b805b08edc780a096d6650d6ca36d1ca
+                           .group:00000000 wm4.supc.h.31.131b9cb8083389b79a4bd5bf451243ef
+                           .group:00000000 wm4.tc.h.31.8da8c788d3223db5455d03e5435ef8db
+                           .group:00000000 wm4.twi.h.31.22147bf5d3d32053731c632df0e79c3c
+                           .group:00000000 wm4.uart.h.31.8e28760a665c54768e00ff4c7a643590
+                           .group:00000000 wm4.udp.h.31.edd1ad37d3ebc2c446bab55b82a89df9
+                           .group:00000000 wm4.usart.h.31.f84a5833fa97905e15d92372b7a4d3aa
+                           .group:00000000 wm4.wdt.h.31.bf9508cda074277d961fffa2c014b7c4
+                           .group:00000000 wm4.hsmci.h.31.3557701962362e69e14e53f685fa289c
+                           .group:00000000 wm4.ssc.h.31.b3090d071ea322e9320de7b3374b6c7d
+                           .group:00000000 wm4.spi.h.31.0c099f04fc71f13866451dd19f165ce5
+                           .group:00000000 wm4.tc0.h.31.82f2382972b60e05b032ad12082a9b88
+                           .group:00000000 wm4.tc1.h.31.a45ad165f1e4a4be41030d128002f2e1
+                           .group:00000000 wm4.twi0.h.31.a2f6579ad734afdd1f8957b7fc33aa94
+                           .group:00000000 wm4.twi1.h.31.dcb9c8cbe7f017d537033c87ba5ff61b
+                           .group:00000000 wm4.pwm.h.31.2d9663b87a377027ead59c1615e3084b
+                           .group:00000000 wm4.usart0.h.31.ec6af36a3993709e003c7713e45e6d44
+                           .group:00000000 wm4.usart1.h.31.eafbafd9baa63489c7d4b47b07dd4359
+                           .group:00000000 wm4.udp.h.31.72bce9f16287d99e27dc398746c7b41a
+                           .group:00000000 wm4.adc.h.31.d1d169655aedc0ac5464b9bc3e038d91
+                           .group:00000000 wm4.dacc.h.31.f498d7e9c6281f6aa2a76955bd19179f
+                           .group:00000000 wm4.acc.h.31.bd89452c6f6042da160b09b91f7b4ad6
+                           .group:00000000 wm4.crccu.h.31.0f8ee11e21f25cd8f0d59ee9bd2d6017
+                           .group:00000000 wm4.matrix.h.31.16f7506a18ec96f1a889a659d8f54158
+                           .group:00000000 wm4.pmc.h.31.8ee9f69608f942cb1f3f8bedac24c137
+                           .group:00000000 wm4.uart0.h.31.107626f9f656553c6d028df3e0c36652
+                           .group:00000000 wm4.chipid.h.31.3d621c981fbba4cbcdf919961d16a7e0
+                           .group:00000000 wm4.uart1.h.31.8229a0a664aa704025162a106c6f1697
+                           .group:00000000 wm4.efc0.h.31.aa56af1c721ea83a50dc1967a8959b7e
+                           .group:00000000 wm4.pioa.h.31.577ac2183c73a1a02e92e91a0e37e8fe
+                           .group:00000000 wm4.piob.h.31.3d18377ca5f71fef4e536cd97e1dced2
+                           .group:00000000 wm4.pioc.h.31.9fd85e02d9919f268f52f61ee7874ed4
+                           .group:00000000 wm4.rstc.h.31.d42d559221b78874dbf800ea2429b8d0
+                           .group:00000000 wm4.supc.h.31.851dbe7e029de2cc98417e6c6ce74d66
+                           .group:00000000 wm4.rtt.h.31.b6f3540f51d07e433e9f2b607b78fa5d
+                           .group:00000000 wm4.wdt.h.31.e29a378018b6da05e80df7a7d3fae91a
+                           .group:00000000 wm4.rtc.h.31.62bff3fa21e4de3cfaf653749f73ca5b
+                           .group:00000000 wm4.gpbr.h.31.a690ec9ac14ca127f47cc304a062f896
+                           .group:00000000 wm4.sam4s8b.h.310.cfe4025ce42f19fc6dad5600399e6497
+                           .group:00000000 wm4.sam4s8b.h.31.bac0ae8aa6a8295f4ede171816a1bfbd
+                           .group:00000000 wm4.sam4s8b.h.455.d99766a935df92fcae5a6292daf0b9af
+                           .group:00000000 wm4.newlib.h.8.fec018e441fee7bfa1923812ad010f97
+                           .group:00000000 wm4.config.h.212.4163ef2871a828c674038d036b081cfd
+                           .group:00000000 wm4._ansi.h.23.2147fde150631f5584b9dc29b914d1b8
+                           .group:00000000 wm4.assert.h.11.7fe9eb241be6b0fee772a1e693b81ae3
+                           .group:00000000 wm4.acc.h.61.44cfae6040af09278183f92220a11c11
+                           .group:00000000 wm4.assert.h.11.7043852a511d37ae606afa012e67e471
+                           .group:00000000 wm4.adc.h.62.836e1c74f33a3b2357c489804b9e4164
+                           .group:00000000 wm4.async.h.38.b923efd27c82eb8a5a30fb0d9a711171
+                           .group:00000000 wm4.dacc.h.61.de15528749b6a5508d4e234e0989531c
+                           .group:00000000 wm4.efc.h.51.dca436509f69196baef24b3ff3ad1b51
+                           .group:00000000 wm4.flashd.h.38.2c9bfdc532d7034a024627acda3e3c0b
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.184.159df79b4ca79c76561572a55985524c
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.stddef.h.39.7e3d906ac58942e0b374c527445f5de5
+                           .group:00000000 wm4.lock.h.2.9bc98482741e5e2a9450b12934a684ea
+                           .group:00000000 wm4._types.h.54.d3d34a3b7f3cc230cd159baf022b4b08
+                           .group:00000000 wm4.stddef.h.158.61317cdbfb4026324507d123a50b0fd6
+                           .group:00000000 wm4.reent.h.17.8bd9e4098e0428508c282cad794fae43
+                           .group:00000000 wm4.types.h.23.0d949686bbcadd1621462d4fa1f884f9
+                           .group:00000000 wm4.types.h.2.e9cec8c90ab35f77d9f499e06ae02400
+                           .group:00000000 wm4.types.h.80.56707660962b21991903f1fee7c13bb3
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.64.0f05fa42cfe2db7fc44729a52d3ba948
+                           .group:00000000 wm4.hsmci.h.110.610f58f6a31861e37bc09b5b7be09388
+                           .group:00000000 wm4.pio.h.68.5d85e14ea6ea0da924da53053bc590d1
+                           .group:00000000 wm4.rtc.h.38.8bf78db8651343e80a889203827406a5
+                           .group:00000000 wm4.spi.h.38.450641354031b1013c08519149294c78
+                           .group:00000000 wm4.spi_pdc.h.38.75857b1dd4449731562322c9709581d8
+                           .group:00000000 wm4.twi.h.38.68f2e661eb174ca9ca74eef9740d9a3a
+                           .group:00000000 wm4.twid.h.31.9ea8c90af654647ca4d6e3b74e701509
+                           .group:00000000 wm4.usart.h.55.88c716ee7c3b6ed0339de6e194786a12
+                           .group:00000000 wm4.trace.h.65.364d8fb880402737deb1646f3fc9e1eb
+                           .group:00000000 wm4.chip.h.106.a1f123eb25606bfd56ed06360bda02b0
+
+UNDEFINED SYMBOLS
+PIO_Configure
+SPI_Configure
+SPI_ConfigureNPCS
+SPI_Read
+SPI_Write
+SPI_EnableIt
+SPI_Enable

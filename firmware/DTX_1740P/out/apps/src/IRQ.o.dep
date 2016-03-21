@@ -1,0 +1,327 @@
+out/apps/src/IRQ.o: apps/src/IRQ.c SAM4S_StdPeriph_Driver/chip.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/sam4s.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/sam4s8b.h \
+ d:\armgcc\lib\gcc\arm-none-eabi\4.8.4\include\stdint.h \
+ d:\armgcc\arm-none-eabi\include\stdint.h \
+ d:\armgcc\arm-none-eabi\include\machine\_default_types.h \
+ d:\armgcc\arm-none-eabi\include\sys\features.h cmsis_core/core_cm4.h \
+ cmsis_core/core_cmInstr.h cmsis_core/core_cmFunc.h \
+ cmsis_core/core_cm4_simd.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/system_sam4s.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/acc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/adc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/chipid.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/crccu.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/dacc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/efc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/gpbr.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/hsmci.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/matrix.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/pdc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/pio.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/pmc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/pwm.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/rstc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/rtc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/rtt.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/spi.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/ssc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/supc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/tc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/twi.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/uart.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/udp.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/usart.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/component/wdt.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/hsmci.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/ssc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/spi.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/tc0.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/tc1.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/twi0.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/twi1.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/pwm.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/usart0.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/usart1.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/udp.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/adc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/dacc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/acc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/crccu.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/matrix.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/pmc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/uart0.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/chipid.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/uart1.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/efc0.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/pioa.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/piob.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/pioc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/rstc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/supc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/rtt.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/wdt.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/rtc.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/instance/gpbr.h \
+ SAM4S_StdPeriph_Driver/Include/SAM4S/pio/sam4s8b.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/acc.h \
+ d:\armgcc\arm-none-eabi\include\assert.h \
+ d:\armgcc\arm-none-eabi\include\_ansi.h \
+ d:\armgcc\arm-none-eabi\include\newlib.h \
+ d:\armgcc\arm-none-eabi\include\sys\config.h \
+ d:\armgcc\arm-none-eabi\include\machine\ieeefp.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/adc.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/async.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/crccu.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/dacc.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/efc.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/flashd.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/hsmci.h \
+ d:\armgcc\arm-none-eabi\include\stdio.h \
+ d:\armgcc\lib\gcc\arm-none-eabi\4.8.4\include\stddef.h \
+ d:\armgcc\lib\gcc\arm-none-eabi\4.8.4\include\stdarg.h \
+ d:\armgcc\arm-none-eabi\include\sys\reent.h \
+ d:\armgcc\arm-none-eabi\include\_ansi.h \
+ d:\armgcc\arm-none-eabi\include\sys\_types.h \
+ d:\armgcc\arm-none-eabi\include\machine\_types.h \
+ d:\armgcc\arm-none-eabi\include\sys\lock.h \
+ d:\armgcc\arm-none-eabi\include\sys\types.h \
+ d:\armgcc\arm-none-eabi\include\machine\types.h \
+ d:\armgcc\arm-none-eabi\include\sys\stdio.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/pio.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/pio_it.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/pio.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/pio_capture.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/pmc.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/pwmc.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/rtc.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/rtt.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/spi.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/spi_pdc.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/ssc.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/tc.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/twi.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/twid.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/usart.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/wdt.h \
+ SAM4S_StdPeriph_Driver/Source/SAM4S/include/trace.h apps/inc/LED.h
+
+SAM4S_StdPeriph_Driver/chip.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/sam4s.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/sam4s8b.h:
+
+d:\armgcc\lib\gcc\arm-none-eabi\4.8.4\include\stdint.h:
+
+d:\armgcc\arm-none-eabi\include\stdint.h:
+
+d:\armgcc\arm-none-eabi\include\machine\_default_types.h:
+
+d:\armgcc\arm-none-eabi\include\sys\features.h:
+
+cmsis_core/core_cm4.h:
+
+cmsis_core/core_cmInstr.h:
+
+cmsis_core/core_cmFunc.h:
+
+cmsis_core/core_cm4_simd.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/system_sam4s.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/acc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/adc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/chipid.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/crccu.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/dacc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/efc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/gpbr.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/hsmci.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/matrix.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/pdc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/pio.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/pmc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/pwm.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/rstc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/rtc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/rtt.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/spi.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/ssc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/supc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/tc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/twi.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/uart.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/udp.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/usart.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/component/wdt.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/hsmci.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/ssc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/spi.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/tc0.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/tc1.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/twi0.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/twi1.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/pwm.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/usart0.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/usart1.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/udp.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/adc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/dacc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/acc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/crccu.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/matrix.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/pmc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/uart0.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/chipid.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/uart1.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/efc0.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/pioa.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/piob.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/pioc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/rstc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/supc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/rtt.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/wdt.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/rtc.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/instance/gpbr.h:
+
+SAM4S_StdPeriph_Driver/Include/SAM4S/pio/sam4s8b.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/acc.h:
+
+d:\armgcc\arm-none-eabi\include\assert.h:
+
+d:\armgcc\arm-none-eabi\include\_ansi.h:
+
+d:\armgcc\arm-none-eabi\include\newlib.h:
+
+d:\armgcc\arm-none-eabi\include\sys\config.h:
+
+d:\armgcc\arm-none-eabi\include\machine\ieeefp.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/adc.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/async.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/crccu.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/dacc.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/efc.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/flashd.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/hsmci.h:
+
+d:\armgcc\arm-none-eabi\include\stdio.h:
+
+d:\armgcc\lib\gcc\arm-none-eabi\4.8.4\include\stddef.h:
+
+d:\armgcc\lib\gcc\arm-none-eabi\4.8.4\include\stdarg.h:
+
+d:\armgcc\arm-none-eabi\include\sys\reent.h:
+
+d:\armgcc\arm-none-eabi\include\_ansi.h:
+
+d:\armgcc\arm-none-eabi\include\sys\_types.h:
+
+d:\armgcc\arm-none-eabi\include\machine\_types.h:
+
+d:\armgcc\arm-none-eabi\include\sys\lock.h:
+
+d:\armgcc\arm-none-eabi\include\sys\types.h:
+
+d:\armgcc\arm-none-eabi\include\machine\types.h:
+
+d:\armgcc\arm-none-eabi\include\sys\stdio.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/pio.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/pio_it.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/pio.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/pio_capture.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/pmc.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/pwmc.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/rtc.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/rtt.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/spi.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/spi_pdc.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/ssc.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/tc.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/twi.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/twid.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/usart.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/wdt.h:
+
+SAM4S_StdPeriph_Driver/Source/SAM4S/include/trace.h:
+
+apps/inc/LED.h:

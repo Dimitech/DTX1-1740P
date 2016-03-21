@@ -1,0 +1,839 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
+   5              		.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
+   6              		.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
+   7              		.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
+   8              		.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
+   9              		.eabi_attribute 26, 1	@ Tag_ABI_enum_size
+  10              		.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
+  11              		.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
+  12              		.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
+  13              		.file	"pmc.c"
+  14              	@ GNU C (GNU Tools for ARM Embedded Processors) version 4.8.4 20140725 (release) [ARM/embedded-4_8-
+  15              	@	compiled by GNU C version 4.7.4, GMP version 4.3.2, MPFR version 2.4.2, MPC version 0.8.1
+  16              	@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+  17              	@ options passed:  -I . -I apps -I apps/inc -I apps/src -I apps/src/fonts
+  18              	@ -I cmsis_boot -I cmsis_boot/startup -I cmsis_core
+  19              	@ -I SAM4S_StdPeriph_Driver -I SAM4S_StdPeriph_Driver/Include
+  20              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S
+  21              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/component
+  22              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/instance
+  23              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/pio
+  24              	@ -I SAM4S_StdPeriph_Driver/Source -I SAM4S_StdPeriph_Driver/Source/SAM4S
+  25              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/include
+  26              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/source -I user_libs
+  27              	@ -I user_libs/inc -I user_libs/src -imultilib armv7e-m
+  28              	@ -iprefix d:\armgcc\bin\../lib/gcc/arm-none-eabi/4.8.4/
+  29              	@ -isysroot d:\armgcc\bin\../arm-none-eabi
+  30              	@ -MD out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.d
+  31              	@ -MF out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.o.dep -MP
+  32              	@ -MQ out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.o
+  33              	@ -D__USES_INITFINI__ -D gcc
+  34              	@ SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c -mcpu=cortex-m4 -mthumb
+  35              	@ -auxbase-strip out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.o
+  36              	@ -ggdb3 -O0 -Wall -Wpointer-arith -Wswitch -Wnested-externs -std=gnu99
+  37              	@ -fomit-frame-pointer -fverbose-asm -funsigned-char
+  38              	@ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
+  39              	@ -fbranch-count-reg -fcommon -fdelete-null-pointer-checks -fdwarf2-cfi-asm
+  40              	@ -fearly-inlining -feliminate-unused-debug-types -ffunction-cse -fgcse-lm
+  41              	@ -fgnu-runtime -fgnu-unique -fident -finline-atomics -fira-hoist-pressure
+  42              	@ -fira-share-save-slots -fira-share-spill-slots -fivopts
+  43              	@ -fkeep-static-consts -fleading-underscore -fmath-errno
+  44              	@ -fmerge-debug-strings -fmove-loop-invariants -fomit-frame-pointer
+  45              	@ -fpeephole -fprefetch-loop-arrays -freg-struct-return
+  46              	@ -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  47              	@ -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  48              	@ -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  49              	@ -fsched-stalled-insns-dep -fshow-column -fsigned-zeros
+  50              	@ -fsplit-ivs-in-unroller -fstrict-volatile-bitfields -fsync-libcalls
+  51              	@ -ftrapping-math -ftree-coalesce-vars -ftree-cselim -ftree-forwprop
+  52              	@ -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
+  53              	@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop -ftree-pta
+  54              	@ -ftree-reassoc -ftree-scev-cprop -ftree-slp-vectorize
+  55              	@ -ftree-vect-loop-version -funit-at-a-time -fverbose-asm
+  56              	@ -fzero-initialized-in-bss -mlittle-endian -mpic-data-is-text-relative
+  57              	@ -msched-prolog -mthumb -munaligned-access -mvectorize-with-neon-quad
+  58              	
+  59              		.text
+  60              	.Ltext0:
+  61              		.cfi_sections	.debug_frame
+  62              		.align	2
+  63              		.global	PMC_SetWriteprotect
+  64              		.thumb
+  65              		.thumb_func
+  67              	PMC_SetWriteprotect:
+  68              	.LFB116:
+  69              		.file 1 "SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c"
+   1:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** /* ----------------------------------------------------------------------------
+   2:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *         SAM Software Package License
+   3:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * ----------------------------------------------------------------------------
+   4:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * Copyright (c) 2011, Atmel Corporation
+   5:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *
+   6:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * All rights reserved.
+   7:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *
+   8:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * Redistribution and use in source and binary forms, with or without
+   9:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * modification, are permitted provided that the following conditions are met:
+  10:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *
+  11:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * - Redistributions of source code must retain the above copyright notice,
+  12:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * this list of conditions and the disclaimer below.
+  13:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *
+  14:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * Atmel's name may not be used to endorse or promote products derived from
+  15:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * this software without specific prior written permission.
+  16:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *
+  17:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR
+  18:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  19:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  20:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT, INDIRECT,
+  21:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  22:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  23:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  24:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  25:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  26:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  27:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * ----------------------------------------------------------------------------
+  28:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  */
+  29:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+  30:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** /*----------------------------------------------------------------------------
+  31:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *        Headers
+  32:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *----------------------------------------------------------------------------*/
+  33:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+  34:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** #include "chip.h"
+  35:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+  36:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** #include <assert.h>
+  37:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+  38:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** /*----------------------------------------------------------------------------
+  39:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *        Local definitions
+  40:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *----------------------------------------------------------------------------*/
+  41:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+  42:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** #define MASK_STATUS0 0xFFFFFFFC
+  43:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** #define MASK_STATUS1 0xFFFFFFFF
+  44:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+  45:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** /*----------------------------------------------------------------------------
+  46:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *        Exported functions
+  47:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *----------------------------------------------------------------------------*/
+  48:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+  49:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+  50:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+  51:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** /**
+  52:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * \brief Enable or disable write protect of PMC registers.
+  53:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *
+  54:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * \param ul_enable 1 to enable, 0 to disable.
+  55:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  */
+  56:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** void PMC_SetWriteprotect( uint32_t ul_enable )
+  57:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** {
+  70              		.loc 1 57 0
+  71              		.cfi_startproc
+  72              		@ args = 0, pretend = 0, frame = 8
+  73              		@ frame_needed = 0, uses_anonymous_args = 0
+  74              		@ link register save eliminated.
+  75 0000 82B0     		sub	sp, sp, #8	@,,
+  76              		.cfi_def_cfa_offset 8
+  77 0002 0190     		str	r0, [sp, #4]	@ ul_enable, ul_enable
+  58:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 	
+  59:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 	
+  60:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 	if( ul_enable ) 
+  78              		.loc 1 60 0
+  79 0004 019B     		ldr	r3, [sp, #4]	@ tmp112, ul_enable
+  80 0006 002B     		cmp	r3, #0	@ tmp112,
+  81 0008 04D0     		beq	.L2	@,
+  61:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 	{
+  62:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 		PMC->PMC_WPMR = PMC_WPMR_WPKEY_PASSWD | PMC_WPMR_WPEN;
+  82              		.loc 1 62 0
+  83 000a 054B     		ldr	r3, .L4	@ D.7362,
+  84 000c 054A     		ldr	r2, .L4+4	@ tmp113,
+  85 000e C3F8E420 		str	r2, [r3, #228]	@ tmp113, _2->PMC_WPMR
+  86 0012 03E0     		b	.L1	@
+  87              	.L2:
+  63:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 	} 
+  64:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 	else 
+  65:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 	{
+  66:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 		PMC->PMC_WPMR = PMC_WPMR_WPKEY_PASSWD;
+  88              		.loc 1 66 0
+  89 0014 024B     		ldr	r3, .L4	@ D.7362,
+  90 0016 044A     		ldr	r2, .L4+8	@ tmp114,
+  91 0018 C3F8E420 		str	r2, [r3, #228]	@ tmp114, _3->PMC_WPMR
+  92              	.L1:
+  67:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 	}
+  68:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** }
+  93              		.loc 1 68 0
+  94 001c 02B0     		add	sp, sp, #8	@,,
+  95              		@ sp needed	@
+  96 001e 7047     		bx	lr	@
+  97              	.L5:
+  98              		.align	2
+  99              	.L4:
+ 100 0020 00040E40 		.word	1074660352
+ 101 0024 01434D50 		.word	1347240705
+ 102 0028 00434D50 		.word	1347240704
+ 103              		.cfi_endproc
+ 104              	.LFE116:
+ 106              		.section	.rodata
+ 107              		.align	2
+ 108              	.LC0:
+ 109 0000 53414D34 		.ascii	"SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c\000"
+ 109      535F5374 
+ 109      64506572 
+ 109      6970685F 
+ 109      44726976 
+ 110 0031 000000   		.align	2
+ 111              	.LC1:
+ 112 0034 64774964 		.ascii	"dwId < 35\000"
+ 112      203C2033 
+ 112      3500
+ 113              		.text
+ 114              		.align	2
+ 115              		.global	PMC_EnablePeripheral
+ 116              		.thumb
+ 117              		.thumb_func
+ 119              	PMC_EnablePeripheral:
+ 120              	.LFB117:
+  69:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+  70:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+  71:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** /**
+  72:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * \brief Enables the clock of a peripheral. The peripheral ID is used
+  73:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * to identify which peripheral is targetted.
+  74:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *
+  75:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * \note The ID must NOT be shifted (i.e. 1 << ID_xxx).
+  76:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *
+  77:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * \param id  Peripheral ID (ID_xxx).
+  78:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  */
+  79:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** extern void PMC_EnablePeripheral( uint32_t dwId )
+  80:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** {
+ 121              		.loc 1 80 0
+ 122              		.cfi_startproc
+ 123              		@ args = 0, pretend = 0, frame = 8
+ 124              		@ frame_needed = 0, uses_anonymous_args = 0
+ 125 002c 00B5     		push	{lr}	@
+ 126              		.cfi_def_cfa_offset 4
+ 127              		.cfi_offset 14, -4
+ 128 002e 83B0     		sub	sp, sp, #12	@,,
+ 129              		.cfi_def_cfa_offset 16
+ 130 0030 0190     		str	r0, [sp, #4]	@ dwId, dwId
+  81:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     assert( dwId < 35 ) ;
+ 131              		.loc 1 81 0
+ 132 0032 019B     		ldr	r3, [sp, #4]	@ tmp134, dwId
+ 133 0034 222B     		cmp	r3, #34	@ tmp134,
+ 134 0036 05D9     		bls	.L7	@,
+ 135              		.loc 1 81 0 is_stmt 0 discriminator 1
+ 136 0038 1F48     		ldr	r0, .L11	@,
+ 137 003a 5121     		movs	r1, #81	@,
+ 138 003c 1F4A     		ldr	r2, .L11+4	@,
+ 139 003e 204B     		ldr	r3, .L11+8	@,
+ 140 0040 FFF7FEFF 		bl	__assert_func	@
+ 141              	.L7:
+  82:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+  83:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 		PMC->PMC_WPMR = PMC_WPMR_WPKEY_PASSWD;
+ 142              		.loc 1 83 0 is_stmt 1
+ 143 0044 1F4B     		ldr	r3, .L11+12	@ D.7363,
+ 144 0046 204A     		ldr	r2, .L11+16	@ tmp135,
+ 145 0048 C3F8E420 		str	r2, [r3, #228]	@ tmp135, _2->PMC_WPMR
+  84:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     if ( dwId < 32 )
+ 146              		.loc 1 84 0
+ 147 004c 019B     		ldr	r3, [sp, #4]	@ tmp136, dwId
+ 148 004e 1F2B     		cmp	r3, #31	@ tmp136,
+ 149 0050 13D8     		bhi	.L8	@,
+  85:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     {
+  86:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         if ( (PMC->PMC_PCSR0 & ((uint32_t)1 << dwId)) == ((uint32_t)1 << dwId) )
+ 150              		.loc 1 86 0
+ 151 0052 1C4B     		ldr	r3, .L11+12	@ D.7363,
+ 152 0054 9A69     		ldr	r2, [r3, #24]	@ D.7364, _3->PMC_PCSR0
+ 153 0056 019B     		ldr	r3, [sp, #4]	@ dwId.0, dwId
+ 154 0058 0121     		movs	r1, #1	@ tmp137,
+ 155 005a 01FA03F3 		lsl	r3, r1, r3	@ D.7364, tmp137, dwId.0
+ 156 005e 1A40     		ands	r2, r2, r3	@, D.7364, D.7364, D.7364
+ 157 0060 019B     		ldr	r3, [sp, #4]	@ dwId.1, dwId
+ 158 0062 0121     		movs	r1, #1	@ tmp138,
+ 159 0064 01FA03F3 		lsl	r3, r1, r3	@ D.7364, tmp138, dwId.1
+ 160 0068 9A42     		cmp	r2, r3	@ D.7364, D.7364
+ 161 006a 1ED0     		beq	.L10	@,
+  87:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         {
+  88:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****             TRACE_DEBUG( "PMC_EnablePeripheral: clock of peripheral"  " %u is already enabled\n\r",
+  89:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         }
+  90:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         else
+  91:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         {
+  92:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****             PMC->PMC_PCER0 = 1 << dwId ;
+ 162              		.loc 1 92 0
+ 163 006c 154B     		ldr	r3, .L11+12	@ D.7363,
+ 164 006e 019A     		ldr	r2, [sp, #4]	@ dwId.2, dwId
+ 165 0070 0121     		movs	r1, #1	@ tmp139,
+ 166 0072 01FA02F2 		lsl	r2, r1, r2	@ D.7365, tmp139, dwId.2
+ 167 0076 1A61     		str	r2, [r3, #16]	@ D.7364, _10->PMC_PCER0
+ 168 0078 17E0     		b	.L10	@
+ 169              	.L8:
+  93:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         }
+  94:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     }
+  95:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     else
+  96:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     {
+  97:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         dwId -= 32;
+ 170              		.loc 1 97 0
+ 171 007a 019B     		ldr	r3, [sp, #4]	@ tmp141, dwId
+ 172 007c 203B     		subs	r3, r3, #32	@ tmp140, tmp141,
+ 173 007e 0193     		str	r3, [sp, #4]	@ tmp140, dwId
+  98:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         if ((PMC->PMC_PCSR1 & ((uint32_t)1 << dwId)) == ((uint32_t)1 << dwId))
+ 174              		.loc 1 98 0
+ 175 0080 104B     		ldr	r3, .L11+12	@ D.7363,
+ 176 0082 D3F80821 		ldr	r2, [r3, #264]	@ D.7364, _15->PMC_PCSR1
+ 177 0086 019B     		ldr	r3, [sp, #4]	@ dwId.3, dwId
+ 178 0088 0121     		movs	r1, #1	@ tmp142,
+ 179 008a 01FA03F3 		lsl	r3, r1, r3	@ D.7364, tmp142, dwId.3
+ 180 008e 1A40     		ands	r2, r2, r3	@, D.7364, D.7364, D.7364
+ 181 0090 019B     		ldr	r3, [sp, #4]	@ dwId.4, dwId
+ 182 0092 0121     		movs	r1, #1	@ tmp143,
+ 183 0094 01FA03F3 		lsl	r3, r1, r3	@ D.7364, tmp143, dwId.4
+ 184 0098 9A42     		cmp	r2, r3	@ D.7364, D.7364
+ 185 009a 06D0     		beq	.L10	@,
+  99:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         {
+ 100:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****             TRACE_DEBUG( "PMC_EnablePeripheral: clock of peripheral"  " %u is already enabled\n\r",
+ 101:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         }
+ 102:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         else
+ 103:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         {
+ 104:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****             PMC->PMC_PCER1 = 1 << dwId ;
+ 186              		.loc 1 104 0
+ 187 009c 094B     		ldr	r3, .L11+12	@ D.7363,
+ 188 009e 019A     		ldr	r2, [sp, #4]	@ dwId.5, dwId
+ 189 00a0 0121     		movs	r1, #1	@ tmp144,
+ 190 00a2 01FA02F2 		lsl	r2, r1, r2	@ D.7365, tmp144, dwId.5
+ 191 00a6 C3F80021 		str	r2, [r3, #256]	@ D.7364, _22->PMC_PCER1
+ 192              	.L10:
+ 105:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         }
+ 106:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     }
+ 107:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 		PMC->PMC_WPMR = PMC_WPMR_WPKEY_PASSWD | PMC_WPMR_WPEN;
+ 193              		.loc 1 107 0
+ 194 00aa 064B     		ldr	r3, .L11+12	@ D.7363,
+ 195 00ac 074A     		ldr	r2, .L11+20	@ tmp145,
+ 196 00ae C3F8E420 		str	r2, [r3, #228]	@ tmp145, _26->PMC_WPMR
+ 108:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** }
+ 197              		.loc 1 108 0
+ 198 00b2 03B0     		add	sp, sp, #12	@,,
+ 199              		@ sp needed	@
+ 200 00b4 5DF804FB 		ldr	pc, [sp], #4	@
+ 201              	.L12:
+ 202              		.align	2
+ 203              	.L11:
+ 204 00b8 00000000 		.word	.LC0
+ 205 00bc 40000000 		.word	__func__.7216
+ 206 00c0 34000000 		.word	.LC1
+ 207 00c4 00040E40 		.word	1074660352
+ 208 00c8 00434D50 		.word	1347240704
+ 209 00cc 01434D50 		.word	1347240705
+ 210              		.cfi_endproc
+ 211              	.LFE117:
+ 213              		.align	2
+ 214              		.global	PMC_DisablePeripheral
+ 215              		.thumb
+ 216              		.thumb_func
+ 218              	PMC_DisablePeripheral:
+ 219              	.LFB118:
+ 109:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+ 110:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** /**
+ 111:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * \brief Disables the clock of a peripheral. The peripheral ID is used
+ 112:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * to identify which peripheral is targetted.
+ 113:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *
+ 114:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * \note The ID must NOT be shifted (i.e. 1 << ID_xxx).
+ 115:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *
+ 116:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * \param id  Peripheral ID (ID_xxx).
+ 117:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  */
+ 118:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** extern void PMC_DisablePeripheral( uint32_t dwId )
+ 119:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** {
+ 220              		.loc 1 119 0
+ 221              		.cfi_startproc
+ 222              		@ args = 0, pretend = 0, frame = 8
+ 223              		@ frame_needed = 0, uses_anonymous_args = 0
+ 224 00d0 00B5     		push	{lr}	@
+ 225              		.cfi_def_cfa_offset 4
+ 226              		.cfi_offset 14, -4
+ 227 00d2 83B0     		sub	sp, sp, #12	@,,
+ 228              		.cfi_def_cfa_offset 16
+ 229 00d4 0190     		str	r0, [sp, #4]	@ dwId, dwId
+ 120:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     assert( dwId < 35 ) ;
+ 230              		.loc 1 120 0
+ 231 00d6 019B     		ldr	r3, [sp, #4]	@ tmp134, dwId
+ 232 00d8 222B     		cmp	r3, #34	@ tmp134,
+ 233 00da 05D9     		bls	.L14	@,
+ 234              		.loc 1 120 0 is_stmt 0 discriminator 1
+ 235 00dc 1F48     		ldr	r0, .L18	@,
+ 236 00de 7821     		movs	r1, #120	@,
+ 237 00e0 1F4A     		ldr	r2, .L18+4	@,
+ 238 00e2 204B     		ldr	r3, .L18+8	@,
+ 239 00e4 FFF7FEFF 		bl	__assert_func	@
+ 240              	.L14:
+ 121:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+ 122:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 		PMC->PMC_WPMR = PMC_WPMR_WPKEY_PASSWD;
+ 241              		.loc 1 122 0 is_stmt 1
+ 242 00e8 1F4B     		ldr	r3, .L18+12	@ D.7368,
+ 243 00ea 204A     		ldr	r2, .L18+16	@ tmp135,
+ 244 00ec C3F8E420 		str	r2, [r3, #228]	@ tmp135, _2->PMC_WPMR
+ 123:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     if ( dwId < 32 )
+ 245              		.loc 1 123 0
+ 246 00f0 019B     		ldr	r3, [sp, #4]	@ tmp136, dwId
+ 247 00f2 1F2B     		cmp	r3, #31	@ tmp136,
+ 248 00f4 13D8     		bhi	.L15	@,
+ 124:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     {
+ 125:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         if ( (PMC->PMC_PCSR0 & ((uint32_t)1 << dwId)) != ((uint32_t)1 << dwId) )
+ 249              		.loc 1 125 0
+ 250 00f6 1C4B     		ldr	r3, .L18+12	@ D.7368,
+ 251 00f8 9A69     		ldr	r2, [r3, #24]	@ D.7369, _3->PMC_PCSR0
+ 252 00fa 019B     		ldr	r3, [sp, #4]	@ dwId.6, dwId
+ 253 00fc 0121     		movs	r1, #1	@ tmp137,
+ 254 00fe 01FA03F3 		lsl	r3, r1, r3	@ D.7369, tmp137, dwId.6
+ 255 0102 1A40     		ands	r2, r2, r3	@, D.7369, D.7369, D.7369
+ 256 0104 019B     		ldr	r3, [sp, #4]	@ dwId.7, dwId
+ 257 0106 0121     		movs	r1, #1	@ tmp138,
+ 258 0108 01FA03F3 		lsl	r3, r1, r3	@ D.7369, tmp138, dwId.7
+ 259 010c 9A42     		cmp	r2, r3	@ D.7369, D.7369
+ 260 010e 1ED1     		bne	.L17	@,
+ 126:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         {
+ 127:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****             TRACE_DEBUG("PMC_DisablePeripheral: clock of peripheral" " %u is not enabled\n\r", (uns
+ 128:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         }
+ 129:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         else
+ 130:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         {
+ 131:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****             PMC->PMC_PCDR0 = 1 << dwId ;
+ 261              		.loc 1 131 0
+ 262 0110 154B     		ldr	r3, .L18+12	@ D.7368,
+ 263 0112 019A     		ldr	r2, [sp, #4]	@ dwId.8, dwId
+ 264 0114 0121     		movs	r1, #1	@ tmp139,
+ 265 0116 01FA02F2 		lsl	r2, r1, r2	@ D.7370, tmp139, dwId.8
+ 266 011a 5A61     		str	r2, [r3, #20]	@ D.7369, _10->PMC_PCDR0
+ 267 011c 17E0     		b	.L17	@
+ 268              	.L15:
+ 132:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         }
+ 133:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     }
+ 134:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     else
+ 135:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     {
+ 136:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         dwId -= 32 ;
+ 269              		.loc 1 136 0
+ 270 011e 019B     		ldr	r3, [sp, #4]	@ tmp141, dwId
+ 271 0120 203B     		subs	r3, r3, #32	@ tmp140, tmp141,
+ 272 0122 0193     		str	r3, [sp, #4]	@ tmp140, dwId
+ 137:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         if ( (PMC->PMC_PCSR1 & ((uint32_t)1 << dwId)) != ((uint32_t)1 << dwId) )
+ 273              		.loc 1 137 0
+ 274 0124 104B     		ldr	r3, .L18+12	@ D.7368,
+ 275 0126 D3F80821 		ldr	r2, [r3, #264]	@ D.7369, _15->PMC_PCSR1
+ 276 012a 019B     		ldr	r3, [sp, #4]	@ dwId.9, dwId
+ 277 012c 0121     		movs	r1, #1	@ tmp142,
+ 278 012e 01FA03F3 		lsl	r3, r1, r3	@ D.7369, tmp142, dwId.9
+ 279 0132 1A40     		ands	r2, r2, r3	@, D.7369, D.7369, D.7369
+ 280 0134 019B     		ldr	r3, [sp, #4]	@ dwId.10, dwId
+ 281 0136 0121     		movs	r1, #1	@ tmp143,
+ 282 0138 01FA03F3 		lsl	r3, r1, r3	@ D.7369, tmp143, dwId.10
+ 283 013c 9A42     		cmp	r2, r3	@ D.7369, D.7369
+ 284 013e 06D1     		bne	.L17	@,
+ 138:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         {
+ 139:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****             TRACE_DEBUG( "PMC_DisablePeripheral: clock of peripheral" " %u is not enabled\n\r", (un
+ 140:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         }
+ 141:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         else
+ 142:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         {
+ 143:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****             PMC->PMC_PCDR1 = 1 << dwId ;
+ 285              		.loc 1 143 0
+ 286 0140 094B     		ldr	r3, .L18+12	@ D.7368,
+ 287 0142 019A     		ldr	r2, [sp, #4]	@ dwId.11, dwId
+ 288 0144 0121     		movs	r1, #1	@ tmp144,
+ 289 0146 01FA02F2 		lsl	r2, r1, r2	@ D.7370, tmp144, dwId.11
+ 290 014a C3F80421 		str	r2, [r3, #260]	@ D.7369, _22->PMC_PCDR1
+ 291              	.L17:
+ 144:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         }
+ 145:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     }
+ 146:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 		PMC->PMC_WPMR = PMC_WPMR_WPKEY_PASSWD | PMC_WPMR_WPEN;
+ 292              		.loc 1 146 0
+ 293 014e 064B     		ldr	r3, .L18+12	@ D.7368,
+ 294 0150 074A     		ldr	r2, .L18+20	@ tmp145,
+ 295 0152 C3F8E420 		str	r2, [r3, #228]	@ tmp145, _26->PMC_WPMR
+ 147:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** }
+ 296              		.loc 1 147 0
+ 297 0156 03B0     		add	sp, sp, #12	@,,
+ 298              		@ sp needed	@
+ 299 0158 5DF804FB 		ldr	pc, [sp], #4	@
+ 300              	.L19:
+ 301              		.align	2
+ 302              	.L18:
+ 303 015c 00000000 		.word	.LC0
+ 304 0160 58000000 		.word	__func__.7220
+ 305 0164 34000000 		.word	.LC1
+ 306 0168 00040E40 		.word	1074660352
+ 307 016c 00434D50 		.word	1347240704
+ 308 0170 01434D50 		.word	1347240705
+ 309              		.cfi_endproc
+ 310              	.LFE118:
+ 312              		.align	2
+ 313              		.global	PMC_EnableAllPeripherals
+ 314              		.thumb
+ 315              		.thumb_func
+ 317              	PMC_EnableAllPeripherals:
+ 318              	.LFB119:
+ 148:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+ 149:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** /**
+ 150:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * \brief Enable all the periph clock via PMC.
+ 151:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  */
+ 152:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** extern void PMC_EnableAllPeripherals( void )
+ 153:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** {
+ 319              		.loc 1 153 0
+ 320              		.cfi_startproc
+ 321              		@ args = 0, pretend = 0, frame = 0
+ 322              		@ frame_needed = 0, uses_anonymous_args = 0
+ 323              		@ link register save eliminated.
+ 154:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 	
+ 155:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 		PMC->PMC_WPMR = PMC_WPMR_WPKEY_PASSWD;
+ 324              		.loc 1 155 0
+ 325 0174 104B     		ldr	r3, .L23	@ D.7371,
+ 326 0176 114A     		ldr	r2, .L23+4	@ tmp119,
+ 327 0178 C3F8E420 		str	r2, [r3, #228]	@ tmp119, _1->PMC_WPMR
+ 156:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     PMC->PMC_PCER0 = MASK_STATUS0 ;
+ 328              		.loc 1 156 0
+ 329 017c 0E4B     		ldr	r3, .L23	@ D.7371,
+ 330 017e 6FF00302 		mvn	r2, #3	@ tmp120,
+ 331 0182 1A61     		str	r2, [r3, #16]	@ tmp120, _2->PMC_PCER0
+ 157:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     while ( (PMC->PMC_PCSR0 & MASK_STATUS0) != MASK_STATUS0 ) ;
+ 332              		.loc 1 157 0
+ 333 0184 00BF     		nop
+ 334              	.L21:
+ 335              		.loc 1 157 0 is_stmt 0 discriminator 1
+ 336 0186 0C4B     		ldr	r3, .L23	@ D.7371,
+ 337 0188 9B69     		ldr	r3, [r3, #24]	@ D.7372, _3->PMC_PCSR0
+ 338 018a 23F00303 		bic	r3, r3, #3	@ D.7372, D.7372,
+ 339 018e 13F1040F 		cmn	r3, #4	@ D.7372,
+ 340 0192 F8D1     		bne	.L21	@,
+ 158:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+ 159:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     PMC->PMC_PCER1 = MASK_STATUS1 ;
+ 341              		.loc 1 159 0 is_stmt 1
+ 342 0194 084B     		ldr	r3, .L23	@ D.7371,
+ 343 0196 4FF0FF32 		mov	r2, #-1	@ tmp121,
+ 344 019a C3F80021 		str	r2, [r3, #256]	@ tmp121, _6->PMC_PCER1
+ 160:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     while ( (PMC->PMC_PCSR1 & MASK_STATUS1) != MASK_STATUS1 ) ;
+ 345              		.loc 1 160 0
+ 346 019e 00BF     		nop
+ 347              	.L22:
+ 348              		.loc 1 160 0 is_stmt 0 discriminator 1
+ 349 01a0 054B     		ldr	r3, .L23	@ D.7371,
+ 350 01a2 D3F80831 		ldr	r3, [r3, #264]	@ D.7372, _7->PMC_PCSR1
+ 351 01a6 B3F1FF3F 		cmp	r3, #-1	@ D.7372,
+ 352 01aa F9D1     		bne	.L22	@,
+ 161:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 		PMC->PMC_WPMR = PMC_WPMR_WPKEY_PASSWD | PMC_WPMR_WPEN;
+ 353              		.loc 1 161 0 is_stmt 1
+ 354 01ac 024B     		ldr	r3, .L23	@ D.7371,
+ 355 01ae 044A     		ldr	r2, .L23+8	@ tmp122,
+ 356 01b0 C3F8E420 		str	r2, [r3, #228]	@ tmp122, _9->PMC_WPMR
+ 162:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 		
+ 163:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     TRACE_DEBUG( "Enable all periph clocks\n\r" ) ;
+ 164:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** }
+ 357              		.loc 1 164 0
+ 358 01b4 7047     		bx	lr	@
+ 359              	.L24:
+ 360 01b6 00BF     		.align	2
+ 361              	.L23:
+ 362 01b8 00040E40 		.word	1074660352
+ 363 01bc 00434D50 		.word	1347240704
+ 364 01c0 01434D50 		.word	1347240705
+ 365              		.cfi_endproc
+ 366              	.LFE119:
+ 368              		.align	2
+ 369              		.global	PMC_DisableAllPeripherals
+ 370              		.thumb
+ 371              		.thumb_func
+ 373              	PMC_DisableAllPeripherals:
+ 374              	.LFB120:
+ 165:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+ 166:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** /**
+ 167:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * \brief Disable all the periph clock via PMC.
+ 168:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  */
+ 169:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** extern void PMC_DisableAllPeripherals( void )
+ 170:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** {
+ 375              		.loc 1 170 0
+ 376              		.cfi_startproc
+ 377              		@ args = 0, pretend = 0, frame = 0
+ 378              		@ frame_needed = 0, uses_anonymous_args = 0
+ 379              		@ link register save eliminated.
+ 171:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 	
+ 172:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 		PMC->PMC_WPMR = PMC_WPMR_WPKEY_PASSWD;
+ 380              		.loc 1 172 0
+ 381 01c4 0F4B     		ldr	r3, .L28	@ D.7373,
+ 382 01c6 104A     		ldr	r2, .L28+4	@ tmp119,
+ 383 01c8 C3F8E420 		str	r2, [r3, #228]	@ tmp119, _1->PMC_WPMR
+ 173:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     PMC->PMC_PCDR0 = MASK_STATUS0 ;
+ 384              		.loc 1 173 0
+ 385 01cc 0D4B     		ldr	r3, .L28	@ D.7373,
+ 386 01ce 6FF00302 		mvn	r2, #3	@ tmp120,
+ 387 01d2 5A61     		str	r2, [r3, #20]	@ tmp120, _2->PMC_PCDR0
+ 174:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     while ( (PMC->PMC_PCSR0 & MASK_STATUS0) != 0 ) ;
+ 388              		.loc 1 174 0
+ 389 01d4 00BF     		nop
+ 390              	.L26:
+ 391              		.loc 1 174 0 is_stmt 0 discriminator 1
+ 392 01d6 0B4B     		ldr	r3, .L28	@ D.7373,
+ 393 01d8 9B69     		ldr	r3, [r3, #24]	@ D.7374, _3->PMC_PCSR0
+ 394 01da 23F00303 		bic	r3, r3, #3	@ D.7374, D.7374,
+ 395 01de 002B     		cmp	r3, #0	@ D.7374,
+ 396 01e0 F9D1     		bne	.L26	@,
+ 175:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+ 176:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     PMC->PMC_PCDR1 = MASK_STATUS1 ;
+ 397              		.loc 1 176 0 is_stmt 1
+ 398 01e2 084B     		ldr	r3, .L28	@ D.7373,
+ 399 01e4 4FF0FF32 		mov	r2, #-1	@ tmp121,
+ 400 01e8 C3F80421 		str	r2, [r3, #260]	@ tmp121, _6->PMC_PCDR1
+ 177:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     while ( (PMC->PMC_PCSR1 & MASK_STATUS1) != 0 ) ;
+ 401              		.loc 1 177 0
+ 402 01ec 00BF     		nop
+ 403              	.L27:
+ 404              		.loc 1 177 0 is_stmt 0 discriminator 1
+ 405 01ee 054B     		ldr	r3, .L28	@ D.7373,
+ 406 01f0 D3F80831 		ldr	r3, [r3, #264]	@ D.7374, _7->PMC_PCSR1
+ 407 01f4 002B     		cmp	r3, #0	@ D.7374,
+ 408 01f6 FAD1     		bne	.L27	@,
+ 178:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 		PMC->PMC_WPMR = PMC_WPMR_WPKEY_PASSWD | PMC_WPMR_WPEN;
+ 409              		.loc 1 178 0 is_stmt 1
+ 410 01f8 024B     		ldr	r3, .L28	@ D.7373,
+ 411 01fa 044A     		ldr	r2, .L28+8	@ tmp122,
+ 412 01fc C3F8E420 		str	r2, [r3, #228]	@ tmp122, _9->PMC_WPMR
+ 179:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 		
+ 180:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     TRACE_DEBUG( "Disable all periph clocks\n\r" ) ;
+ 181:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** }
+ 413              		.loc 1 181 0
+ 414 0200 7047     		bx	lr	@
+ 415              	.L29:
+ 416 0202 00BF     		.align	2
+ 417              	.L28:
+ 418 0204 00040E40 		.word	1074660352
+ 419 0208 00434D50 		.word	1347240704
+ 420 020c 01434D50 		.word	1347240705
+ 421              		.cfi_endproc
+ 422              	.LFE120:
+ 424              		.align	2
+ 425              		.global	PMC_IsPeriphEnabled
+ 426              		.thumb
+ 427              		.thumb_func
+ 429              	PMC_IsPeriphEnabled:
+ 430              	.LFB121:
+ 182:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+ 183:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** /**
+ 184:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * \brief Get Periph Status for the given peripheral ID.
+ 185:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  *
+ 186:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  * \param id  Peripheral ID (ID_xxx).
+ 187:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****  */
+ 188:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** extern uint32_t PMC_IsPeriphEnabled( uint32_t dwId )
+ 189:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** {
+ 431              		.loc 1 189 0
+ 432              		.cfi_startproc
+ 433              		@ args = 0, pretend = 0, frame = 8
+ 434              		@ frame_needed = 0, uses_anonymous_args = 0
+ 435 0210 00B5     		push	{lr}	@
+ 436              		.cfi_def_cfa_offset 4
+ 437              		.cfi_offset 14, -4
+ 438 0212 83B0     		sub	sp, sp, #12	@,,
+ 439              		.cfi_def_cfa_offset 16
+ 440 0214 0190     		str	r0, [sp, #4]	@ dwId, dwId
+ 190:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     assert( dwId < 35 ) ;
+ 441              		.loc 1 190 0
+ 442 0216 019B     		ldr	r3, [sp, #4]	@ tmp123, dwId
+ 443 0218 222B     		cmp	r3, #34	@ tmp123,
+ 444 021a 05D9     		bls	.L31	@,
+ 445              		.loc 1 190 0 is_stmt 0 discriminator 1
+ 446 021c 0E48     		ldr	r0, .L34	@,
+ 447 021e BE21     		movs	r1, #190	@,
+ 448 0220 0E4A     		ldr	r2, .L34+4	@,
+ 449 0222 0F4B     		ldr	r3, .L34+8	@,
+ 450 0224 FFF7FEFF 		bl	__assert_func	@
+ 451              	.L31:
+ 191:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** 
+ 192:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     if ( dwId < 32 )
+ 452              		.loc 1 192 0 is_stmt 1
+ 453 0228 019B     		ldr	r3, [sp, #4]	@ tmp124, dwId
+ 454 022a 1F2B     		cmp	r3, #31	@ tmp124,
+ 455 022c 07D8     		bhi	.L32	@,
+ 193:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     {
+ 194:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         return ( PMC->PMC_PCSR0 & (1 << dwId) ) ;
+ 456              		.loc 1 194 0
+ 457 022e 0D4B     		ldr	r3, .L34+12	@ D.7376,
+ 458 0230 9A69     		ldr	r2, [r3, #24]	@ D.7377, _3->PMC_PCSR0
+ 459 0232 019B     		ldr	r3, [sp, #4]	@ dwId.12, dwId
+ 460 0234 0121     		movs	r1, #1	@ tmp125,
+ 461 0236 01FA03F3 		lsl	r3, r1, r3	@ D.7378, tmp125, dwId.12
+ 462 023a 1340     		ands	r3, r3, r2	@, D.7375, D.7377, D.7377
+ 463 023c 08E0     		b	.L33	@
+ 464              	.L32:
+ 195:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     }
+ 196:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     else {
+ 197:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****         return ( PMC->PMC_PCSR1 & (1 << (dwId - 32)) ) ;
+ 465              		.loc 1 197 0
+ 466 023e 094B     		ldr	r3, .L34+12	@ D.7376,
+ 467 0240 D3F80821 		ldr	r2, [r3, #264]	@ D.7377, _9->PMC_PCSR1
+ 468 0244 019B     		ldr	r3, [sp, #4]	@ tmp126, dwId
+ 469 0246 203B     		subs	r3, r3, #32	@ D.7377, tmp126,
+ 470 0248 0121     		movs	r1, #1	@ tmp127,
+ 471 024a 01FA03F3 		lsl	r3, r1, r3	@ D.7378, tmp127, D.7378
+ 472 024e 1340     		ands	r3, r3, r2	@, D.7375, D.7377, D.7377
+ 473              	.L33:
+ 198:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c ****     }
+ 199:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pmc.c **** }
+ 474              		.loc 1 199 0
+ 475 0250 1846     		mov	r0, r3	@, <retval>
+ 476 0252 03B0     		add	sp, sp, #12	@,,
+ 477              		@ sp needed	@
+ 478 0254 5DF804FB 		ldr	pc, [sp], #4	@
+ 479              	.L35:
+ 480              		.align	2
+ 481              	.L34:
+ 482 0258 00000000 		.word	.LC0
+ 483 025c 70000000 		.word	__func__.7242
+ 484 0260 34000000 		.word	.LC1
+ 485 0264 00040E40 		.word	1074660352
+ 486              		.cfi_endproc
+ 487              	.LFE121:
+ 489              		.section	.rodata
+ 490 003e 0000     		.align	2
+ 493              	__func__.7216:
+ 494 0040 504D435F 		.ascii	"PMC_EnablePeripheral\000"
+ 494      456E6162 
+ 494      6C655065 
+ 494      72697068 
+ 494      6572616C 
+ 495 0055 000000   		.align	2
+ 498              	__func__.7220:
+ 499 0058 504D435F 		.ascii	"PMC_DisablePeripheral\000"
+ 499      44697361 
+ 499      626C6550 
+ 499      65726970 
+ 499      68657261 
+ 500 006e 0000     		.align	2
+ 503              	__func__.7242:
+ 504 0070 504D435F 		.ascii	"PMC_IsPeriphEnabled\000"
+ 504      49735065 
+ 504      72697068 
+ 504      456E6162 
+ 504      6C656400 
+ 505              		.text
+ 506              	.Letext0:
+ 507              		.file 2 "d:\\armgcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 508              		.file 3 "d:\\armgcc\\arm-none-eabi\\include\\stdint.h"
+ 509              		.file 4 "SAM4S_StdPeriph_Driver/Include/SAM4S/component/pmc.h"
+ 510              		.file 5 "cmsis_core/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 pmc.c
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:62     .text:00000000 $t
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:67     .text:00000000 PMC_SetWriteprotect
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:100    .text:00000020 $d
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:107    .rodata:00000000 $d
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:114    .text:0000002c $t
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:119    .text:0000002c PMC_EnablePeripheral
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:204    .text:000000b8 $d
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:493    .rodata:00000040 __func__.7216
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:213    .text:000000d0 $t
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:218    .text:000000d0 PMC_DisablePeripheral
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:303    .text:0000015c $d
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:498    .rodata:00000058 __func__.7220
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:312    .text:00000174 $t
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:317    .text:00000174 PMC_EnableAllPeripherals
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:362    .text:000001b8 $d
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:368    .text:000001c4 $t
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:373    .text:000001c4 PMC_DisableAllPeripherals
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:418    .text:00000204 $d
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:424    .text:00000210 $t
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:429    .text:00000210 PMC_IsPeriphEnabled
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:482    .text:00000258 $d
+C:\Users\Spas\AppData\Local\Temp\ccItElWz.s:503    .rodata:00000070 __func__.7242
+                     .debug_frame:00000010 $d
+                           .group:00000000 wm4.0.bb49f1eb716983c9014b6db3ebb18dd1
+                           .group:00000000 wm4.chip.h.31.ffb1374c8cfd711bf08b18cb482cdecd
+                           .group:00000000 wm4.features.h.22.6a4ca7cd053637cc1d0db6c16f39b2d7
+                           .group:00000000 wm4._default_types.h.15.8b2cb27e528498f8ff711db085d6e489
+                           .group:00000000 wm4.stdint.h.20.796e373797e732130a803d4c0338fa1b
+                           .group:00000000 wm4.sam4s8b.h.216.85427310ee57c6602cdb44976ff8eafc
+                           .group:00000000 wm4.core_cm4.h.47.facd8ba456d1edc74a9cd34e5ef24231
+                           .group:00000000 wm4.core_cmInstr.h.39.3d3d1b4a79aef37532666dc6ee87c6ac
+                           .group:00000000 wm4.core_cm4_simd.h.43.d8e10c63b7db2f2a1586965c37b6affe
+                           .group:00000000 wm4.core_cm4.h.178.877dd53394110c198a69aa86aba65870
+                           .group:00000000 wm4.acc.h.31.dfd29459e721169d72014eb762f71214
+                           .group:00000000 wm4.adc.h.31.c6656640e20d1eafe623af86cb226fca
+                           .group:00000000 wm4.chipid.h.31.3af5a36d0a4a9a225c9afb52a1aea0b9
+                           .group:00000000 wm4.crccu.h.31.a496852d13935483993734d587fc2f8e
+                           .group:00000000 wm4.dacc.h.31.c9217b43fde87abb246765d0ddcb9c5a
+                           .group:00000000 wm4.efc.h.31.0bf8e93e6585804f24ede0a4e728599a
+                           .group:00000000 wm4.gpbr.h.31.7a5e3dd0c356c6b68d5c512bbdf67f08
+                           .group:00000000 wm4.hsmci.h.31.9d224a62fa1ec786508b485b0627d948
+                           .group:00000000 wm4.matrix.h.31.c705893f10dd90abec557434f19f4c80
+                           .group:00000000 wm4.pdc.h.31.e2d19841c81c9c2bbeeb400b89d315b5
+                           .group:00000000 wm4.pio.h.31.8c8983d26a861f040f0f117c14ec06d2
+                           .group:00000000 wm4.pmc.h.31.ee762809cf9b67f8c369267b7f38d1b3
+                           .group:00000000 wm4.pwm.h.31.da9b7d8dc8ac9c261fdee7e206bdee45
+                           .group:00000000 wm4.rstc.h.31.96e972cc48a3044e9dca7f2d844f33fb
+                           .group:00000000 wm4.rtc.h.31.f40a4fc6ecffe9e0a8284c655825715f
+                           .group:00000000 wm4.rtt.h.31.f70870f04ef5dbcac3269f990b758352
+                           .group:00000000 wm4.spi.h.31.f86a4b9d7f4ee32bf9133e4926aa8885
+                           .group:00000000 wm4.ssc.h.31.b805b08edc780a096d6650d6ca36d1ca
+                           .group:00000000 wm4.supc.h.31.131b9cb8083389b79a4bd5bf451243ef
+                           .group:00000000 wm4.tc.h.31.8da8c788d3223db5455d03e5435ef8db
+                           .group:00000000 wm4.twi.h.31.22147bf5d3d32053731c632df0e79c3c
+                           .group:00000000 wm4.uart.h.31.8e28760a665c54768e00ff4c7a643590
+                           .group:00000000 wm4.udp.h.31.edd1ad37d3ebc2c446bab55b82a89df9
+                           .group:00000000 wm4.usart.h.31.f84a5833fa97905e15d92372b7a4d3aa
+                           .group:00000000 wm4.wdt.h.31.bf9508cda074277d961fffa2c014b7c4
+                           .group:00000000 wm4.hsmci.h.31.3557701962362e69e14e53f685fa289c
+                           .group:00000000 wm4.ssc.h.31.b3090d071ea322e9320de7b3374b6c7d
+                           .group:00000000 wm4.spi.h.31.0c099f04fc71f13866451dd19f165ce5
+                           .group:00000000 wm4.tc0.h.31.82f2382972b60e05b032ad12082a9b88
+                           .group:00000000 wm4.tc1.h.31.a45ad165f1e4a4be41030d128002f2e1
+                           .group:00000000 wm4.twi0.h.31.a2f6579ad734afdd1f8957b7fc33aa94
+                           .group:00000000 wm4.twi1.h.31.dcb9c8cbe7f017d537033c87ba5ff61b
+                           .group:00000000 wm4.pwm.h.31.2d9663b87a377027ead59c1615e3084b
+                           .group:00000000 wm4.usart0.h.31.ec6af36a3993709e003c7713e45e6d44
+                           .group:00000000 wm4.usart1.h.31.eafbafd9baa63489c7d4b47b07dd4359
+                           .group:00000000 wm4.udp.h.31.72bce9f16287d99e27dc398746c7b41a
+                           .group:00000000 wm4.adc.h.31.d1d169655aedc0ac5464b9bc3e038d91
+                           .group:00000000 wm4.dacc.h.31.f498d7e9c6281f6aa2a76955bd19179f
+                           .group:00000000 wm4.acc.h.31.bd89452c6f6042da160b09b91f7b4ad6
+                           .group:00000000 wm4.crccu.h.31.0f8ee11e21f25cd8f0d59ee9bd2d6017
+                           .group:00000000 wm4.matrix.h.31.16f7506a18ec96f1a889a659d8f54158
+                           .group:00000000 wm4.pmc.h.31.8ee9f69608f942cb1f3f8bedac24c137
+                           .group:00000000 wm4.uart0.h.31.107626f9f656553c6d028df3e0c36652
+                           .group:00000000 wm4.chipid.h.31.3d621c981fbba4cbcdf919961d16a7e0
+                           .group:00000000 wm4.uart1.h.31.8229a0a664aa704025162a106c6f1697
+                           .group:00000000 wm4.efc0.h.31.aa56af1c721ea83a50dc1967a8959b7e
+                           .group:00000000 wm4.pioa.h.31.577ac2183c73a1a02e92e91a0e37e8fe
+                           .group:00000000 wm4.piob.h.31.3d18377ca5f71fef4e536cd97e1dced2
+                           .group:00000000 wm4.pioc.h.31.9fd85e02d9919f268f52f61ee7874ed4
+                           .group:00000000 wm4.rstc.h.31.d42d559221b78874dbf800ea2429b8d0
+                           .group:00000000 wm4.supc.h.31.851dbe7e029de2cc98417e6c6ce74d66
+                           .group:00000000 wm4.rtt.h.31.b6f3540f51d07e433e9f2b607b78fa5d
+                           .group:00000000 wm4.wdt.h.31.e29a378018b6da05e80df7a7d3fae91a
+                           .group:00000000 wm4.rtc.h.31.62bff3fa21e4de3cfaf653749f73ca5b
+                           .group:00000000 wm4.gpbr.h.31.a690ec9ac14ca127f47cc304a062f896
+                           .group:00000000 wm4.sam4s8b.h.310.cfe4025ce42f19fc6dad5600399e6497
+                           .group:00000000 wm4.sam4s8b.h.31.bac0ae8aa6a8295f4ede171816a1bfbd
+                           .group:00000000 wm4.sam4s8b.h.455.d99766a935df92fcae5a6292daf0b9af
+                           .group:00000000 wm4.newlib.h.8.fec018e441fee7bfa1923812ad010f97
+                           .group:00000000 wm4.config.h.212.4163ef2871a828c674038d036b081cfd
+                           .group:00000000 wm4._ansi.h.23.2147fde150631f5584b9dc29b914d1b8
+                           .group:00000000 wm4.assert.h.11.7fe9eb241be6b0fee772a1e693b81ae3
+                           .group:00000000 wm4.acc.h.61.44cfae6040af09278183f92220a11c11
+                           .group:00000000 wm4.assert.h.11.7043852a511d37ae606afa012e67e471
+                           .group:00000000 wm4.adc.h.62.836e1c74f33a3b2357c489804b9e4164
+                           .group:00000000 wm4.async.h.38.b923efd27c82eb8a5a30fb0d9a711171
+                           .group:00000000 wm4.dacc.h.61.de15528749b6a5508d4e234e0989531c
+                           .group:00000000 wm4.efc.h.51.dca436509f69196baef24b3ff3ad1b51
+                           .group:00000000 wm4.flashd.h.38.2c9bfdc532d7034a024627acda3e3c0b
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.184.159df79b4ca79c76561572a55985524c
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.stddef.h.39.7e3d906ac58942e0b374c527445f5de5
+                           .group:00000000 wm4.lock.h.2.9bc98482741e5e2a9450b12934a684ea
+                           .group:00000000 wm4._types.h.54.d3d34a3b7f3cc230cd159baf022b4b08
+                           .group:00000000 wm4.stddef.h.158.61317cdbfb4026324507d123a50b0fd6
+                           .group:00000000 wm4.reent.h.17.8bd9e4098e0428508c282cad794fae43
+                           .group:00000000 wm4.types.h.23.0d949686bbcadd1621462d4fa1f884f9
+                           .group:00000000 wm4.types.h.2.e9cec8c90ab35f77d9f499e06ae02400
+                           .group:00000000 wm4.types.h.80.56707660962b21991903f1fee7c13bb3
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.64.0f05fa42cfe2db7fc44729a52d3ba948
+                           .group:00000000 wm4.hsmci.h.110.610f58f6a31861e37bc09b5b7be09388
+                           .group:00000000 wm4.pio.h.68.5d85e14ea6ea0da924da53053bc590d1
+                           .group:00000000 wm4.rtc.h.38.8bf78db8651343e80a889203827406a5
+                           .group:00000000 wm4.spi.h.38.450641354031b1013c08519149294c78
+                           .group:00000000 wm4.spi_pdc.h.38.75857b1dd4449731562322c9709581d8
+                           .group:00000000 wm4.twi.h.38.68f2e661eb174ca9ca74eef9740d9a3a
+                           .group:00000000 wm4.twid.h.31.9ea8c90af654647ca4d6e3b74e701509
+                           .group:00000000 wm4.usart.h.55.88c716ee7c3b6ed0339de6e194786a12
+                           .group:00000000 wm4.trace.h.65.364d8fb880402737deb1646f3fc9e1eb
+                           .group:00000000 wm4.chip.h.106.a1f123eb25606bfd56ed06360bda02b0
+
+UNDEFINED SYMBOLS
+__assert_func

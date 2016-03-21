@@ -1,0 +1,1673 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
+   5              		.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
+   6              		.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
+   7              		.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
+   8              		.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
+   9              		.eabi_attribute 26, 1	@ Tag_ABI_enum_size
+  10              		.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
+  11              		.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
+  12              		.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
+  13              		.file	"pio.c"
+  14              	@ GNU C (GNU Tools for ARM Embedded Processors) version 4.8.4 20140725 (release) [ARM/embedded-4_8-
+  15              	@	compiled by GNU C version 4.7.4, GMP version 4.3.2, MPFR version 2.4.2, MPC version 0.8.1
+  16              	@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+  17              	@ options passed:  -I . -I apps -I apps/inc -I apps/src -I apps/src/fonts
+  18              	@ -I cmsis_boot -I cmsis_boot/startup -I cmsis_core
+  19              	@ -I SAM4S_StdPeriph_Driver -I SAM4S_StdPeriph_Driver/Include
+  20              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S
+  21              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/component
+  22              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/instance
+  23              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/pio
+  24              	@ -I SAM4S_StdPeriph_Driver/Source -I SAM4S_StdPeriph_Driver/Source/SAM4S
+  25              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/include
+  26              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/source -I user_libs
+  27              	@ -I user_libs/inc -I user_libs/src -imultilib armv7e-m
+  28              	@ -iprefix d:\armgcc\bin\../lib/gcc/arm-none-eabi/4.8.4/
+  29              	@ -isysroot d:\armgcc\bin\../arm-none-eabi
+  30              	@ -MD out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.d
+  31              	@ -MF out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.o.dep -MP
+  32              	@ -MQ out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.o
+  33              	@ -D__USES_INITFINI__ -D gcc
+  34              	@ SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c -mcpu=cortex-m4 -mthumb
+  35              	@ -auxbase-strip out/SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.o
+  36              	@ -ggdb3 -O0 -Wall -Wpointer-arith -Wswitch -Wnested-externs -std=gnu99
+  37              	@ -fomit-frame-pointer -fverbose-asm -funsigned-char
+  38              	@ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
+  39              	@ -fbranch-count-reg -fcommon -fdelete-null-pointer-checks -fdwarf2-cfi-asm
+  40              	@ -fearly-inlining -feliminate-unused-debug-types -ffunction-cse -fgcse-lm
+  41              	@ -fgnu-runtime -fgnu-unique -fident -finline-atomics -fira-hoist-pressure
+  42              	@ -fira-share-save-slots -fira-share-spill-slots -fivopts
+  43              	@ -fkeep-static-consts -fleading-underscore -fmath-errno
+  44              	@ -fmerge-debug-strings -fmove-loop-invariants -fomit-frame-pointer
+  45              	@ -fpeephole -fprefetch-loop-arrays -freg-struct-return
+  46              	@ -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  47              	@ -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  48              	@ -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  49              	@ -fsched-stalled-insns-dep -fshow-column -fsigned-zeros
+  50              	@ -fsplit-ivs-in-unroller -fstrict-volatile-bitfields -fsync-libcalls
+  51              	@ -ftrapping-math -ftree-coalesce-vars -ftree-cselim -ftree-forwprop
+  52              	@ -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
+  53              	@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop -ftree-pta
+  54              	@ -ftree-reassoc -ftree-scev-cprop -ftree-slp-vectorize
+  55              	@ -ftree-vect-loop-version -funit-at-a-time -fverbose-asm
+  56              	@ -fzero-initialized-in-bss -mlittle-endian -mpic-data-is-text-relative
+  57              	@ -msched-prolog -mthumb -munaligned-access -mvectorize-with-neon-quad
+  58              	
+  59              		.text
+  60              	.Ltext0:
+  61              		.cfi_sections	.debug_frame
+  62              		.align	2
+  63              		.thumb
+  64              		.thumb_func
+  66              	PIO_SetPeripheralA:
+  67              	.LFB116:
+  68              		.file 1 "SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c"
+   1:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /* ----------------------------------------------------------------------------
+   2:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *         SAM Software Package License
+   3:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * ----------------------------------------------------------------------------
+   4:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * Copyright (c) 2011, Atmel Corporation
+   5:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+   6:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * All rights reserved.
+   7:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+   8:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * Redistribution and use in source and binary forms, with or without
+   9:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * modification, are permitted provided that the following conditions are met:
+  10:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+  11:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * - Redistributions of source code must retain the above copyright notice,
+  12:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * this list of conditions and the disclaimer below.
+  13:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+  14:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * Atmel's name may not be used to endorse or promote products derived from
+  15:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * this software without specific prior written permission.
+  16:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+  17:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR
+  18:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  19:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  20:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT, INDIRECT,
+  21:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  22:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  23:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  24:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  25:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  26:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  27:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * ----------------------------------------------------------------------------
+  28:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+  29:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+  30:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /** \file */
+  31:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+  32:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /*----------------------------------------------------------------------------
+  33:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *        Headers
+  34:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *----------------------------------------------------------------------------*/
+  35:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** #include "chip.h"
+  36:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+  37:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /*----------------------------------------------------------------------------
+  38:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *        Local functions
+  39:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *----------------------------------------------------------------------------*/
+  40:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+  41:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /**
+  42:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Configures one or more pin(s) of a PIO controller as being controlled by
+  43:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * peripheral A. Optionally, the corresponding internal pull-up(s) can be enabled.
+  44:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+  45:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pio  Pointer to a PIO controller.
+  46:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param mask  Bitmask of one or more pin(s) to configure.
+  47:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param enablePullUp  Indicates if the pin(s) internal pull-up shall be
+  48:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *                      configured.
+  49:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+  50:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** static void PIO_SetPeripheralA(
+  51:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     Pio *pio,
+  52:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned int mask,
+  53:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned char enablePullUp)
+  54:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+  69              		.loc 1 54 0
+  70              		.cfi_startproc
+  71              		@ args = 0, pretend = 0, frame = 24
+  72              		@ frame_needed = 0, uses_anonymous_args = 0
+  73              		@ link register save eliminated.
+  74 0000 86B0     		sub	sp, sp, #24	@,,
+  75              		.cfi_def_cfa_offset 24
+  76 0002 0390     		str	r0, [sp, #12]	@ pio, pio
+  77 0004 0291     		str	r1, [sp, #8]	@ mask, mask
+  78 0006 1346     		mov	r3, r2	@ tmp118, enablePullUp
+  79 0008 8DF80730 		strb	r3, [sp, #7]	@ tmp119, enablePullUp
+  55:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned int abcdsr;
+  56:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Disable interrupts on the pin(s) */
+  57:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_IDR = mask;
+  80              		.loc 1 57 0
+  81 000c 039B     		ldr	r3, [sp, #12]	@ tmp120, pio
+  82 000e 029A     		ldr	r2, [sp, #8]	@ tmp121, mask
+  83 0010 5A64     		str	r2, [r3, #68]	@ tmp121, pio_1(D)->PIO_IDR
+  58:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+  59:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Enable the pull-up(s) if necessary */
+  60:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     if (enablePullUp) {
+  84              		.loc 1 60 0
+  85 0012 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2	@ tmp122, enablePullUp
+  86 0016 002B     		cmp	r3, #0	@ tmp122,
+  87 0018 03D0     		beq	.L2	@,
+  61:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_PUER = mask;
+  88              		.loc 1 61 0
+  89 001a 039B     		ldr	r3, [sp, #12]	@ tmp123, pio
+  90 001c 029A     		ldr	r2, [sp, #8]	@ tmp124, mask
+  91 001e 5A66     		str	r2, [r3, #100]	@ tmp124, pio_1(D)->PIO_PUER
+  92 0020 02E0     		b	.L3	@
+  93              	.L2:
+  62:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+  63:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     else {
+  64:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+  65:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_PUDR = mask;
+  94              		.loc 1 65 0
+  95 0022 039B     		ldr	r3, [sp, #12]	@ tmp125, pio
+  96 0024 029A     		ldr	r2, [sp, #8]	@ tmp126, mask
+  97 0026 1A66     		str	r2, [r3, #96]	@ tmp126, pio_1(D)->PIO_PUDR
+  98              	.L3:
+  66:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+  67:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+  68:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     abcdsr = pio->PIO_ABCDSR[0];
+  99              		.loc 1 68 0
+ 100 0028 039B     		ldr	r3, [sp, #12]	@ tmp127, pio
+ 101 002a 1B6F     		ldr	r3, [r3, #112]	@ tmp128, pio_1(D)->PIO_ABCDSR
+ 102 002c 0593     		str	r3, [sp, #20]	@ tmp128, abcdsr
+  69:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_ABCDSR[0] &= (~mask & abcdsr);
+ 103              		.loc 1 69 0
+ 104 002e 039B     		ldr	r3, [sp, #12]	@ tmp129, pio
+ 105 0030 1A6F     		ldr	r2, [r3, #112]	@ D.7451, pio_1(D)->PIO_ABCDSR
+ 106 0032 029B     		ldr	r3, [sp, #8]	@ tmp130, mask
+ 107 0034 D943     		mvns	r1, r3	@ D.7452, tmp130
+ 108 0036 059B     		ldr	r3, [sp, #20]	@ tmp131, abcdsr
+ 109 0038 0B40     		ands	r3, r3, r1	@, D.7452, tmp131, D.7452
+ 110 003a 1A40     		ands	r2, r2, r3	@, D.7451, D.7451, D.7452
+ 111 003c 039B     		ldr	r3, [sp, #12]	@ tmp132, pio
+ 112 003e 1A67     		str	r2, [r3, #112]	@ D.7451, pio_1(D)->PIO_ABCDSR
+  70:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     abcdsr = pio->PIO_ABCDSR[1];
+ 113              		.loc 1 70 0
+ 114 0040 039B     		ldr	r3, [sp, #12]	@ tmp133, pio
+ 115 0042 5B6F     		ldr	r3, [r3, #116]	@ tmp134, pio_1(D)->PIO_ABCDSR
+ 116 0044 0593     		str	r3, [sp, #20]	@ tmp134, abcdsr
+  71:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_ABCDSR[1] &= (~mask & abcdsr);
+ 117              		.loc 1 71 0
+ 118 0046 039B     		ldr	r3, [sp, #12]	@ tmp135, pio
+ 119 0048 5A6F     		ldr	r2, [r3, #116]	@ D.7451, pio_1(D)->PIO_ABCDSR
+ 120 004a 029B     		ldr	r3, [sp, #8]	@ tmp136, mask
+ 121 004c D943     		mvns	r1, r3	@ D.7452, tmp136
+ 122 004e 059B     		ldr	r3, [sp, #20]	@ tmp137, abcdsr
+ 123 0050 0B40     		ands	r3, r3, r1	@, D.7452, tmp137, D.7452
+ 124 0052 1A40     		ands	r2, r2, r3	@, D.7451, D.7451, D.7452
+ 125 0054 039B     		ldr	r3, [sp, #12]	@ tmp138, pio
+ 126 0056 5A67     		str	r2, [r3, #116]	@ D.7451, pio_1(D)->PIO_ABCDSR
+  72:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_PDR = mask;
+ 127              		.loc 1 72 0
+ 128 0058 039B     		ldr	r3, [sp, #12]	@ tmp139, pio
+ 129 005a 029A     		ldr	r2, [sp, #8]	@ tmp140, mask
+ 130 005c 5A60     		str	r2, [r3, #4]	@ tmp140, pio_1(D)->PIO_PDR
+  73:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 131              		.loc 1 73 0
+ 132 005e 06B0     		add	sp, sp, #24	@,,
+ 133              		@ sp needed	@
+ 134 0060 7047     		bx	lr	@
+ 135              		.cfi_endproc
+ 136              	.LFE116:
+ 138 0062 00BF     		.align	2
+ 139              		.thumb
+ 140              		.thumb_func
+ 142              	PIO_SetPeripheralB:
+ 143              	.LFB117:
+  74:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+  75:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /**
+  76:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Configures one or more pin(s) of a PIO controller as being controlled by
+  77:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * peripheral B. Optionally, the corresponding internal pull-up(s) can be enabled.
+  78:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+  79:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pio  Pointer to a PIO controller.
+  80:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param mask  Bitmask of one or more pin(s) to configure.
+  81:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param enablePullUp  Indicates if the pin(s) internal pull-up shall be
+  82:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *                      configured.
+  83:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+  84:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** static void PIO_SetPeripheralB(
+  85:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     Pio *pio,
+  86:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned int mask,
+  87:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned char enablePullUp)
+  88:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 144              		.loc 1 88 0
+ 145              		.cfi_startproc
+ 146              		@ args = 0, pretend = 0, frame = 24
+ 147              		@ frame_needed = 0, uses_anonymous_args = 0
+ 148              		@ link register save eliminated.
+ 149 0064 86B0     		sub	sp, sp, #24	@,,
+ 150              		.cfi_def_cfa_offset 24
+ 151 0066 0390     		str	r0, [sp, #12]	@ pio, pio
+ 152 0068 0291     		str	r1, [sp, #8]	@ mask, mask
+ 153 006a 1346     		mov	r3, r2	@ tmp115, enablePullUp
+ 154 006c 8DF80730 		strb	r3, [sp, #7]	@ tmp116, enablePullUp
+  89:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned int abcdsr;
+  90:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Disable interrupts on the pin(s) */
+  91:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_IDR = mask;
+ 155              		.loc 1 91 0
+ 156 0070 039B     		ldr	r3, [sp, #12]	@ tmp117, pio
+ 157 0072 029A     		ldr	r2, [sp, #8]	@ tmp118, mask
+ 158 0074 5A64     		str	r2, [r3, #68]	@ tmp118, pio_1(D)->PIO_IDR
+  92:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+  93:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Enable the pull-up(s) if necessary */
+  94:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     if (enablePullUp) {
+ 159              		.loc 1 94 0
+ 160 0076 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2	@ tmp119, enablePullUp
+ 161 007a 002B     		cmp	r3, #0	@ tmp119,
+ 162 007c 03D0     		beq	.L5	@,
+  95:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+  96:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_PUER = mask;
+ 163              		.loc 1 96 0
+ 164 007e 039B     		ldr	r3, [sp, #12]	@ tmp120, pio
+ 165 0080 029A     		ldr	r2, [sp, #8]	@ tmp121, mask
+ 166 0082 5A66     		str	r2, [r3, #100]	@ tmp121, pio_1(D)->PIO_PUER
+ 167 0084 02E0     		b	.L6	@
+ 168              	.L5:
+  97:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+  98:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     else {
+  99:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 100:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_PUDR = mask;
+ 169              		.loc 1 100 0
+ 170 0086 039B     		ldr	r3, [sp, #12]	@ tmp122, pio
+ 171 0088 029A     		ldr	r2, [sp, #8]	@ tmp123, mask
+ 172 008a 1A66     		str	r2, [r3, #96]	@ tmp123, pio_1(D)->PIO_PUDR
+ 173              	.L6:
+ 101:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 102:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 103:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     abcdsr = pio->PIO_ABCDSR[0];
+ 174              		.loc 1 103 0
+ 175 008c 039B     		ldr	r3, [sp, #12]	@ tmp124, pio
+ 176 008e 1B6F     		ldr	r3, [r3, #112]	@ tmp125, pio_1(D)->PIO_ABCDSR
+ 177 0090 0593     		str	r3, [sp, #20]	@ tmp125, abcdsr
+ 104:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_ABCDSR[0] = (mask | abcdsr);
+ 178              		.loc 1 104 0
+ 179 0092 029A     		ldr	r2, [sp, #8]	@ tmp126, mask
+ 180 0094 059B     		ldr	r3, [sp, #20]	@ tmp127, abcdsr
+ 181 0096 1A43     		orrs	r2, r2, r3	@, D.7453, tmp126, tmp127
+ 182 0098 039B     		ldr	r3, [sp, #12]	@ tmp128, pio
+ 183 009a 1A67     		str	r2, [r3, #112]	@ D.7453, pio_1(D)->PIO_ABCDSR
+ 105:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     abcdsr = pio->PIO_ABCDSR[1];
+ 184              		.loc 1 105 0
+ 185 009c 039B     		ldr	r3, [sp, #12]	@ tmp129, pio
+ 186 009e 5B6F     		ldr	r3, [r3, #116]	@ tmp130, pio_1(D)->PIO_ABCDSR
+ 187 00a0 0593     		str	r3, [sp, #20]	@ tmp130, abcdsr
+ 106:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_ABCDSR[1] &= (~mask & abcdsr);
+ 188              		.loc 1 106 0
+ 189 00a2 039B     		ldr	r3, [sp, #12]	@ tmp131, pio
+ 190 00a4 5A6F     		ldr	r2, [r3, #116]	@ D.7454, pio_1(D)->PIO_ABCDSR
+ 191 00a6 029B     		ldr	r3, [sp, #8]	@ tmp132, mask
+ 192 00a8 D943     		mvns	r1, r3	@ D.7453, tmp132
+ 193 00aa 059B     		ldr	r3, [sp, #20]	@ tmp133, abcdsr
+ 194 00ac 0B40     		ands	r3, r3, r1	@, D.7453, tmp133, D.7453
+ 195 00ae 1A40     		ands	r2, r2, r3	@, D.7454, D.7454, D.7453
+ 196 00b0 039B     		ldr	r3, [sp, #12]	@ tmp134, pio
+ 197 00b2 5A67     		str	r2, [r3, #116]	@ D.7454, pio_1(D)->PIO_ABCDSR
+ 107:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 108:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_PDR = mask;
+ 198              		.loc 1 108 0
+ 199 00b4 039B     		ldr	r3, [sp, #12]	@ tmp135, pio
+ 200 00b6 029A     		ldr	r2, [sp, #8]	@ tmp136, mask
+ 201 00b8 5A60     		str	r2, [r3, #4]	@ tmp136, pio_1(D)->PIO_PDR
+ 109:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 202              		.loc 1 109 0
+ 203 00ba 06B0     		add	sp, sp, #24	@,,
+ 204              		@ sp needed	@
+ 205 00bc 7047     		bx	lr	@
+ 206              		.cfi_endproc
+ 207              	.LFE117:
+ 209 00be 00BF     		.align	2
+ 210              		.thumb
+ 211              		.thumb_func
+ 213              	PIO_SetPeripheralC:
+ 214              	.LFB118:
+ 110:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 111:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /**
+ 112:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Configures one or more pin(s) of a PIO controller as being controlled by
+ 113:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * peripheral C. Optionally, the corresponding internal pull-up(s) can be enabled.
+ 114:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 115:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pio  Pointer to a PIO controller.
+ 116:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param mask  Bitmask of one or more pin(s) to configure.
+ 117:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param enablePullUp  Indicates if the pin(s) internal pull-up shall be
+ 118:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *                      configured.
+ 119:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+ 120:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** static void PIO_SetPeripheralC(
+ 121:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     Pio *pio,
+ 122:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned int mask,
+ 123:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned char enablePullUp)
+ 124:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 215              		.loc 1 124 0
+ 216              		.cfi_startproc
+ 217              		@ args = 0, pretend = 0, frame = 24
+ 218              		@ frame_needed = 0, uses_anonymous_args = 0
+ 219              		@ link register save eliminated.
+ 220 00c0 86B0     		sub	sp, sp, #24	@,,
+ 221              		.cfi_def_cfa_offset 24
+ 222 00c2 0390     		str	r0, [sp, #12]	@ pio, pio
+ 223 00c4 0291     		str	r1, [sp, #8]	@ mask, mask
+ 224 00c6 1346     		mov	r3, r2	@ tmp115, enablePullUp
+ 225 00c8 8DF80730 		strb	r3, [sp, #7]	@ tmp116, enablePullUp
+ 125:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned int abcdsr;
+ 126:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Disable interrupts on the pin(s) */
+ 127:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_IDR = mask;
+ 226              		.loc 1 127 0
+ 227 00cc 039B     		ldr	r3, [sp, #12]	@ tmp117, pio
+ 228 00ce 029A     		ldr	r2, [sp, #8]	@ tmp118, mask
+ 229 00d0 5A64     		str	r2, [r3, #68]	@ tmp118, pio_1(D)->PIO_IDR
+ 128:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 129:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Enable the pull-up(s) if necessary */
+ 130:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     if (enablePullUp) {
+ 230              		.loc 1 130 0
+ 231 00d2 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2	@ tmp119, enablePullUp
+ 232 00d6 002B     		cmp	r3, #0	@ tmp119,
+ 233 00d8 03D0     		beq	.L8	@,
+ 131:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 132:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_PUER = mask;
+ 234              		.loc 1 132 0
+ 235 00da 039B     		ldr	r3, [sp, #12]	@ tmp120, pio
+ 236 00dc 029A     		ldr	r2, [sp, #8]	@ tmp121, mask
+ 237 00de 5A66     		str	r2, [r3, #100]	@ tmp121, pio_1(D)->PIO_PUER
+ 238 00e0 02E0     		b	.L9	@
+ 239              	.L8:
+ 133:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 134:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     else {
+ 135:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 136:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_PUDR = mask;
+ 240              		.loc 1 136 0
+ 241 00e2 039B     		ldr	r3, [sp, #12]	@ tmp122, pio
+ 242 00e4 029A     		ldr	r2, [sp, #8]	@ tmp123, mask
+ 243 00e6 1A66     		str	r2, [r3, #96]	@ tmp123, pio_1(D)->PIO_PUDR
+ 244              	.L9:
+ 137:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 138:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 139:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     abcdsr = pio->PIO_ABCDSR[0];
+ 245              		.loc 1 139 0
+ 246 00e8 039B     		ldr	r3, [sp, #12]	@ tmp124, pio
+ 247 00ea 1B6F     		ldr	r3, [r3, #112]	@ tmp125, pio_1(D)->PIO_ABCDSR
+ 248 00ec 0593     		str	r3, [sp, #20]	@ tmp125, abcdsr
+ 140:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_ABCDSR[0] &= (~mask & abcdsr);
+ 249              		.loc 1 140 0
+ 250 00ee 039B     		ldr	r3, [sp, #12]	@ tmp126, pio
+ 251 00f0 1A6F     		ldr	r2, [r3, #112]	@ D.7455, pio_1(D)->PIO_ABCDSR
+ 252 00f2 029B     		ldr	r3, [sp, #8]	@ tmp127, mask
+ 253 00f4 D943     		mvns	r1, r3	@ D.7456, tmp127
+ 254 00f6 059B     		ldr	r3, [sp, #20]	@ tmp128, abcdsr
+ 255 00f8 0B40     		ands	r3, r3, r1	@, D.7456, tmp128, D.7456
+ 256 00fa 1A40     		ands	r2, r2, r3	@, D.7455, D.7455, D.7456
+ 257 00fc 039B     		ldr	r3, [sp, #12]	@ tmp129, pio
+ 258 00fe 1A67     		str	r2, [r3, #112]	@ D.7455, pio_1(D)->PIO_ABCDSR
+ 141:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     abcdsr = pio->PIO_ABCDSR[1];
+ 259              		.loc 1 141 0
+ 260 0100 039B     		ldr	r3, [sp, #12]	@ tmp130, pio
+ 261 0102 5B6F     		ldr	r3, [r3, #116]	@ tmp131, pio_1(D)->PIO_ABCDSR
+ 262 0104 0593     		str	r3, [sp, #20]	@ tmp131, abcdsr
+ 142:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_ABCDSR[1] = (mask | abcdsr);
+ 263              		.loc 1 142 0
+ 264 0106 029A     		ldr	r2, [sp, #8]	@ tmp132, mask
+ 265 0108 059B     		ldr	r3, [sp, #20]	@ tmp133, abcdsr
+ 266 010a 1A43     		orrs	r2, r2, r3	@, D.7456, tmp132, tmp133
+ 267 010c 039B     		ldr	r3, [sp, #12]	@ tmp134, pio
+ 268 010e 5A67     		str	r2, [r3, #116]	@ D.7456, pio_1(D)->PIO_ABCDSR
+ 143:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 144:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_PDR = mask;
+ 269              		.loc 1 144 0
+ 270 0110 039B     		ldr	r3, [sp, #12]	@ tmp135, pio
+ 271 0112 029A     		ldr	r2, [sp, #8]	@ tmp136, mask
+ 272 0114 5A60     		str	r2, [r3, #4]	@ tmp136, pio_1(D)->PIO_PDR
+ 145:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 273              		.loc 1 145 0
+ 274 0116 06B0     		add	sp, sp, #24	@,,
+ 275              		@ sp needed	@
+ 276 0118 7047     		bx	lr	@
+ 277              		.cfi_endproc
+ 278              	.LFE118:
+ 280 011a 00BF     		.align	2
+ 281              		.thumb
+ 282              		.thumb_func
+ 284              	PIO_SetPeripheralD:
+ 285              	.LFB119:
+ 146:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 147:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /**
+ 148:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Configures one or more pin(s) of a PIO controller as being controlled by
+ 149:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * peripheral D. Optionally, the corresponding internal pull-up(s) can be enabled.
+ 150:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 151:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pio  Pointer to a PIO controller.
+ 152:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param mask  Bitmask of one or more pin(s) to configure.
+ 153:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param enablePullUp  Indicates if the pin(s) internal pull-up shall be
+ 154:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *                      configured.
+ 155:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+ 156:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** static void PIO_SetPeripheralD(
+ 157:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     Pio *pio,
+ 158:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned int mask,
+ 159:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned char enablePullUp)
+ 160:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 286              		.loc 1 160 0
+ 287              		.cfi_startproc
+ 288              		@ args = 0, pretend = 0, frame = 24
+ 289              		@ frame_needed = 0, uses_anonymous_args = 0
+ 290              		@ link register save eliminated.
+ 291 011c 86B0     		sub	sp, sp, #24	@,,
+ 292              		.cfi_def_cfa_offset 24
+ 293 011e 0390     		str	r0, [sp, #12]	@ pio, pio
+ 294 0120 0291     		str	r1, [sp, #8]	@ mask, mask
+ 295 0122 1346     		mov	r3, r2	@ tmp112, enablePullUp
+ 296 0124 8DF80730 		strb	r3, [sp, #7]	@ tmp113, enablePullUp
+ 161:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned int abcdsr;
+ 162:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Disable interrupts on the pin(s) */
+ 163:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_IDR = mask;
+ 297              		.loc 1 163 0
+ 298 0128 039B     		ldr	r3, [sp, #12]	@ tmp114, pio
+ 299 012a 029A     		ldr	r2, [sp, #8]	@ tmp115, mask
+ 300 012c 5A64     		str	r2, [r3, #68]	@ tmp115, pio_1(D)->PIO_IDR
+ 164:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 165:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Enable the pull-up(s) if necessary */
+ 166:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     if (enablePullUp) {
+ 301              		.loc 1 166 0
+ 302 012e 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2	@ tmp116, enablePullUp
+ 303 0132 002B     		cmp	r3, #0	@ tmp116,
+ 304 0134 03D0     		beq	.L11	@,
+ 167:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 168:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_PUER = mask;
+ 305              		.loc 1 168 0
+ 306 0136 039B     		ldr	r3, [sp, #12]	@ tmp117, pio
+ 307 0138 029A     		ldr	r2, [sp, #8]	@ tmp118, mask
+ 308 013a 5A66     		str	r2, [r3, #100]	@ tmp118, pio_1(D)->PIO_PUER
+ 309 013c 02E0     		b	.L12	@
+ 310              	.L11:
+ 169:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 170:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     else {
+ 171:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 172:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_PUDR = mask;
+ 311              		.loc 1 172 0
+ 312 013e 039B     		ldr	r3, [sp, #12]	@ tmp119, pio
+ 313 0140 029A     		ldr	r2, [sp, #8]	@ tmp120, mask
+ 314 0142 1A66     		str	r2, [r3, #96]	@ tmp120, pio_1(D)->PIO_PUDR
+ 315              	.L12:
+ 173:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 174:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 175:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     abcdsr = pio->PIO_ABCDSR[0];
+ 316              		.loc 1 175 0
+ 317 0144 039B     		ldr	r3, [sp, #12]	@ tmp121, pio
+ 318 0146 1B6F     		ldr	r3, [r3, #112]	@ tmp122, pio_1(D)->PIO_ABCDSR
+ 319 0148 0593     		str	r3, [sp, #20]	@ tmp122, abcdsr
+ 176:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_ABCDSR[0] = (mask | abcdsr);
+ 320              		.loc 1 176 0
+ 321 014a 029A     		ldr	r2, [sp, #8]	@ tmp123, mask
+ 322 014c 059B     		ldr	r3, [sp, #20]	@ tmp124, abcdsr
+ 323 014e 1A43     		orrs	r2, r2, r3	@, D.7457, tmp123, tmp124
+ 324 0150 039B     		ldr	r3, [sp, #12]	@ tmp125, pio
+ 325 0152 1A67     		str	r2, [r3, #112]	@ D.7457, pio_1(D)->PIO_ABCDSR
+ 177:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     abcdsr = pio->PIO_ABCDSR[1];
+ 326              		.loc 1 177 0
+ 327 0154 039B     		ldr	r3, [sp, #12]	@ tmp126, pio
+ 328 0156 5B6F     		ldr	r3, [r3, #116]	@ tmp127, pio_1(D)->PIO_ABCDSR
+ 329 0158 0593     		str	r3, [sp, #20]	@ tmp127, abcdsr
+ 178:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_ABCDSR[1] = (mask | abcdsr);
+ 330              		.loc 1 178 0
+ 331 015a 029A     		ldr	r2, [sp, #8]	@ tmp128, mask
+ 332 015c 059B     		ldr	r3, [sp, #20]	@ tmp129, abcdsr
+ 333 015e 1A43     		orrs	r2, r2, r3	@, D.7457, tmp128, tmp129
+ 334 0160 039B     		ldr	r3, [sp, #12]	@ tmp130, pio
+ 335 0162 5A67     		str	r2, [r3, #116]	@ D.7457, pio_1(D)->PIO_ABCDSR
+ 179:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 180:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_PDR = mask;
+ 336              		.loc 1 180 0
+ 337 0164 039B     		ldr	r3, [sp, #12]	@ tmp131, pio
+ 338 0166 029A     		ldr	r2, [sp, #8]	@ tmp132, mask
+ 339 0168 5A60     		str	r2, [r3, #4]	@ tmp132, pio_1(D)->PIO_PDR
+ 181:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 340              		.loc 1 181 0
+ 341 016a 06B0     		add	sp, sp, #24	@,,
+ 342              		@ sp needed	@
+ 343 016c 7047     		bx	lr	@
+ 344              		.cfi_endproc
+ 345              	.LFE119:
+ 347 016e 00BF     		.align	2
+ 348              		.thumb
+ 349              		.thumb_func
+ 351              	PIO_SetInput:
+ 352              	.LFB120:
+ 182:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 183:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /**
+ 184:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Configures one or more pin(s) or a PIO controller as inputs. Optionally,
+ 185:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * the corresponding internal pull-up(s) and glitch filter(s) can be enabled.
+ 186:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 187:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pio  Pointer to a PIO controller.
+ 188:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param mask  Bitmask indicating which pin(s) to configure as input(s).
+ 189:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param enablePullUp  Indicates if the internal pull-up(s) must be enabled.
+ 190:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param enableFilter  Indicates if the glitch filter(s) must be enabled.
+ 191:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+ 192:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** static void PIO_SetInput(
+ 193:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     Pio *pio,
+ 194:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned int mask,
+ 195:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned char attribute)
+ 196:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 353              		.loc 1 196 0
+ 354              		.cfi_startproc
+ 355              		@ args = 0, pretend = 0, frame = 16
+ 356              		@ frame_needed = 0, uses_anonymous_args = 0
+ 357              		@ link register save eliminated.
+ 358 0170 84B0     		sub	sp, sp, #16	@,,
+ 359              		.cfi_def_cfa_offset 16
+ 360 0172 0390     		str	r0, [sp, #12]	@ pio, pio
+ 361 0174 0291     		str	r1, [sp, #8]	@ mask, mask
+ 362 0176 1346     		mov	r3, r2	@ tmp118, attribute
+ 363 0178 8DF80730 		strb	r3, [sp, #7]	@ tmp119, attribute
+ 197:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Disable interrupts */
+ 198:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_IDR = mask;
+ 364              		.loc 1 198 0
+ 365 017c 039B     		ldr	r3, [sp, #12]	@ tmp120, pio
+ 366 017e 029A     		ldr	r2, [sp, #8]	@ tmp121, mask
+ 367 0180 5A64     		str	r2, [r3, #68]	@ tmp121, pio_1(D)->PIO_IDR
+ 199:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 200:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Enable pull-up(s) if necessary */
+ 201:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     if (attribute & PIO_PULLUP)
+ 368              		.loc 1 201 0
+ 369 0182 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2	@ D.7458, attribute
+ 370 0186 03F00103 		and	r3, r3, #1	@ D.7458, D.7458,
+ 371 018a 002B     		cmp	r3, #0	@ D.7458,
+ 372 018c 03D0     		beq	.L14	@,
+ 202:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_PUER = mask;
+ 373              		.loc 1 202 0
+ 374 018e 039B     		ldr	r3, [sp, #12]	@ tmp122, pio
+ 375 0190 029A     		ldr	r2, [sp, #8]	@ tmp123, mask
+ 376 0192 5A66     		str	r2, [r3, #100]	@ tmp123, pio_1(D)->PIO_PUER
+ 377 0194 02E0     		b	.L15	@
+ 378              	.L14:
+ 203:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     else
+ 204:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_PUDR = mask;
+ 379              		.loc 1 204 0
+ 380 0196 039B     		ldr	r3, [sp, #12]	@ tmp124, pio
+ 381 0198 029A     		ldr	r2, [sp, #8]	@ tmp125, mask
+ 382 019a 1A66     		str	r2, [r3, #96]	@ tmp125, pio_1(D)->PIO_PUDR
+ 383              	.L15:
+ 205:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 206:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Enable Input Filter if necessary */
+ 207:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     if (attribute & (PIO_DEGLITCH | PIO_DEBOUNCE))
+ 384              		.loc 1 207 0
+ 385 019c 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2	@ D.7458, attribute
+ 386 01a0 03F00A03 		and	r3, r3, #10	@ D.7458, D.7458,
+ 387 01a4 002B     		cmp	r3, #0	@ D.7458,
+ 388 01a6 03D0     		beq	.L16	@,
+ 208:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_IFER = mask;
+ 389              		.loc 1 208 0
+ 390 01a8 039B     		ldr	r3, [sp, #12]	@ tmp126, pio
+ 391 01aa 029A     		ldr	r2, [sp, #8]	@ tmp127, mask
+ 392 01ac 1A62     		str	r2, [r3, #32]	@ tmp127, pio_1(D)->PIO_IFER
+ 393 01ae 02E0     		b	.L17	@
+ 394              	.L16:
+ 209:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     else
+ 210:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_IFDR = mask;
+ 395              		.loc 1 210 0
+ 396 01b0 039B     		ldr	r3, [sp, #12]	@ tmp128, pio
+ 397 01b2 029A     		ldr	r2, [sp, #8]	@ tmp129, mask
+ 398 01b4 5A62     		str	r2, [r3, #36]	@ tmp129, pio_1(D)->PIO_IFDR
+ 399              	.L17:
+ 211:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 212:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Enable de-glitch or de-bounce if necessary */
+ 213:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     if (attribute & PIO_DEGLITCH)
+ 400              		.loc 1 213 0
+ 401 01b6 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2	@ D.7458, attribute
+ 402 01ba 03F00203 		and	r3, r3, #2	@ D.7458, D.7458,
+ 403 01be 002B     		cmp	r3, #0	@ D.7458,
+ 404 01c0 04D0     		beq	.L18	@,
+ 214:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     {
+ 215:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_IFSCDR = mask;
+ 405              		.loc 1 215 0
+ 406 01c2 039B     		ldr	r3, [sp, #12]	@ tmp130, pio
+ 407 01c4 029A     		ldr	r2, [sp, #8]	@ tmp131, mask
+ 408 01c6 C3F88020 		str	r2, [r3, #128]	@ tmp131, pio_1(D)->PIO_IFSCDR
+ 409 01ca 09E0     		b	.L19	@
+ 410              	.L18:
+ 216:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 217:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     else
+ 218:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     {
+ 219:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         if (attribute & PIO_DEBOUNCE)
+ 411              		.loc 1 219 0
+ 412 01cc 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2	@ D.7458, attribute
+ 413 01d0 03F00803 		and	r3, r3, #8	@ D.7458, D.7458,
+ 414 01d4 002B     		cmp	r3, #0	@ D.7458,
+ 415 01d6 03D0     		beq	.L19	@,
+ 220:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         {
+ 221:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****             pio->PIO_IFSCER = mask;
+ 416              		.loc 1 221 0
+ 417 01d8 039B     		ldr	r3, [sp, #12]	@ tmp132, pio
+ 418 01da 029A     		ldr	r2, [sp, #8]	@ tmp133, mask
+ 419 01dc C3F88420 		str	r2, [r3, #132]	@ tmp133, pio_1(D)->PIO_IFSCER
+ 420              	.L19:
+ 222:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         }
+ 223:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 224:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 225:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Configure pin as input */
+ 226:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_ODR = mask;
+ 421              		.loc 1 226 0
+ 422 01e0 039B     		ldr	r3, [sp, #12]	@ tmp134, pio
+ 423 01e2 029A     		ldr	r2, [sp, #8]	@ tmp135, mask
+ 424 01e4 5A61     		str	r2, [r3, #20]	@ tmp135, pio_1(D)->PIO_ODR
+ 227:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_PER = mask;
+ 425              		.loc 1 227 0
+ 426 01e6 039B     		ldr	r3, [sp, #12]	@ tmp136, pio
+ 427 01e8 029A     		ldr	r2, [sp, #8]	@ tmp137, mask
+ 428 01ea 1A60     		str	r2, [r3]	@ tmp137, pio_1(D)->PIO_PER
+ 228:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 429              		.loc 1 228 0
+ 430 01ec 04B0     		add	sp, sp, #16	@,,
+ 431              		@ sp needed	@
+ 432 01ee 7047     		bx	lr	@
+ 433              		.cfi_endproc
+ 434              	.LFE120:
+ 436              		.align	2
+ 437              		.thumb
+ 438              		.thumb_func
+ 440              	PIO_SetOutput:
+ 441              	.LFB121:
+ 229:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 230:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /**
+ 231:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Configures one or more pin(s) of a PIO controller as outputs, with the
+ 232:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * given default value. Optionally, the multi-drive feature can be enabled
+ 233:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * on the pin(s).
+ 234:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 235:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pio  Pointer to a PIO controller.
+ 236:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param mask  Bitmask indicating which pin(s) to configure.
+ 237:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param defaultValue  Default level on the pin(s).
+ 238:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param enableMultiDrive  Indicates if the pin(s) shall be configured as
+ 239:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *                          open-drain.
+ 240:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param enablePullUp  Indicates if the pin shall have its pull-up activated.
+ 241:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+ 242:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** static void PIO_SetOutput(
+ 243:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     Pio *pio,
+ 244:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned int mask,
+ 245:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned char defaultValue,
+ 246:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned char enableMultiDrive,
+ 247:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned char enablePullUp)
+ 248:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 442              		.loc 1 248 0
+ 443              		.cfi_startproc
+ 444              		@ args = 4, pretend = 0, frame = 16
+ 445              		@ frame_needed = 0, uses_anonymous_args = 0
+ 446              		@ link register save eliminated.
+ 447 01f0 84B0     		sub	sp, sp, #16	@,,
+ 448              		.cfi_def_cfa_offset 16
+ 449 01f2 0390     		str	r0, [sp, #12]	@ pio, pio
+ 450 01f4 0291     		str	r1, [sp, #8]	@ mask, mask
+ 451 01f6 8DF80720 		strb	r2, [sp, #7]	@ tmp111, defaultValue
+ 452 01fa 8DF80630 		strb	r3, [sp, #6]	@ tmp113, enableMultiDrive
+ 249:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Disable interrupts */
+ 250:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_IDR = mask;
+ 453              		.loc 1 250 0
+ 454 01fe 039B     		ldr	r3, [sp, #12]	@ tmp114, pio
+ 455 0200 029A     		ldr	r2, [sp, #8]	@ tmp115, mask
+ 456 0202 5A64     		str	r2, [r3, #68]	@ tmp115, pio_1(D)->PIO_IDR
+ 251:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 252:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Enable pull-up(s) if necessary */
+ 253:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     if (enablePullUp) {
+ 457              		.loc 1 253 0
+ 458 0204 9DF81030 		ldrb	r3, [sp, #16]	@ zero_extendqisi2	@ tmp116, enablePullUp
+ 459 0208 002B     		cmp	r3, #0	@ tmp116,
+ 460 020a 03D0     		beq	.L21	@,
+ 254:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 255:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_PUER = mask;
+ 461              		.loc 1 255 0
+ 462 020c 039B     		ldr	r3, [sp, #12]	@ tmp117, pio
+ 463 020e 029A     		ldr	r2, [sp, #8]	@ tmp118, mask
+ 464 0210 5A66     		str	r2, [r3, #100]	@ tmp118, pio_1(D)->PIO_PUER
+ 465 0212 02E0     		b	.L22	@
+ 466              	.L21:
+ 256:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 257:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     else {
+ 258:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 259:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_PUDR = mask;
+ 467              		.loc 1 259 0
+ 468 0214 039B     		ldr	r3, [sp, #12]	@ tmp119, pio
+ 469 0216 029A     		ldr	r2, [sp, #8]	@ tmp120, mask
+ 470 0218 1A66     		str	r2, [r3, #96]	@ tmp120, pio_1(D)->PIO_PUDR
+ 471              	.L22:
+ 260:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 261:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 262:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Enable multi-drive if necessary */
+ 263:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     if (enableMultiDrive) {
+ 472              		.loc 1 263 0
+ 473 021a 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2	@ tmp121, enableMultiDrive
+ 474 021e 002B     		cmp	r3, #0	@ tmp121,
+ 475 0220 03D0     		beq	.L23	@,
+ 264:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 265:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_MDER = mask;
+ 476              		.loc 1 265 0
+ 477 0222 039B     		ldr	r3, [sp, #12]	@ tmp122, pio
+ 478 0224 029A     		ldr	r2, [sp, #8]	@ tmp123, mask
+ 479 0226 1A65     		str	r2, [r3, #80]	@ tmp123, pio_1(D)->PIO_MDER
+ 480 0228 02E0     		b	.L24	@
+ 481              	.L23:
+ 266:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 267:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     else {
+ 268:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 269:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_MDDR = mask;
+ 482              		.loc 1 269 0
+ 483 022a 039B     		ldr	r3, [sp, #12]	@ tmp124, pio
+ 484 022c 029A     		ldr	r2, [sp, #8]	@ tmp125, mask
+ 485 022e 5A65     		str	r2, [r3, #84]	@ tmp125, pio_1(D)->PIO_MDDR
+ 486              	.L24:
+ 270:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 271:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 272:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Set default value */
+ 273:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     if (defaultValue) {
+ 487              		.loc 1 273 0
+ 488 0230 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2	@ tmp126, defaultValue
+ 489 0234 002B     		cmp	r3, #0	@ tmp126,
+ 490 0236 03D0     		beq	.L25	@,
+ 274:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 275:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_SODR = mask;
+ 491              		.loc 1 275 0
+ 492 0238 039B     		ldr	r3, [sp, #12]	@ tmp127, pio
+ 493 023a 029A     		ldr	r2, [sp, #8]	@ tmp128, mask
+ 494 023c 1A63     		str	r2, [r3, #48]	@ tmp128, pio_1(D)->PIO_SODR
+ 495 023e 02E0     		b	.L26	@
+ 496              	.L25:
+ 276:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 277:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     else {
+ 278:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 279:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         pio->PIO_CODR = mask;
+ 497              		.loc 1 279 0
+ 498 0240 039B     		ldr	r3, [sp, #12]	@ tmp129, pio
+ 499 0242 029A     		ldr	r2, [sp, #8]	@ tmp130, mask
+ 500 0244 5A63     		str	r2, [r3, #52]	@ tmp130, pio_1(D)->PIO_CODR
+ 501              	.L26:
+ 280:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 281:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 282:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Configure pin(s) as output(s) */
+ 283:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_OER = mask;
+ 502              		.loc 1 283 0
+ 503 0246 039B     		ldr	r3, [sp, #12]	@ tmp131, pio
+ 504 0248 029A     		ldr	r2, [sp, #8]	@ tmp132, mask
+ 505 024a 1A61     		str	r2, [r3, #16]	@ tmp132, pio_1(D)->PIO_OER
+ 284:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_PER = mask;
+ 506              		.loc 1 284 0
+ 507 024c 039B     		ldr	r3, [sp, #12]	@ tmp133, pio
+ 508 024e 029A     		ldr	r2, [sp, #8]	@ tmp134, mask
+ 509 0250 1A60     		str	r2, [r3]	@ tmp134, pio_1(D)->PIO_PER
+ 285:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 510              		.loc 1 285 0
+ 511 0252 04B0     		add	sp, sp, #16	@,,
+ 512              		@ sp needed	@
+ 513 0254 7047     		bx	lr	@
+ 514              		.cfi_endproc
+ 515              	.LFE121:
+ 517 0256 00BF     		.align	2
+ 518              		.global	PIO_Configure
+ 519              		.thumb
+ 520              		.thumb_func
+ 522              	PIO_Configure:
+ 523              	.LFB122:
+ 286:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 287:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /*----------------------------------------------------------------------------
+ 288:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *         Global functions
+ 289:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *----------------------------------------------------------------------------*/
+ 290:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 291:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /**
+ 292:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Configures a list of Pin instances, each of which can either hold a single
+ 293:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * pin or a group of pins, depending on the mask value; all pins are configured
+ 294:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * by this function. The size of the array must also be provided and is easily
+ 295:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * computed using PIO_LISTSIZE whenever its length is not known in advance.
+ 296:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 297:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param list  Pointer to a list of Pin instances.
+ 298:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param size  Size of the Pin list (calculated using PIO_LISTSIZE).
+ 299:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 300:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \return 1 if the pins have been configured properly; otherwise 0.
+ 301:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+ 302:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** uint8_t PIO_Configure( const Pin *list, uint32_t size )
+ 303:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 524              		.loc 1 303 0
+ 525              		.cfi_startproc
+ 526              		@ args = 0, pretend = 0, frame = 8
+ 527              		@ frame_needed = 0, uses_anonymous_args = 0
+ 528 0258 10B5     		push	{r4, lr}	@
+ 529              		.cfi_def_cfa_offset 8
+ 530              		.cfi_offset 4, -8
+ 531              		.cfi_offset 14, -4
+ 532 025a 84B0     		sub	sp, sp, #16	@,,
+ 533              		.cfi_def_cfa_offset 24
+ 534 025c 0390     		str	r0, [sp, #12]	@ list, list
+ 535 025e 0291     		str	r1, [sp, #8]	@ size, size
+ 304:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     /* Configure pins */
+ 305:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     while ( size > 0 )
+ 536              		.loc 1 305 0
+ 537 0260 9DE0     		b	.L28	@
+ 538              	.L39:
+ 306:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     {
+ 307:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         switch ( list->type )
+ 539              		.loc 1 307 0
+ 540 0262 039B     		ldr	r3, [sp, #12]	@ tmp162, list
+ 541 0264 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2	@ D.7460, list_1->type
+ 542 0266 062B     		cmp	r3, #6	@ D.7461,
+ 543 0268 00F29180 		bhi	.L29	@
+ 544 026c 01A2     		adr	r2, .L31	@,
+ 545 026e 52F823F0 		ldr	pc, [r2, r3, lsl #2]	@, D.7461
+ 546 0272 00BF     		.p2align 2
+ 547              	.L31:
+ 548 0274 91020000 		.word	.L30+1
+ 549 0278 B7020000 		.word	.L32+1
+ 550 027c DD020000 		.word	.L33+1
+ 551 0280 03030000 		.word	.L34+1
+ 552 0284 29030000 		.word	.L35+1
+ 553 0288 4B030000 		.word	.L36+1
+ 554 028c 4B030000 		.word	.L36+1
+ 555              		.p2align 1
+ 556              	.L30:
+ 308:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         {
+ 309:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 310:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****             case PIO_PERIPH_A:
+ 311:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PIO_SetPeripheralA(list->pio,
+ 557              		.loc 1 311 0
+ 558 0290 039B     		ldr	r3, [sp, #12]	@ tmp163, list
+ 559 0292 5968     		ldr	r1, [r3, #4]	@ D.7462, list_1->pio
+ 312:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                                    list->mask,
+ 560              		.loc 1 312 0
+ 561 0294 039B     		ldr	r3, [sp, #12]	@ tmp164, list
+ 562 0296 1A68     		ldr	r2, [r3]	@ D.7463, list_1->mask
+ 313:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                                    (list->attribute & PIO_PULLUP) ? 1 : 0);
+ 563              		.loc 1 313 0
+ 564 0298 039B     		ldr	r3, [sp, #12]	@ tmp165, list
+ 565 029a 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2	@ D.7460, list_1->attribute
+ 566 029c 03F00103 		and	r3, r3, #1	@ D.7461, D.7461,
+ 311:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PIO_SetPeripheralA(list->pio,
+ 567              		.loc 1 311 0
+ 568 02a0 002B     		cmp	r3, #0	@ D.7461,
+ 569 02a2 0CBF     		ite	eq	@
+ 570 02a4 0023     		moveq	r3, #0	@, tmp167
+ 571 02a6 0123     		movne	r3, #1	@, tmp167
+ 572 02a8 DBB2     		uxtb	r3, r3	@ D.7464, tmp166
+ 573 02aa 0846     		mov	r0, r1	@, D.7462
+ 574 02ac 1146     		mov	r1, r2	@, D.7463
+ 575 02ae 1A46     		mov	r2, r3	@, D.7460
+ 576 02b0 FFF7A6FE 		bl	PIO_SetPeripheralA	@
+ 314:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****             break;
+ 577              		.loc 1 314 0
+ 578 02b4 6DE0     		b	.L37	@
+ 579              	.L32:
+ 315:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 316:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****             case PIO_PERIPH_B:
+ 317:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PIO_SetPeripheralB(list->pio,
+ 580              		.loc 1 317 0
+ 581 02b6 039B     		ldr	r3, [sp, #12]	@ tmp168, list
+ 582 02b8 5968     		ldr	r1, [r3, #4]	@ D.7462, list_1->pio
+ 318:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                                    list->mask,
+ 583              		.loc 1 318 0
+ 584 02ba 039B     		ldr	r3, [sp, #12]	@ tmp169, list
+ 585 02bc 1A68     		ldr	r2, [r3]	@ D.7463, list_1->mask
+ 319:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                                    (list->attribute & PIO_PULLUP) ? 1 : 0);
+ 586              		.loc 1 319 0
+ 587 02be 039B     		ldr	r3, [sp, #12]	@ tmp170, list
+ 588 02c0 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2	@ D.7460, list_1->attribute
+ 589 02c2 03F00103 		and	r3, r3, #1	@ D.7461, D.7461,
+ 317:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PIO_SetPeripheralB(list->pio,
+ 590              		.loc 1 317 0
+ 591 02c6 002B     		cmp	r3, #0	@ D.7461,
+ 592 02c8 0CBF     		ite	eq	@
+ 593 02ca 0023     		moveq	r3, #0	@, tmp172
+ 594 02cc 0123     		movne	r3, #1	@, tmp172
+ 595 02ce DBB2     		uxtb	r3, r3	@ D.7464, tmp171
+ 596 02d0 0846     		mov	r0, r1	@, D.7462
+ 597 02d2 1146     		mov	r1, r2	@, D.7463
+ 598 02d4 1A46     		mov	r2, r3	@, D.7460
+ 599 02d6 FFF7C5FE 		bl	PIO_SetPeripheralB	@
+ 320:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****             break;
+ 600              		.loc 1 320 0
+ 601 02da 5AE0     		b	.L37	@
+ 602              	.L33:
+ 321:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 322:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****             case PIO_PERIPH_C:
+ 323:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PIO_SetPeripheralC(list->pio,
+ 603              		.loc 1 323 0
+ 604 02dc 039B     		ldr	r3, [sp, #12]	@ tmp173, list
+ 605 02de 5968     		ldr	r1, [r3, #4]	@ D.7462, list_1->pio
+ 324:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                                    list->mask,
+ 606              		.loc 1 324 0
+ 607 02e0 039B     		ldr	r3, [sp, #12]	@ tmp174, list
+ 608 02e2 1A68     		ldr	r2, [r3]	@ D.7463, list_1->mask
+ 325:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                                    (list->attribute & PIO_PULLUP) ? 1 : 0);
+ 609              		.loc 1 325 0
+ 610 02e4 039B     		ldr	r3, [sp, #12]	@ tmp175, list
+ 611 02e6 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2	@ D.7460, list_1->attribute
+ 612 02e8 03F00103 		and	r3, r3, #1	@ D.7461, D.7461,
+ 323:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PIO_SetPeripheralC(list->pio,
+ 613              		.loc 1 323 0
+ 614 02ec 002B     		cmp	r3, #0	@ D.7461,
+ 615 02ee 0CBF     		ite	eq	@
+ 616 02f0 0023     		moveq	r3, #0	@, tmp177
+ 617 02f2 0123     		movne	r3, #1	@, tmp177
+ 618 02f4 DBB2     		uxtb	r3, r3	@ D.7464, tmp176
+ 619 02f6 0846     		mov	r0, r1	@, D.7462
+ 620 02f8 1146     		mov	r1, r2	@, D.7463
+ 621 02fa 1A46     		mov	r2, r3	@, D.7460
+ 622 02fc FFF7E0FE 		bl	PIO_SetPeripheralC	@
+ 326:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****             break;
+ 623              		.loc 1 326 0
+ 624 0300 47E0     		b	.L37	@
+ 625              	.L34:
+ 327:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 328:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****             case PIO_PERIPH_D:
+ 329:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PIO_SetPeripheralD(list->pio,
+ 626              		.loc 1 329 0
+ 627 0302 039B     		ldr	r3, [sp, #12]	@ tmp178, list
+ 628 0304 5968     		ldr	r1, [r3, #4]	@ D.7462, list_1->pio
+ 330:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                                    list->mask,
+ 629              		.loc 1 330 0
+ 630 0306 039B     		ldr	r3, [sp, #12]	@ tmp179, list
+ 631 0308 1A68     		ldr	r2, [r3]	@ D.7463, list_1->mask
+ 331:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                                    (list->attribute & PIO_PULLUP) ? 1 : 0);
+ 632              		.loc 1 331 0
+ 633 030a 039B     		ldr	r3, [sp, #12]	@ tmp180, list
+ 634 030c 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2	@ D.7460, list_1->attribute
+ 635 030e 03F00103 		and	r3, r3, #1	@ D.7461, D.7461,
+ 329:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PIO_SetPeripheralD(list->pio,
+ 636              		.loc 1 329 0
+ 637 0312 002B     		cmp	r3, #0	@ D.7461,
+ 638 0314 0CBF     		ite	eq	@
+ 639 0316 0023     		moveq	r3, #0	@, tmp182
+ 640 0318 0123     		movne	r3, #1	@, tmp182
+ 641 031a DBB2     		uxtb	r3, r3	@ D.7464, tmp181
+ 642 031c 0846     		mov	r0, r1	@, D.7462
+ 643 031e 1146     		mov	r1, r2	@, D.7463
+ 644 0320 1A46     		mov	r2, r3	@, D.7460
+ 645 0322 FFF7FBFE 		bl	PIO_SetPeripheralD	@
+ 332:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****             break;
+ 646              		.loc 1 332 0
+ 647 0326 34E0     		b	.L37	@
+ 648              	.L35:
+ 333:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****             case PIO_INPUT:
+ 334:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PMC_EnablePeripheral(list->id);
+ 649              		.loc 1 334 0
+ 650 0328 039B     		ldr	r3, [sp, #12]	@ tmp183, list
+ 651 032a 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2	@ D.7460, list_1->id
+ 652 032c 1846     		mov	r0, r3	@, D.7463
+ 653 032e FFF7FEFF 		bl	PMC_EnablePeripheral	@
+ 335:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PIO_SetInput(list->pio,
+ 654              		.loc 1 335 0
+ 655 0332 039B     		ldr	r3, [sp, #12]	@ tmp184, list
+ 656 0334 5968     		ldr	r1, [r3, #4]	@ D.7462, list_1->pio
+ 336:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                              list->mask,
+ 657              		.loc 1 336 0
+ 658 0336 039B     		ldr	r3, [sp, #12]	@ tmp185, list
+ 659 0338 1A68     		ldr	r2, [r3]	@ D.7463, list_1->mask
+ 335:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PIO_SetInput(list->pio,
+ 660              		.loc 1 335 0
+ 661 033a 039B     		ldr	r3, [sp, #12]	@ tmp186, list
+ 662 033c 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2	@ D.7460, list_1->attribute
+ 663 033e 0846     		mov	r0, r1	@, D.7462
+ 664 0340 1146     		mov	r1, r2	@, D.7463
+ 665 0342 1A46     		mov	r2, r3	@, D.7460
+ 666 0344 FFF714FF 		bl	PIO_SetInput	@
+ 337:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                              list->attribute);
+ 338:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 break;
+ 667              		.loc 1 338 0
+ 668 0348 23E0     		b	.L37	@
+ 669              	.L36:
+ 339:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 340:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****             case PIO_OUTPUT_0:
+ 341:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****             case PIO_OUTPUT_1:
+ 342:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PIO_SetOutput(list->pio,
+ 670              		.loc 1 342 0
+ 671 034a 039B     		ldr	r3, [sp, #12]	@ tmp187, list
+ 672 034c 5868     		ldr	r0, [r3, #4]	@ D.7462, list_1->pio
+ 343:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                               list->mask,
+ 673              		.loc 1 343 0
+ 674 034e 039B     		ldr	r3, [sp, #12]	@ tmp188, list
+ 675 0350 1968     		ldr	r1, [r3]	@ D.7463, list_1->mask
+ 344:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                               (list->type == PIO_OUTPUT_1),
+ 676              		.loc 1 344 0
+ 677 0352 039B     		ldr	r3, [sp, #12]	@ tmp189, list
+ 678 0354 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2	@ D.7460, list_1->type
+ 342:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PIO_SetOutput(list->pio,
+ 679              		.loc 1 342 0
+ 680 0356 062B     		cmp	r3, #6	@ D.7460,
+ 681 0358 14BF     		ite	ne	@
+ 682 035a 0023     		movne	r3, #0	@, tmp191
+ 683 035c 0123     		moveq	r3, #1	@, tmp191
+ 684 035e DBB2     		uxtb	r3, r3	@ D.7464, tmp190
+ 685 0360 1A46     		mov	r2, r3	@ D.7460, D.7464
+ 345:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                               (list->attribute & PIO_OPENDRAIN) ? 1 : 0,
+ 686              		.loc 1 345 0
+ 687 0362 039B     		ldr	r3, [sp, #12]	@ tmp192, list
+ 688 0364 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2	@ D.7460, list_1->attribute
+ 689 0366 03F00403 		and	r3, r3, #4	@ D.7461, D.7461,
+ 342:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PIO_SetOutput(list->pio,
+ 690              		.loc 1 342 0
+ 691 036a 002B     		cmp	r3, #0	@ D.7461,
+ 692 036c 0CBF     		ite	eq	@
+ 693 036e 0023     		moveq	r3, #0	@, tmp194
+ 694 0370 0123     		movne	r3, #1	@, tmp194
+ 695 0372 DBB2     		uxtb	r3, r3	@ D.7464, tmp193
+ 346:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                               (list->attribute & PIO_PULLUP) ? 1 : 0);
+ 696              		.loc 1 346 0
+ 697 0374 039C     		ldr	r4, [sp, #12]	@ tmp195, list
+ 698 0376 A47A     		ldrb	r4, [r4, #10]	@ zero_extendqisi2	@ D.7460, list_1->attribute
+ 699 0378 04F00104 		and	r4, r4, #1	@ D.7461, D.7461,
+ 342:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 PIO_SetOutput(list->pio,
+ 700              		.loc 1 342 0
+ 701 037c 002C     		cmp	r4, #0	@ D.7461,
+ 702 037e 0CBF     		ite	eq	@
+ 703 0380 0024     		moveq	r4, #0	@, tmp197
+ 704 0382 0124     		movne	r4, #1	@, tmp197
+ 705 0384 E4B2     		uxtb	r4, r4	@ D.7464, tmp196
+ 706 0386 0094     		str	r4, [sp]	@ D.7460,
+ 707 0388 FFF732FF 		bl	PIO_SetOutput	@
+ 347:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****                 break;
+ 708              		.loc 1 347 0
+ 709 038c 01E0     		b	.L37	@
+ 710              	.L29:
+ 348:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 349:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****             default: return 0;
+ 711              		.loc 1 349 0
+ 712 038e 0023     		movs	r3, #0	@ D.7459,
+ 713 0390 0AE0     		b	.L38	@
+ 714              	.L37:
+ 350:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         }
+ 351:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 352:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         list++;
+ 715              		.loc 1 352 0
+ 716 0392 039B     		ldr	r3, [sp, #12]	@ tmp199, list
+ 717 0394 0C33     		adds	r3, r3, #12	@ tmp198, tmp199,
+ 718 0396 0393     		str	r3, [sp, #12]	@ tmp198, list
+ 353:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         size--;
+ 719              		.loc 1 353 0
+ 720 0398 029B     		ldr	r3, [sp, #8]	@ tmp201, size
+ 721 039a 013B     		subs	r3, r3, #1	@ tmp200, tmp201,
+ 722 039c 0293     		str	r3, [sp, #8]	@ tmp200, size
+ 723              	.L28:
+ 305:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     while ( size > 0 )
+ 724              		.loc 1 305 0 discriminator 1
+ 725 039e 029B     		ldr	r3, [sp, #8]	@ tmp202, size
+ 726 03a0 002B     		cmp	r3, #0	@ tmp202,
+ 727 03a2 7FF45EAF 		bne	.L39	@,
+ 354:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 355:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 356:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     return 1;
+ 728              		.loc 1 356 0
+ 729 03a6 0123     		movs	r3, #1	@ D.7459,
+ 730              	.L38:
+ 357:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 731              		.loc 1 357 0
+ 732 03a8 1846     		mov	r0, r3	@, <retval>
+ 733 03aa 04B0     		add	sp, sp, #16	@,,
+ 734              		@ sp needed	@
+ 735 03ac 10BD     		pop	{r4, pc}	@
+ 736              		.cfi_endproc
+ 737              	.LFE122:
+ 739 03ae 00BF     		.align	2
+ 740              		.global	PIO_Set
+ 741              		.thumb
+ 742              		.thumb_func
+ 744              	PIO_Set:
+ 745              	.LFB123:
+ 358:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 359:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /**
+ 360:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Sets a high output level on all the PIOs defined in the given Pin instance.
+ 361:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * This has no immediate effects on PIOs that are not output, but the PIO
+ 362:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * controller will memorize the value they are changed to outputs.
+ 363:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 364:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pin  Pointer to a Pin instance describing one or more pins.
+ 365:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+ 366:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** void PIO_Set(const Pin *pin)
+ 367:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 746              		.loc 1 367 0
+ 747              		.cfi_startproc
+ 748              		@ args = 0, pretend = 0, frame = 8
+ 749              		@ frame_needed = 0, uses_anonymous_args = 0
+ 750              		@ link register save eliminated.
+ 751 03b0 82B0     		sub	sp, sp, #8	@,,
+ 752              		.cfi_def_cfa_offset 8
+ 753 03b2 0190     		str	r0, [sp, #4]	@ pin, pin
+ 368:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pin->pio->PIO_SODR = pin->mask;
+ 754              		.loc 1 368 0
+ 755 03b4 019B     		ldr	r3, [sp, #4]	@ tmp112, pin
+ 756 03b6 5B68     		ldr	r3, [r3, #4]	@ D.7465, pin_1(D)->pio
+ 757 03b8 019A     		ldr	r2, [sp, #4]	@ tmp113, pin
+ 758 03ba 1268     		ldr	r2, [r2]	@ D.7466, pin_1(D)->mask
+ 759 03bc 1A63     		str	r2, [r3, #48]	@ D.7466, _2->PIO_SODR
+ 369:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 760              		.loc 1 369 0
+ 761 03be 02B0     		add	sp, sp, #8	@,,
+ 762              		@ sp needed	@
+ 763 03c0 7047     		bx	lr	@
+ 764              		.cfi_endproc
+ 765              	.LFE123:
+ 767 03c2 00BF     		.align	2
+ 768              		.global	PIO_Clear
+ 769              		.thumb
+ 770              		.thumb_func
+ 772              	PIO_Clear:
+ 773              	.LFB124:
+ 370:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 371:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /**
+ 372:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Sets a low output level on all the PIOs defined in the given Pin instance.
+ 373:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * This has no immediate effects on PIOs that are not output, but the PIO
+ 374:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * controller will memorize the value they are changed to outputs.
+ 375:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 376:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pin  Pointer to a Pin instance describing one or more pins.
+ 377:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+ 378:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** void PIO_Clear(const Pin *pin)
+ 379:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 774              		.loc 1 379 0
+ 775              		.cfi_startproc
+ 776              		@ args = 0, pretend = 0, frame = 8
+ 777              		@ frame_needed = 0, uses_anonymous_args = 0
+ 778              		@ link register save eliminated.
+ 779 03c4 82B0     		sub	sp, sp, #8	@,,
+ 780              		.cfi_def_cfa_offset 8
+ 781 03c6 0190     		str	r0, [sp, #4]	@ pin, pin
+ 380:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pin->pio->PIO_CODR = pin->mask;
+ 782              		.loc 1 380 0
+ 783 03c8 019B     		ldr	r3, [sp, #4]	@ tmp112, pin
+ 784 03ca 5B68     		ldr	r3, [r3, #4]	@ D.7467, pin_1(D)->pio
+ 785 03cc 019A     		ldr	r2, [sp, #4]	@ tmp113, pin
+ 786 03ce 1268     		ldr	r2, [r2]	@ D.7468, pin_1(D)->mask
+ 787 03d0 5A63     		str	r2, [r3, #52]	@ D.7468, _2->PIO_CODR
+ 381:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 788              		.loc 1 381 0
+ 789 03d2 02B0     		add	sp, sp, #8	@,,
+ 790              		@ sp needed	@
+ 791 03d4 7047     		bx	lr	@
+ 792              		.cfi_endproc
+ 793              	.LFE124:
+ 795 03d6 00BF     		.align	2
+ 796              		.global	PIO_Get
+ 797              		.thumb
+ 798              		.thumb_func
+ 800              	PIO_Get:
+ 801              	.LFB125:
+ 382:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 383:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /**
+ 384:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Returns 1 if one or more PIO of the given Pin instance currently have
+ 385:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * a high level; otherwise returns 0. This method returns the actual value that
+ 386:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * is being read on the pin. To return the supposed output value of a pin, use
+ 387:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * PIO_GetOutputDataStatus() instead.
+ 388:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 389:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pin  Pointer to a Pin instance describing one or more pins.
+ 390:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 391:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \return 1 if the Pin instance contains at least one PIO that currently has
+ 392:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * a high level; otherwise 0.
+ 393:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+ 394:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** unsigned char PIO_Get( const Pin *pin )
+ 395:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 802              		.loc 1 395 0
+ 803              		.cfi_startproc
+ 804              		@ args = 0, pretend = 0, frame = 16
+ 805              		@ frame_needed = 0, uses_anonymous_args = 0
+ 806              		@ link register save eliminated.
+ 807 03d8 84B0     		sub	sp, sp, #16	@,,
+ 808              		.cfi_def_cfa_offset 16
+ 809 03da 0190     		str	r0, [sp, #4]	@ pin, pin
+ 396:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     unsigned int reg ;
+ 397:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 398:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     if ( (pin->type == PIO_OUTPUT_0) || (pin->type == PIO_OUTPUT_1) )
+ 810              		.loc 1 398 0
+ 811 03dc 019B     		ldr	r3, [sp, #4]	@ tmp118, pin
+ 812 03de 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2	@ D.7470, pin_3(D)->type
+ 813 03e0 052B     		cmp	r3, #5	@ D.7470,
+ 814 03e2 03D0     		beq	.L43	@,
+ 815              		.loc 1 398 0 is_stmt 0 discriminator 1
+ 816 03e4 019B     		ldr	r3, [sp, #4]	@ tmp119, pin
+ 817 03e6 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2	@ D.7470, pin_3(D)->type
+ 818 03e8 062B     		cmp	r3, #6	@ D.7470,
+ 819 03ea 04D1     		bne	.L44	@,
+ 820              	.L43:
+ 399:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     {
+ 400:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         reg = pin->pio->PIO_ODSR ;
+ 821              		.loc 1 400 0 is_stmt 1
+ 822 03ec 019B     		ldr	r3, [sp, #4]	@ tmp120, pin
+ 823 03ee 5B68     		ldr	r3, [r3, #4]	@ D.7471, pin_3(D)->pio
+ 824 03f0 9B6B     		ldr	r3, [r3, #56]	@ tmp121, _8->PIO_ODSR
+ 825 03f2 0393     		str	r3, [sp, #12]	@ tmp121, reg
+ 826 03f4 03E0     		b	.L45	@
+ 827              	.L44:
+ 401:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 402:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     else
+ 403:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     {
+ 404:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         reg = pin->pio->PIO_PDSR ;
+ 828              		.loc 1 404 0
+ 829 03f6 019B     		ldr	r3, [sp, #4]	@ tmp122, pin
+ 830 03f8 5B68     		ldr	r3, [r3, #4]	@ D.7471, pin_3(D)->pio
+ 831 03fa DB6B     		ldr	r3, [r3, #60]	@ tmp123, _6->PIO_PDSR
+ 832 03fc 0393     		str	r3, [sp, #12]	@ tmp123, reg
+ 833              	.L45:
+ 405:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 406:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 407:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     if ( (reg & pin->mask) == 0 )
+ 834              		.loc 1 407 0
+ 835 03fe 019B     		ldr	r3, [sp, #4]	@ tmp124, pin
+ 836 0400 1A68     		ldr	r2, [r3]	@ D.7472, pin_3(D)->mask
+ 837 0402 039B     		ldr	r3, [sp, #12]	@ tmp125, reg
+ 838 0404 1340     		ands	r3, r3, r2	@, D.7472, tmp125, D.7472
+ 839 0406 002B     		cmp	r3, #0	@ D.7472,
+ 840 0408 01D1     		bne	.L46	@,
+ 408:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     {
+ 409:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         return 0 ;
+ 841              		.loc 1 409 0
+ 842 040a 0023     		movs	r3, #0	@ D.7469,
+ 843 040c 00E0     		b	.L47	@
+ 844              	.L46:
+ 410:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 411:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     else
+ 412:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     {
+ 413:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         return 1 ;
+ 845              		.loc 1 413 0
+ 846 040e 0123     		movs	r3, #1	@ D.7469,
+ 847              	.L47:
+ 414:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 415:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 848              		.loc 1 415 0
+ 849 0410 1846     		mov	r0, r3	@, <retval>
+ 850 0412 04B0     		add	sp, sp, #16	@,,
+ 851              		@ sp needed	@
+ 852 0414 7047     		bx	lr	@
+ 853              		.cfi_endproc
+ 854              	.LFE125:
+ 856 0416 00BF     		.align	2
+ 857              		.global	PIO_GetOutputDataStatus
+ 858              		.thumb
+ 859              		.thumb_func
+ 861              	PIO_GetOutputDataStatus:
+ 862              	.LFB126:
+ 416:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 417:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /**
+ 418:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Returns 1 if one or more PIO of the given Pin are configured to output a
+ 419:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * high level (even if they are not output).
+ 420:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * To get the actual value of the pin, use PIO_Get() instead.
+ 421:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 422:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pin  Pointer to a Pin instance describing one or more pins.
+ 423:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 424:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \return 1 if the Pin instance contains at least one PIO that is configured
+ 425:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * to output a high level; otherwise 0.
+ 426:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+ 427:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** unsigned char PIO_GetOutputDataStatus(const Pin *pin)
+ 428:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 863              		.loc 1 428 0
+ 864              		.cfi_startproc
+ 865              		@ args = 0, pretend = 0, frame = 8
+ 866              		@ frame_needed = 0, uses_anonymous_args = 0
+ 867              		@ link register save eliminated.
+ 868 0418 82B0     		sub	sp, sp, #8	@,,
+ 869              		.cfi_def_cfa_offset 8
+ 870 041a 0190     		str	r0, [sp, #4]	@ pin, pin
+ 429:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     if ((pin->pio->PIO_ODSR & pin->mask) == 0) {
+ 871              		.loc 1 429 0
+ 872 041c 019B     		ldr	r3, [sp, #4]	@ tmp116, pin
+ 873 041e 5B68     		ldr	r3, [r3, #4]	@ D.7474, pin_2(D)->pio
+ 874 0420 9A6B     		ldr	r2, [r3, #56]	@ D.7475, _3->PIO_ODSR
+ 875 0422 019B     		ldr	r3, [sp, #4]	@ tmp117, pin
+ 876 0424 1B68     		ldr	r3, [r3]	@ D.7475, pin_2(D)->mask
+ 877 0426 1340     		ands	r3, r3, r2	@, D.7475, D.7475, D.7475
+ 878 0428 002B     		cmp	r3, #0	@ D.7475,
+ 879 042a 01D1     		bne	.L49	@,
+ 430:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 431:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         return 0;
+ 880              		.loc 1 431 0
+ 881 042c 0023     		movs	r3, #0	@ D.7473,
+ 882 042e 00E0     		b	.L50	@
+ 883              	.L49:
+ 432:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 433:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     else {
+ 434:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 435:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****         return 1;
+ 884              		.loc 1 435 0
+ 885 0430 0123     		movs	r3, #1	@ D.7473,
+ 886              	.L50:
+ 436:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     }
+ 437:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 887              		.loc 1 437 0
+ 888 0432 1846     		mov	r0, r3	@, <retval>
+ 889 0434 02B0     		add	sp, sp, #8	@,,
+ 890              		@ sp needed	@
+ 891 0436 7047     		bx	lr	@
+ 892              		.cfi_endproc
+ 893              	.LFE126:
+ 895              		.align	2
+ 896              		.global	PIO_SetDebounceFilter
+ 897              		.thumb
+ 898              		.thumb_func
+ 900              	PIO_SetDebounceFilter:
+ 901              	.LFB127:
+ 438:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 439:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /*
+ 440:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Configures Glitch or Debouncing filter for input.
+ 441:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 442:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pin  Pointer to a Pin instance describing one or more pins.
+ 443:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param cuttoff  Cutt off frequency for debounce filter.
+ 444:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+ 445:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** void PIO_SetDebounceFilter( const Pin *pin, uint32_t cuttoff )
+ 446:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 902              		.loc 1 446 0
+ 903              		.cfi_startproc
+ 904              		@ args = 0, pretend = 0, frame = 16
+ 905              		@ frame_needed = 0, uses_anonymous_args = 0
+ 906              		@ link register save eliminated.
+ 907 0438 84B0     		sub	sp, sp, #16	@,,
+ 908              		.cfi_def_cfa_offset 16
+ 909 043a 0190     		str	r0, [sp, #4]	@ pin, pin
+ 910 043c 0091     		str	r1, [sp]	@ cuttoff, cuttoff
+ 447:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     Pio *pio = pin->pio;
+ 911              		.loc 1 447 0
+ 912 043e 019B     		ldr	r3, [sp, #4]	@ tmp115, pin
+ 913 0440 5B68     		ldr	r3, [r3, #4]	@ tmp116, pin_1(D)->pio
+ 914 0442 0393     		str	r3, [sp, #12]	@ tmp116, pio
+ 448:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 449:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_IFSCER = pin->mask; /* set Debouncing, 0 bit field no effect */
+ 915              		.loc 1 449 0
+ 916 0444 019B     		ldr	r3, [sp, #4]	@ tmp117, pin
+ 917 0446 1A68     		ldr	r2, [r3]	@ D.7476, pin_1(D)->mask
+ 918 0448 039B     		ldr	r3, [sp, #12]	@ tmp118, pio
+ 919 044a C3F88420 		str	r2, [r3, #132]	@ D.7476, pio_2->PIO_IFSCER
+ 450:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pio->PIO_SCDR = ((32678/(2*(cuttoff))) - 1) & 0x3FFF; /* the lowest 14 bits work */
+ 920              		.loc 1 450 0
+ 921 044e 009B     		ldr	r3, [sp]	@ tmp119, cuttoff
+ 922 0450 5B00     		lsls	r3, r3, #1	@ D.7476, tmp119,
+ 923 0452 47F6A672 		movw	r2, #32678	@ tmp120,
+ 924 0456 B2FBF3F3 		udiv	r3, r2, r3	@ D.7476, tmp120, D.7476
+ 925 045a 013B     		subs	r3, r3, #1	@ D.7476, D.7476,
+ 926 045c C3F30D02 		ubfx	r2, r3, #0, #14	@ D.7476, D.7476,,
+ 927 0460 039B     		ldr	r3, [sp, #12]	@ tmp121, pio
+ 928 0462 C3F88C20 		str	r2, [r3, #140]	@ D.7476, pio_2->PIO_SCDR
+ 451:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 929              		.loc 1 451 0
+ 930 0466 04B0     		add	sp, sp, #16	@,,
+ 931              		@ sp needed	@
+ 932 0468 7047     		bx	lr	@
+ 933              		.cfi_endproc
+ 934              	.LFE127:
+ 936 046a 00BF     		.align	2
+ 937              		.global	PIO_EnableWriteProtect
+ 938              		.thumb
+ 939              		.thumb_func
+ 941              	PIO_EnableWriteProtect:
+ 942              	.LFB128:
+ 452:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 453:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /*
+ 454:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Enable write protect.
+ 455:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 456:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pin  Pointer to a Pin instance describing one or more pins.
+ 457:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+ 458:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** void PIO_EnableWriteProtect( const Pin *pin )
+ 459:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 943              		.loc 1 459 0
+ 944              		.cfi_startproc
+ 945              		@ args = 0, pretend = 0, frame = 16
+ 946              		@ frame_needed = 0, uses_anonymous_args = 0
+ 947              		@ link register save eliminated.
+ 948 046c 84B0     		sub	sp, sp, #16	@,,
+ 949              		.cfi_def_cfa_offset 16
+ 950 046e 0190     		str	r0, [sp, #4]	@ pin, pin
+ 460:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****    Pio *pio = pin->pio;
+ 951              		.loc 1 460 0
+ 952 0470 019B     		ldr	r3, [sp, #4]	@ tmp110, pin
+ 953 0472 5B68     		ldr	r3, [r3, #4]	@ tmp111, pin_1(D)->pio
+ 954 0474 0393     		str	r3, [sp, #12]	@ tmp111, pio
+ 461:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 462:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****    pio->PIO_WPMR = ( PIO_WPMR_WPKEY_VALID | PIO_WPMR_WPEN_EN );
+ 955              		.loc 1 462 0
+ 956 0476 039B     		ldr	r3, [sp, #12]	@ tmp112, pio
+ 957 0478 024A     		ldr	r2, .L53	@ tmp113,
+ 958 047a C3F8E420 		str	r2, [r3, #228]	@ tmp113, pio_2->PIO_WPMR
+ 463:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 959              		.loc 1 463 0
+ 960 047e 04B0     		add	sp, sp, #16	@,,
+ 961              		@ sp needed	@
+ 962 0480 7047     		bx	lr	@
+ 963              	.L54:
+ 964 0482 00BF     		.align	2
+ 965              	.L53:
+ 966 0484 014F4950 		.word	1346981633
+ 967              		.cfi_endproc
+ 968              	.LFE128:
+ 970              		.align	2
+ 971              		.global	PIO_DisableWriteProtect
+ 972              		.thumb
+ 973              		.thumb_func
+ 975              	PIO_DisableWriteProtect:
+ 976              	.LFB129:
+ 464:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 465:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /*
+ 466:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Disable write protect.
+ 467:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 468:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pin  Pointer to a Pin instance describing one or more pins.
+ 469:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+ 470:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 471:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** void PIO_DisableWriteProtect( const Pin *pin )
+ 472:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 977              		.loc 1 472 0
+ 978              		.cfi_startproc
+ 979              		@ args = 0, pretend = 0, frame = 16
+ 980              		@ frame_needed = 0, uses_anonymous_args = 0
+ 981              		@ link register save eliminated.
+ 982 0488 84B0     		sub	sp, sp, #16	@,,
+ 983              		.cfi_def_cfa_offset 16
+ 984 048a 0190     		str	r0, [sp, #4]	@ pin, pin
+ 473:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****    Pio *pio = pin->pio;
+ 985              		.loc 1 473 0
+ 986 048c 019B     		ldr	r3, [sp, #4]	@ tmp110, pin
+ 987 048e 5B68     		ldr	r3, [r3, #4]	@ tmp111, pin_1(D)->pio
+ 988 0490 0393     		str	r3, [sp, #12]	@ tmp111, pio
+ 474:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 475:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****    pio->PIO_WPMR = ( PIO_WPMR_WPKEY_VALID | PIO_WPMR_WPEN_DIS );
+ 989              		.loc 1 475 0
+ 990 0492 039B     		ldr	r3, [sp, #12]	@ tmp112, pio
+ 991 0494 024A     		ldr	r2, .L56	@ tmp113,
+ 992 0496 C3F8E420 		str	r2, [r3, #228]	@ tmp113, pio_2->PIO_WPMR
+ 476:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 993              		.loc 1 476 0
+ 994 049a 04B0     		add	sp, sp, #16	@,,
+ 995              		@ sp needed	@
+ 996 049c 7047     		bx	lr	@
+ 997              	.L57:
+ 998 049e 00BF     		.align	2
+ 999              	.L56:
+ 1000 04a0 004F4950 		.word	1346981632
+ 1001              		.cfi_endproc
+ 1002              	.LFE129:
+ 1004              		.align	2
+ 1005              		.global	PIO_GetWriteProtectViolationInfo
+ 1006              		.thumb
+ 1007              		.thumb_func
+ 1009              	PIO_GetWriteProtectViolationInfo:
+ 1010              	.LFB130:
+ 477:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 478:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /*
+ 479:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \brief Get write protect violation information.
+ 480:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  *
+ 481:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pin  Pointer to a Pin instance describing one or more pins.
+ 482:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+ 483:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 484:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** uint32_t PIO_GetWriteProtectViolationInfo( const Pin * pin )
+ 485:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 1011              		.loc 1 485 0
+ 1012              		.cfi_startproc
+ 1013              		@ args = 0, pretend = 0, frame = 16
+ 1014              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1015              		@ link register save eliminated.
+ 1016 04a4 84B0     		sub	sp, sp, #16	@,,
+ 1017              		.cfi_def_cfa_offset 16
+ 1018 04a6 0190     		str	r0, [sp, #4]	@ pin, pin
+ 486:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     Pio *pio = pin->pio;
+ 1019              		.loc 1 486 0
+ 1020 04a8 019B     		ldr	r3, [sp, #4]	@ tmp112, pin
+ 1021 04aa 5B68     		ldr	r3, [r3, #4]	@ tmp113, pin_1(D)->pio
+ 1022 04ac 0393     		str	r3, [sp, #12]	@ tmp113, pio
+ 487:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     return (pio->PIO_WPSR);
+ 1023              		.loc 1 487 0
+ 1024 04ae 039B     		ldr	r3, [sp, #12]	@ tmp114, pio
+ 1025 04b0 D3F8E830 		ldr	r3, [r3, #232]	@ D.7477, pio_2->PIO_WPSR
+ 488:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 1026              		.loc 1 488 0
+ 1027 04b4 1846     		mov	r0, r3	@, <retval>
+ 1028 04b6 04B0     		add	sp, sp, #16	@,,
+ 1029              		@ sp needed	@
+ 1030 04b8 7047     		bx	lr	@
+ 1031              		.cfi_endproc
+ 1032              	.LFE130:
+ 1034 04ba 00BF     		.align	2
+ 1035              		.global	PIO_SetPinType
+ 1036              		.thumb
+ 1037              		.thumb_func
+ 1039              	PIO_SetPinType:
+ 1040              	.LFB131:
+ 489:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** /* \brief Set pin type
+ 490:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * the pin is controlled by the corresponding peripheral (A, B, C, D,E)
+ 491:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pin      Pointer to a Pin instance describing one or more pins.
+ 492:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  * \param pinType  PIO_PERIPH_A, PIO_PERIPH_B, ...
+ 493:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****  */
+ 494:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** 
+ 495:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** void PIO_SetPinType( Pin * pin, uint8_t pinType)
+ 496:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** {
+ 1041              		.loc 1 496 0
+ 1042              		.cfi_startproc
+ 1043              		@ args = 0, pretend = 0, frame = 8
+ 1044              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1045              		@ link register save eliminated.
+ 1046 04bc 82B0     		sub	sp, sp, #8	@,,
+ 1047              		.cfi_def_cfa_offset 8
+ 1048 04be 0190     		str	r0, [sp, #4]	@ pin, pin
+ 1049 04c0 0B46     		mov	r3, r1	@ tmp110, pinType
+ 1050 04c2 8DF80330 		strb	r3, [sp, #3]	@ tmp111, pinType
+ 497:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c ****     pin->type = pinType;
+ 1051              		.loc 1 497 0
+ 1052 04c6 019B     		ldr	r3, [sp, #4]	@ tmp112, pin
+ 1053 04c8 9DF80320 		ldrb	r2, [sp, #3]	@ tmp113, pinType
+ 1054 04cc 5A72     		strb	r2, [r3, #9]	@ tmp113, pin_1(D)->type
+ 498:SAM4S_StdPeriph_Driver/Source/SAM4S/source/pio.c **** }
+ 1055              		.loc 1 498 0
+ 1056 04ce 02B0     		add	sp, sp, #8	@,,
+ 1057              		@ sp needed	@
+ 1058 04d0 7047     		bx	lr	@
+ 1059              		.cfi_endproc
+ 1060              	.LFE131:
+ 1062              	.Letext0:
+ 1063              		.file 2 "d:\\armgcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 1064              		.file 3 "d:\\armgcc\\arm-none-eabi\\include\\stdint.h"
+ 1065              		.file 4 "SAM4S_StdPeriph_Driver/Include/SAM4S/component/pio.h"
+ 1066              		.file 5 "SAM4S_StdPeriph_Driver/Source/SAM4S/include/pio.h"
+ 1067              		.file 6 "cmsis_core/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 pio.c
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:62     .text:00000000 $t
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:66     .text:00000000 PIO_SetPeripheralA
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:142    .text:00000064 PIO_SetPeripheralB
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:213    .text:000000c0 PIO_SetPeripheralC
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:284    .text:0000011c PIO_SetPeripheralD
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:351    .text:00000170 PIO_SetInput
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:440    .text:000001f0 PIO_SetOutput
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:522    .text:00000258 PIO_Configure
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:548    .text:00000274 $d
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:555    .text:00000290 $t
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:744    .text:000003b0 PIO_Set
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:772    .text:000003c4 PIO_Clear
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:800    .text:000003d8 PIO_Get
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:861    .text:00000418 PIO_GetOutputDataStatus
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:900    .text:00000438 PIO_SetDebounceFilter
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:941    .text:0000046c PIO_EnableWriteProtect
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:966    .text:00000484 $d
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:970    .text:00000488 $t
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:975    .text:00000488 PIO_DisableWriteProtect
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:1000   .text:000004a0 $d
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:1004   .text:000004a4 $t
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:1009   .text:000004a4 PIO_GetWriteProtectViolationInfo
+C:\Users\Spas\AppData\Local\Temp\ccGb24X5.s:1039   .text:000004bc PIO_SetPinType
+                     .debug_frame:00000010 $d
+                           .group:00000000 wm4.0.bb49f1eb716983c9014b6db3ebb18dd1
+                           .group:00000000 wm4.chip.h.31.ffb1374c8cfd711bf08b18cb482cdecd
+                           .group:00000000 wm4.features.h.22.6a4ca7cd053637cc1d0db6c16f39b2d7
+                           .group:00000000 wm4._default_types.h.15.8b2cb27e528498f8ff711db085d6e489
+                           .group:00000000 wm4.stdint.h.20.796e373797e732130a803d4c0338fa1b
+                           .group:00000000 wm4.sam4s8b.h.216.85427310ee57c6602cdb44976ff8eafc
+                           .group:00000000 wm4.core_cm4.h.47.facd8ba456d1edc74a9cd34e5ef24231
+                           .group:00000000 wm4.core_cmInstr.h.39.3d3d1b4a79aef37532666dc6ee87c6ac
+                           .group:00000000 wm4.core_cm4_simd.h.43.d8e10c63b7db2f2a1586965c37b6affe
+                           .group:00000000 wm4.core_cm4.h.178.877dd53394110c198a69aa86aba65870
+                           .group:00000000 wm4.acc.h.31.dfd29459e721169d72014eb762f71214
+                           .group:00000000 wm4.adc.h.31.c6656640e20d1eafe623af86cb226fca
+                           .group:00000000 wm4.chipid.h.31.3af5a36d0a4a9a225c9afb52a1aea0b9
+                           .group:00000000 wm4.crccu.h.31.a496852d13935483993734d587fc2f8e
+                           .group:00000000 wm4.dacc.h.31.c9217b43fde87abb246765d0ddcb9c5a
+                           .group:00000000 wm4.efc.h.31.0bf8e93e6585804f24ede0a4e728599a
+                           .group:00000000 wm4.gpbr.h.31.7a5e3dd0c356c6b68d5c512bbdf67f08
+                           .group:00000000 wm4.hsmci.h.31.9d224a62fa1ec786508b485b0627d948
+                           .group:00000000 wm4.matrix.h.31.c705893f10dd90abec557434f19f4c80
+                           .group:00000000 wm4.pdc.h.31.e2d19841c81c9c2bbeeb400b89d315b5
+                           .group:00000000 wm4.pio.h.31.8c8983d26a861f040f0f117c14ec06d2
+                           .group:00000000 wm4.pmc.h.31.ee762809cf9b67f8c369267b7f38d1b3
+                           .group:00000000 wm4.pwm.h.31.da9b7d8dc8ac9c261fdee7e206bdee45
+                           .group:00000000 wm4.rstc.h.31.96e972cc48a3044e9dca7f2d844f33fb
+                           .group:00000000 wm4.rtc.h.31.f40a4fc6ecffe9e0a8284c655825715f
+                           .group:00000000 wm4.rtt.h.31.f70870f04ef5dbcac3269f990b758352
+                           .group:00000000 wm4.spi.h.31.f86a4b9d7f4ee32bf9133e4926aa8885
+                           .group:00000000 wm4.ssc.h.31.b805b08edc780a096d6650d6ca36d1ca
+                           .group:00000000 wm4.supc.h.31.131b9cb8083389b79a4bd5bf451243ef
+                           .group:00000000 wm4.tc.h.31.8da8c788d3223db5455d03e5435ef8db
+                           .group:00000000 wm4.twi.h.31.22147bf5d3d32053731c632df0e79c3c
+                           .group:00000000 wm4.uart.h.31.8e28760a665c54768e00ff4c7a643590
+                           .group:00000000 wm4.udp.h.31.edd1ad37d3ebc2c446bab55b82a89df9
+                           .group:00000000 wm4.usart.h.31.f84a5833fa97905e15d92372b7a4d3aa
+                           .group:00000000 wm4.wdt.h.31.bf9508cda074277d961fffa2c014b7c4
+                           .group:00000000 wm4.hsmci.h.31.3557701962362e69e14e53f685fa289c
+                           .group:00000000 wm4.ssc.h.31.b3090d071ea322e9320de7b3374b6c7d
+                           .group:00000000 wm4.spi.h.31.0c099f04fc71f13866451dd19f165ce5
+                           .group:00000000 wm4.tc0.h.31.82f2382972b60e05b032ad12082a9b88
+                           .group:00000000 wm4.tc1.h.31.a45ad165f1e4a4be41030d128002f2e1
+                           .group:00000000 wm4.twi0.h.31.a2f6579ad734afdd1f8957b7fc33aa94
+                           .group:00000000 wm4.twi1.h.31.dcb9c8cbe7f017d537033c87ba5ff61b
+                           .group:00000000 wm4.pwm.h.31.2d9663b87a377027ead59c1615e3084b
+                           .group:00000000 wm4.usart0.h.31.ec6af36a3993709e003c7713e45e6d44
+                           .group:00000000 wm4.usart1.h.31.eafbafd9baa63489c7d4b47b07dd4359
+                           .group:00000000 wm4.udp.h.31.72bce9f16287d99e27dc398746c7b41a
+                           .group:00000000 wm4.adc.h.31.d1d169655aedc0ac5464b9bc3e038d91
+                           .group:00000000 wm4.dacc.h.31.f498d7e9c6281f6aa2a76955bd19179f
+                           .group:00000000 wm4.acc.h.31.bd89452c6f6042da160b09b91f7b4ad6
+                           .group:00000000 wm4.crccu.h.31.0f8ee11e21f25cd8f0d59ee9bd2d6017
+                           .group:00000000 wm4.matrix.h.31.16f7506a18ec96f1a889a659d8f54158
+                           .group:00000000 wm4.pmc.h.31.8ee9f69608f942cb1f3f8bedac24c137
+                           .group:00000000 wm4.uart0.h.31.107626f9f656553c6d028df3e0c36652
+                           .group:00000000 wm4.chipid.h.31.3d621c981fbba4cbcdf919961d16a7e0
+                           .group:00000000 wm4.uart1.h.31.8229a0a664aa704025162a106c6f1697
+                           .group:00000000 wm4.efc0.h.31.aa56af1c721ea83a50dc1967a8959b7e
+                           .group:00000000 wm4.pioa.h.31.577ac2183c73a1a02e92e91a0e37e8fe
+                           .group:00000000 wm4.piob.h.31.3d18377ca5f71fef4e536cd97e1dced2
+                           .group:00000000 wm4.pioc.h.31.9fd85e02d9919f268f52f61ee7874ed4
+                           .group:00000000 wm4.rstc.h.31.d42d559221b78874dbf800ea2429b8d0
+                           .group:00000000 wm4.supc.h.31.851dbe7e029de2cc98417e6c6ce74d66
+                           .group:00000000 wm4.rtt.h.31.b6f3540f51d07e433e9f2b607b78fa5d
+                           .group:00000000 wm4.wdt.h.31.e29a378018b6da05e80df7a7d3fae91a
+                           .group:00000000 wm4.rtc.h.31.62bff3fa21e4de3cfaf653749f73ca5b
+                           .group:00000000 wm4.gpbr.h.31.a690ec9ac14ca127f47cc304a062f896
+                           .group:00000000 wm4.sam4s8b.h.310.cfe4025ce42f19fc6dad5600399e6497
+                           .group:00000000 wm4.sam4s8b.h.31.bac0ae8aa6a8295f4ede171816a1bfbd
+                           .group:00000000 wm4.sam4s8b.h.455.d99766a935df92fcae5a6292daf0b9af
+                           .group:00000000 wm4.newlib.h.8.fec018e441fee7bfa1923812ad010f97
+                           .group:00000000 wm4.config.h.212.4163ef2871a828c674038d036b081cfd
+                           .group:00000000 wm4._ansi.h.23.2147fde150631f5584b9dc29b914d1b8
+                           .group:00000000 wm4.assert.h.11.7fe9eb241be6b0fee772a1e693b81ae3
+                           .group:00000000 wm4.acc.h.61.44cfae6040af09278183f92220a11c11
+                           .group:00000000 wm4.assert.h.11.7043852a511d37ae606afa012e67e471
+                           .group:00000000 wm4.adc.h.62.836e1c74f33a3b2357c489804b9e4164
+                           .group:00000000 wm4.async.h.38.b923efd27c82eb8a5a30fb0d9a711171
+                           .group:00000000 wm4.dacc.h.61.de15528749b6a5508d4e234e0989531c
+                           .group:00000000 wm4.efc.h.51.dca436509f69196baef24b3ff3ad1b51
+                           .group:00000000 wm4.flashd.h.38.2c9bfdc532d7034a024627acda3e3c0b
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.184.159df79b4ca79c76561572a55985524c
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.stddef.h.39.7e3d906ac58942e0b374c527445f5de5
+                           .group:00000000 wm4.lock.h.2.9bc98482741e5e2a9450b12934a684ea
+                           .group:00000000 wm4._types.h.54.d3d34a3b7f3cc230cd159baf022b4b08
+                           .group:00000000 wm4.stddef.h.158.61317cdbfb4026324507d123a50b0fd6
+                           .group:00000000 wm4.reent.h.17.8bd9e4098e0428508c282cad794fae43
+                           .group:00000000 wm4.types.h.23.0d949686bbcadd1621462d4fa1f884f9
+                           .group:00000000 wm4.types.h.2.e9cec8c90ab35f77d9f499e06ae02400
+                           .group:00000000 wm4.types.h.80.56707660962b21991903f1fee7c13bb3
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.64.0f05fa42cfe2db7fc44729a52d3ba948
+                           .group:00000000 wm4.hsmci.h.110.610f58f6a31861e37bc09b5b7be09388
+                           .group:00000000 wm4.pio.h.68.5d85e14ea6ea0da924da53053bc590d1
+                           .group:00000000 wm4.rtc.h.38.8bf78db8651343e80a889203827406a5
+                           .group:00000000 wm4.spi.h.38.450641354031b1013c08519149294c78
+                           .group:00000000 wm4.spi_pdc.h.38.75857b1dd4449731562322c9709581d8
+                           .group:00000000 wm4.twi.h.38.68f2e661eb174ca9ca74eef9740d9a3a
+                           .group:00000000 wm4.twid.h.31.9ea8c90af654647ca4d6e3b74e701509
+                           .group:00000000 wm4.usart.h.55.88c716ee7c3b6ed0339de6e194786a12
+                           .group:00000000 wm4.trace.h.65.364d8fb880402737deb1646f3fc9e1eb
+                           .group:00000000 wm4.chip.h.106.a1f123eb25606bfd56ed06360bda02b0
+
+UNDEFINED SYMBOLS
+PMC_EnablePeripheral

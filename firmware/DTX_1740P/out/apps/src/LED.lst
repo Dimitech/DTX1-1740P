@@ -1,0 +1,415 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
+   5              		.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
+   6              		.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
+   7              		.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
+   8              		.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
+   9              		.eabi_attribute 26, 1	@ Tag_ABI_enum_size
+  10              		.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
+  11              		.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
+  12              		.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
+  13              		.file	"LED.c"
+  14              	@ GNU C (GNU Tools for ARM Embedded Processors) version 4.8.4 20140725 (release) [ARM/embedded-4_8-
+  15              	@	compiled by GNU C version 4.7.4, GMP version 4.3.2, MPFR version 2.4.2, MPC version 0.8.1
+  16              	@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+  17              	@ options passed:  -I . -I apps -I apps/inc -I apps/src -I apps/src/fonts
+  18              	@ -I cmsis_boot -I cmsis_boot/startup -I cmsis_core
+  19              	@ -I SAM4S_StdPeriph_Driver -I SAM4S_StdPeriph_Driver/Include
+  20              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S
+  21              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/component
+  22              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/instance
+  23              	@ -I SAM4S_StdPeriph_Driver/Include/SAM4S/pio
+  24              	@ -I SAM4S_StdPeriph_Driver/Source -I SAM4S_StdPeriph_Driver/Source/SAM4S
+  25              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/include
+  26              	@ -I SAM4S_StdPeriph_Driver/Source/SAM4S/source -I user_libs
+  27              	@ -I user_libs/inc -I user_libs/src -imultilib armv7e-m
+  28              	@ -iprefix d:\armgcc\bin\../lib/gcc/arm-none-eabi/4.8.4/
+  29              	@ -isysroot d:\armgcc\bin\../arm-none-eabi -MD out/apps/src/LED.d
+  30              	@ -MF out/apps/src/LED.o.dep -MP -MQ out/apps/src/LED.o -D__USES_INITFINI__
+  31              	@ -D gcc apps/src/LED.c -mcpu=cortex-m4 -mthumb
+  32              	@ -auxbase-strip out/apps/src/LED.o -ggdb3 -O0 -Wall -Wpointer-arith
+  33              	@ -Wswitch -Wnested-externs -std=gnu99 -fomit-frame-pointer -fverbose-asm
+  34              	@ -funsigned-char
+  35              	@ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
+  36              	@ -fbranch-count-reg -fcommon -fdelete-null-pointer-checks -fdwarf2-cfi-asm
+  37              	@ -fearly-inlining -feliminate-unused-debug-types -ffunction-cse -fgcse-lm
+  38              	@ -fgnu-runtime -fgnu-unique -fident -finline-atomics -fira-hoist-pressure
+  39              	@ -fira-share-save-slots -fira-share-spill-slots -fivopts
+  40              	@ -fkeep-static-consts -fleading-underscore -fmath-errno
+  41              	@ -fmerge-debug-strings -fmove-loop-invariants -fomit-frame-pointer
+  42              	@ -fpeephole -fprefetch-loop-arrays -freg-struct-return
+  43              	@ -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  44              	@ -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  45              	@ -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  46              	@ -fsched-stalled-insns-dep -fshow-column -fsigned-zeros
+  47              	@ -fsplit-ivs-in-unroller -fstrict-volatile-bitfields -fsync-libcalls
+  48              	@ -ftrapping-math -ftree-coalesce-vars -ftree-cselim -ftree-forwprop
+  49              	@ -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
+  50              	@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop -ftree-pta
+  51              	@ -ftree-reassoc -ftree-scev-cprop -ftree-slp-vectorize
+  52              	@ -ftree-vect-loop-version -funit-at-a-time -fverbose-asm
+  53              	@ -fzero-initialized-in-bss -mlittle-endian -mpic-data-is-text-relative
+  54              	@ -msched-prolog -mthumb -munaligned-access -mvectorize-with-neon-quad
+  55              	
+  56              		.text
+  57              	.Ltext0:
+  58              		.cfi_sections	.debug_frame
+  59              		.global	pin_LED0
+  60              		.data
+  61              		.align	2
+  64              	pin_LED0:
+  65              	@ mask:
+  66 0000 08000000 		.word	8
+  67              	@ pio:
+  68 0004 00100E40 		.word	1074663424
+  69              	@ id:
+  70 0008 0C       		.byte	12
+  71              	@ type:
+  72 0009 05       		.byte	5
+  73              	@ attribute:
+  74 000a 00       		.byte	0
+  75 000b 00       		.space	1
+  76              		.text
+  77              		.align	2
+  78              		.global	LedInit
+  79              		.thumb
+  80              		.thumb_func
+  82              	LedInit:
+  83              	.LFB116:
+  84              		.file 1 "apps/src/LED.c"
+   1:apps/src/LED.c **** /**
+   2:apps/src/LED.c ****   ******************************************************************************
+   3:apps/src/LED.c ****   * @file     LED.c
+   4:apps/src/LED.c ****   * @author   Spas Spasov
+   5:apps/src/LED.c ****   * @version  V1.1.0
+   6:apps/src/LED.c ****   * @date     05.2013
+   7:apps/src/LED.c ****   * @brief    This file provides firmware functions necessary for management of
+   8:apps/src/LED.c ****   *           the LCD supported processes.
+   9:apps/src/LED.c ****   *
+  10:apps/src/LED.c ****   ******************************************************************************
+  11:apps/src/LED.c ****   * @attention
+  12:apps/src/LED.c ****   *
+  13:apps/src/LED.c ****   ******************************************************************************
+  14:apps/src/LED.c ****   */
+  15:apps/src/LED.c **** 
+  16:apps/src/LED.c **** /* Includes ------------------------------------------------------------------*/
+  17:apps/src/LED.c **** #include "chip.h"                        /* SAM4S definitions                */
+  18:apps/src/LED.c **** #include "LED.h"
+  19:apps/src/LED.c **** 
+  20:apps/src/LED.c **** /* Private typedef -----------------------------------------------------------*/
+  21:apps/src/LED.c **** /* None */
+  22:apps/src/LED.c **** 
+  23:apps/src/LED.c **** /* Private define ------------------------------------------------------------*/
+  24:apps/src/LED.c **** /** Led0 pin */
+  25:apps/src/LED.c **** #define PIN_LED_0 {PIO_PB3, PIOB, ID_PIOB, PIO_OUTPUT_0, PIO_DEFAULT}
+  26:apps/src/LED.c **** 
+  27:apps/src/LED.c **** Pin pin_LED0 = PIN_LED_0;
+  28:apps/src/LED.c **** 
+  29:apps/src/LED.c **** /* Private macro -------------------------------------------------------------*/
+  30:apps/src/LED.c **** 
+  31:apps/src/LED.c **** /* Private variables ---------------------------------------------------------*/
+  32:apps/src/LED.c **** 
+  33:apps/src/LED.c **** /* Private function prototypes -----------------------------------------------*/
+  34:apps/src/LED.c **** 
+  35:apps/src/LED.c **** /* Public function prototypes ------------------------------------------------*/
+  36:apps/src/LED.c **** 
+  37:apps/src/LED.c **** /* Private functions ---------------------------------------------------------*/
+  38:apps/src/LED.c **** 
+  39:apps/src/LED.c **** /* Public functions ----------------------------------------------------------*/
+  40:apps/src/LED.c **** 
+  41:apps/src/LED.c **** /**
+  42:apps/src/LED.c ****   * @brief  This function ...
+  43:apps/src/LED.c ****   * @param  None
+  44:apps/src/LED.c ****   * @retval None
+  45:apps/src/LED.c ****   */
+  46:apps/src/LED.c **** void LedInit(void)
+  47:apps/src/LED.c **** {
+  85              		.loc 1 47 0
+  86              		.cfi_startproc
+  87              		@ args = 0, pretend = 0, frame = 0
+  88              		@ frame_needed = 0, uses_anonymous_args = 0
+  89 0000 08B5     		push	{r3, lr}	@
+  90              		.cfi_def_cfa_offset 8
+  91              		.cfi_offset 3, -8
+  92              		.cfi_offset 14, -4
+  48:apps/src/LED.c **** 	
+  49:apps/src/LED.c **** 	
+  50:apps/src/LED.c **** 	PIO_Configure(&pin_LED0, 1);
+  93              		.loc 1 50 0
+  94 0002 0248     		ldr	r0, .L2	@,
+  95 0004 0121     		movs	r1, #1	@,
+  96 0006 FFF7FEFF 		bl	PIO_Configure	@
+  51:apps/src/LED.c **** }
+  97              		.loc 1 51 0
+  98 000a 08BD     		pop	{r3, pc}	@
+  99              	.L3:
+ 100              		.align	2
+ 101              	.L2:
+ 102 000c 00000000 		.word	pin_LED0
+ 103              		.cfi_endproc
+ 104              	.LFE116:
+ 106              		.align	2
+ 107              		.global	LedOn
+ 108              		.thumb
+ 109              		.thumb_func
+ 111              	LedOn:
+ 112              	.LFB117:
+  52:apps/src/LED.c **** 
+  53:apps/src/LED.c **** 
+  54:apps/src/LED.c **** /**
+  55:apps/src/LED.c ****   * @brief  This function ...
+  56:apps/src/LED.c ****   * @param  None
+  57:apps/src/LED.c ****   * @retval None
+  58:apps/src/LED.c ****   */
+  59:apps/src/LED.c **** void LedOn( void )
+  60:apps/src/LED.c **** {
+ 113              		.loc 1 60 0
+ 114              		.cfi_startproc
+ 115              		@ args = 0, pretend = 0, frame = 0
+ 116              		@ frame_needed = 0, uses_anonymous_args = 0
+ 117 0010 08B5     		push	{r3, lr}	@
+ 118              		.cfi_def_cfa_offset 8
+ 119              		.cfi_offset 3, -8
+ 120              		.cfi_offset 14, -4
+  61:apps/src/LED.c **** 	
+  62:apps/src/LED.c **** 	
+  63:apps/src/LED.c **** 	PIO_Set(&pin_LED0);
+ 121              		.loc 1 63 0
+ 122 0012 0248     		ldr	r0, .L5	@,
+ 123 0014 FFF7FEFF 		bl	PIO_Set	@
+  64:apps/src/LED.c **** }
+ 124              		.loc 1 64 0
+ 125 0018 08BD     		pop	{r3, pc}	@
+ 126              	.L6:
+ 127 001a 00BF     		.align	2
+ 128              	.L5:
+ 129 001c 00000000 		.word	pin_LED0
+ 130              		.cfi_endproc
+ 131              	.LFE117:
+ 133              		.align	2
+ 134              		.global	LedOff
+ 135              		.thumb
+ 136              		.thumb_func
+ 138              	LedOff:
+ 139              	.LFB118:
+  65:apps/src/LED.c **** 
+  66:apps/src/LED.c **** 
+  67:apps/src/LED.c **** /**
+  68:apps/src/LED.c ****   * @brief  This function ...
+  69:apps/src/LED.c ****   * @param  None
+  70:apps/src/LED.c ****   * @retval None
+  71:apps/src/LED.c ****   */
+  72:apps/src/LED.c **** void LedOff( void )
+  73:apps/src/LED.c **** {
+ 140              		.loc 1 73 0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144 0020 08B5     		push	{r3, lr}	@
+ 145              		.cfi_def_cfa_offset 8
+ 146              		.cfi_offset 3, -8
+ 147              		.cfi_offset 14, -4
+  74:apps/src/LED.c **** 	
+  75:apps/src/LED.c **** 	
+  76:apps/src/LED.c **** 	PIO_Clear(&pin_LED0);
+ 148              		.loc 1 76 0
+ 149 0022 0248     		ldr	r0, .L8	@,
+ 150 0024 FFF7FEFF 		bl	PIO_Clear	@
+  77:apps/src/LED.c **** }
+ 151              		.loc 1 77 0
+ 152 0028 08BD     		pop	{r3, pc}	@
+ 153              	.L9:
+ 154 002a 00BF     		.align	2
+ 155              	.L8:
+ 156 002c 00000000 		.word	pin_LED0
+ 157              		.cfi_endproc
+ 158              	.LFE118:
+ 160              		.align	2
+ 161              		.global	LedToggle
+ 162              		.thumb
+ 163              		.thumb_func
+ 165              	LedToggle:
+ 166              	.LFB119:
+  78:apps/src/LED.c **** 
+  79:apps/src/LED.c **** 
+  80:apps/src/LED.c **** /**
+  81:apps/src/LED.c ****   * @brief  This function ...
+  82:apps/src/LED.c ****   * @param  None
+  83:apps/src/LED.c ****   * @retval None
+  84:apps/src/LED.c ****   */
+  85:apps/src/LED.c **** void LedToggle( void )
+  86:apps/src/LED.c **** {
+ 167              		.loc 1 86 0
+ 168              		.cfi_startproc
+ 169              		@ args = 0, pretend = 0, frame = 0
+ 170              		@ frame_needed = 0, uses_anonymous_args = 0
+ 171 0030 08B5     		push	{r3, lr}	@
+ 172              		.cfi_def_cfa_offset 8
+ 173              		.cfi_offset 3, -8
+ 174              		.cfi_offset 14, -4
+  87:apps/src/LED.c **** 	
+  88:apps/src/LED.c **** 	if( PIO_GetOutputDataStatus(&pin_LED0) )
+ 175              		.loc 1 88 0
+ 176 0032 0748     		ldr	r0, .L13	@,
+ 177 0034 FFF7FEFF 		bl	PIO_GetOutputDataStatus	@
+ 178 0038 0346     		mov	r3, r0	@ tmp111,
+ 179 003a 002B     		cmp	r3, #0	@ D.7233,
+ 180 003c 03D0     		beq	.L11	@,
+  89:apps/src/LED.c **** 	{
+  90:apps/src/LED.c **** 		PIO_Clear(&pin_LED0);
+ 181              		.loc 1 90 0
+ 182 003e 0448     		ldr	r0, .L13	@,
+ 183 0040 FFF7FEFF 		bl	PIO_Clear	@
+ 184 0044 02E0     		b	.L10	@
+ 185              	.L11:
+  91:apps/src/LED.c **** 	}
+  92:apps/src/LED.c **** 	else
+  93:apps/src/LED.c **** 	{
+  94:apps/src/LED.c **** 		PIO_Set(&pin_LED0);
+ 186              		.loc 1 94 0
+ 187 0046 0248     		ldr	r0, .L13	@,
+ 188 0048 FFF7FEFF 		bl	PIO_Set	@
+ 189              	.L10:
+  95:apps/src/LED.c **** 	}
+  96:apps/src/LED.c **** }
+ 190              		.loc 1 96 0
+ 191 004c 08BD     		pop	{r3, pc}	@
+ 192              	.L14:
+ 193 004e 00BF     		.align	2
+ 194              	.L13:
+ 195 0050 00000000 		.word	pin_LED0
+ 196              		.cfi_endproc
+ 197              	.LFE119:
+ 199              	.Letext0:
+ 200              		.file 2 "d:\\armgcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 201              		.file 3 "d:\\armgcc\\arm-none-eabi\\include\\stdint.h"
+ 202              		.file 4 "SAM4S_StdPeriph_Driver/Include/SAM4S/component/pio.h"
+ 203              		.file 5 "SAM4S_StdPeriph_Driver/Source/SAM4S/include/pio.h"
+ 204              		.file 6 "cmsis_core/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 LED.c
+C:\Users\Spas\AppData\Local\Temp\ccvoo4d4.s:64     .data:00000000 pin_LED0
+C:\Users\Spas\AppData\Local\Temp\ccvoo4d4.s:61     .data:00000000 $d
+C:\Users\Spas\AppData\Local\Temp\ccvoo4d4.s:77     .text:00000000 $t
+C:\Users\Spas\AppData\Local\Temp\ccvoo4d4.s:82     .text:00000000 LedInit
+C:\Users\Spas\AppData\Local\Temp\ccvoo4d4.s:102    .text:0000000c $d
+C:\Users\Spas\AppData\Local\Temp\ccvoo4d4.s:106    .text:00000010 $t
+C:\Users\Spas\AppData\Local\Temp\ccvoo4d4.s:111    .text:00000010 LedOn
+C:\Users\Spas\AppData\Local\Temp\ccvoo4d4.s:129    .text:0000001c $d
+C:\Users\Spas\AppData\Local\Temp\ccvoo4d4.s:133    .text:00000020 $t
+C:\Users\Spas\AppData\Local\Temp\ccvoo4d4.s:138    .text:00000020 LedOff
+C:\Users\Spas\AppData\Local\Temp\ccvoo4d4.s:156    .text:0000002c $d
+C:\Users\Spas\AppData\Local\Temp\ccvoo4d4.s:160    .text:00000030 $t
+C:\Users\Spas\AppData\Local\Temp\ccvoo4d4.s:165    .text:00000030 LedToggle
+C:\Users\Spas\AppData\Local\Temp\ccvoo4d4.s:195    .text:00000050 $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 wm4.0.bb49f1eb716983c9014b6db3ebb18dd1
+                           .group:00000000 wm4.chip.h.31.ffb1374c8cfd711bf08b18cb482cdecd
+                           .group:00000000 wm4.features.h.22.6a4ca7cd053637cc1d0db6c16f39b2d7
+                           .group:00000000 wm4._default_types.h.15.8b2cb27e528498f8ff711db085d6e489
+                           .group:00000000 wm4.stdint.h.20.796e373797e732130a803d4c0338fa1b
+                           .group:00000000 wm4.sam4s8b.h.216.85427310ee57c6602cdb44976ff8eafc
+                           .group:00000000 wm4.core_cm4.h.47.facd8ba456d1edc74a9cd34e5ef24231
+                           .group:00000000 wm4.core_cmInstr.h.39.3d3d1b4a79aef37532666dc6ee87c6ac
+                           .group:00000000 wm4.core_cm4_simd.h.43.d8e10c63b7db2f2a1586965c37b6affe
+                           .group:00000000 wm4.core_cm4.h.178.877dd53394110c198a69aa86aba65870
+                           .group:00000000 wm4.acc.h.31.dfd29459e721169d72014eb762f71214
+                           .group:00000000 wm4.adc.h.31.c6656640e20d1eafe623af86cb226fca
+                           .group:00000000 wm4.chipid.h.31.3af5a36d0a4a9a225c9afb52a1aea0b9
+                           .group:00000000 wm4.crccu.h.31.a496852d13935483993734d587fc2f8e
+                           .group:00000000 wm4.dacc.h.31.c9217b43fde87abb246765d0ddcb9c5a
+                           .group:00000000 wm4.efc.h.31.0bf8e93e6585804f24ede0a4e728599a
+                           .group:00000000 wm4.gpbr.h.31.7a5e3dd0c356c6b68d5c512bbdf67f08
+                           .group:00000000 wm4.hsmci.h.31.9d224a62fa1ec786508b485b0627d948
+                           .group:00000000 wm4.matrix.h.31.c705893f10dd90abec557434f19f4c80
+                           .group:00000000 wm4.pdc.h.31.e2d19841c81c9c2bbeeb400b89d315b5
+                           .group:00000000 wm4.pio.h.31.8c8983d26a861f040f0f117c14ec06d2
+                           .group:00000000 wm4.pmc.h.31.ee762809cf9b67f8c369267b7f38d1b3
+                           .group:00000000 wm4.pwm.h.31.da9b7d8dc8ac9c261fdee7e206bdee45
+                           .group:00000000 wm4.rstc.h.31.96e972cc48a3044e9dca7f2d844f33fb
+                           .group:00000000 wm4.rtc.h.31.f40a4fc6ecffe9e0a8284c655825715f
+                           .group:00000000 wm4.rtt.h.31.f70870f04ef5dbcac3269f990b758352
+                           .group:00000000 wm4.spi.h.31.f86a4b9d7f4ee32bf9133e4926aa8885
+                           .group:00000000 wm4.ssc.h.31.b805b08edc780a096d6650d6ca36d1ca
+                           .group:00000000 wm4.supc.h.31.131b9cb8083389b79a4bd5bf451243ef
+                           .group:00000000 wm4.tc.h.31.8da8c788d3223db5455d03e5435ef8db
+                           .group:00000000 wm4.twi.h.31.22147bf5d3d32053731c632df0e79c3c
+                           .group:00000000 wm4.uart.h.31.8e28760a665c54768e00ff4c7a643590
+                           .group:00000000 wm4.udp.h.31.edd1ad37d3ebc2c446bab55b82a89df9
+                           .group:00000000 wm4.usart.h.31.f84a5833fa97905e15d92372b7a4d3aa
+                           .group:00000000 wm4.wdt.h.31.bf9508cda074277d961fffa2c014b7c4
+                           .group:00000000 wm4.hsmci.h.31.3557701962362e69e14e53f685fa289c
+                           .group:00000000 wm4.ssc.h.31.b3090d071ea322e9320de7b3374b6c7d
+                           .group:00000000 wm4.spi.h.31.0c099f04fc71f13866451dd19f165ce5
+                           .group:00000000 wm4.tc0.h.31.82f2382972b60e05b032ad12082a9b88
+                           .group:00000000 wm4.tc1.h.31.a45ad165f1e4a4be41030d128002f2e1
+                           .group:00000000 wm4.twi0.h.31.a2f6579ad734afdd1f8957b7fc33aa94
+                           .group:00000000 wm4.twi1.h.31.dcb9c8cbe7f017d537033c87ba5ff61b
+                           .group:00000000 wm4.pwm.h.31.2d9663b87a377027ead59c1615e3084b
+                           .group:00000000 wm4.usart0.h.31.ec6af36a3993709e003c7713e45e6d44
+                           .group:00000000 wm4.usart1.h.31.eafbafd9baa63489c7d4b47b07dd4359
+                           .group:00000000 wm4.udp.h.31.72bce9f16287d99e27dc398746c7b41a
+                           .group:00000000 wm4.adc.h.31.d1d169655aedc0ac5464b9bc3e038d91
+                           .group:00000000 wm4.dacc.h.31.f498d7e9c6281f6aa2a76955bd19179f
+                           .group:00000000 wm4.acc.h.31.bd89452c6f6042da160b09b91f7b4ad6
+                           .group:00000000 wm4.crccu.h.31.0f8ee11e21f25cd8f0d59ee9bd2d6017
+                           .group:00000000 wm4.matrix.h.31.16f7506a18ec96f1a889a659d8f54158
+                           .group:00000000 wm4.pmc.h.31.8ee9f69608f942cb1f3f8bedac24c137
+                           .group:00000000 wm4.uart0.h.31.107626f9f656553c6d028df3e0c36652
+                           .group:00000000 wm4.chipid.h.31.3d621c981fbba4cbcdf919961d16a7e0
+                           .group:00000000 wm4.uart1.h.31.8229a0a664aa704025162a106c6f1697
+                           .group:00000000 wm4.efc0.h.31.aa56af1c721ea83a50dc1967a8959b7e
+                           .group:00000000 wm4.pioa.h.31.577ac2183c73a1a02e92e91a0e37e8fe
+                           .group:00000000 wm4.piob.h.31.3d18377ca5f71fef4e536cd97e1dced2
+                           .group:00000000 wm4.pioc.h.31.9fd85e02d9919f268f52f61ee7874ed4
+                           .group:00000000 wm4.rstc.h.31.d42d559221b78874dbf800ea2429b8d0
+                           .group:00000000 wm4.supc.h.31.851dbe7e029de2cc98417e6c6ce74d66
+                           .group:00000000 wm4.rtt.h.31.b6f3540f51d07e433e9f2b607b78fa5d
+                           .group:00000000 wm4.wdt.h.31.e29a378018b6da05e80df7a7d3fae91a
+                           .group:00000000 wm4.rtc.h.31.62bff3fa21e4de3cfaf653749f73ca5b
+                           .group:00000000 wm4.gpbr.h.31.a690ec9ac14ca127f47cc304a062f896
+                           .group:00000000 wm4.sam4s8b.h.310.cfe4025ce42f19fc6dad5600399e6497
+                           .group:00000000 wm4.sam4s8b.h.31.bac0ae8aa6a8295f4ede171816a1bfbd
+                           .group:00000000 wm4.sam4s8b.h.455.d99766a935df92fcae5a6292daf0b9af
+                           .group:00000000 wm4.newlib.h.8.fec018e441fee7bfa1923812ad010f97
+                           .group:00000000 wm4.config.h.212.4163ef2871a828c674038d036b081cfd
+                           .group:00000000 wm4._ansi.h.23.2147fde150631f5584b9dc29b914d1b8
+                           .group:00000000 wm4.assert.h.11.7fe9eb241be6b0fee772a1e693b81ae3
+                           .group:00000000 wm4.acc.h.61.44cfae6040af09278183f92220a11c11
+                           .group:00000000 wm4.assert.h.11.7043852a511d37ae606afa012e67e471
+                           .group:00000000 wm4.adc.h.62.836e1c74f33a3b2357c489804b9e4164
+                           .group:00000000 wm4.async.h.38.b923efd27c82eb8a5a30fb0d9a711171
+                           .group:00000000 wm4.dacc.h.61.de15528749b6a5508d4e234e0989531c
+                           .group:00000000 wm4.efc.h.51.dca436509f69196baef24b3ff3ad1b51
+                           .group:00000000 wm4.flashd.h.38.2c9bfdc532d7034a024627acda3e3c0b
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.184.159df79b4ca79c76561572a55985524c
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.stddef.h.39.7e3d906ac58942e0b374c527445f5de5
+                           .group:00000000 wm4.lock.h.2.9bc98482741e5e2a9450b12934a684ea
+                           .group:00000000 wm4._types.h.54.d3d34a3b7f3cc230cd159baf022b4b08
+                           .group:00000000 wm4.stddef.h.158.61317cdbfb4026324507d123a50b0fd6
+                           .group:00000000 wm4.reent.h.17.8bd9e4098e0428508c282cad794fae43
+                           .group:00000000 wm4.types.h.23.0d949686bbcadd1621462d4fa1f884f9
+                           .group:00000000 wm4.types.h.2.e9cec8c90ab35f77d9f499e06ae02400
+                           .group:00000000 wm4.types.h.80.56707660962b21991903f1fee7c13bb3
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.64.0f05fa42cfe2db7fc44729a52d3ba948
+                           .group:00000000 wm4.hsmci.h.110.610f58f6a31861e37bc09b5b7be09388
+                           .group:00000000 wm4.pio.h.68.5d85e14ea6ea0da924da53053bc590d1
+                           .group:00000000 wm4.rtc.h.38.8bf78db8651343e80a889203827406a5
+                           .group:00000000 wm4.spi.h.38.450641354031b1013c08519149294c78
+                           .group:00000000 wm4.spi_pdc.h.38.75857b1dd4449731562322c9709581d8
+                           .group:00000000 wm4.twi.h.38.68f2e661eb174ca9ca74eef9740d9a3a
+                           .group:00000000 wm4.twid.h.31.9ea8c90af654647ca4d6e3b74e701509
+                           .group:00000000 wm4.usart.h.55.88c716ee7c3b6ed0339de6e194786a12
+                           .group:00000000 wm4.trace.h.65.364d8fb880402737deb1646f3fc9e1eb
+                           .group:00000000 wm4.chip.h.106.a1f123eb25606bfd56ed06360bda02b0
+
+UNDEFINED SYMBOLS
+PIO_Configure
+PIO_Set
+PIO_Clear
+PIO_GetOutputDataStatus
